@@ -162,13 +162,12 @@ void cScene::Render()
 	this->pMainCamera->RenderTextureEnd( 0, 0 );		//0 번스테이지에 셋팅된 0 RenderTarget 을 종료 시킨다. 
 	
 
-	//
+	//-------------------------
 	// Post Effect
-	//
-
-	//this->RenderBase();
+	//-------------------------
+	this->RenderBase();
 	//this->RenderOutline();
-	this->RenderGlow();
+	//this->RenderGlow();
 
 
 	this->Scene_Render_AfterPostEffect( this->pMainCamera->GetRenderTexture( 0 ) );
