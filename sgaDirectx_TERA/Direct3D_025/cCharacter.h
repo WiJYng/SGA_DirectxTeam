@@ -6,7 +6,7 @@ class cCharacter
 {
 private:
 	enum CHARACTERMESH_PART {
-		 P_BODY = 0,
+		P_BODY = 0,
 		P_FACE = 1,
 		P_HAIR = 2,
 		P_TAIL = 3,
@@ -18,12 +18,13 @@ private:
 	std::vector<cBaseObject*>			renderObjects;			//오브젝트 배열
 	cBaseObject*						rootObject;				//루트
 
-	//cBody*		m_pBody;
-	//cFace*		m_pFace;
-	//cHair*		m_pHair;
-	//cTail*		m_pTail;
-	//cWeapon*		m_pLWeapon;
-	//cWeapon*		m_pRWeapon;
+	D3DXMATRIX							matRootTm;
+	D3DXMATRIX							matNeckTm;
+	D3DXMATRIX							matHairTm;
+	D3DXMATRIX							matTalim;
+	D3DXMATRIX							matRWeaponTm;
+	D3DXMATRIX							matLWeaponTm;
+
 
 public:
 	cCharacter();
@@ -39,6 +40,8 @@ public:
 	//Getter/Setter
 	void SetWorldPosition(D3DXVECTOR3 pos);
 	D3DXVECTOR3 GetWorldPosition();
+
+
 
 private:
 	void calculateMeshPosition(D3DXMATRIXA16* mat);					//각각의 파츠 위치 맞추기

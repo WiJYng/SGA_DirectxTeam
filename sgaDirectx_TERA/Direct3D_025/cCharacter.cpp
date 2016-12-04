@@ -97,8 +97,10 @@ void cCharacter::calculateMeshPosition(D3DXMATRIXA16* mat)
 	for (int i = 0; i < this->renderObjects.size(); i++){
 		switch (i){
 		case P_BODY: {
-			//this->renderObjects[i]->pSkinned->
+			BONE* b = ((cXMesh_Skinned*)this->renderObjects[i]->pMesh)->GetFineBONE("Bip01-Neck");
+			b->CombinedTransformationMatrix = b->CombinedTransformationMatrix * (*mat);
 
+			matNeckTm = b->CombinedTransformationMatrix;
 			break;
 		}
 		case P_FACE: {
