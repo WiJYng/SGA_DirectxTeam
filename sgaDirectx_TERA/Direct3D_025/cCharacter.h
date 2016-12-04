@@ -28,12 +28,16 @@ private:
 	cSkinnedAnimation*					m_pFaceAni;
 	cSkinnedAnimation*					m_pHairAni;
 	cSkinnedAnimation*					m_pTailAni;
+	
+	cXMesh_Static*						m_pRWeaponMesh;
+	cXMesh_Static*						m_pLWeaponMesh;
 
 	cTransform*							m_pSkinnedTrans;
 	cTransform*							m_pSkinnedTrans1;
 	cTransform*							m_pSkinnedTrans2;
 	cTransform*							m_pSkinnedTrans3;
 	cTransform*							m_pSkinnedTrans4;
+	cTransform*							m_pSkinnedTrans5;
 	//cBody*		m_pBody;
 	//cFace*		m_pFace;
 	//cHair*		m_pHair;

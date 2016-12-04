@@ -35,7 +35,7 @@ HRESULT cScene_main::Scene_Init()
 		, "./Tera/Character/Elin_Hair_WDC.X"
 		, "./Tera/Character/Elin_Tail_WDC.X"
 		, "./Tera/Character/Weapon_R.X"
-		, "");
+		, "./Tera/Character/Weapon_R.X");
 
 
 	//·»´õ ¿ÀºêÁ§Æ® Çª½¬
