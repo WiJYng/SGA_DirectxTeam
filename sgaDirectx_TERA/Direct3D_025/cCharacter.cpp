@@ -94,10 +94,40 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 
 void cCharacter::calculateMeshPosition(D3DXMATRIXA16* mat)
 {
-	
-	//for (int i = 0; i<);
+	for (int i = 0; i < this->renderObjects.size(); i++){
+		switch (i){
+		case P_BODY: {
+			//this->renderObjects[i]->pSkinned->
+
+			break;
+		}
+		case P_FACE: {
 
 
+			break;
+		}
+		case P_HAIR: {
+
+
+			break;
+		}
+		case P_TAIL: {
+
+
+			break;
+		}
+		case P_RWEAPON: {
+
+
+			break;
+		}
+		case P_LWEAPON: {
+
+
+			break;
+		}
+		}
+	}
 }
 
 

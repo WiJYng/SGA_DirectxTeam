@@ -6,7 +6,7 @@ class cCharacter
 {
 private:
 	enum CHARACTERMESH_PART {
-		P_BODY = 0,
+		 P_BODY = 0,
 		P_FACE = 1,
 		P_HAIR = 2,
 		P_TAIL = 3,
