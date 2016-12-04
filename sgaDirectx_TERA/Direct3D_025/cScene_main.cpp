@@ -44,9 +44,11 @@ HRESULT cScene_main::Scene_Init()
 	pPlayer->Setup("./Tera/Character/Elin_Body_WDC.X"
 		, "./Tera/Character/Elin_Face_WDC.X"
 		, "./Tera/Character/Elin_Hair_WDC.X"
-		, "./Tera/Character/Elin_Tail_WDC.X");
+		, "./Tera/Character/Elin_Tail_WDC.X"
+		, "./Tera/Character/Weapon_R.object"
+		, "./Tera/Character/Weapon_L.object"
+		, &matCorrection);
 
-	
 
 	cBaseObject* pNewObject2 = new cBaseObject();
 	pNewObject2->SetMesh(mesh);

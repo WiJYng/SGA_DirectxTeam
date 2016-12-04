@@ -17,31 +17,90 @@ cCharacter::~cCharacter()
 	
 }
 
-void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string PathTail)
+
+void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string PathTail, string PathRWeapon, string PathLWeapon)
 {
 	D3DXMATRIXA16 mat;
 	D3DXMatrixIdentity(&mat);
 
+	Setup(PathBody, PathFace, PathHair, PathTail, PathRWeapon, PathLWeapon, &mat);	
+}
+
+void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string PathTail, string PathRWeapon, string PathLWeapon, D3DXMATRIXA16* mat)
+{
+	//기본 6개의 파츠로 이루어져있다
+	renderObjects.reserve(6);
+
 	cXMesh_Skinned* pBodyMesh = RESOURCE_SKINNEDXMESH->GetResource(PathBody, &mat);
+	cXMesh_Skinned* pFaceMesh = RESOURCE_SKINNEDXMESH->GetResource(PathFace, &mat);
+	cXMesh_Skinned* pHairMesh = RESOURCE_SKINNEDXMESH->GetResource(PathHair, &mat);
+	cXMesh_Skinned* pTailMesh = RESOURCE_SKINNEDXMESH->GetResource(PathTail, &mat);
+	cXMesh_Skinned* pRWeaponMesh = NULL;
+	cXMesh_Skinned* pLWeaponMesh = NULL;
 	
+	if (PathRWeapon.length() > 0)
+		pRWeaponMesh = RESOURCE_SKINNEDXMESH->GetResource(PathRWeapon, &mat);
+
+	if (PathLWeapon.length() > 0)
+		pLWeaponMesh = RESOURCE_SKINNEDXMESH->GetResource(PathLWeapon, &mat);
+		
+	//Body가 루트가 된다
 	rootObject = new cBaseObject();
 	rootObject->SetMesh(pBodyMesh);
 	rootObject->SetActive(true);
 
+	cBaseObject* face = new cBaseObject();
+	face->SetMesh(pFaceMesh);
+	face->SetActive(true);
+
+	cBaseObject* hair = new cBaseObject();
+	hair->SetMesh(pHairMesh);
+	hair->SetActive(true);
+
+	cBaseObject* tail = new cBaseObject();
+	tail->SetMesh(pTailMesh);
+	tail->SetActive(true);
+
 	this->renderObjects.push_back(rootObject);
+	this->renderObjects.push_back(face);
+	this->renderObjects.push_back(hair);
+	this->renderObjects.push_back(tail);
 
+	//무기
+	cBaseObject* rWeapon = NULL;
+	cBaseObject* lWeapon = NULL;
 
-	
-	//m_pBody = new cBody(Directory, PathBody);
-	//m_pFace = new cFace(Directory, PathFace);
-	//m_pHair = new cHair(Directory, PathHair);
-	//m_pTail = new cTail(Directory, PathTail);
+	this->renderObjects.push_back(rWeapon);
+	this->renderObjects.push_back(lWeapon);
 
-	//m_pRWeapon = new cWeapon;
-	//m_pRWeapon->Load("./Tera/Character/Weapon_R.object", &mat);
-	//m_pLWeapon = new cWeapon;
-	//m_pLWeapon->Load("./Tera/Character/Weapon_L.object", &mat);
+	if (pRWeaponMesh)
+	{
+		rWeapon = new cBaseObject();
+		rWeapon->SetMesh(pRWeaponMesh);
+		rWeapon->SetActive(true);
+
+		memcpy_s(&renderObjects[P_RWEAPON], sizeof(cBaseObject), &rWeapon, sizeof(cBaseObject));
+	}
+
+	if (pLWeaponMesh)
+	{
+		lWeapon = new cBaseObject();
+		lWeapon->SetMesh(pLWeaponMesh);
+		lWeapon->SetActive(true);
+
+		memcpy_s(&renderObjects[P_LWEAPON], sizeof(cBaseObject), &lWeapon, sizeof(cBaseObject));
+	}
+
+	calculateMeshPosition(mat);
 }
+
+void cCharacter::calculateMeshPosition(D3DXMATRIXA16* mat)
+{
+	//for (int i = 0; i<);
+
+
+}
+
 
 void cCharacter::Update(D3DXVECTOR3 worldPos)
 {
