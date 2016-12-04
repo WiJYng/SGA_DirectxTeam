@@ -20,6 +20,11 @@ cCharacter::~cCharacter()
 	SAFE_DELETE(m_pHairAni);
 	SAFE_DELETE(m_pTailAni);
 	SAFE_DELETE(m_pSkinnedTrans);
+	SAFE_DELETE(m_pSkinnedTrans1);
+	SAFE_DELETE(m_pSkinnedTrans2);
+	SAFE_DELETE(m_pSkinnedTrans3);
+	SAFE_DELETE(m_pSkinnedTrans4);
+	SAFE_DELETE(m_pSkinnedTrans5);
 	SAFE_DELETE(rootObject);
 }
 
@@ -41,21 +46,23 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 	cXMesh_Skinned* pFaceMesh = RESOURCE_SKINNEDXMESH->GetResource(PathFace, mat);
 	cXMesh_Skinned* pHairMesh = RESOURCE_SKINNEDXMESH->GetResource(PathHair, mat);
 	cXMesh_Skinned* pTailMesh = RESOURCE_SKINNEDXMESH->GetResource(PathTail, mat);
-	cXMesh_Static* pRWeaponMesh = NULL;
-	cXMesh_Static* pLWeaponMesh = NULL;
+	m_pRWeaponMesh = NULL;
+	m_pLWeaponMesh = NULL;
 
 	m_pSkinnedTrans = new cTransform();
 	m_pSkinnedTrans1 = new cTransform();
 	m_pSkinnedTrans2 = new cTransform();
 	m_pSkinnedTrans3 = new cTransform();
 	m_pSkinnedTrans4 = new cTransform();
+	m_pSkinnedTrans5 = new cTransform();
 
 	m_pBodyAni = new cSkinnedAnimation();
 	m_pBodyAni->Init(pBodyMesh);
 	m_pBodyAni->AddBoneTransform("Bip01-Neck", m_pSkinnedTrans1);
 	m_pBodyAni->AddBoneTransform("Bip01-Head", m_pSkinnedTrans2);
 	m_pBodyAni->AddBoneTransform("Bip01-Spine", m_pSkinnedTrans3);
-	//m_pBodyAni->AddBoneTransform("Bip01-Neck", m_pSkinnedTrans1);
+	m_pBodyAni->AddBoneTransform("R_Sword", m_pSkinnedTrans4);
+	m_pBodyAni->AddBoneTransform("L_Sword", m_pSkinnedTrans5);
 
 	m_pFaceAni = new cSkinnedAnimation();
 	m_pFaceAni->Init(pFaceMesh);
@@ -66,56 +73,59 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 	m_pTailAni = new cSkinnedAnimation();
 	m_pTailAni->Init(pTailMesh);
 
-	
+	//m_pRWeaponAni = new cSkinnedAnimation();
+	//m_pRWeaponAni->Init(pRWeaponMesh);
+
+
 	
 	if (PathRWeapon.length() > 0)
-		pRWeaponMesh = RESOURCE_STATICXMESH->GetResource(PathRWeapon, mat);
+		m_pRWeaponMesh = RESOURCE_STATICXMESH->GetResource(PathRWeapon, mat);
 	
 	if (PathLWeapon.length() > 0)
-		pLWeaponMesh = RESOURCE_STATICXMESH->GetResource(PathLWeapon, mat);
+		m_pLWeaponMesh = RESOURCE_STATICXMESH->GetResource(PathLWeapon, mat);
 		
 	//Body가 루트가 된다
-	rootObject = new cBaseObject();
-	rootObject->SetMesh(pBodyMesh);
-	rootObject->SetActive(true);
-
-	cBaseObject* face = new cBaseObject();
-	face->SetMesh(pFaceMesh);
-	face->SetActive(true);
-	
-	cBaseObject* hair = new cBaseObject();
-	hair->SetMesh(pHairMesh);
-	hair->SetActive(true);
-	
-	cBaseObject* tail = new cBaseObject();
-	tail->SetMesh(pTailMesh);
-	tail->SetActive(true);
-	
+	//rootObject = new cBaseObject();
+	//rootObject->SetMesh(pBodyMesh);
+	//rootObject->SetActive(true);
+	//
+	//cBaseObject* face = new cBaseObject();
+	//face->SetMesh(pFaceMesh);
+	//face->SetActive(true);
+	//
+	//cBaseObject* hair = new cBaseObject();
+	//hair->SetMesh(pHairMesh);
+	//hair->SetActive(true);
+	//
+	//cBaseObject* tail = new cBaseObject();
+	//tail->SetMesh(pTailMesh);
+	//tail->SetActive(true);
+	//
 	//무기
 	cBaseObject* rWeapon = NULL; 
 	cBaseObject* lWeapon = NULL;
 	
-	if (pRWeaponMesh)
+	if (m_pRWeaponMesh)
 	{
 		rWeapon = new cBaseObject();
-		rWeapon->SetMesh(pRWeaponMesh);
+		rWeapon->SetMesh(m_pRWeaponMesh);
 		rWeapon->SetActive(true);
 	}
 	
-	if (pLWeaponMesh)
+	if (m_pLWeaponMesh)
 	{
 		lWeapon = new cBaseObject();
-		lWeapon->SetMesh(pLWeaponMesh);
+		lWeapon->SetMesh(m_pLWeaponMesh);
 		lWeapon->SetActive(true);
 	}
-
-	//Render할 객체 Push
-	this->renderObjects.push_back(rootObject);
-	this->renderObjects.push_back(face);
-	this->renderObjects.push_back(hair);
-	this->renderObjects.push_back(tail);
-	this->renderObjects.push_back(rWeapon);
-	this->renderObjects.push_back(lWeapon);	
+	//
+	////Render할 객체 Push
+	//this->renderObjects.push_back(rootObject);
+	//this->renderObjects.push_back(face);
+	//this->renderObjects.push_back(hair);
+	//this->renderObjects.push_back(tail);
+	//this->renderObjects.push_back(rWeapon);
+	//this->renderObjects.push_back(lWeapon);	
 
 
 	//calculateMeshPosition(mat);
@@ -201,6 +211,9 @@ void cCharacter::Render()
 	m_pFaceAni->Render(m_pSkinnedTrans1);
 	m_pHairAni->Render(m_pSkinnedTrans2);
 	m_pTailAni->Render(m_pSkinnedTrans3);
+
+	m_pRWeaponMesh->Render(m_pSkinnedTrans4);
+	m_pLWeaponMesh->Render(m_pSkinnedTrans5);
 }
 
 void cCharacter::SetWorldPosition(D3DXVECTOR3 pos)
