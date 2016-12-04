@@ -157,8 +157,8 @@ HRESULT cScene_01::Scene_Init()
 	
 	D3DXMATRIXA16 matCorrection2;
 	D3DXMatrixScaling( &matCorrection2, 0.1f, 0.1f, 0.1f );
-	cXMesh_Skinned* pSkinned = RESOURCE_SKINNEDXMESH->GetResource("./Tera/Character/Elin_Body_WDC.X", &matCorrection2);
-	//cXMesh_Skinned* pSkinned = RESOURCE_SKINNEDXMESH->GetResource( "./Resources/Meshes/Female/Femail.X", &matCorrection2 );
+	//cXMesh_Skinned* pSkinned = RESOURCE_SKINNEDXMESH->GetResource("./Tera/Character/Elin_Body_WDC.X", &matCorrection2);
+	cXMesh_Skinned* pSkinned = RESOURCE_SKINNEDXMESH->GetResource( "./Resources/Meshes/Female/Femail.X", &matCorrection2 );
 
 	cBaseObject* pChar;
 	pChar = new cBaseObject();

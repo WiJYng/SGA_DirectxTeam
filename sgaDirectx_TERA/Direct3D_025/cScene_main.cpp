@@ -142,7 +142,6 @@ void cScene_main::Scene_Render1()
 			this->cullObjects.push_back(this->renderObjects[i]);
 	}
 
-	
 	//프러텀을 그려보장
 	this->pDirectionLightCamera->Frustum.RenderGizmo();
 	this->pSceneBaseDirectionLight->pTransform->RenderGimozo();
