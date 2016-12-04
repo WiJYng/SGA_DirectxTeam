@@ -969,33 +969,105 @@ ModelPixel.fx(509,17): error X3013:     tex2D(sampler2D, float2, float2, float2)
 
 (data[12/04/16] time[22:30:06] ) : ============== Begin Log ============== 
 
-(data[12/04/16] time[22:48:47] ) : ============== Begin Log ============== 
+(data[12/04/16] time[23:07:23] ) : ============== Begin Log ============== 
 
-(data[12/04/16] time[22:50:22] ) : ============== Begin Log ============== 
+(data[12/04/16] time[23:08:10] ) : ============== Begin Log ============== 
 
-(data[12/04/16] time[22:51:33] ) : ============== Begin Log ============== 
+(data[12/04/16] time[23:10:14] ) : ============== Begin Log ============== 
 
-(data[12/04/16] time[22:54:50] ) : ============== Begin Log ============== 
+(data[12/04/16] time[23:10:59] ) : ============== Begin Log ============== 
 
-(data[12/04/16] time[22:55:19] ) : ============== Begin Log ============== 
+(data[12/04/16] time[23:11:20] ) : ============== Begin Log ============== 
 
-(data[12/04/16] time[22:55:36] ) : ============== Begin Log ============== 
+(data[12/04/16] time[23:11:46] ) : ============== Begin Log ============== 
 
-(data[12/04/16] time[22:56:18] ) : ============== Begin Log ============== 
+(data[12/04/16] time[23:12:17] ) : ============== Begin Log ============== 
 
-(data[12/04/16] time[23:18:23] ) : ============== Begin Log ============== 
+(data[12/04/16] time[23:12:30] ) : ============== Begin Log ============== 
 
-(data[12/04/16] time[23:20:09] ) : ============== Begin Log ============== 
+(data[12/04/16] time[23:13:45] ) : ============== Begin Log ============== 
 
-(data[12/04/16] time[23:20:58] ) : ============== Begin Log ============== 
+(data[12/04/16] time[23:13:45] ) : ModelPixel.fx(127,31): error X3004: undeclared identifier 'spec'
 
-(data[12/04/16] time[23:26:57] ) : ============== Begin Log ============== 
 
-(data[12/04/16] time[23:44:52] ) : ============== Begin Log ============== 
+(data[12/04/16] time[23:13:45] ) : ModelPixel.fx(127,31): error X3004: undeclared identifier 'spec'
 
-(data[12/04/16] time[23:45:15] ) : ============== Begin Log ============== 
 
-(data[12/04/16] time[23:51:07] ) : ============== Begin Log ============== 
+(data[12/04/16] time[23:13:45] ) : ModelPixel.fx(127,31): error X3004: undeclared identifier 'spec'
 
-(data[12/04/16] time[23:52:42] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:14:08] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:19:08] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:19:38] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:19:59] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:20:24] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:21:16] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:22:33] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:24:03] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:24:21] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:24:56] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:25:24] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:26:11] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:27:02] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:27:02] ) : AddLight.fx(40,29): error X3004: undeclared identifier 'diff'
+
+
+(data[12/04/16] time[23:27:02] ) : AddLight.fx(40,29): error X3004: undeclared identifier 'diff'
+
+
+(data[12/04/16] time[23:27:03] ) : AddLight.fx(40,29): error X3004: undeclared identifier 'diff'
+
+
+(data[12/04/16] time[23:27:29] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:27:29] ) : AddLight.fx(40,29): error X3004: undeclared identifier 'diff'
+
+
+(data[12/04/16] time[23:27:29] ) : AddLight.fx(40,29): error X3004: undeclared identifier 'diff'
+
+
+(data[12/04/16] time[23:27:29] ) : AddLight.fx(40,29): error X3004: undeclared identifier 'diff'
+
+
+(data[12/04/16] time[23:27:37] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:27:37] ) : AddLight.fx(40,29): error X3004: undeclared identifier 'diff'
+
+
+(data[12/04/16] time[23:27:37] ) : AddLight.fx(40,29): error X3004: undeclared identifier 'diff'
+
+
+(data[12/04/16] time[23:27:37] ) : AddLight.fx(40,29): error X3004: undeclared identifier 'diff'
+
+
+(data[12/04/16] time[23:27:56] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:29:22] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:30:15] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:31:40] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:31:56] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:32:12] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:33:18] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:33:45] ) : ============== Begin Log ============== 
+
+(data[12/04/16] time[23:35:26] ) : ============== Begin Log ============== 
 

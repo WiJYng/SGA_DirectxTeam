@@ -42,7 +42,7 @@ HRESULT cScene_main::Scene_Init()
 	//this->renderObjects.push_back(pMapObject);
 
 	//라이트 위치
-	this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(0, 20, 0);
+	this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(0, 300, 0);
 	this->pSceneBaseDirectionLight->pTransform->SetRotateWorld(90.0f * ONE_RAD, 0, 0);
 
 	//TrailRenderSet

@@ -30,12 +30,17 @@ void cMeshMap::Setup(string PathMap)
 void cMeshMap::Setup(string PathMap, D3DXMATRIXA16* mat)
 {
 	cXMesh_Static* mesh = RESOURCE_STATICXMESH->GetResource(PathMap, mat);
+	mesh->SetTechniqueName("Distort");
+	//m_pTerrainEffect = RESOURCE_FX->GetResource( "./Resources/Shaders/TerrainBase.fx");
+
+	
+
 
 	pMap = new cBaseObject();
 	pMap->SetMesh(mesh);
 	pMap->SetActive(true);
 	pMap->IgnoreCreateShadow = true;		//그림자 안그린다.
-	pMap->ApplyShadow = true;
+	pMap->ApplyShadow = false;
 }
 
 void cMeshMap::Render()

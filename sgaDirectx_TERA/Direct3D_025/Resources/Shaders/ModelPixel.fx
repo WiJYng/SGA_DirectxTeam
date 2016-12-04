@@ -119,7 +119,7 @@ PS_OUTPUT ps_main(PS_INPUT Input)
 
 	//라이트 반사
 	float3 lightRefl = normalize(dir + 2.0f * NdotL * worldNormal);
-		float spec = saturate(dot(lightRefl, viewDir));
+	float spec = saturate(dot(lightRefl, viewDir));
 	spec = pow(spec, fSpecPower);
 
 	//기본 광원 적용
