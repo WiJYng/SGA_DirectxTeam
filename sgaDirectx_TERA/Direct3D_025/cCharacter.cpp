@@ -94,6 +94,7 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 
 void cCharacter::calculateMeshPosition(D3DXMATRIXA16* mat)
 {
+	
 	//for (int i = 0; i<);
 
 

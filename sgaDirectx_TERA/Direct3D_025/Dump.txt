@@ -967,3 +967,5 @@ ModelPixel.fx(509,17): error X3013:     tex2D(sampler2D, float2, float2, float2)
 
 (data[12/04/16] time[22:23:01] ) : ============== Begin Log ============== 
 
+(data[12/04/16] time[22:30:06] ) : ============== Begin Log ============== 
+
