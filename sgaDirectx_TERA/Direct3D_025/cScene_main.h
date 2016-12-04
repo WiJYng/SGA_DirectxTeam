@@ -13,6 +13,7 @@ private:
 	std::vector<cBaseObject*>			cullObjects;			//컬링된 오브젝트
 	std::vector<cLight*>				lights;					//라이팅..
 
+	cBaseObject*						pMap;
 	cCharacter*							pPlayer;
 
 	cTrailRender*						pTrailRender;

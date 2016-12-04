@@ -14,7 +14,7 @@
     <ProjectGuid>{14FA6AC2-646C-4EA5-93AD-5BA5491B2AF3}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Direct3D_025</RootNamespace>
-    <ProjectName>Direct3D_025 PostEffect</ProjectName>
+    <ProjectName>Direct3D_TERA</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
