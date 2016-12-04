@@ -90,9 +90,11 @@ void cScene_main::Scene_Update(float timDelta)
 		}
 	}
 
+	pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta);
+
 	//¾÷µ¥ÀÌÆ®
-	this->pTrailRender->Update(timDelta);
-	this->pTrailRender->Transform.DefaultControl2(timDelta);
+	//this->pTrailRender->Update(timDelta);
+	//this->pTrailRender->Transform.DefaultControl2(timDelta);
 
 
 	//½¦µµ¿ì¸Ê ÁØºñ
@@ -107,7 +109,7 @@ void cScene_main::Scene_Render1()
 	cXMesh_Skinned::SetCamera(this->pMainCamera);
 	cXMesh_Skinned::SetBaseLight(this->pSceneBaseDirectionLight);
 
-	cXMesh_Skinned::SetLighting(&this->lights);
+	//cXMesh_Skinned::SetLighting(&this->lights);
 
 	//Map
 	if (pMap)

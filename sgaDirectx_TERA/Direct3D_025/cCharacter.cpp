@@ -15,6 +15,11 @@ cCharacter::cCharacter()
 
 cCharacter::~cCharacter()
 {
+	SAFE_DELETE(m_pBodyAni);
+	SAFE_DELETE(m_pFaceAni);
+	SAFE_DELETE(m_pHairAni);
+	SAFE_DELETE(m_pTailAni);
+	SAFE_DELETE(m_pSkinnedTrans);
 	SAFE_DELETE(rootObject);
 }
 
@@ -38,6 +43,30 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 	cXMesh_Skinned* pTailMesh = RESOURCE_SKINNEDXMESH->GetResource(PathTail, mat);
 	cXMesh_Static* pRWeaponMesh = NULL;
 	cXMesh_Static* pLWeaponMesh = NULL;
+
+	m_pSkinnedTrans = new cTransform();
+	m_pSkinnedTrans1 = new cTransform();
+	m_pSkinnedTrans2 = new cTransform();
+	m_pSkinnedTrans3 = new cTransform();
+	m_pSkinnedTrans4 = new cTransform();
+
+	m_pBodyAni = new cSkinnedAnimation();
+	m_pBodyAni->Init(pBodyMesh);
+	m_pBodyAni->AddBoneTransform("Bip01-Neck", m_pSkinnedTrans1);
+	m_pBodyAni->AddBoneTransform("Bip01-Head", m_pSkinnedTrans2);
+	m_pBodyAni->AddBoneTransform("Bip01-Spine", m_pSkinnedTrans3);
+	//m_pBodyAni->AddBoneTransform("Bip01-Neck", m_pSkinnedTrans1);
+
+	m_pFaceAni = new cSkinnedAnimation();
+	m_pFaceAni->Init(pFaceMesh);
+
+	m_pHairAni = new cSkinnedAnimation();
+	m_pHairAni->Init(pHairMesh);
+
+	m_pTailAni = new cSkinnedAnimation();
+	m_pTailAni->Init(pTailMesh);
+
+	
 	
 	if (PathRWeapon.length() > 0)
 		pRWeaponMesh = RESOURCE_STATICXMESH->GetResource(PathRWeapon, mat);
@@ -104,7 +133,7 @@ void cCharacter::calculateMeshPosition(D3DXMATRIXA16* mat)
 			break;
 		}
 		case P_FACE: {
-
+			//m_pFaceAni->AddBoneTransform()
 
 			break;
 		}
@@ -133,18 +162,47 @@ void cCharacter::calculateMeshPosition(D3DXMATRIXA16* mat)
 }
 
 
-void cCharacter::Update(D3DXVECTOR3 worldPos)
+void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta)
 {
-	
+	m_pBodyAni->Update(timDelta);
+	m_pFaceAni->Update(timDelta);
+	m_pHairAni->Update(timDelta);
+	m_pTailAni->Update(timDelta);
+
+	if (KEY_MGR->IsOnceDown('I'))
+	{
+		m_pBodyAni->Play("Wait", 0.3f);
+		m_pFaceAni->Play("Wait", 0.3f);
+		m_pHairAni->Play("Wait", 0.3f);
+		m_pTailAni->Play("Wait", 0.3f);
+	}
+	if (KEY_MGR->IsOnceDown('O'))
+	{
+		m_pBodyAni->Play("Dash", 0.3f);
+		m_pFaceAni->Play("Dash", 0.3f);
+		m_pHairAni->Play("Dash", 0.3f);
+		m_pTailAni->Play("Dash", 0.3f);
+	}
+	if (KEY_MGR->IsOnceDown('P'))
+	{
+		m_pBodyAni->PlayOneShot("Combo1", 0.3f);
+		m_pFaceAni->PlayOneShot("Combo1", 0.3f);
+		m_pHairAni->PlayOneShot("Combo1", 0.3f);
+		m_pTailAni->PlayOneShot("Combo1", 0.3f);
+	}
 }
 
 void cCharacter::Render()
 {
-	for (int i = 0; i < this->renderObjects.size(); i++)
-	{
-		if (this->renderObjects[i])
-			this->renderObjects[i]->Render();
-	}
+	//for (int i = 0; i < this->renderObjects.size(); i++)
+	//{
+	//	if (this->renderObjects[i])
+	//		this->renderObjects[i]->Render();
+	//}
+	m_pBodyAni->Render(m_pSkinnedTrans);
+	m_pFaceAni->Render(m_pSkinnedTrans1);
+	m_pHairAni->Render(m_pSkinnedTrans2);
+	m_pTailAni->Render(m_pSkinnedTrans3);
 }
 
 void cCharacter::SetWorldPosition(D3DXVECTOR3 pos)
