@@ -27,17 +27,22 @@ HRESULT cScene_main::Scene_Init()
 	D3DXMATRIXA16 matCorrection;
 	D3DXMatrixIdentity(&matCorrection);
 
+	//Map
 	D3DXMATRIXA16 matT;
 	D3DXMatrixTranslation(&matT, 0, -10, 0);
 	D3DXMatrixRotationY(&matT, 180.0f * ONE_RAD);
 
 	matCorrection = matT;
 
-
-	//원본 메쉬 로딩
 	cXMesh_Static* mesh =
 		RESOURCE_STATICXMESH->GetResource(
 		"./Tera/Map/moveMap/moveMap.X", &matCorrection);
+	
+	pMap = new cBaseObject();
+	pMap->SetMesh(mesh);
+	pMap->SetActive(true);
+	pMap->IgnoreCreateShadow = true;		//그림자 안그린다.
+	pMap->ApplyShadow = true;
 
 	//플레이어
 	pPlayer = new cCharacter();
@@ -45,25 +50,17 @@ HRESULT cScene_main::Scene_Init()
 		, "./Tera/Character/Elin_Face_WDC.X"
 		, "./Tera/Character/Elin_Hair_WDC.X"
 		, "./Tera/Character/Elin_Tail_WDC.X"
-		, "./Tera/Character/Weapon_R.object"
-		, "./Tera/Character/Weapon_L.object"
-		, &matCorrection);
+		, "./Tera/Character/Weapon_R.X"
+		, "");
 
 
-	cBaseObject* pNewObject2 = new cBaseObject();
-	pNewObject2->SetMesh(mesh);
-	pNewObject2->SetActive(true);
-	pNewObject2->pTransform->SetWorldPosition(0, 0.0f, 0.0f);
-	pNewObject2->IgnoreCreateShadow = true;		//그림자 안그린다.
-	pNewObject2->ApplyShadow = true;
 
-	this->renderObjects.push_back(pNewObject2);
+	//렌더 오브젝트 푸쉬
+	//this->renderObjects.push_back(pMapObject);
 
 	//라이트 위치
 	this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(0, 20, 0);
 	this->pSceneBaseDirectionLight->pTransform->SetRotateWorld(90.0f * ONE_RAD, 0, 0);
-
-
 
 	//TrailRenderSet
 	this->pTrailRender = new cTrailRender();
@@ -129,6 +126,14 @@ void cScene_main::Scene_Render1()
 
 	cXMesh_Skinned::SetLighting(&this->lights);
 
+	//Map
+	//if (pMap)
+	//	pMap->Render();
+	
+	//Player
+	if (pPlayer)
+		pPlayer->Render();
+
 	//컬링된 오브젝트만
 	this->cullObjects.clear();
 	for (int i = 0; i < this->renderObjects.size(); i++){
@@ -137,9 +142,7 @@ void cScene_main::Scene_Render1()
 			this->cullObjects.push_back(this->renderObjects[i]);
 	}
 
-	if (pPlayer)
-		pPlayer->Render();
-
+	
 	//프러텀을 그려보장
 	this->pDirectionLightCamera->Frustum.RenderGizmo();
 	this->pSceneBaseDirectionLight->pTransform->RenderGimozo();
