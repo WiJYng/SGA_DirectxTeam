@@ -31,9 +31,7 @@ public:
 
 	void Setup(string PathBody, string PathFace, string PathHair, string PathTail, string PathRWeapon, string PathLWeapon);
 	void Setup(string PathBody, string PathFace, string PathHair, string PathTail, string PathRWeapon, string PathLWeapon, D3DXMATRIXA16* mat);
-
-	void SetupWeapon(string rWeaponPath, string lWeaponPath);
-
+	
 	void Update(D3DXVECTOR3 worldPos);
 	void Render();
 	
