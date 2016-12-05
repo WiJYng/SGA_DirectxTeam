@@ -5,6 +5,7 @@ class cCamera;
 class cTrailRender;
 class cCharacter;
 class cMeshMap;
+class cTerrain;
 
 
 class cScene_main : public cScene

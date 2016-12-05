@@ -128,7 +128,7 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 
 
 
-void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta)
+void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cTerrain* _terrain)
 {
 	for (int i = 0; i < renderObjects.size(); i++)
 	{
@@ -137,16 +137,6 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta)
 	}
 	//renderObjects[0]->pSkinned->AddBoneTransform("Dummy_root", m_pRootTrans);
 	//m_pRootTrans = renderObjects[0]->pTransform;
-	
-
-	if (KEY_MGR->IsOnceDown('I'))
-	{
-		for (int i = 0; i < renderObjects.size(); i++)
-		{
-			if (!renderObjects[i]->pSkinned) continue;
-			renderObjects[i]->pSkinned->Play("Wait", 0.3f);
-		}
-	}
 	
 	if (KEY_MGR->IsStayDown('W'))
 	{
@@ -215,7 +205,6 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta)
 				}
 			}
 		}
-		
 	}
 
 	if (!m_bAttack)
@@ -232,17 +221,12 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta)
 	}
 	
 
-	//if (m_bAttack)
-	//	if (renderObjects[0]->pSkinned->GetAniEnd())
-	//	{
-	//		
-	//	}
 	if (m_bAttack)
 	{
-		if ((m_tState == Combo1 || m_tState == Combo2 || m_tState == Combo3 || m_tState == Combo4) && renderObjects[0]->pSkinned->GetFactor() >= 0.7f)
+		if ((m_tState == Combo1 || m_tState == Combo2 || m_tState == Combo3 || m_tState == Combo4) && renderObjects[0]->pSkinned->GetFactor() >= 0.75f)
 		{
-			//renderObjects[0]->pTransform->SetWorldMatrix(renderObjects[0]->pTransform->GetFinalMatrix());
-			
+			//renderObjects[0]->pTransform->SetWorldPosition(m_pRootTrans->GetWorldPosition());
+
 			m_tState = Wait;
 			m_bAttack = false;
 			for (int i = 0; i < renderObjects.size(); i++)
@@ -251,6 +235,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta)
 				renderObjects[i]->pSkinned->Play("Wait", 0.3f);
 				renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
 			}
+			renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
+			m_pRootTrans->SetWorldPosition(renderObjects[0]->pTransform->GetWorldPosition());
 		}
 	}
 	else
@@ -268,6 +254,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta)
 		}
 	}
 
+	
+
 }
 
 void cCharacter::Render()
@@ -276,14 +264,6 @@ void cCharacter::Render()
 	{
 		renderObjects[i]->Render();
 	}
-
-	//m_pBodyAni->Render(m_pRootTrans);
-	//m_pFaceAni->Render(m_pNeckTrans);
-	//m_pHairAni->Render(m_pHairTrans);
-	//m_pTailAni->Render(m_pTailTrans);
-	//
-	//m_pRWeaponMesh->Render(m_pRWeaponTrans);
-	//m_pLWeaponMesh->Render(m_pLWeaponTrans);
 }
 
 void cCharacter::SetWorldPosition(D3DXVECTOR3 pos)

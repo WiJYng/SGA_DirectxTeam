@@ -60,7 +60,7 @@ public:
 	void Setup(string PathBody, string PathFace, string PathHair, string PathTail, string PathRWeapon, string PathLWeapon, D3DXMATRIXA16* mat);
 	
 	void Update(D3DXVECTOR3 worldPos);
-	void Update(D3DXVECTOR3 worldPos, float timDelta);
+	void Update(D3DXVECTOR3 worldPos, float timDelta, cTerrain* _terrain);
 	void Render();
 
 

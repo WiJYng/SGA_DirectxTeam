@@ -9,6 +9,7 @@
 #include "cTrailRender.h"
 #include "cCharacter.h"
 #include "cMeshMap.h"
+#include "cTerrain.h"
 
 
 cScene_main::cScene_main()
@@ -90,7 +91,7 @@ void cScene_main::Scene_Update(float timDelta)
 		}
 	}
 
-	pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta);
+	pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta, NULL);
 
 	//업데이트
 	//this->pTrailRender->Update(timDelta);
@@ -116,8 +117,8 @@ void cScene_main::Scene_Render1()
 		pMap->Render();
 	
 	//Player
-	//if (pPlayer)
-	//	pPlayer->Render();
+	if (pPlayer)
+		pPlayer->Render();
 
 	//컬링된 오브젝트만
 	this->cullObjects.clear();
