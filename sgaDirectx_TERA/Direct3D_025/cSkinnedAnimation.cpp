@@ -17,6 +17,7 @@ cSkinnedAnimation::~cSkinnedAnimation(void)
 
 HRESULT		cSkinnedAnimation::Init( cXMesh_Skinned* pSkinnedMesh )
 {
+	m_AniEnd = false;
 	if( pSkinnedMesh == NULL ) return E_FAIL;
 
 	m_pSkinnedMesh = pSkinnedMesh;
@@ -70,8 +71,9 @@ void		cSkinnedAnimation::Update( float timeDelta )
 	m_AnimationPlayFactor = m_Track_Desc_0.Position / m_pNowPlayAnimationSet->GetPeriod();
 	
 	//마지막에 도달했다면...
-	if( m_AnimationPlayFactor >= 0.95f )
+	if( m_AnimationPlayFactor >= 1.0f )
 	{
+		m_AniEnd = true;
 		if( this->m_bLoop == false ){
 			
 			//돌아갈 Animation 이 있다면..
@@ -91,6 +93,8 @@ void		cSkinnedAnimation::Update( float timeDelta )
 			}
 		}
 	}
+	else m_AniEnd = false;
+
 	m_AnimationPlayFactor = m_AnimationPlayFactor - (int)m_AnimationPlayFactor;	//정수부분 안생기게....
 
 

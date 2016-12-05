@@ -34,7 +34,7 @@ private:
 	float							m_fOutCrossFadeTime;		//OneShot Animation 끝나고 되돌아갈때 CrossFade 타임
 
 	double							m_AnimationPlayFactor;		//Animation 진행 Factor ( 0 이면 처음 1 일수록 마지막 )
-
+	bool							m_AniEnd;
 
 	float							m_fAnimDelta;
 
@@ -62,6 +62,15 @@ public:
 	void RemoveBoneTransform( std::string boneName );
 	void RemoveApplyTransform( std::string boneName );
 
+	bool GetAniEnd()
+	{
+		return m_AniEnd;
+	}
+
+	float GetFactor()
+	{
+		return m_AnimationPlayFactor;
+	}
 
 
 public:
