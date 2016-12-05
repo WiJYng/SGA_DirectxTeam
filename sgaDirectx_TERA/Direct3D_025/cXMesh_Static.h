@@ -15,9 +15,9 @@ public:
 	static LPDIRECT3DTEXTURE9		sDefaultSpecularTex;
 	static LPDIRECT3DTEXTURE9		sDefaultEmissionTex;
 
+	
 protected:
 	LPD3DXMESH							pMesh;
-	
 	DWORD								dwMaterialsNum;			//로딩된 매쉬의 재질 갯수
 	std::vector<LPDIRECT3DTEXTURE9>		vecDiffuseTex;			//로딩된 메쉬에서 사용하는 DiffuseTexture
 	std::vector<LPDIRECT3DTEXTURE9>		vecNormalTex;			//로딩된 메쉬에서 사용하는 NormalTexture
@@ -49,12 +49,10 @@ public:
 	~cXMesh_Static(void);
 
 	virtual HRESULT Init( std::string filePath, const D3DXMATRIXA16* matCorrection = NULL );
-
 	virtual void Release();
-
 	virtual void Render( const cTransform* Trans );
 
-
+	LPD3DXMESH GetMesh() { return pMesh; }
 private:
 	//보정행렬대로 메쉬를 수정한다.
 	void MeshCorrection( const D3DXMATRIXA16* pmatCorrection );
