@@ -7,6 +7,8 @@ class cMeshMap
 private:
 	cBaseObject*		pMap;
 
+	vector<D3DXVECTOR3> vecToTerrian;
+
 public:
 	cMeshMap();
 	~cMeshMap();
@@ -18,5 +20,8 @@ public:
 	
 	//Getter/Setter
 	float GetHeight(float x, float z);
+
+private:
+	void RenderToTerrian();
 };
 

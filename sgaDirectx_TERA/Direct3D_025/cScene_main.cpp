@@ -26,7 +26,7 @@ HRESULT cScene_main::Scene_Init()
 	
 	//Map
 	pMap = new cMeshMap();
-	pMap->Setup("./Tera/Map/moveMap/moveMap.X");
+	pMap->Setup("./Tera/Map/matTest/MAP_00.X");
 
 	//플레이어
 	pPlayer = new cCharacter();
@@ -116,8 +116,8 @@ void cScene_main::Scene_Render1()
 		pMap->Render();
 	
 	//Player
-	if (pPlayer)
-		pPlayer->Render();
+	//if (pPlayer)
+	//	pPlayer->Render();
 
 	//컬링된 오브젝트만
 	this->cullObjects.clear();
