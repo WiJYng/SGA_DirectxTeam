@@ -14,6 +14,16 @@ private:
 		P_LWEAPON = 5
 	};
 
+	enum tagState
+	{
+		Combo1,
+		Combo2,
+		Combo3,
+		Combo4,
+		Dash,
+		Wait
+	};
+
 
 	std::vector<cBaseObject*>			renderObjects;			//오브젝트 배열
 	cBaseObject*						rootObject;				//루트
@@ -32,12 +42,15 @@ private:
 	cXMesh_Static*						m_pRWeaponMesh;
 	cXMesh_Static*						m_pLWeaponMesh;
 
-	cTransform*							m_pSkinnedTrans;
-	cTransform*							m_pSkinnedTrans1;
-	cTransform*							m_pSkinnedTrans2;
-	cTransform*							m_pSkinnedTrans3;
-	cTransform*							m_pSkinnedTrans4;
-	cTransform*							m_pSkinnedTrans5;
+	cTransform*							m_pRootTrans;
+	cTransform*							m_pNeckTrans;
+	cTransform*							m_pHairTrans;
+	cTransform*							m_pTailTrans;
+	cTransform*							m_pRWeaponTrans;
+	cTransform*							m_pLWeaponTrans;
+
+	bool								m_bAttack;
+	tagState							m_tState;
 
 public:
 	cCharacter();

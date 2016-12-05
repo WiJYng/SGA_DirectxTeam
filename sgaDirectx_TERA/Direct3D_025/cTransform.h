@@ -222,6 +222,9 @@ public:
 	void DefaultControl( float timeDelta );
 	void DefaultControl2( float timeDelta );
 
+	void GoControl(float timeDelta);
+	void LeftControl(float timeDelta);
+	void RightControl(float timeDelta);
 
 	//Transform 에 대한 기즈모를 그린다.
 	void RenderGimozo( bool applyScale = false ) const;
