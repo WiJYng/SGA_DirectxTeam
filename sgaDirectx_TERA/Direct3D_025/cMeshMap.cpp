@@ -128,12 +128,18 @@ void cMeshMap::RenderToTerrian()
 	int yLen = floor(maxY - minY);
 
 	float buffer = xLen / 256.f;	
+	float calYBuffer = yLen / 256.f;
 	
 	FILE* f = NULL;
-	f = fopen("./Tera/Map/matTest/MAP_EXPORT.txt", "w");
-	
+	f = fopen("./Tera/Map/matTest/MAP_EXPORT.raw", "wb");
+	char data[256][256];
+
+	int iIdx = 0;
+	int jIdx = 0;
+
 	for (float i = minX + buffer / 2; i < maxX - buffer; i += buffer)
 	{
+		jIdx = 0;
 		for (float j = minZ + buffer / 2; j < maxZ - buffer; j += buffer) {
 			float yBuffer = 99999   ;
 			LPRay vR = new Ray;
@@ -149,15 +155,26 @@ void cMeshMap::RenderToTerrian()
 
 			if (isHit)
 				res = yBuffer - d;
-			
-			//아아아아아아아아아아아아아아아
-			//res += yLen;
-			res = (256.f * res) / maxY;
 
-			fprintf(f, "%1.0f,", res);
+			float rgb = 0;
+			int idx = 0;
+
+			for (float k = minY; k <= maxY; k += calYBuffer)
+			{
+				if (res >= k && res < k + calYBuffer)
+				{
+					rgb = idx;
+					break;
+				}
+				idx++;
+			}
+			
+			data[iIdx][jIdx] = rgb;
+			jIdx++;
 		}
-		fprintf(f, "\n");
+		iIdx++;
 	}
-	
+
+	fwrite(&data, 1, (256*256), f);
 	fclose(f);
 }
