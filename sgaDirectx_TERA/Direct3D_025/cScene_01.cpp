@@ -133,7 +133,6 @@ HRESULT cScene_01::Scene_Init()
 			//위치 셋팅
 			pNewObject->pTransform->SetWorldPosition(pos);
 
-
 			//랱더 오브젝트 푸쉬
 			this->renderObjects.push_back( pNewObject );
 		}
