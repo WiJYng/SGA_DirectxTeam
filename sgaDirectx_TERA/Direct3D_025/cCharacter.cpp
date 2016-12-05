@@ -73,103 +73,14 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 	m_pTailAni = new cSkinnedAnimation();
 	m_pTailAni->Init(pTailMesh);
 
-	//m_pRWeaponAni = new cSkinnedAnimation();
-	//m_pRWeaponAni->Init(pRWeaponMesh);
 
-
-	
 	if (PathRWeapon.length() > 0)
 		m_pRWeaponMesh = RESOURCE_STATICXMESH->GetResource(PathRWeapon, mat);
 	
 	if (PathLWeapon.length() > 0)
 		m_pLWeaponMesh = RESOURCE_STATICXMESH->GetResource(PathLWeapon, mat);
-		
-	//Body가 루트가 된다
-	//rootObject = new cBaseObject();
-	//rootObject->SetMesh(pBodyMesh);
-	//rootObject->SetActive(true);
-	//
-	//cBaseObject* face = new cBaseObject();
-	//face->SetMesh(pFaceMesh);
-	//face->SetActive(true);
-	//
-	//cBaseObject* hair = new cBaseObject();
-	//hair->SetMesh(pHairMesh);
-	//hair->SetActive(true);
-	//
-	//cBaseObject* tail = new cBaseObject();
-	//tail->SetMesh(pTailMesh);
-	//tail->SetActive(true);
-	//
-	//무기
-	cBaseObject* rWeapon = NULL; 
-	cBaseObject* lWeapon = NULL;
-	
-	if (m_pRWeaponMesh)
-	{
-		rWeapon = new cBaseObject();
-		rWeapon->SetMesh(m_pRWeaponMesh);
-		rWeapon->SetActive(true);
-	}
-	
-	if (m_pLWeaponMesh)
-	{
-		lWeapon = new cBaseObject();
-		lWeapon->SetMesh(m_pLWeaponMesh);
-		lWeapon->SetActive(true);
-	}
-	//
-	////Render할 객체 Push
-	//this->renderObjects.push_back(rootObject);
-	//this->renderObjects.push_back(face);
-	//this->renderObjects.push_back(hair);
-	//this->renderObjects.push_back(tail);
-	//this->renderObjects.push_back(rWeapon);
-	//this->renderObjects.push_back(lWeapon);	
-
-
-	//calculateMeshPosition(mat);
 }
 
-void cCharacter::calculateMeshPosition(D3DXMATRIXA16* mat)
-{
-	for (int i = 0; i < this->renderObjects.size(); i++){
-		switch (i){
-		case P_BODY: {
-			BONE* b = ((cXMesh_Skinned*)this->renderObjects[i]->pMesh)->GetFineBONE("Bip01-Neck");
-			b->CombinedTransformationMatrix = b->CombinedTransformationMatrix * (*mat);
-
-			matNeckTm = b->CombinedTransformationMatrix;
-			break;
-		}
-		case P_FACE: {
-			//m_pFaceAni->AddBoneTransform()
-
-			break;
-		}
-		case P_HAIR: {
-
-
-			break;
-		}
-		case P_TAIL: {
-
-
-			break;
-		}
-		case P_RWEAPON: {
-
-
-			break;
-		}
-		case P_LWEAPON: {
-
-
-			break;
-		}
-		}
-	}
-}
 
 
 void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta)
@@ -204,11 +115,6 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta)
 
 void cCharacter::Render()
 {
-	//for (int i = 0; i < this->renderObjects.size(); i++)
-	//{
-	//	if (this->renderObjects[i])
-	//		this->renderObjects[i]->Render();
-	//}
 	m_pBodyAni->Render(m_pSkinnedTrans);
 	m_pFaceAni->Render(m_pSkinnedTrans1);
 	m_pHairAni->Render(m_pSkinnedTrans2);

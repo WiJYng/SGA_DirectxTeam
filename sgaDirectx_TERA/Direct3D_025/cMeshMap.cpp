@@ -51,6 +51,22 @@ void cMeshMap::Render()
 
 float cMeshMap::GetHeight(float x, float z)
 {
+	float result = 0;
+	float buffer = 99999;
 
-	return 0;
+	LPRay vR;
+	vR->origin = D3DXVECTOR3(x, buffer, z);
+	vR->direction = D3DXVECTOR3(0, -1, 0);
+
+	cXMesh_Static* m = (cXMesh_Static*)pMap->pMesh;
+	
+
+	float d;
+	BOOL isHit;
+	D3DXIntersect(m->GetMesh(), &vR->origin, &vR->direction, &isHit, NULL, NULL, NULL, &d, NULL, NULL);
+
+	if (isHit)
+		result = buffer - d;
+
+	return result;
 }
