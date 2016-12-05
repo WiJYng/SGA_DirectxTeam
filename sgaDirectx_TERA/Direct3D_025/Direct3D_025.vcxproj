@@ -21,7 +21,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -93,6 +93,7 @@
     <ClInclude Include="cLight_Point.h" />
     <ClInclude Include="cLogMgr.h" />
     <ClInclude Include="cMainGame.h" />
+    <ClInclude Include="cMeshMap.h" />
     <ClInclude Include="cPartcleEmitter.h" />
     <ClInclude Include="cParticle.h" />
     <ClInclude Include="cParticleQuad.h" />
@@ -145,6 +146,7 @@
     <ClCompile Include="cLight_Point.cpp" />
     <ClCompile Include="cLogMgr.cpp" />
     <ClCompile Include="cMainGame.cpp" />
+    <ClCompile Include="cMeshMap.cpp" />
     <ClCompile Include="cPartcleEmitter.cpp" />
     <ClCompile Include="cParticle.cpp" />
     <ClCompile Include="cParticleQuad.cpp" />

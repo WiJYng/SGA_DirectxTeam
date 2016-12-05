@@ -31,6 +31,9 @@
     <Filter Include="Tera\Character">
       <UniqueIdentifier>{7396b64c-f78b-4df4-a4f4-634131f0439f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tera\Map">
+      <UniqueIdentifier>{23bc2b54-5123-4281-a337-b0faf6b68eb8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -183,6 +186,9 @@
     <ClInclude Include="cBoundSphere.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="cMeshMap.h">
+      <Filter>Tera\Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -334,6 +340,9 @@
     </ClCompile>
     <ClCompile Include="cBoundSphere.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="cMeshMap.cpp">
+      <Filter>Tera\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

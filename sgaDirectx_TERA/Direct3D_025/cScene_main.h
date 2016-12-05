@@ -4,6 +4,7 @@ class cBaseObject;
 class cCamera;
 class cTrailRender;
 class cCharacter;
+class cMeshMap;
 
 
 class cScene_main : public cScene
@@ -13,7 +14,7 @@ private:
 	std::vector<cBaseObject*>			cullObjects;			//컬링된 오브젝트
 	std::vector<cLight*>				lights;					//라이팅..
 
-	cBaseObject*						pMap;
+	cMeshMap*							pMap;
 	cCharacter*							pPlayer;
 
 	cTrailRender*						pTrailRender;

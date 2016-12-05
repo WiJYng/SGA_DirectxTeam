@@ -8,6 +8,7 @@
 #include "cCamera.h"
 #include "cTrailRender.h"
 #include "cCharacter.h"
+#include "cMeshMap.h"
 
 
 cScene_main::cScene_main()
@@ -22,27 +23,10 @@ cScene_main::~cScene_main()
 
 HRESULT cScene_main::Scene_Init()
 {
-	//원래 있던 매쉬에서 다음과 같은 행렬로 보정시켜 
-	//모든 정보를 틀어버린다.
-	D3DXMATRIXA16 matCorrection;
-	D3DXMatrixIdentity(&matCorrection);
-
-	//Map
-	D3DXMATRIXA16 matT;
-	D3DXMatrixTranslation(&matT, 0, -10, 0);
-	D3DXMatrixRotationY(&matT, 180.0f * ONE_RAD);
-
-	matCorrection = matT;
-
-	cXMesh_Static* mesh =
-		RESOURCE_STATICXMESH->GetResource(
-		"./Tera/Map/moveMap/moveMap.X", &matCorrection);
 	
-	pMap = new cBaseObject();
-	pMap->SetMesh(mesh);
-	pMap->SetActive(true);
-	pMap->IgnoreCreateShadow = true;		//그림자 안그린다.
-	pMap->ApplyShadow = true;
+	//Map
+	pMap = new cMeshMap();
+	pMap->Setup("./Tera/Map/moveMap/moveMap.X");
 
 	//플레이어
 	pPlayer = new cCharacter();
@@ -51,15 +35,14 @@ HRESULT cScene_main::Scene_Init()
 		, "./Tera/Character/Elin_Hair_WDC.X"
 		, "./Tera/Character/Elin_Tail_WDC.X"
 		, "./Tera/Character/Weapon_R.X"
-		, "");
-
+		, "./Tera/Character/Weapon_R.X");
 
 
 	//렌더 오브젝트 푸쉬
 	//this->renderObjects.push_back(pMapObject);
 
 	//라이트 위치
-	this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(0, 20, 0);
+	this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(0, 300, 0);
 	this->pSceneBaseDirectionLight->pTransform->SetRotateWorld(90.0f * ONE_RAD, 0, 0);
 
 	//TrailRenderSet
@@ -107,9 +90,11 @@ void cScene_main::Scene_Update(float timDelta)
 		}
 	}
 
+	pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta);
+
 	//업데이트
-	this->pTrailRender->Update(timDelta);
-	this->pTrailRender->Transform.DefaultControl2(timDelta);
+	//this->pTrailRender->Update(timDelta);
+	//this->pTrailRender->Transform.DefaultControl2(timDelta);
 
 
 	//쉐도우맵 준비
@@ -124,11 +109,11 @@ void cScene_main::Scene_Render1()
 	cXMesh_Skinned::SetCamera(this->pMainCamera);
 	cXMesh_Skinned::SetBaseLight(this->pSceneBaseDirectionLight);
 
-	cXMesh_Skinned::SetLighting(&this->lights);
+	//cXMesh_Skinned::SetLighting(&this->lights);
 
 	//Map
-	//if (pMap)
-	//	pMap->Render();
+	if (pMap)
+		pMap->Render();
 	
 	//Player
 	if (pPlayer)
@@ -142,7 +127,6 @@ void cScene_main::Scene_Render1()
 			this->cullObjects.push_back(this->renderObjects[i]);
 	}
 
-	
 	//프러텀을 그려보장
 	this->pDirectionLightCamera->Frustum.RenderGizmo();
 	this->pSceneBaseDirectionLight->pTransform->RenderGimozo();
