@@ -27,8 +27,8 @@ HRESULT cScene_main::Scene_Init()
 	
 	//Map
 	pMap = new cMeshMap();
-	pMap->Setup("./Tera/Map/matTest/MAP_00.X");
-
+	pMap->Setup("./Tera/Map/EntireMap/moveMap/moveMap.X");
+	
 	//플레이어
 	pPlayer = new cCharacter();
 	pPlayer->Setup("./Tera/Character/Elin_Body_WDC.X"

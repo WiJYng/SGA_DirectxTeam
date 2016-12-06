@@ -20,8 +20,8 @@ void cMeshMap::Setup(string PathMap)
 
 	//Map
 	D3DXMATRIXA16 matT;
-	D3DXMatrixTranslation(&matT, 0, -10, 0);
-	D3DXMatrixRotationY(&matT, 180.0f * ONE_RAD);
+	D3DXMatrixTranslation(&matT, 0, -20, 0);
+	//D3DXMatrixRotationY(&matT, 180.0f * ONE_RAD);
 	matCorrection = matT;
 
 	Setup(PathMap, &matCorrection);

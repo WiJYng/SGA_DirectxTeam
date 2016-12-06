@@ -1,0 +1,69 @@
+﻿빌드 시작: 2016-12-06 오후 7:35:40
+     1>2 노드의 "C:\Users\USER\Desktop\현재작업중인 코딩\3D 포폴 git\nanami3\SGA_DirectxTeam\sgaDirectx_TERA\Direct3D_025\Direct3D_025.vcxproj" 프로젝트(Build 대상)입니다.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Direct3D_TERA.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt cMeshMap.cpp
+         cMeshMap.cpp
+     1>c:\users\user\desktop\현재작업중인 코딩\3d 포폴 git\nanami3\sga_directxteam\sgadirectx_tera\direct3d_025\cmeshmap.cpp(126): warning C4244: '초기화 중' : 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\user\desktop\현재작업중인 코딩\3d 포폴 git\nanami3\sga_directxteam\sgadirectx_tera\direct3d_025\cmeshmap.cpp(127): warning C4244: '초기화 중' : 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\user\desktop\현재작업중인 코딩\3d 포폴 git\nanami3\sga_directxteam\sgadirectx_tera\direct3d_025\cmeshmap.cpp(128): warning C4244: '초기화 중' : 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\user\desktop\현재작업중인 코딩\3d 포폴 git\nanami3\sga_directxteam\sgadirectx_tera\direct3d_025\cmeshmap.cpp(134): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : 'fopen' 선언을 참조하십시오.
+     1>c:\users\user\desktop\현재작업중인 코딩\3d 포폴 git\nanami3\sga_directxteam\sgadirectx_tera\direct3d_025\cmeshmap.cpp(83): warning C4101: 'pVerElement' :참조되지 않은 지역 변수입니다.
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\USER\Desktop\현재작업중인 코딩\3D 포폴 git\nanami3\SGA_DirectxTeam\sgaDirectx_TERA\Debug\Direct3D_TERA.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\USER\Desktop\현재작업중인 코딩\3D 포폴 git\nanami3\SGA_DirectxTeam\sgaDirectx_TERA\Debug\Direct3D_TERA.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\USER\Desktop\현재작업중인 코딩\3D 포폴 git\nanami3\SGA_DirectxTeam\sgaDirectx_TERA\Debug\Direct3D_TERA.lib" /MACHINE:X86 Debug\BoneHierachy.obj
+         Debug\cBaseObject.obj
+         Debug\cBoundBox.obj
+         Debug\cBoundSphere.obj
+         Debug\cCamera.obj
+         Debug\cCharacter.obj
+         Debug\cDXFontManager.obj
+         Debug\cFrustum.obj
+         Debug\cGizmoManager.obj
+         Debug\cImage.obj
+         Debug\cKeyMgr.obj
+         Debug\cLight.obj
+         Debug\cLight_Direction.obj
+         Debug\cLight_Point.obj
+         Debug\cLogMgr.obj
+         Debug\cMainGame.obj
+         Debug\cMeshMap.obj
+         Debug\cPartcleEmitter.obj
+         Debug\cParticle.obj
+         Debug\cParticleQuad.obj
+         Debug\cPhysicManager.obj
+         Debug\cQuad.obj
+         Debug\cQuadParticleEmitter.obj
+         Debug\cQuadTree.obj
+         Debug\cResourceMgr_XSkinnedMesh.obj
+         Debug\cResourceMgr.obj
+         Debug\cResourceMgr_ShaderFX.obj
+         Debug\cResourceMgr_Texture.obj
+         Debug\cResourceMgr_XStaticMesh.obj
+         Debug\cScene.obj
+         Debug\cSceneChangeEffect.obj
+         Debug\cSceneChangeEffectUpDown.obj
+         Debug\cScene_00.obj
+         Debug\cScene_01.obj
+         Debug\cScene_02.obj
+         Debug\cScene_main.obj
+         Debug\cScene_Mgr.obj
+         Debug\cSetBoundObject.obj
+         Debug\cSingletonBase.obj
+         Debug\cSkinnedAnimation.obj
+         Debug\cSpriteManager.obj
+         Debug\cTerrain.obj
+         Debug\cTimeMgr.obj
+         Debug\cTrailRender.obj
+         Debug\cTransform.obj
+         Debug\cXMesh.obj
+         Debug\cXMesh_Skinned.obj
+         Debug\cXMesh_Static.obj
+         Debug\MyUtil.obj
+         Debug\WinMain.obj
+         Debug\stdafx.obj
+         Direct3D_025.vcxproj -> C:\Users\USER\Desktop\현재작업중인 코딩\3D 포폴 git\nanami3\SGA_DirectxTeam\sgaDirectx_TERA\Debug\Direct3D_TERA.exe
+     1>"C:\Users\USER\Desktop\현재작업중인 코딩\3D 포폴 git\nanami3\SGA_DirectxTeam\sgaDirectx_TERA\Direct3D_025\Direct3D_025.vcxproj" 프로젝트를 빌드했습니다(Build 대상).
+
+빌드했습니다.
+
+경과 시간: 00:00:02.33
