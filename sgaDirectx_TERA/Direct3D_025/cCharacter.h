@@ -1,6 +1,7 @@
 #pragma once
 
 class cCamera;
+class cMeshMap;
 
 class cCharacter
 {
@@ -60,7 +61,7 @@ public:
 	void Setup(string PathBody, string PathFace, string PathHair, string PathTail, string PathRWeapon, string PathLWeapon, D3DXMATRIXA16* mat);
 	
 	void Update(D3DXVECTOR3 worldPos);
-	void Update(D3DXVECTOR3 worldPos, float timDelta, cTerrain* _terrain);
+	void Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map);
 	void Render();
 
 

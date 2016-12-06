@@ -5,6 +5,7 @@
 #include "cTrailRender.h"
 #include "cLight_Direction.h"
 #include "cLight_Point.h"
+#include "cMeshMap.h"
 
 
 cCharacter::cCharacter()
@@ -128,7 +129,7 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 
 
 
-void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cTerrain* _terrain)
+void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 {
 	for (int i = 0; i < renderObjects.size(); i++)
 	{
@@ -138,6 +139,19 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cTerrain* _terrain
 	//renderObjects[0]->pSkinned->AddBoneTransform("Dummy_root", m_pRootTrans);
 	//m_pRootTrans = renderObjects[0]->pTransform;
 	
+	
+	if (!m_bAttack)
+	{
+		if (KEY_MGR->IsStayDown('A'))
+		{
+			renderObjects[0]->pTransform->LeftControl(timDelta);
+		}
+		if (KEY_MGR->IsStayDown('D'))
+		{
+			renderObjects[0]->pTransform->RightControl(timDelta);
+		}
+	}
+
 	if (KEY_MGR->IsStayDown('W'))
 	{
 		renderObjects[0]->pTransform->GoControl(timDelta);
@@ -210,18 +224,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cTerrain* _terrain
 		}
 	}
 
-	if (!m_bAttack)
-	{
-		
-		if (KEY_MGR->IsStayDown('A'))
-		{
-			renderObjects[0]->pTransform->LeftControl(timDelta);
-		}
-		if (KEY_MGR->IsStayDown('D'))
-		{
-			renderObjects[0]->pTransform->RightControl(timDelta);
-		}
-	}
+	
 	
 
 	if (m_bAttack)
@@ -257,9 +260,21 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cTerrain* _terrain
 			}
 		}
 	}
-
+	if (_Map)
+	{
+		float y = 0;
+		if (!m_bAttack)
+		{
+			y = _Map->GetHeight(renderObjects[0]->pTransform->GetWorldPosition().x, renderObjects[0]->pTransform->GetWorldPosition().z);
+		}
+		else
+		{
+			y = _Map->GetHeight(m_pRootTrans->GetWorldPosition().x, m_pRootTrans->GetWorldPosition().z);
+		}
+		
+		renderObjects[0]->pTransform->SetWorldPosition(renderObjects[0]->pTransform->GetWorldPosition().x, y, renderObjects[0]->pTransform->GetWorldPosition().z);
+	}
 	
-
 }
 
 void cCharacter::Render()

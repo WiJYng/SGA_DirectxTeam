@@ -91,7 +91,7 @@ void cScene_main::Scene_Update(float timDelta)
 		}
 	}
 
-	pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta, NULL);
+	pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta, pMap);
 
 	//업데이트
 	//this->pTrailRender->Update(timDelta);
