@@ -353,3 +353,7 @@ void cSkinnedAnimation::SetAnimation( LPD3DXANIMATIONSET animSet )
 		this->m_pNowPlayAnimationSet = animSet;
 	}
 }
+
+void cSkinnedAnimation::SetAnimation(LPD3DXANIMATIONSET animSet, int Index)
+{
+}

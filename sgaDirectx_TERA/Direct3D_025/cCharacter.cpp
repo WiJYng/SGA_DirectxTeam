@@ -164,7 +164,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cTerrain* _terrain
 				for (int i = 0; i < renderObjects.size(); i++)
 				{
 					if (!renderObjects[i]->pSkinned) continue;
-					renderObjects[i]->pSkinned->Play("Combo1", 0.3f);
+					renderObjects[i]->pSkinned->PlayOneShot("Combo1", 0.3f);
 					renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
 				}
 			}
@@ -179,9 +179,10 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cTerrain* _terrain
 					for (int i = 0; i < renderObjects.size(); i++)
 					{
 						if (!renderObjects[i]->pSkinned) continue;
-						renderObjects[i]->pSkinned->Play("Combo2", 0.3f);
+						renderObjects[i]->pSkinned->PlayOneShot("Combo2", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
 					}
+					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
 				else if (m_tState == Combo2)
 				{
@@ -189,9 +190,10 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cTerrain* _terrain
 					for (int i = 0; i < renderObjects.size(); i++)
 					{
 						if (!renderObjects[i]->pSkinned) continue;
-						renderObjects[i]->pSkinned->Play("Combo3", 0.3f);
+						renderObjects[i]->pSkinned->PlayOneShot("Combo3", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
 					}
+					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
 				else if (m_tState == Combo3)
 				{
@@ -199,9 +201,10 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cTerrain* _terrain
 					for (int i = 0; i < renderObjects.size(); i++)
 					{
 						if (!renderObjects[i]->pSkinned) continue;
-						renderObjects[i]->pSkinned->Play("Combo4", 0.3f);
+						renderObjects[i]->pSkinned->PlayOneShot("Combo4", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
 					}
+					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
 			}
 		}
@@ -232,11 +235,12 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cTerrain* _terrain
 			for (int i = 0; i < renderObjects.size(); i++)
 			{
 				if (!renderObjects[i]->pSkinned) continue;
-				renderObjects[i]->pSkinned->Play("Wait", 0.3f);
+				renderObjects[i]->pSkinned->Play("Wait", 0.0f);
 				renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
 			}
+			//renderObjects[0]->pTransform->PositionLerp(*m_pRootTrans, *renderObjects[0]->pTransform, 0.75f);
 			renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
-			m_pRootTrans->SetWorldPosition(renderObjects[0]->pTransform->GetWorldPosition());
+			//m_pRootTrans->SetWorldPosition(renderObjects[0]->pTransform->GetWorldPosition());
 		}
 	}
 	else

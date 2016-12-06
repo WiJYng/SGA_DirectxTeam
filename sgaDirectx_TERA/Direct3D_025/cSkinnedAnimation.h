@@ -81,6 +81,7 @@ public:
 private:
 	//Animation À» ¹Ù²Û´Ù.
 	void SetAnimation( LPD3DXANIMATIONSET animSet );
+	void SetAnimation(LPD3DXANIMATIONSET animSet, int Index);
 
 
 
