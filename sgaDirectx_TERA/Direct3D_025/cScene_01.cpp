@@ -286,7 +286,6 @@ void cScene_01::Scene_Update( float timDelta )
 
 	//½¦µµ¿ì¸Ê ÁØºñ
 	this->ReadyShadowMap( &this->renderObjects, this->m_pTerrain );
-
 }
 
 void cScene_01::Scene_Render1()

@@ -66,6 +66,8 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 	pBodyObject->pSkinned->Init(pBodyMesh);
 	pBodyObject->SetMesh(pBodyMesh);
 	pBodyObject->SetActive(true);
+	//pBodyObject->IgnoreCreateShadow = false;
+	//pBodyObject->ApplyShadow = true;
 	//pBodyObject->BoundBox.
 
 	pBodyObject->pSkinned->AddBoneTransform("Dummy_root", m_pRootTrans);
@@ -279,9 +281,14 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 
 void cCharacter::Render()
 {
+	//라이트 정보 셋팅
+	//cXMesh_Skinned::SetLighting(&this->lights);
+	//cXMesh_Static::SetLighting(&this->lights);
+
 	for (int i = 0; i < renderObjects.size(); i++)
 	{
 		renderObjects[i]->Render();
+		//renderObjects[i]->
 	}
 }
 

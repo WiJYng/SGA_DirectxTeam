@@ -34,6 +34,9 @@
     <Filter Include="Tera\Map">
       <UniqueIdentifier>{23bc2b54-5123-4281-a337-b0faf6b68eb8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tera\Enemy">
+      <UniqueIdentifier>{882cfa0a-7847-4ce6-a5e5-6cd3033e6f06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -189,6 +192,9 @@
     <ClInclude Include="cMeshMap.h">
       <Filter>Tera\Map</Filter>
     </ClInclude>
+    <ClInclude Include="cEnemy.h">
+      <Filter>Tera\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -343,6 +349,9 @@
     </ClCompile>
     <ClCompile Include="cMeshMap.cpp">
       <Filter>Tera\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="cEnemy.cpp">
+      <Filter>Tera\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
