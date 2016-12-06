@@ -1321,27 +1321,27 @@ void cTransform::SetDeviceView( LPDIRECT3DDEVICE9 pDevice )
 }
 
 //캐릭터 중심 컨트롤 - 20161205 : Wijy
-void cTransform::CharacterCenterPosition(float angle, D3DXVECTOR3 pos, float timeDelta)
-{
-	//카메라 Angle	
-	float nowAngleH = angle;							//수평앵글
-	float nowAngleV = 0.0f;								//수직앵글
-	float maxAngleV = 85.0f;							//수직 최대 앵글
-	float minAngleV = -85.0f;							//수직 최저 앵글
-	float sensitivityH = 1.0f;							//가로 민감도
-	float sensitivityV = 1.0f;							//세로 민감도 ( 이값이 음수면 Invert Mouse )
-	D3DXVECTOR3 nowVelocity(0, 0, 0);					//현제 방향과 속도를 가진 벡터
-
-	float accelate = 30.0f;								//초당 이동 증가값
-	float nowSpeed = 3.0f;								//현재 속도
-	float maxSpeed = 10.0f;								//최고 속도 
-
-	D3DXVECTOR3 inputVector(0, 0, 0);
-
-
-
-	
-}
+//void cTransform::CharacterCenterPosition(float angle, D3DXVECTOR3 pos, float timeDelta)
+//{
+//	//카메라 Angle	
+//	float nowAngleH = angle;							//수평앵글
+//	float nowAngleV = 0.0f;								//수직앵글
+//	float maxAngleV = 85.0f;							//수직 최대 앵글
+//	float minAngleV = -85.0f;							//수직 최저 앵글
+//	float sensitivityH = 1.0f;							//가로 민감도
+//	float sensitivityV = 1.0f;							//세로 민감도 ( 이값이 음수면 Invert Mouse )
+//	D3DXVECTOR3 nowVelocity(0, 0, 0);					//현제 방향과 속도를 가진 벡터
+//
+//	float accelate = 30.0f;								//초당 이동 증가값
+//	float nowSpeed = 3.0f;								//현재 속도
+//	float maxSpeed = 10.0f;								//최고 속도 
+//
+//	D3DXVECTOR3 inputVector(0, 0, 0);
+//
+//
+//
+//	
+//}
 
 
 //디폴트 컨트롤 을해준다.

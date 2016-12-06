@@ -141,6 +141,8 @@ void cMeshMap::RenderToTerrian()
 	{
 		jIdx = 0;
 		for (float j = minZ + buffer / 2; j < maxZ - buffer; j += buffer) {
+			data[iIdx][jIdx] = { '\0' };
+
 			float yBuffer = 99999   ;
 			LPRay vR = new Ray;
 			vR->origin = D3DXVECTOR3(i, yBuffer, j);
@@ -156,20 +158,20 @@ void cMeshMap::RenderToTerrian()
 			if (isHit)
 				res = yBuffer - d;
 
-			float rgb = 0;
 			int idx = 0;
+			if (iIdx == 165 && jIdx == 85)
+			{
+				int a = 0;
+			}
 
 			for (float k = minY; k <= maxY; k += calYBuffer)
 			{
 				if (res >= k && res < k + calYBuffer)
-				{
-					rgb = idx;
 					break;
-				}
+
 				idx++;
 			}
-			
-			data[iIdx][jIdx] = rgb;
+			data[iIdx][jIdx] = idx;
 			jIdx++;
 		}
 		iIdx++;
