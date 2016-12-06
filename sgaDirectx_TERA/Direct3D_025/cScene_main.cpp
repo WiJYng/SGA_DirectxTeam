@@ -9,6 +9,7 @@
 #include "cTrailRender.h"
 #include "cCharacter.h"
 #include "cMeshMap.h"
+#include "cTerrain.h"
 
 
 cScene_main::cScene_main()
@@ -26,7 +27,7 @@ HRESULT cScene_main::Scene_Init()
 	
 	//Map
 	pMap = new cMeshMap();
-	pMap->Setup("./Tera/Map/moveMap/moveMap.X");
+	pMap->Setup("./Tera/Map/matTest/MAP_00.X");
 
 	//플레이어
 	pPlayer = new cCharacter();
@@ -90,7 +91,7 @@ void cScene_main::Scene_Update(float timDelta)
 		}
 	}
 
-	pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta);
+	pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta, NULL);
 
 	//업데이트
 	//this->pTrailRender->Update(timDelta);

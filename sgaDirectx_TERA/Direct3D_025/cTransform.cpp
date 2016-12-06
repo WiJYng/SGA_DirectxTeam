@@ -1533,6 +1533,27 @@ void cTransform::DefaultControl2( float timeDelta )
 
 }
 
+void cTransform::GoControl(float timeDelta)
+{
+	float deltaMove = 3.0f * timeDelta;
+
+	this->MovePositionSelf(0.0f, 0.0f, deltaMove);
+}
+
+void cTransform::LeftControl(float timeDelta)
+{
+	float deltaAngle = 90.0f * ONE_RAD * timeDelta;
+
+	this->RotateSelf(0.0f, -deltaAngle, 0.0f);
+}
+
+void cTransform::RightControl(float timeDelta)
+{
+	float deltaAngle = 90.0f * ONE_RAD * timeDelta;
+
+	this->RotateSelf(0.0f, deltaAngle, 0.0f);
+}
+
 
 
 //Transform 에 대한 기즈모를 그린다.
