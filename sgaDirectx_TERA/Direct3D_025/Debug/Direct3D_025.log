@@ -1,14 +1,12 @@
-﻿빌드 시작: 2016-12-06 오후 7:35:40
+﻿빌드 시작: 2016-12-07 오전 12:09:29
      1>2 노드의 "C:\Users\USER\Desktop\현재작업중인 코딩\3D 포폴 git\nanami3\SGA_DirectxTeam\sgaDirectx_TERA\Direct3D_025\Direct3D_025.vcxproj" 프로젝트(Build 대상)입니다.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Direct3D_TERA.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt cMeshMap.cpp
-         cMeshMap.cpp
-     1>c:\users\user\desktop\현재작업중인 코딩\3d 포폴 git\nanami3\sga_directxteam\sgadirectx_tera\direct3d_025\cmeshmap.cpp(126): warning C4244: '초기화 중' : 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-     1>c:\users\user\desktop\현재작업중인 코딩\3d 포폴 git\nanami3\sga_directxteam\sgadirectx_tera\direct3d_025\cmeshmap.cpp(127): warning C4244: '초기화 중' : 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-     1>c:\users\user\desktop\현재작업중인 코딩\3d 포폴 git\nanami3\sga_directxteam\sgadirectx_tera\direct3d_025\cmeshmap.cpp(128): warning C4244: '초기화 중' : 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-     1>c:\users\user\desktop\현재작업중인 코딩\3d 포폴 git\nanami3\sga_directxteam\sgadirectx_tera\direct3d_025\cmeshmap.cpp(134): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : 'fopen' 선언을 참조하십시오.
-     1>c:\users\user\desktop\현재작업중인 코딩\3d 포폴 git\nanami3\sga_directxteam\sgadirectx_tera\direct3d_025\cmeshmap.cpp(83): warning C4101: 'pVerElement' :참조되지 않은 지역 변수입니다.
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Direct3D_TERA.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt cScene_main.cpp
+         cScene_main.cpp
+     1>c:\users\user\desktop\현재작업중인 코딩\3d 포폴 git\nanami3\sga_directxteam\sgadirectx_tera\direct3d_025\cscene_main.cpp(53): warning C4316: 'cTrailRender': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\user\desktop\현재작업중인 코딩\3d 포폴 git\nanami3\sga_directxteam\sgadirectx_tera\direct3d_025\cscene_main.cpp(70): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
+     1>c:\users\user\desktop\현재작업중인 코딩\3d 포폴 git\nanami3\sga_directxteam\sgadirectx_tera\direct3d_025\cscene_main.cpp(88): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
+     1>c:\users\user\desktop\현재작업중인 코딩\3d 포폴 git\nanami3\sga_directxteam\sgadirectx_tera\direct3d_025\cscene_main.cpp(135): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\USER\Desktop\현재작업중인 코딩\3D 포폴 git\nanami3\SGA_DirectxTeam\sgaDirectx_TERA\Debug\Direct3D_TERA.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\USER\Desktop\현재작업중인 코딩\3D 포폴 git\nanami3\SGA_DirectxTeam\sgaDirectx_TERA\Debug\Direct3D_TERA.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\USER\Desktop\현재작업중인 코딩\3D 포폴 git\nanami3\SGA_DirectxTeam\sgaDirectx_TERA\Debug\Direct3D_TERA.lib" /MACHINE:X86 Debug\BoneHierachy.obj
          Debug\cBaseObject.obj
@@ -17,6 +15,7 @@
          Debug\cCamera.obj
          Debug\cCharacter.obj
          Debug\cDXFontManager.obj
+         Debug\cEnemy.obj
          Debug\cFrustum.obj
          Debug\cGizmoManager.obj
          Debug\cImage.obj
@@ -26,6 +25,7 @@
          Debug\cLight_Point.obj
          Debug\cLogMgr.obj
          Debug\cMainGame.obj
+         Debug\cMap.obj
          Debug\cMeshMap.obj
          Debug\cPartcleEmitter.obj
          Debug\cParticle.obj
@@ -66,4 +66,4 @@
 
 빌드했습니다.
 
-경과 시간: 00:00:02.33
+경과 시간: 00:00:03.31

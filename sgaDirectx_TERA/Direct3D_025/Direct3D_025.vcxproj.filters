@@ -37,6 +37,9 @@
     <Filter Include="Tera\Enemy">
       <UniqueIdentifier>{882cfa0a-7847-4ce6-a5e5-6cd3033e6f06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tera\UI">
+      <UniqueIdentifier>{56b0ad82-22a6-47bc-843b-183e092ef85b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -195,6 +198,24 @@
     <ClInclude Include="cEnemy.h">
       <Filter>Tera\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="cMap.h">
+      <Filter>Tera\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="cPlayerUI.h">
+      <Filter>Tera\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="cProgressBar_Boss.h">
+      <Filter>Tera\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="cProgressBar_mMonster.h">
+      <Filter>Tera\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="cProgressBar_Monster.h">
+      <Filter>Tera\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="cProgressBar_sMonster.h">
+      <Filter>Tera\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -352,6 +373,24 @@
     </ClCompile>
     <ClCompile Include="cEnemy.cpp">
       <Filter>Tera\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="cMap.cpp">
+      <Filter>Tera\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="cPlayerUI.cpp">
+      <Filter>Tera\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="cProgressBar_Boss.cpp">
+      <Filter>Tera\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="cProgressBar_mMonster.cpp">
+      <Filter>Tera\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="cProgressBar_Monster.cpp">
+      <Filter>Tera\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="cProgressBar_sMonster.cpp">
+      <Filter>Tera\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

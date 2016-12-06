@@ -6,6 +6,7 @@ class cTrailRender;
 class cCharacter;
 class cMeshMap;
 class cTerrain;
+class cMap;
 
 
 class cScene_main : public cScene
@@ -19,6 +20,7 @@ private:
 	cCharacter*							pPlayer;
 
 	cTrailRender*						pTrailRender;
+	cMap*								pEntireMap;
 
 public:
 	cScene_main();

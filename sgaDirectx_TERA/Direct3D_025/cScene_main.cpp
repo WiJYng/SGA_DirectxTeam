@@ -10,6 +10,7 @@
 #include "cCharacter.h"
 #include "cMeshMap.h"
 #include "cTerrain.h"
+#include "cMap.h"
 
 
 cScene_main::cScene_main()
@@ -25,9 +26,12 @@ cScene_main::~cScene_main()
 HRESULT cScene_main::Scene_Init()
 {
 	
-	//Map
-	pMap = new cMeshMap();
-	pMap->Setup("./Tera/Map/EntireMap/moveMap/moveMap.X");
+	//Map 
+	//pMap = new cMeshMap(); //20161206 승현주석
+	//pMap->Setup("./Tera/Map/EntireMap/moveMap/moveMap.X");
+
+	pEntireMap = new cMap();
+	pEntireMap->Setup();
 	
 	//플레이어
 	pPlayer = new cCharacter();
@@ -92,7 +96,8 @@ void cScene_main::Scene_Update(float timDelta)
 		}
 	}
 
-	pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta, pMap);
+	//20161206승현 getMap으로 바꾸기
+	pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta, pEntireMap->GetMap());
 
 	//업데이트
 	//this->pTrailRender->Update(timDelta);
@@ -116,8 +121,10 @@ void cScene_main::Scene_Render1()
 	//cXMesh_Skinned::SetLighting(&this->lights);
 
 	//Map
-	if (pMap)
-		pMap->Render();
+	//if (pMap) //20161206 승현주석
+	//	pMap->Render();
+	if (pEntireMap)
+		pEntireMap->Render();
 	
 	//Player
 	if (pPlayer)
