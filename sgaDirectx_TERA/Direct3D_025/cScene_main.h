@@ -24,6 +24,8 @@ public:
 	cScene_main();
 	~cScene_main();
 
+	//void Update(float timeDelta) override;
+
 	virtual HRESULT Scene_Init();
 	virtual void Scene_Release();
 	virtual void Scene_Update(float timDelta);

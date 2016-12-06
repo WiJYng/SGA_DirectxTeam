@@ -28,6 +28,7 @@ protected:
 
 	cLight_Direction*				pSceneBaseDirectionLight;	//씬에 배치된 기본라이팅
 	cCamera*						pDirectionLightCamera;		//방향성 광원에 따른 카메라...
+	cCamera*						pCharacterCamera;			//캐릭터 중심 카메라 위치 -- 20161205
 
 	float							shadowDistance;				//그림자 거리
 
@@ -40,6 +41,8 @@ public:
 	HRESULT Init();
 	void Release();
 	void Update( float timeDelta );
+	void Update_withCamera(float timeDelta);
+
 	void Render();
 
 	//메인 카메라의 RenderToTexture 만 업데이트한다.
@@ -48,7 +51,6 @@ public:
 	void SetEnvironment( std::string cubeFilePath );
 
 	void ReadyShadowMap( std::vector<cBaseObject*>* renderObjects, cTerrain* pTerrain = NULL );
-
 	
 	//메인카메라의 랜더 Texture 를 얻는다.
 	LPDIRECT3DTEXTURE9 GetTexture();

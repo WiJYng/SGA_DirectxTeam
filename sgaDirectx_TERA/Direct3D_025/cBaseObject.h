@@ -18,7 +18,7 @@ public:
 	bool				bActive;	//활성화 여부
 	cSkinnedAnimation*	pSkinned;	//스킨드 Animtion
 protected:
-	//bool				bActive;	//활성화 여부
+	//bool					bActive;	//활성화 여부
 	//cSkinnedAnimation*	pSkinned;	//스킨드 Animtion
 
 
