@@ -36,10 +36,10 @@ void cMeshMap::Setup(string PathMap, D3DXMATRIXA16* mat)
 	pMap = new cBaseObject();
 	pMap->SetMesh(mesh);
 	pMap->SetActive(true);
-	pMap->IgnoreCreateShadow = true;		//그림자 안그린다.
-	pMap->ApplyShadow = false;
+	pMap->IgnoreCreateShadow = false;		//그림자 안그린다.
+	pMap->ApplyShadow = true;
 
-	RenderToTerrian();
+	//RenderToTerrian();
 }
 
 void cMeshMap::Render()

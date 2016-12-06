@@ -28,6 +28,7 @@ private:
 
 	std::vector<cBaseObject*>			renderObjects;			//오브젝트 배열
 	cBaseObject*						rootObject;				//루트
+	std::vector<cLight*>				lights;					//라이팅..
 
 	//cBody*		m_pBody;
 	//cFace*		m_pFace;
@@ -68,6 +69,11 @@ public:
 	//Getter/Setter
 	void SetWorldPosition(D3DXVECTOR3 pos);
 	D3DXVECTOR3 GetWorldPosition();
+
+	std::vector<cBaseObject*> GetBaseObject()
+	{
+		return renderObjects;
+	}
 
 private:
 	

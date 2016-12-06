@@ -38,7 +38,6 @@ HRESULT cScene_main::Scene_Init()
 		, "./Tera/Character/Weapon_R.X"
 		, "./Tera/Character/Weapon_R.X");
 
-
 	//·»´õ ¿ÀºêÁ§Æ® Çª½¬
 	//this->renderObjects.push_back(pMapObject);
 
@@ -55,6 +54,8 @@ HRESULT cScene_main::Scene_Init()
 		D3DXCOLOR(1, 0, 0, 1),												//¸ÞÀÎ Texture ·Î ±×¸±¶§ ÄÃ·¯
 		RESOURCE_TEXTURE->GetResource("./Resources/Testures/TrailTest.png")	//¿Ü°î ±×¸±¶§ ¿Ü°î ³ë¸»
 		);
+
+
 
 	return S_OK;
 }
@@ -99,15 +100,17 @@ void cScene_main::Scene_Update(float timDelta)
 
 
 	//½¦µµ¿ì¸Ê ÁØºñ
-	this->ReadyShadowMap(&this->renderObjects);
+	this->ReadyShadowMap(&this->renderObjects, NULL);
 }
 
 void cScene_main::Scene_Render1()
 {
 	cXMesh_Static::SetCamera(this->pMainCamera);
+	//cXMesh_Static::SetTechniqueName("ReciveShadow");
 	cXMesh_Static::SetBaseLight(this->pSceneBaseDirectionLight);
 
 	cXMesh_Skinned::SetCamera(this->pMainCamera);
+	//cXMesh_Skinned::SetTechniqueName("ReciveShadow");
 	cXMesh_Skinned::SetBaseLight(this->pSceneBaseDirectionLight);
 
 	//cXMesh_Skinned::SetLighting(&this->lights);
