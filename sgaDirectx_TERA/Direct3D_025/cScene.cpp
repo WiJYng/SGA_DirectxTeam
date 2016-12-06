@@ -133,6 +133,17 @@ void cScene::Update( float timeDelta )
 	this->Scene_Update( timeDelta );
 }
 
+void cScene::Update_withCamera(float timeDelta)
+{
+	//float angle, D3DXVECTOR3 pos, float timeDelta
+	//pMainCamera->CharacterCenterPosition(timeDelta);
+
+
+	//pCharacterCamera
+	this->Scene_Update(timeDelta);
+}
+
+
 void cScene::Render()
 {
 	this->pMainCamera->RenderTextureBegin( 0, 0, 0x00101010 );		//0 번 스테이지에 0 번 RenderTarget
