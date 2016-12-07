@@ -57,7 +57,7 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 
 	float len = CalcLen(_PlayerPos, &renderObjects[0]->pTransform->GetWorldPosition());
 
-	if (len > 15.0f)
+	if (len > 30.0f)
 	{
 		if (m_State != Wait && !bWait)
 		{
@@ -67,7 +67,7 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 			bRun = bAtt = false;
 		}
 	}
-	else if (len <= 15.0f && len > 5.0f)
+	else if (len <= 30.0f && len > 3.0f)
 	{
 		if (m_State != Run && !bRun)
 		{
@@ -77,14 +77,14 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 			bWait = bAtt = false;
 		}
 	}
-	else if (len <= 2.0f && len > 0.0f)
+	else if (len <= 3.0f && len > 0.0f)
 	{
-		if (m_State != Run && !bRun)
+		if (m_State != Attack && !bAtt)
 		{
-			renderObjects[0]->pSkinned->Play("Run", 0.0f);
-			m_State = Run;
-			bRun = true;
-			bWait = bAtt = false;
+			renderObjects[0]->pSkinned->Play("Attack", 0.0f);
+			m_State = Attack;
+			bAtt = true;
+			bWait = bRun = false;
 		}
 	}
 
