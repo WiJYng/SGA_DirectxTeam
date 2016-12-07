@@ -30,7 +30,7 @@ void cMeshMap::Setup(string PathMap)
 void cMeshMap::Setup(string PathMap, D3DXMATRIXA16* mat)
 {
 	cXMesh_Static* mesh = RESOURCE_STATICXMESH->GetResource(PathMap, mat);
-	mesh->SetTechniqueName("Distort");
+	mesh->SetTechniqueName("StaticMesh2.fx");
 	//m_pTerrainEffect = RESOURCE_FX->GetResource( "./Resources/Shaders/TerrainBase.fx");
 	
 	pMap = new cBaseObject();

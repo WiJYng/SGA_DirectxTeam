@@ -173,7 +173,7 @@ void ComputeLight( out float3 addDiffuse, out float3 addSpecular, float3 positio
 
 		diff = diff * t * tSpot;
 
-		float3 lightRefl = normalize(-lightDir + 2.0f * NdotL * normal);
+		float3 lightRefl = normalize(-lightDir + 0.0f * NdotL * normal);
 		float spec = saturate(dot(lightRefl, viewDir));
 		spec = pow(spec, fSpecPower);
 
@@ -220,7 +220,7 @@ float4 ps_main(PS_INPUT Input) : COLOR0
 	float4 diffuseColor = diffuseTexColor* float4(finalDiffuse, 1);
 
 	// Ambient
-	float3 ambientColor = diffuseTexColor.rgb * 0.1f;
+	float3 ambientColor = diffuseTexColor.rgb * 1f;
 
 	// Specular
 	float3 specularColor = tex2D(SpecularSample, Input.Texcoord).rgb * finalSpecular;
@@ -429,7 +429,7 @@ float4 ps_ReceiveShadow(VS_OUTPUT_RECEIVESHADOW Input) : COLOR0
 	diff = max(diff, fIntensity * 0.3f);
 
 	// 라이트 반사
-	float3 lightRefl = normalize(dir + 2.0f * NdotL * worldNormal);
+	float3 lightRefl = normalize(dir * NdotL * worldNormal);
 	float spec = saturate(dot(lightRefl, viewDir));
 	spec = pow(spec, fSpecPower);
 

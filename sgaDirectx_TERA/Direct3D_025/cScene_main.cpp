@@ -114,7 +114,7 @@ void cScene_main::Scene_Update(float timDelta)
 	//20161206승현 getMap으로 바꾸기
 	pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta, pEntireMap->GetMap());
 
-	pEnemy->Update(timDelta, pEntireMap->GetMap());
+	pEnemy->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
 
 	//업데이트
 	//this->pTrailRender->Update(timDelta);
