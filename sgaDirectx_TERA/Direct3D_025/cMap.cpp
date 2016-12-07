@@ -415,7 +415,7 @@ void cMap::Render()
 
 	//벨리카마을 밖 앞 지역
 	if (m_pTree_velicaFront)
-		m_pTree_velicaFront->Render();
+		/*m_pTree_velicaFront->Render();*/
 
 	//벨리카마을
 	if (m_pVelica)

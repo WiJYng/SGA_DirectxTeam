@@ -37,50 +37,50 @@ void cPlayerUI::Setup()
 {
 	//바 바탕 
 	D3DXCreateTextureFromFileEx(
-		g_pD3DDevice, "Tera/UI/PlayerUI/ProgressBar.tga",
+		Device, "Tera/UI/PlayerUI/ProgressBar.tga",
 		D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT,
 		0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
 		D3DX_FILTER_NONE, D3DX_DEFAULT, 0,
 		&m_ProgressBar_Sprite_Info, NULL, &m_pProgressBar_Texture);
-	D3DXCreateSprite(g_pD3DDevice, &m_pProgressBar_Sprite);
+	D3DXCreateSprite(Device, &m_pProgressBar_Sprite);
 
 	//HP바 
 	D3DXCreateTextureFromFileEx(
-		g_pD3DDevice, "Tera/UI/PlayerUI/HpBar.tga",
+		Device, "Tera/UI/PlayerUI/HpBar.tga",
 		D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT,
 		0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
 		D3DX_FILTER_NONE, D3DX_DEFAULT, 0,
 		&m_HP_ImgInfo, NULL, &m_pHP_Texture);
-	D3DXCreateSprite(g_pD3DDevice, &m_pHP_Sprite);
+	D3DXCreateSprite(Device, &m_pHP_Sprite);
 
 	//MP바 
 	D3DXCreateTextureFromFileEx(
-		g_pD3DDevice, "Tera/UI/PlayerUI/MpBar.tga",
+		Device, "Tera/UI/PlayerUI/MpBar.tga",
 		D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT,
 		0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
 		D3DX_FILTER_NONE, D3DX_DEFAULT, 0,
 		&m_MP_ImgInfo, NULL, &m_pMP_Texture);
-	D3DXCreateSprite(g_pD3DDevice, &m_pMP_Sprite);
+	D3DXCreateSprite(Device, &m_pMP_Sprite);
 
 
 
 	//킬카운터 보드
 	D3DXCreateTextureFromFileEx(
-		g_pD3DDevice, "Tera/UI/PlayerUI/KillCounter_Board.tga",
+		Device, "Tera/UI/PlayerUI/KillCounter_Board.tga",
 		D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT,
 		0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
 		D3DX_FILTER_NONE, D3DX_DEFAULT, 0,
 		&m_KcBoard_ImgInfo, NULL, &m_pKcBoard_Texture);
-	D3DXCreateSprite(g_pD3DDevice, &m_pKcBoard_sprite);
+	D3DXCreateSprite(Device, &m_pKcBoard_sprite);
 
 	//킬카운터 숫자
 	D3DXCreateTextureFromFileEx(
-		g_pD3DDevice, "Tera/UI/PlayerUI/ComboCounter_Num2.tga",
+		Device, "Tera/UI/PlayerUI/ComboCounter_Num2.tga",
 		D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT,
 		0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
 		D3DX_FILTER_NONE, D3DX_DEFAULT, 0,
 		&m_KcNumber_ImgInfo, NULL, &m_pkcNumber_Texture);
-	D3DXCreateSprite(g_pD3DDevice, &m_pkcNumber_sprite);
+	D3DXCreateSprite(Device, &m_pkcNumber_sprite);
 
 
 }
@@ -99,7 +99,7 @@ void cPlayerUI::Render()
 	m_pProgressBar_Sprite->Draw(m_pProgressBar_Texture,
 		&m_rcProgressBar,
 		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcProgressBar.left + 0, m_rcProgressBar.top + 415, 0),
+		&D3DXVECTOR3(m_rcProgressBar.left + 400, m_rcProgressBar.top + 615, 0),
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pProgressBar_Sprite->End();
 
@@ -111,7 +111,7 @@ void cPlayerUI::Render()
 	m_pHP_Sprite->Draw(m_pHP_Texture,
 		&m_rcHP,
 		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcProgressBar.left + 82, m_rcProgressBar.top + 419, 0),
+		&D3DXVECTOR3(m_rcProgressBar.left + 82 + 400, m_rcProgressBar.top + 619, 0),
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pHP_Sprite->End();
 
@@ -123,7 +123,7 @@ void cPlayerUI::Render()
 	m_pMP_Sprite->Draw(m_pMP_Texture,
 		&m_rcMP,
 		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcProgressBar.left + 82, m_rcProgressBar.top + 442, 0),
+		&D3DXVECTOR3(m_rcProgressBar.left + 82 + 400, m_rcProgressBar.top + 642, 0),
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pMP_Sprite->End();
 
@@ -136,7 +136,7 @@ void cPlayerUI::Render()
 	m_pKcBoard_sprite->Draw(m_pKcBoard_Texture,
 		&m_rcKcBoard,
 		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcKcBoard.left + 660, m_rcKcBoard.top + 15, 0),
+		&D3DXVECTOR3(m_rcKcBoard.left + 460, m_rcKcBoard.top + 15, 0),
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pKcBoard_sprite->End();
 
@@ -150,7 +150,7 @@ void cPlayerUI::Render()
 	m_pkcNumber_sprite->Draw(m_pkcNumber_Texture,
 		&m_rcKcNumber,
 		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcKcNumber.left + 920 - (m_nKillNumOne_w), m_rcKcNumber.top + 20, 0),
+		&D3DXVECTOR3(m_rcKcNumber.left + 720 - (m_nKillNumOne_w), m_rcKcNumber.top + 20, 0),
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pkcNumber_sprite->End();
 
@@ -161,7 +161,7 @@ void cPlayerUI::Render()
 	m_pkcNumber_sprite->Draw(m_pkcNumber_Texture,
 		&m_rcKcNumber,
 		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcKcNumber.left + 890 - (m_nKillNumTen_w), m_rcKcNumber.top + 20, 0),
+		&D3DXVECTOR3(m_rcKcNumber.left + 690 - (m_nKillNumTen_w), m_rcKcNumber.top + 20, 0),
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pkcNumber_sprite->End();
 
@@ -172,7 +172,7 @@ void cPlayerUI::Render()
 	m_pkcNumber_sprite->Draw(m_pkcNumber_Texture,
 		&m_rcKcNumber,
 		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcKcNumber.left + 860 - (m_nKillNumHun_w), m_rcKcNumber.top + 20, 0),
+		&D3DXVECTOR3(m_rcKcNumber.left + 660 - (m_nKillNumHun_w), m_rcKcNumber.top + 20, 0),
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pkcNumber_sprite->End();
 
@@ -183,7 +183,7 @@ void cPlayerUI::Render()
 	m_pkcNumber_sprite->Draw(m_pkcNumber_Texture,
 		&m_rcKcNumber,
 		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcKcNumber.left + 825 - (m_nKillNumTho_w), m_rcKcNumber.top + 20, 0),
+		&D3DXVECTOR3(m_rcKcNumber.left + 625 - (m_nKillNumTho_w), m_rcKcNumber.top + 20, 0),
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pkcNumber_sprite->End();
 

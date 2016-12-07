@@ -11,13 +11,13 @@
 #include "cMeshMap.h"
 #include "cTerrain.h"
 #include "cMap.h"
+#include "cPlayerUI.h"
+#include "cProgressBar_Boss.h"
 
 
 cScene_main::cScene_main()
 {
 }
-
-
 cScene_main::~cScene_main()
 {
 }
@@ -41,6 +41,14 @@ HRESULT cScene_main::Scene_Init()
 		, "./Tera/Character/Elin_Tail_WDC.X"
 		, "./Tera/Character/Weapon_R.X"
 		, "./Tera/Character/Weapon_R.X");
+
+	//PlayerUI //20161207 승현추가
+	pPlayerUI = new cPlayerUI();
+	pPlayerUI->Setup();
+
+	//보스몬스터UI 테스트 //20161207 승현추가
+	//pProgressBar_Boss = new cProgressBar_Boss();
+	//pProgressBar_Boss->Setup();
 
 	//렌더 오브젝트 푸쉬
 	//this->renderObjects.push_back(pMapObject);
@@ -129,6 +137,14 @@ void cScene_main::Scene_Render1()
 	//Player
 	if (pPlayer)
 		pPlayer->Render();
+
+	//PlayerUI //20161207 승현추가
+	//if (pPlayerUI)
+	//	pPlayerUI->Render();
+
+	//보스몬스터유아이 //20161207 승현추가
+	//if (pProgressBar_Boss)
+	//	pProgressBar_Boss->Render();
 
 	//컬링된 오브젝트만
 	this->cullObjects.clear();

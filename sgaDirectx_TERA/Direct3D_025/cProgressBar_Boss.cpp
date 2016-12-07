@@ -30,49 +30,49 @@ void cProgressBar_Boss::Setup()
 	//바 바탕들
 	//기본
 	D3DXCreateTextureFromFileEx(
-		g_pD3DDevice, "Tera/UI/ProgressBar_Monster/GageBoss_bar.tga",
+		Device, "Tera/UI/ProgressBar_Monster/GageBoss_bar.tga",
 		D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT,
 		0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
 		D3DX_FILTER_NONE, D3DX_DEFAULT, 0,
 		&m_ProgressBar_Sprite_Info, NULL, &m_pProgressBar_Texture);
-	D3DXCreateSprite(g_pD3DDevice, &m_pProgressBar_Sprite);
+	D3DXCreateSprite(Device, &m_pProgressBar_Sprite);
 
 	//레드
 	D3DXCreateTextureFromFileEx(
-		g_pD3DDevice, "Tera/UI/ProgressBar_Monster/GageBoss_bar2.tga",
+		Device, "Tera/UI/ProgressBar_Monster/GageBoss_bar2.tga",
 		D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT,
 		0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
 		D3DX_FILTER_NONE, D3DX_DEFAULT, 0,
 		&m_BarRed_Sprite_Info, NULL, &m_pBarRed_Texture);
-	D3DXCreateSprite(g_pD3DDevice, &m_pBarRed_Sprite);
+	D3DXCreateSprite(Device, &m_pBarRed_Sprite);
 
 	//화이트
 	D3DXCreateTextureFromFileEx(
-		g_pD3DDevice, "Tera/UI/ProgressBar_Monster/GageBoss_bar3.tga",
+		Device, "Tera/UI/ProgressBar_Monster/GageBoss_bar3.tga",
 		D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT,
 		0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
 		D3DX_FILTER_NONE, D3DX_DEFAULT, 0,
 		&m_BarWhite_Sprite_Info, NULL, &m_pBarWhite_Texture);
-	D3DXCreateSprite(g_pD3DDevice, &m_pBarWhite_Sprite);
+	D3DXCreateSprite(Device, &m_pBarWhite_Sprite);
 
 
 	//HP바 
 	D3DXCreateTextureFromFileEx(
-		g_pD3DDevice, "Tera/UI/ProgressBar_Monster/GageBoss_Hp.tga",
+		Device, "Tera/UI/ProgressBar_Monster/GageBoss_Hp.tga",
 		D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT,
 		0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
 		D3DX_FILTER_NONE, D3DX_DEFAULT, 0,
 		&m_HP_ImgInfo, NULL, &m_pHP_Texture);
-	D3DXCreateSprite(g_pD3DDevice, &m_pHP_Sprite);
+	D3DXCreateSprite(Device, &m_pHP_Sprite);
 
 	//HP바 
 	D3DXCreateTextureFromFileEx(
-		g_pD3DDevice, "Tera/UI/Monster/EndLogo.tga",
+		Device, "Tera/UI/Monster/EndLogo.tga",
 		D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT,
 		0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
 		D3DX_FILTER_NONE, D3DX_DEFAULT, 0,
 		&m_EndLogo_Sprite_Info, NULL, &m_pEndLogo_Texture);
-	D3DXCreateSprite(g_pD3DDevice, &m_pEndLogo_Sprite);
+	D3DXCreateSprite(Device, &m_pEndLogo_Sprite);
 
 	m_bDeath = false;
 
@@ -80,7 +80,11 @@ void cProgressBar_Boss::Setup()
 void cProgressBar_Boss::Update()
 {
 	if (m_nHp <= 0)
+	{
 		m_bDeath = true;
+		m_nHp = 0;
+	}
+		
 }
 void cProgressBar_Boss::Render()
 {
@@ -107,7 +111,7 @@ void cProgressBar_Boss::Render()
 	m_pProgressBar_Sprite->Draw(m_pProgressBar_Texture,
 		&m_rcProgressBar,
 		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcProgressBar.left + 235, m_rcProgressBar.top + 5, 0),
+		&D3DXVECTOR3(m_rcProgressBar.left + 435 - 80, m_rcProgressBar.top + 5, 0), // 460,15
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pProgressBar_Sprite->End();
 
@@ -119,7 +123,7 @@ void cProgressBar_Boss::Render()
 	m_pBarRed_Sprite->Draw(m_pBarRed_Texture,
 		&m_rcBarRed,
 		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcBarRed.left + 215, m_rcBarRed.top - 10, 0),
+		&D3DXVECTOR3(m_rcBarRed.left + 415 - 80, m_rcBarRed.top - 10, 0),
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pBarRed_Sprite->End();
 
@@ -132,13 +136,13 @@ void cProgressBar_Boss::Render()
 	m_pHP_Sprite->Draw(m_pHP_Texture,
 		&m_rcHP,
 		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcProgressBar.left + 285, m_rcProgressBar.top + 23, 0),
+		&D3DXVECTOR3(m_rcProgressBar.left + 485 - 80, m_rcProgressBar.top + 23, 0),
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pHP_Sprite->End();
 
 	//엔딩로고 
-	if (m_bDeath)
-	{
+	//if (m_bDeath)
+	//{
 		D3DXMatrixIdentity(&matR);
 		SetRect(&m_rcEndLogo, 0, 0, m_EndLogo_Sprite_Info.Width, m_EndLogo_Sprite_Info.Height);
 		m_pEndLogo_Sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
@@ -146,10 +150,10 @@ void cProgressBar_Boss::Render()
 		m_pEndLogo_Sprite->Draw(m_pEndLogo_Texture,
 			&m_rcEndLogo,
 			&D3DXVECTOR3(0, 0, 0),
-			&D3DXVECTOR3(m_rcEndLogo.left + 355, m_rcEndLogo.top + 120, 0),
+			&D3DXVECTOR3(m_rcEndLogo.left + 455, m_rcEndLogo.top + 270, 0),
 			D3DCOLOR_XRGB(255, 255, 255));
 		m_pEndLogo_Sprite->End();
-	}
+	//}
 }
 void cProgressBar_Boss::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {

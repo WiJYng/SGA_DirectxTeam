@@ -78,6 +78,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\TeraUI\Dx3D\cLoadingScene.h" />
+    <ClInclude Include="..\..\..\..\..\TeraUI\Dx3D\cStartScene.h" />
     <ClInclude Include="BoneHierachy.h" />
     <ClInclude Include="cBaseObject.h" />
     <ClInclude Include="cBoundBox.h" />
@@ -138,6 +140,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\TeraUI\Dx3D\cLoadingScene.cpp" />
+    <ClCompile Include="..\..\..\..\..\TeraUI\Dx3D\cStartScene.cpp" />
     <ClCompile Include="BoneHierachy.cpp" />
     <ClCompile Include="cBaseObject.cpp" />
     <ClCompile Include="cBoundBox.cpp" />

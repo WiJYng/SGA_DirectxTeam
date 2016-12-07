@@ -7,7 +7,9 @@ class cCharacter;
 class cMeshMap;
 class cTerrain;
 class cMap;
+class cProgressBar_Boss;
 
+class cPlayerUI;
 
 class cScene_main : public cScene
 {
@@ -21,6 +23,9 @@ private:
 
 	cTrailRender*						pTrailRender;
 	cMap*								pEntireMap;
+
+	cPlayerUI*							pPlayerUI;
+	cProgressBar_Boss*					pProgressBar_Boss;
 
 public:
 	cScene_main();

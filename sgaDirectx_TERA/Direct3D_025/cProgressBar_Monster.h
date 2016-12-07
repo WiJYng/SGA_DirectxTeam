@@ -34,5 +34,12 @@ public:
 	virtual void Update();
 	virtual void Render();
 	virtual void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+	void SetX(float value){ m_fX = value; }
+	float GetX(){ return m_fX; }
+
+	void SetY(float value){ m_fY = value; }
+	float GetY(){ return m_fY; }
+
 };
 

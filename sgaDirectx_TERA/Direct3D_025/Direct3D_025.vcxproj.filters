@@ -216,6 +216,12 @@
     <ClInclude Include="cProgressBar_sMonster.h">
       <Filter>Tera\UI</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\..\TeraUI\Dx3D\cLoadingScene.h">
+      <Filter>Tera\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\TeraUI\Dx3D\cStartScene.h">
+      <Filter>Tera\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -390,6 +396,12 @@
       <Filter>Tera\UI</Filter>
     </ClCompile>
     <ClCompile Include="cProgressBar_sMonster.cpp">
+      <Filter>Tera\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\TeraUI\Dx3D\cLoadingScene.cpp">
+      <Filter>Tera\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\TeraUI\Dx3D\cStartScene.cpp">
       <Filter>Tera\UI</Filter>
     </ClCompile>
   </ItemGroup>
