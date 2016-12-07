@@ -1,4 +1,5 @@
 #pragma once
+//test¡÷ºÆ 
 class cProgressBar_Monster
 {
 protected:

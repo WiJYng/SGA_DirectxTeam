@@ -1,4 +1,5 @@
 #include "stdafx.h"
+//test¡÷ºÆ 
 #include "cProgressBar_Monster.h"
 
 

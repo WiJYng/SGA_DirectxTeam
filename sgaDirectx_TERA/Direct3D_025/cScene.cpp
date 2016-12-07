@@ -24,7 +24,7 @@ cScene::cScene(void)
 
 	//기본 값
 	this->pSceneBaseDirectionLight->Color = D3DXCOLOR( 1, 1, 1, 1 );
-	this->pSceneBaseDirectionLight->Intensity = 0.3f;
+	this->pSceneBaseDirectionLight->Intensity = 0.3f; //1.0f
 
 	//그림자 거리
 	shadowDistance = 100.0f;
