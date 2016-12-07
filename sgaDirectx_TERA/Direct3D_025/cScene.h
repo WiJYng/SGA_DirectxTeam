@@ -74,7 +74,7 @@ private:
 	void RenderEnvironment();
 	
 
-private:
+protected:
 	void RenderBase();
 	void RenderOutline();
 	void RenderBBo();

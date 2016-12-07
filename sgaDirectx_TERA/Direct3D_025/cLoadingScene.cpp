@@ -22,7 +22,7 @@ cLoadingScene::~cLoadingScene()
 	SAFE_RELEASE(m_pLBfront_texture);
 	SAFE_RELEASE(m_pLBback_texture);
 
-	DeleteCriticalSection(&cs);
+	//DeleteCriticalSection(&cs);
 
 }
 
@@ -30,34 +30,34 @@ void cLoadingScene::Setup()
 {
 	//배경
 	D3DXCreateTextureFromFileEx(
-		g_pD3DDevice,"Tera/UI/LoadingScene/loadingimage_citywar_1_2.tga",
+		Device, "Tera/UI/LoadingScene/loadingimage_citywar_1_2.tga",
 		D3DX_DEFAULT_NONPOW2,D3DX_DEFAULT_NONPOW2,D3DX_DEFAULT,
 		0,D3DFMT_UNKNOWN,D3DPOOL_MANAGED,
 		D3DX_FILTER_NONE,D3DX_DEFAULT,0,
 		&m_BG_Sprite_Info,NULL,&m_pBG_Texture);
-	D3DXCreateSprite(g_pD3DDevice, &m_pBG_Sprite);
+	D3DXCreateSprite(Device, &m_pBG_Sprite);
 
 	//로딩바
 	DWORD dwThID = 0;
 	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)SetZealots, this, NULL/*CREATE_SUSPENDED*/, &dwThID));
 	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)SetLoadingGauge, this, NULL/*CREATE_SUSPENDED*/, &dwThID));
-	InitializeCriticalSection(&cs); //cs는 d3d.cpp에서 선언하고 extern CRITICAL_SECTION cs; 라고 stdafx.h에 추가 
+	//InitializeCriticalSection(&cs); //cs는 d3d.cpp에서 선언하고 extern CRITICAL_SECTION cs; 라고 stdafx.h에 추가 
 
 	D3DXCreateTextureFromFileEx(
-		g_pD3DDevice,"Tera/UI/LoadingScene/LoadingBar_front.tga", //"Tera/UI/StartScene/Image_ClientLoading_Tex_34.tga"
+		Device, "Tera/UI/LoadingScene/LoadingBar_front.tga", //"Tera/UI/StartScene/Image_ClientLoading_Tex_34.tga"
 		D3DX_DEFAULT_NONPOW2,D3DX_DEFAULT_NONPOW2,D3DX_DEFAULT,
 		0,D3DFMT_UNKNOWN,D3DPOOL_MANAGED,
 		D3DX_FILTER_NONE,D3DX_DEFAULT,0,
 		&m_LBfront_ImgInfo,NULL,&m_pLBfront_texture);
-	D3DXCreateSprite(g_pD3DDevice, &m_pLBfront_sp);
+	D3DXCreateSprite(Device, &m_pLBfront_sp);
 
 	D3DXCreateTextureFromFileEx(
-		g_pD3DDevice,"Tera/UI/LoadingScene/LoadingBar_back.tga",
+		Device, "Tera/UI/LoadingScene/LoadingBar_back.tga",
 		D3DX_DEFAULT_NONPOW2,D3DX_DEFAULT_NONPOW2,D3DX_DEFAULT,
 		0,D3DFMT_UNKNOWN,D3DPOOL_MANAGED,
 		D3DX_FILTER_NONE,D3DX_DEFAULT,0,
 		&m_LBback_ImgInfo,NULL,&m_pLBback_texture);
-	D3DXCreateSprite(g_pD3DDevice, &m_pLBback_sp);
+	D3DXCreateSprite(Device, &m_pLBback_sp);
 
 	SetRect(&m_rcLB_front, 200, 200, m_LBfront_ImgInfo.Width+200, m_LBfront_ImgInfo.Height+200);
 	SetRect(&m_rcLB_back, 0, 0, m_LBback_ImgInfo.Width, m_LBback_ImgInfo.Height);
@@ -111,7 +111,7 @@ void cLoadingScene::Render()
 	//	int a = 0;
 
 	//텍스트
-	LPD3DXFONT pFont = g_pFontManager->GetFont(cFontManager::E_CHAT);
+	//LPD3DXFONT pFont = g_pFontManager->GetFont(cFontManager::E_CHAT);
 	char szTemp[1024];
 	RECT rc;
 	SetRect(&rc, 120, 75, 121, 101);
