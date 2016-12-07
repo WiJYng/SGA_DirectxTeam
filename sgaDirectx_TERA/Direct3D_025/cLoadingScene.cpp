@@ -30,7 +30,7 @@ void cLoadingScene::Setup()
 {
 	//배경
 	D3DXCreateTextureFromFileEx(
-		Device,"Tera/UI/LoadingScene/loadingimage_citywar_1_2.tga",
+		Device, "Tera/UI/LoadingScene/loadingimage_citywar_1_2.tga",
 		D3DX_DEFAULT_NONPOW2,D3DX_DEFAULT_NONPOW2,D3DX_DEFAULT,
 		0,D3DFMT_UNKNOWN,D3DPOOL_MANAGED,
 		D3DX_FILTER_NONE,D3DX_DEFAULT,0,
@@ -38,13 +38,13 @@ void cLoadingScene::Setup()
 	D3DXCreateSprite(Device, &m_pBG_Sprite);
 
 	//로딩바
-	//DWORD dwThID = 0;
-	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)SetZealots, this, NULL/*CREATE_SUSPENDED*/, &dwThID));
-	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)SetLoadingGauge, this, NULL/*CREATE_SUSPENDED*/, &dwThID));
+	DWORD dwThID = 0;
+	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)SetZealots, this, NULL/*CREATE_SUSPENDED*/, &dwThID));
+	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)SetLoadingGauge, this, NULL/*CREATE_SUSPENDED*/, &dwThID));
 	//InitializeCriticalSection(&cs); //cs는 d3d.cpp에서 선언하고 extern CRITICAL_SECTION cs; 라고 stdafx.h에 추가 
 
 	D3DXCreateTextureFromFileEx(
-		Device,"Tera/UI/LoadingScene/LoadingBar_front.tga", //"Tera/UI/StartScene/Image_ClientLoading_Tex_34.tga"
+		Device, "Tera/UI/LoadingScene/LoadingBar_front.tga", //"Tera/UI/StartScene/Image_ClientLoading_Tex_34.tga"
 		D3DX_DEFAULT_NONPOW2,D3DX_DEFAULT_NONPOW2,D3DX_DEFAULT,
 		0,D3DFMT_UNKNOWN,D3DPOOL_MANAGED,
 		D3DX_FILTER_NONE,D3DX_DEFAULT,0,
@@ -52,7 +52,7 @@ void cLoadingScene::Setup()
 	D3DXCreateSprite(Device, &m_pLBfront_sp);
 
 	D3DXCreateTextureFromFileEx(
-		Device,"Tera/UI/LoadingScene/LoadingBar_back.tga",
+		Device, "Tera/UI/LoadingScene/LoadingBar_back.tga",
 		D3DX_DEFAULT_NONPOW2,D3DX_DEFAULT_NONPOW2,D3DX_DEFAULT,
 		0,D3DFMT_UNKNOWN,D3DPOOL_MANAGED,
 		D3DX_FILTER_NONE,D3DX_DEFAULT,0,

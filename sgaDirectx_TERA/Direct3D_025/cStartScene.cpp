@@ -62,7 +62,7 @@ void cStartScene::Render()
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pBG_Sprite->End();
 
-	//LPD3DXFONT pFont = DXFONT_MGR->GetFont(cFontManager::E_CHAT);
+	//LPD3DXFONT pFont = g_pFontManager->GetFont(cFontManager::E_CHAT);
 	//char szTemp[1024];
 	//RECT rc;
 	//SetRect(&rc, 10, 40, 11, 11);

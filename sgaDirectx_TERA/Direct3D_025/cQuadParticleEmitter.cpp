@@ -279,6 +279,7 @@ void cQuadParticleEmitter::BaseObjectRender()
 
 	//파티클 그리고 난후 후처리
 	Device->SetRenderState( D3DRS_LIGHTING, true );
+	Device->SetRenderState(D3DRS_NORMALIZENORMALS, false);
 	Device->SetRenderState( D3DRS_ALPHABLENDENABLE, false );
 	Device->SetRenderState( D3DRS_ZWRITEENABLE, true );	
 
