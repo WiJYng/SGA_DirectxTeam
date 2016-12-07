@@ -23,9 +23,9 @@ cScene::cScene(void)
 	//this->pDirectionLightCamera->AttachTo( this->pSceneBaseDirectionLight->pTransform );
 
 	//기본 값
-	this->pSceneBaseDirectionLight->Color = D3DXCOLOR( 1.f, 1.f, 1.f, 1.f );
-	this->pSceneBaseDirectionLight->Intensity = 0.7f; //1.0f
-	
+	this->pSceneBaseDirectionLight->Color = D3DXCOLOR( 1, 1, 1, 1 );
+	this->pSceneBaseDirectionLight->Intensity = 1.0f; //1.0f
+
 	//그림자 거리
 	shadowDistance = 100.0f;
 
@@ -179,9 +179,6 @@ void cScene::Render()
 	this->RenderBase();
 	//this->RenderOutline();
 	//this->RenderGlow();
-	//this->RenderDepthOfField();
-	//this->RenderBBo();
-	//this->RenderColorLevel();
 
 
 	this->Scene_Render_AfterPostEffect( this->pMainCamera->GetRenderTexture( 0 ) );
@@ -220,6 +217,7 @@ void cScene::SetEnvironment( std::string cubeFilePath )
 			20, 
 			&evironmemtSphereMesh, NULL );
 	}
+
 }
 
 

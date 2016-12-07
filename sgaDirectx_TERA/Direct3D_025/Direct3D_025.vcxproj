@@ -86,6 +86,7 @@
     <ClInclude Include="cCharacter.h" />
     <ClInclude Include="cDXFontManager.h" />
     <ClInclude Include="cEffect.h" />
+    <ClInclude Include="cEffectManager.h" />
     <ClInclude Include="cEnemy.h" />
     <ClInclude Include="cFrustum.h" />
     <ClInclude Include="cGizmoManager.h" />
@@ -149,6 +150,7 @@
     <ClCompile Include="cCharacter.cpp" />
     <ClCompile Include="cDXFontManager.cpp" />
     <ClCompile Include="cEffect.cpp" />
+    <ClCompile Include="cEffectManager.cpp" />
     <ClCompile Include="cEnemy.cpp" />
     <ClCompile Include="cFrustum.cpp" />
     <ClCompile Include="cGizmoManager.cpp" />

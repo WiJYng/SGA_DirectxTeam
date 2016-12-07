@@ -228,6 +228,9 @@
     <ClInclude Include="cEffect.h">
       <Filter>Tera\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="cEffectManager.h">
+      <Filter>Tera\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -411,6 +414,9 @@
       <Filter>Tera\UI</Filter>
     </ClCompile>
     <ClCompile Include="cEffect.cpp">
+      <Filter>Tera\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="cEffectManager.cpp">
       <Filter>Tera\Effect</Filter>
     </ClCompile>
   </ItemGroup>
