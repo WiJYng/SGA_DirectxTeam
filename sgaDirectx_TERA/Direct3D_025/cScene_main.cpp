@@ -8,6 +8,7 @@
 #include "cCamera.h"
 #include "cTrailRender.h"
 #include "cCharacter.h"
+#include "cEnemy.h"
 #include "cMeshMap.h"
 #include "cTerrain.h"
 #include "cMap.h"
@@ -46,6 +47,10 @@ HRESULT cScene_main::Scene_Init()
 	pPlayerUI = new cPlayerUI();
 	pPlayerUI->Setup();
 
+	//몬스터
+	pEnemy = new cEnemy();
+	pEnemy->Setup("./Tera/Monster/Kalan.X", &D3DXVECTOR3(0.0f, 0.0f, 5.0f));
+
 	//보스몬스터UI 테스트 //20161207 승현추가
 	//pProgressBar_Boss = new cProgressBar_Boss();
 	//pProgressBar_Boss->Setup();
@@ -79,6 +84,8 @@ void cScene_main::Scene_Release()
 		SAFE_DELETE(this->renderObjects[i]);
 	this->renderObjects.clear();
 	this->cullObjects.clear();
+	SAFE_DELETE(pPlayer);
+	SAFE_DELETE(pEnemy);
 
 	//Trail 해재
 	this->pTrailRender->Release();
@@ -106,6 +113,8 @@ void cScene_main::Scene_Update(float timDelta)
 
 	//20161206승현 getMap으로 바꾸기
 	pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta, pEntireMap->GetMap());
+
+	pEnemy->Update(timDelta, pEntireMap->GetMap());
 
 	//업데이트
 	//this->pTrailRender->Update(timDelta);
@@ -137,6 +146,9 @@ void cScene_main::Scene_Render1()
 	//Player
 	if (pPlayer)
 		pPlayer->Render();
+
+	if (pEnemy)
+		pEnemy->Render();
 
 	//PlayerUI //20161207 승현추가
 	//if (pPlayerUI)

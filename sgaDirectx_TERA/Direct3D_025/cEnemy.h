@@ -11,11 +11,11 @@ public:
 	cEnemy();
 	~cEnemy();
 
-	void Setup(string PathBody, string PathFace, string PathHair, string PathTail, string PathRWeapon, string PathLWeapon);
-	void Setup(string PathBody, string PathFace, string PathHair, string PathTail, string PathRWeapon, string PathLWeapon, D3DXMATRIXA16* mat);
+	void Setup(string PathMonster, D3DXVECTOR3* Pos = NULL);
+	void Setup(string PathMonster, D3DXMATRIXA16* mat);
 
 	void Update(D3DXVECTOR3 worldPos);
-	void Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map);
+	void Update(float timDelta, cMeshMap* _Map);
 	void Render();
 
 

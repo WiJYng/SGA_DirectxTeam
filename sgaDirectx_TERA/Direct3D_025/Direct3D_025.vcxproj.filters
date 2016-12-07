@@ -216,10 +216,10 @@
     <ClInclude Include="cProgressBar_sMonster.h">
       <Filter>Tera\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\TeraUI\Dx3D\cLoadingScene.h">
+    <ClInclude Include="cStartScene.h">
       <Filter>Tera\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\TeraUI\Dx3D\cStartScene.h">
+    <ClInclude Include="cLoadingScene.h">
       <Filter>Tera\UI</Filter>
     </ClInclude>
   </ItemGroup>
@@ -398,10 +398,10 @@
     <ClCompile Include="cProgressBar_sMonster.cpp">
       <Filter>Tera\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\TeraUI\Dx3D\cLoadingScene.cpp">
+    <ClCompile Include="cStartScene.cpp">
       <Filter>Tera\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\TeraUI\Dx3D\cStartScene.cpp">
+    <ClCompile Include="cLoadingScene.cpp">
       <Filter>Tera\UI</Filter>
     </ClCompile>
   </ItemGroup>

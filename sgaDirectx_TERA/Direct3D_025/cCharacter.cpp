@@ -285,11 +285,11 @@ void cCharacter::Render()
 	//cXMesh_Skinned::SetLighting(&this->lights);
 	//cXMesh_Static::SetLighting(&this->lights);
 
-	for (int i = 0; i < renderObjects.size(); i++)
-	{
-		renderObjects[i]->Render();
-		//renderObjects[i]->
-	}
+	//for (int i = 0; i < renderObjects.size(); i++)
+	//{
+	//	renderObjects[i]->Render();
+	//	//renderObjects[i]->
+	//}
 }
 
 void cCharacter::SetWorldPosition(D3DXVECTOR3 pos)

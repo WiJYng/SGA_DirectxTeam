@@ -4,6 +4,7 @@ class cBaseObject;
 class cCamera;
 class cTrailRender;
 class cCharacter;
+class cEnemy;
 class cMeshMap;
 class cTerrain;
 class cMap;
@@ -20,6 +21,7 @@ private:
 
 	cMeshMap*							pMap;
 	cCharacter*							pPlayer;
+	cEnemy*								pEnemy;
 
 	cTrailRender*						pTrailRender;
 	cMap*								pEntireMap;

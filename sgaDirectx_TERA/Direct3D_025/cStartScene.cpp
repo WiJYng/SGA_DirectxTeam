@@ -17,12 +17,12 @@ void cStartScene::Setup()
 {
 	//텍스쳐파일셋팅
 	D3DXCreateTextureFromFileEx(
-		g_pD3DDevice, "Tera/UI/StartScene/Image_ClientLoading_Tex_34.tga",
+		Device, "Tera/UI/StartScene/Image_ClientLoading_Tex_34.tga",
 		D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT,
 		0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
 		D3DX_FILTER_NONE, D3DX_DEFAULT, 0,
 		&m_BG_Sprite_Info, NULL, &m_pBG_Texture);
-	D3DXCreateSprite(g_pD3DDevice, &m_pBG_Sprite);
+	D3DXCreateSprite(Device, &m_pBG_Sprite);
 
 
 
@@ -62,12 +62,12 @@ void cStartScene::Render()
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pBG_Sprite->End();
 
-	LPD3DXFONT pFont = g_pFontManager->GetFont(cFontManager::E_CHAT);
-	char szTemp[1024];
-	RECT rc;
-	SetRect(&rc, 10, 40, 11, 11);
-	sprintf(szTemp, "TEST", g_pTimeManager->GetFPS());
-	pFont->DrawTextA(NULL, szTemp, strlen(szTemp), &rc, DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	//LPD3DXFONT pFont = DXFONT_MGR->GetFont(cFontManager::E_CHAT);
+	//char szTemp[1024];
+	//RECT rc;
+	//SetRect(&rc, 10, 40, 11, 11);
+	//sprintf(szTemp, "TEST", g_pTimeManager->GetFPS());
+	//pFont->DrawTextA(NULL, szTemp, strlen(szTemp), &rc, DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 
 }
 void cStartScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
