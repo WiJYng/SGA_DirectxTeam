@@ -2,28 +2,26 @@
 #include "cPartcleEmitter.h"
 #include "cQuadParticleEmitter.h"
 
+
 class cEffect
 {
-private:
-	vector<cPartcleEmitter*>		m_mapParticle;
-	vector<cQuadParticleEmitter*>	m_mapQuadParticle;
-
-	D3DXVECTOR3						m_startPosition;
-
-	bool							m_isStart; 
+public :
+	string							m_Name;
+	cPartcleEmitter*				m_Particle;
+	cQuadParticleEmitter*			m_QuadParticle;
+	bool							m_isQuad;
 
 public:
 	cEffect();
 	~cEffect();
 
-	//텍스쳐랑, 사이즈, 시작위치, 종료위치 등등 설정
-	void PushParticle();
-	void PushQuadParticle();
-	void Update(float deltaTime);
+	void InitParticle(string _Name, string _TexturePath, D3DXVECTOR3 _StartPos, D3DXVECTOR3 _EndPos);
+	void InitQuadParticle(string _Name, string _TexturePath, D3DXVECTOR3 _StartPos, D3DXVECTOR3 _EndPos);
+
+	void Update(float _TimeDelta);
 	void Render();
 
-	void SetPosition();
-
 	void Start();
+	void Stop();
 };
 

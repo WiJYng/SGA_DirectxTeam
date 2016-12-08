@@ -22,14 +22,14 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -86,7 +86,6 @@
     <ClInclude Include="cCharacter.h" />
     <ClInclude Include="cDXFontManager.h" />
     <ClInclude Include="cEffect.h" />
-    <ClInclude Include="cEffectManager.h" />
     <ClInclude Include="cEnemy.h" />
     <ClInclude Include="cFrustum.h" />
     <ClInclude Include="cGizmoManager.h" />
@@ -104,6 +103,7 @@
     <ClInclude Include="cParticle.h" />
     <ClInclude Include="cParticleQuad.h" />
     <ClInclude Include="cPhysicManager.h" />
+    <ClInclude Include="cPlayerSkillEffect.h" />
     <ClInclude Include="cPlayerUI.h" />
     <ClInclude Include="cProgressBar_Boss.h" />
     <ClInclude Include="cProgressBar_mMonster.h" />
@@ -150,7 +150,6 @@
     <ClCompile Include="cCharacter.cpp" />
     <ClCompile Include="cDXFontManager.cpp" />
     <ClCompile Include="cEffect.cpp" />
-    <ClCompile Include="cEffectManager.cpp" />
     <ClCompile Include="cEnemy.cpp" />
     <ClCompile Include="cFrustum.cpp" />
     <ClCompile Include="cGizmoManager.cpp" />
@@ -168,6 +167,7 @@
     <ClCompile Include="cParticle.cpp" />
     <ClCompile Include="cParticleQuad.cpp" />
     <ClCompile Include="cPhysicManager.cpp" />
+    <ClCompile Include="cPlayerSkillEffect.cpp" />
     <ClCompile Include="cPlayerUI.cpp" />
     <ClCompile Include="cProgressBar_Boss.cpp" />
     <ClCompile Include="cProgressBar_mMonster.cpp" />
