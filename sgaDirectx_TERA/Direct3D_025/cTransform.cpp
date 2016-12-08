@@ -1554,6 +1554,14 @@ void cTransform::RightControl(float timeDelta)
 	this->RotateSelf(0.0f, deltaAngle, 0.0f);
 }
 
+void cTransform::MonsterControl(float timeDelta, float Angle)
+{
+	float deltaAngle = Angle * timeDelta;
+
+	this->RotateSelf(0.0f, -deltaAngle, 0.0f);
+
+}
+
 
 
 //Transform 에 대한 기즈모를 그린다.
