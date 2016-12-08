@@ -14,6 +14,7 @@
 #include "cMap.h"
 #include "cPlayerUI.h"
 #include "cProgressBar_Boss.h"
+#include "cPlayerSkillEffect.h"
 
 
 cScene_main::cScene_main()
@@ -74,6 +75,9 @@ HRESULT cScene_main::Scene_Init()
 
 
 
+	pPlayerSkillEff = new cPlayerSkillEffect;
+	pPlayerSkillEff->Setup();
+
 	return S_OK;
 }
 
@@ -120,6 +124,7 @@ void cScene_main::Scene_Update(float timDelta)
 	//this->pTrailRender->Update(timDelta);
 	//this->pTrailRender->Transform.DefaultControl2(timDelta);
 
+	pPlayerSkillEff->Update(timDelta);
 
 	//½¦µµ¿ì¸Ê ÁØºñ
 	this->ReadyShadowMap(&this->renderObjects, NULL);
@@ -149,6 +154,9 @@ void cScene_main::Scene_Render1()
 
 	if (pEnemy)
 		pEnemy->Render();
+
+	if (pPlayerSkillEff)
+		pPlayerSkillEff->Render();
 
 	//PlayerUI //20161207 ½ÂÇöÃß°¡
 	//if (pPlayerUI)

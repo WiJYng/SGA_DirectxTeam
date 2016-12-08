@@ -15,12 +15,9 @@ public:
 	cEffect();
 	~cEffect();
 
-	void InitParticle(string _Name, string _TexturePath, D3DXVECTOR3 _StartPos, D3DXVECTOR3 _EndPos);
-	void InitQuadParticle(string _Name, string _TexturePath, D3DXVECTOR3 _StartPos, D3DXVECTOR3 _EndPos);
-
 	void Update(float _TimeDelta);
 	void Render();
-
+	
 	void Start();
 	void Stop();
 };

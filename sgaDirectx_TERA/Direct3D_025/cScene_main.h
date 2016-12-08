@@ -11,6 +11,7 @@ class cMap;
 class cProgressBar_Boss;
 
 class cPlayerUI;
+class cPlayerSkillEffect;
 
 class cScene_main : public cScene
 {
@@ -28,6 +29,8 @@ private:
 
 	cPlayerUI*							pPlayerUI;
 	cProgressBar_Boss*					pProgressBar_Boss;
+	
+	cPlayerSkillEffect*					pPlayerSkillEff;
 
 public:
 	cScene_main();
