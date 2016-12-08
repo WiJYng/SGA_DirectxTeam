@@ -161,7 +161,7 @@ HRESULT BONE_HIERARCHY::CreateMeshContainer( THIS_
 			//만약 Texture 가 없다면...
 			if( pNorTex == NULL ){
 				pNorTex = RESOURCE_TEXTURE->GetResource( "./Resources/Meshes/normalDefault.png" );
-			}	
+			}
 			
 
 			//

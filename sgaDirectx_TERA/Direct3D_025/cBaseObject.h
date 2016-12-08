@@ -10,6 +10,7 @@ public:
 	cTransform*			pTransform;
 	cXMesh*				pMesh;						//니가 사용하는 메쉬가 뭐니?
 	cBoundBox			BoundBox;
+	cBoundBox			BoundBox01;
 	bool				IgnoreCreateShadow;			//쉐도우맵 만들때 무시되니
 	bool				ApplyShadow;				//쉐도우 받니?
 

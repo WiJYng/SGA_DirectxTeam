@@ -226,6 +226,8 @@ public:
 	void LeftControl(float timeDelta);
 	void RightControl(float timeDelta);
 
+	void MonsterControl(float timeDelta, float Angle);
+
 	//Transform 에 대한 기즈모를 그린다.
 	void RenderGimozo( bool applyScale = false ) const;
 

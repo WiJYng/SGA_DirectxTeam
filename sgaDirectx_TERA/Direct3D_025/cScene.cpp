@@ -20,7 +20,7 @@ cScene::cScene(void)
 	this->pDirectionLightCamera = new cCamera();
 
 	//방향성광원 자식에 붙인다.
-	//this->pDirectionLightCamera->AttachTo( this->pSceneBaseDirectionLight->pTransform );
+	this->pDirectionLightCamera->AttachTo( this->pSceneBaseDirectionLight->pTransform );
 
 	//기본 값
 	this->pSceneBaseDirectionLight->Color = D3DXCOLOR( 1, 1, 1, 1 );

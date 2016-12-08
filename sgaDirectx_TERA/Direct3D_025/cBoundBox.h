@@ -13,6 +13,8 @@ public:
 	cBoundBox(void);
 	~cBoundBox(void);
 
+	void Init(D3DXVECTOR3 minPos, D3DXVECTOR3 maxPos);
+
 	void GetWorldBox(const cTransform* pTrans, D3DXVECTOR3* outBoxPos );
 	void GetWorldAABBMinMax( const cTransform* pTrans, D3DXVECTOR3* min, D3DXVECTOR3* max );
 
