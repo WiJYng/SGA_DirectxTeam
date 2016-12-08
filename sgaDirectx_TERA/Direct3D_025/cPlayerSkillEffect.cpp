@@ -52,8 +52,7 @@ void cPlayerSkillEffect::PlayEffect(EFFECT_NAME _Name, EFFECT_TYPE _PlayType)
 		} 
 		else if (_PlayType == EFF_BURST)
 		{
-			for each(auto v in m_AttackEffect)
-				v->Burst(200, 0.8f, 1.0f, 0.1f, 0.2f);
+			PlayAttackEffect();
 		}
 
 		break;
@@ -62,6 +61,17 @@ void cPlayerSkillEffect::PlayEffect(EFFECT_NAME _Name, EFFECT_TYPE _PlayType)
 
 	}
 }
+
+void cPlayerSkillEffect::PlayAttackEffect()
+{
+	/*for each(auto v in m_AttackEffect)
+		v->Burst(200, 0.8f, 1.0f, 0.1f, 0.2f);
+	*/
+	m_AttackEffect[0]->Burst(200, 0.8f, 1.0f, 0.1f, 0.2f);
+	m_AttackEffect[1]->Burst(5, 1.0f, 1.0f, 0.1f, 0.1f);
+}
+
+
 
 void cPlayerSkillEffect::InitPlayerSkill()
 {
@@ -100,5 +110,41 @@ void cPlayerSkillEffect::InitPlayerSkill()
 		false
 		);
 
+
+	//
+	cPartcleEmitter* e_02 = new cPartcleEmitter;
+	e_02->SetActive(true);
+
+	VEC_COLOR c_02;
+	c_02.push_back(D3DXCOLOR(1.0f, 1.0f, 0.1f, 1.0f));
+	c_02.push_back(D3DXCOLOR(0.8f, 0.3f, 0.1f, 1.0f));
+
+	VEC_SCALE s_02;
+	//s_01.push_back(0.1f);
+	//s_01.push_back(0.7f);
+	s_02.push_back(0.7f);
+	s_02.push_back(0.7f);
+
+	LPDIRECT3DTEXTURE9 pTex2 = RESOURCE_TEXTURE->GetResource("./Tera/Effect/A_BigShot002_emis.tga");
+
+	e_02->Init(
+		1,
+		40.0f,
+		1.f,
+		3.f,
+		D3DXVECTOR3(0, 0, 0),
+		D3DXVECTOR3(0, 0, 0),
+		D3DXVECTOR3(1, 1, 1),
+		//D3DXVECTOR3(0.5f, 0.5f, 0.5f),
+		//D3DXVECTOR3(0, 0, 0),
+		D3DXVECTOR3(-1, -1, -1),
+		c_01, s_01,
+		1.0f, 1.0f,
+		pTex2,
+		false
+		);
+
+
 	m_AttackEffect.push_back(e_01);
+	m_AttackEffect.push_back(e_02);
 }

@@ -41,5 +41,7 @@ public :
 private:
 	void InitPlayerSkill();						//½ºÅ³ Init
 
+	void PlayAttackEffect();
+
 };
 
