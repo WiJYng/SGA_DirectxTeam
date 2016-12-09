@@ -145,6 +145,7 @@ cMap::~cMap()
 
 void cMap::Setup()
 {
+
 	//ÁöÇü
 	m_pMap = new cMeshMap();
 	m_pMap->Setup("./Tera/Map/EntireMap/moveMap/moveMap.X");

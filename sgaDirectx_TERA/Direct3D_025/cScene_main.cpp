@@ -34,7 +34,7 @@ HRESULT cScene_main::Scene_Init()
 
 	pEntireMap = new cMap();
 	pEntireMap->Setup();
-	
+	this->SetEnvironment("../Resources/skymap.dds");
 	//플레이어
 	pPlayer = new cCharacter();
 	pPlayer->Setup("./Tera/Character/Elin_Body_WDC.X"
@@ -60,7 +60,7 @@ HRESULT cScene_main::Scene_Init()
 	//this->renderObjects.push_back(pMapObject);
 
 	//라이트 위치
-	this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(0, 700, 0); //300
+	this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(0, 0, 0);
 	this->pSceneBaseDirectionLight->pTransform->SetRotateWorld(90.0f * ONE_RAD, 0, 0);
 
 	//TrailRenderSet
@@ -145,6 +145,7 @@ void cScene_main::Scene_Render1()
 	//Map
 	//if (pMap) //20161206 승현주석
 	//	pMap->Render();
+
 	if (pEntireMap)
 		pEntireMap->Render();
 	

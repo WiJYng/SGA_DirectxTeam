@@ -23,8 +23,10 @@ cScene::cScene(void)
 	this->pDirectionLightCamera->AttachTo( this->pSceneBaseDirectionLight->pTransform );
 
 	//기본 값
+	//20161209승현주석 
 	this->pSceneBaseDirectionLight->Color = D3DXCOLOR( 1, 1, 1, 1 );
 	this->pSceneBaseDirectionLight->Intensity = 1.0f; //1.0f
+	//this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(0, 700, 0);
 
 	//그림자 거리
 	shadowDistance = 100.0f;

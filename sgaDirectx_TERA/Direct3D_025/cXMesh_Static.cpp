@@ -483,6 +483,17 @@ void cXMesh_Static::SetBaseLight( cLight_Direction* pDirLight )
 	}
 
 	sStaticMeshEffect->SetMatrix( "baseDirectionLight", &pDirLight->GetLightMatrix() );
+	//D3DLIGHT9 stLight;
+	//stLight.Ambient = stLight.Diffuse = stLight.Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	//stLight.Type = D3DLIGHT_DIRECTIONAL;
+	//D3DXVECTOR3 vDir(1, -1, 1);
+	//D3DXVec3Normalize(&vDir, &vDir);
+	//stLight.Direction = vDir;
+	//Device->SetLight(0, &stLight);
+
+	//Device->SetRenderState(D3DRS_LIGHTING, true);
+	//Device->SetRenderState(D3DRS_NORMALIZENORMALS, true);
+	//Device->LightEnable(0, true);
 }
 
 

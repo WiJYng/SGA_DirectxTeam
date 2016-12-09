@@ -32,6 +32,9 @@ private:
 	
 	cPlayerSkillEffect*					pPlayerSkillEff;
 
+
+
+
 public:
 	cScene_main();
 	~cScene_main();

@@ -40,6 +40,8 @@ private:
 	RenderTarget		renderTargets[MAX_RENDERTARGET];
 	RenderTarget		shadow;
 
+	//bool				m_
+
 public:
 	cFrustum			Frustum;
 
