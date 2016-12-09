@@ -2,15 +2,10 @@
 #include "cPartcleEmitter.h"
 #include "cQuadParticleEmitter.h"
 
+//effeectName
 enum EFFECT_NAME {
-	EFF_ATTACK = 0,
+	EFF_ATTACK_01 = 0,						//즉발 타격이펙트
 
-};
-
-enum EFFECT_TYPE
-{
-	EFF_PLAY = 0,
-	EFF_BURST,
 
 };
 
@@ -25,7 +20,8 @@ public :
 	typedef map<string, cQuadParticleEmitter*>	MAP_QUADPART;
 
 private :
-	VEC_PART				m_AttackEffect;
+	VEC_PART							m_vecAttackEffect;
+
 
 
 public :
@@ -36,12 +32,17 @@ public :
 	void Update(float _TimeDelta);
 	void Render();
 
-	void PlayEffect(EFFECT_NAME _Name, EFFECT_TYPE _PlayType);
+	void PlayEffect(EFFECT_NAME _Name);
 
 private:
 	void InitPlayerSkill();						//스킬 Init
 
-	void PlayAttackEffect();
+	//공격이펙트
+	void PlayAttackEffect_01();
 
+
+
+	//피격이펙트
+	void PlayerAttackedEffect();
 };
 
