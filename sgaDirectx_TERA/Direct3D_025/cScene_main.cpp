@@ -48,9 +48,25 @@ HRESULT cScene_main::Scene_Init()
 	pPlayerUI = new cPlayerUI();
 	pPlayerUI->Setup();
 
+	for (int i = 0; i < pPlayer->GetBaseObject().size(); i++)
+	{
+		renderObjects.push_back(pPlayer->GetBaseObject()[i]);
+	}
+
 	//몬스터
-	pEnemy = new cEnemy();
-	pEnemy->Setup("./Tera/Monster/Kalan.X", &D3DXVECTOR3(0.0f, 0.0f, 5.0f));
+	for (int x = 0; x < 6; x++)
+	{
+		for (int z = 0; z < 6; z++)
+		{
+			pEnemy[(x * 6) + z] = new cEnemy();
+			pEnemy[(x * 6) + z]->Setup("./Tera/Monster/Kalan.X", &D3DXVECTOR3(30.0f + (x * 1), 0.0f, 33.0f + (z * 1)));
+		}
+	}
+
+	for (int i = 0; i < 36; i++)
+	{
+		renderObjects.push_back(pEnemy[i]->GetBaseObject()[0]);
+	}
 
 	//보스몬스터UI 테스트 //20161207 승현추가
 	//pProgressBar_Boss = new cProgressBar_Boss();
@@ -89,8 +105,8 @@ void cScene_main::Scene_Release()
 	this->renderObjects.clear();
 	this->cullObjects.clear();
 	SAFE_DELETE(pPlayer);
-	SAFE_DELETE(pEnemy);
-
+	//SAFE_DELETE_ARR(pEnemy);
+	delete[] pEnemy;
 	//Trail 해재
 	this->pTrailRender->Release();
 	SAFE_DELETE(this->pTrailRender);
@@ -114,17 +130,53 @@ void cScene_main::Scene_Update(float timDelta)
 			this->cullObjects.push_back(this->renderObjects[i]);
 		}
 	}
+	for (int i = 0; i < this->cullObjects.size(); i++)
+	{
+		cullObjects[i]->Update(timDelta);
+	}
 
 	//20161206승현 getMap으로 바꾸기
 	pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta, pEntireMap->GetMap());
 
-	pEnemy->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
+	for (int i = 0; i < 36; i++)
+	{
+		pEnemy[i]->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
+	}
+	
 
 	//업데이트
 	//this->pTrailRender->Update(timDelta);
 	//this->pTrailRender->Transform.DefaultControl2(timDelta);
 
 	pPlayerSkillEff->Update(timDelta);
+	
+	if (pPlayer->GetIsAttack())
+	{
+		for (int i = 0; i < 36; i++)
+		{
+			if (pEnemy[i]->GetState() != MonState::Death && pEnemy[i]->GetState() != MonState::DeathWait)
+			{
+				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[4], pEnemy[i]->GetBaseObject()[0]))
+				{
+					pEnemy[i]->SetState(MonState::Stun);
+					pEnemy[i]->SetHP(pEnemy[i]->GetHP() - 1);
+				}
+			}
+		}
+	}
+
+	//for (int i = 0; i < 36; i++)
+	//{
+	//	if (pEnemy[i]->GetState() != MonState::Death || pEnemy[i]->GetState() != MonState::DeathWait)
+	//	{
+	//		for (int j = 0; j < 36; j++)
+	//		{
+	//			if (i == j) continue;
+	//				PHYSICS_MGR->IsBlocking(pEnemy[i]->GetBaseObject()[0], pEnemy[j]->GetBaseObject()[0], 0.5f);
+	//		}
+	//	}
+	//}
+	
 
 	//쉐도우맵 준비
 	this->ReadyShadowMap(&this->renderObjects, NULL);
@@ -153,15 +205,19 @@ void cScene_main::Scene_Render1()
 	if (pPlayer)
 		pPlayer->Render();
 
-	if (pEnemy)
-		pEnemy->Render();
+	for (int i = 0; i < 36; i++)
+	{
+		if (pEnemy[i])
+			pEnemy[i]->Render();
+	}
+	
 
 	if (pPlayerSkillEff)
 		pPlayerSkillEff->Render();
 
 	//PlayerUI //20161207 승현추가
-	//if (pPlayerUI)
-	//	pPlayerUI->Render();
+	if (pPlayerUI)
+		pPlayerUI->Render();
 
 	//보스몬스터유아이 //20161207 승현추가
 	//if (pProgressBar_Boss)
@@ -173,6 +229,11 @@ void cScene_main::Scene_Render1()
 		//프러스텀 안에 있니?
 		if (this->pMainCamera->Frustum.IsInFrustum(this->renderObjects[i]))
 			this->cullObjects.push_back(this->renderObjects[i]);
+	}
+
+	for (int i = 0; i < this->cullObjects.size(); i++)
+	{
+		cullObjects[i]->Render();
 	}
 
 	//프러텀을 그려보장

@@ -5,15 +5,7 @@ class cMeshMap;
 class cEnemy
 {
 private:
-	enum MonState
-	{
-		Wait,
-		Run,
-		Attack,
-		Stun,
-		Death,
-		DeathWait
-	};
+	
 
 	std::vector<cBaseObject*>			renderObjects;			//오브젝트 배열
 
@@ -22,10 +14,14 @@ private:
 	bool								bRun;
 	bool								bAtt;
 	bool								bDeath;
+	bool								bStun;
 	float								PrevAngle;
 
 	cTransform*							pMonTrans;
 	cTransform*							pWeaponTrans;
+
+	float								m_fHP;
+	float								m_fMAXHP;
 
 public:
 	cEnemy();
@@ -46,6 +42,29 @@ public:
 	//Getter/Setter
 	void SetWorldPosition(D3DXVECTOR3 pos);
 	D3DXVECTOR3 GetWorldPosition();
+
+	void SetState(MonState _State)
+	{
+		m_State = _State;
+	}
+	MonState GetState()
+	{
+		return m_State;
+	}
+
+	std::vector<cBaseObject*> GetBaseObject()
+	{
+		return renderObjects;
+	}
+
+	float GetHP()
+	{
+		return m_fHP;
+	}
+	void SetHP(float _fHP)
+	{
+		m_fHP = _fHP;
+	}
 
 };
 
