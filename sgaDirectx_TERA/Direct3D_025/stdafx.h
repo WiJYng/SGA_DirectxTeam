@@ -71,9 +71,9 @@
 //
 // 매크로 상수
 //
-#define WINSIZE_X	900			//초기 윈도우 가로 크기
-#define WINSIZE_Y	600			//초기 윈도우 세로 크기
-#define WINPOS_X	100			//초기 윈도우 시작 위치 X
+#define WINSIZE_X	1200			//초기 윈도우 가로 크기
+#define WINSIZE_Y	900			//초기 윈도우 세로 크기
+#define WINPOS_X	0			//초기 윈도우 시작 위치 X
 #define WINPOS_Y	0			//초기 윈도우 시작 위치 Y
 #define WIN_CLASS	"Windows Exam"		//윈도우 클레스 이름
 #define WIN_TITLE	"D3D_TERA"		//윈도우 타이틀 이름
@@ -127,3 +127,15 @@ using namespace std;
 #include "cResourceMgr_ShaderFX.h"
 #include "cResourceMgr_XStaticMesh.h"
 #include "cResourceMgr_XSkinnedMesh.h"
+
+//enum
+enum MonState
+{
+	Wait,
+	Run,
+	Attack,
+	Stun,
+	Death,
+	DeathWait,
+	Mempty
+};

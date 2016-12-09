@@ -74,6 +74,10 @@ public:
 	{
 		return renderObjects;
 	}
+	bool GetIsAttack()
+	{
+		return m_bAttack;
+	}
 
 private:
 	

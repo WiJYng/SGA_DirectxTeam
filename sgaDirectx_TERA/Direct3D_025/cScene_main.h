@@ -22,7 +22,7 @@ private:
 
 	cMeshMap*							pMap;
 	cCharacter*							pPlayer;
-	cEnemy*								pEnemy;
+	cEnemy*								pEnemy[36];
 
 	cTrailRender*						pTrailRender;
 	cMap*								pEntireMap;

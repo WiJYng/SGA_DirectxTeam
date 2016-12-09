@@ -27,7 +27,10 @@ void cEnemy::Setup(string PathMonster, D3DXVECTOR3* Pos)
 	bRun = false;
 	bAtt = false;
 	bDeath = false;
+	bStun = false;
 	PrevAngle = 0.0f;
+
+	m_fHP = m_fMAXHP = 3.0f;
 
 	D3DXMATRIXA16 mat;
 	D3DXMatrixIdentity(&mat);
@@ -84,25 +87,30 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 	dirToTarget.y = 0;
 
 	//float angle = CalcAngle(_PlayerPos, &renderObjects[0]->pTransform->GetWorldPosition());
-	//방향을 구한다.
-	D3DXVec3Normalize(&dirToTarget, &dirToTarget);
-	dirToTarget.y = 0;
-	D3DXVECTOR3 forward = renderObjects[0]->pTransform->GetForward();
-	forward.y = 0;
-	D3DXVec3Normalize(&forward, &forward);
-
-	float angle = acosf(D3DXVec3Dot(&dirToTarget, &forward));
-	if (angle >= 90 * ONE_RAD)
-	{
-		renderObjects[0]->pTransform->RotateSelf(0, 5 * ONE_RAD, 0);
 	
-		//LOG_MGR->AddLog("%.2f, %d", angle * 180 / 3.14, m_nIndex);
-	}
+	if (m_State != Stun && m_State != Death && m_State != DeathWait)
+	{
+		//방향을 구한다.
+		D3DXVec3Normalize(&dirToTarget, &dirToTarget);
+		dirToTarget.y = 0;
+		D3DXVECTOR3 forward = renderObjects[0]->pTransform->GetForward();
+		forward.y = 0;
+		D3DXVec3Normalize(&forward, &forward);
+
+		float angle = acosf(D3DXVec3Dot(&dirToTarget, &forward));
+		if (angle >= 90 * ONE_RAD)
+		{
+			renderObjects[0]->pTransform->RotateSelf(0, 5 * ONE_RAD, 0);
+
+			//LOG_MGR->AddLog("%.2f, %d", angle * 180 / 3.14, m_nIndex);
+		}
+	
+	
 
 	D3DXVECTOR3 lerp = renderObjects[0]->pTransform->GetForward();
 	D3DXVec3Lerp(&lerp, &lerp, &dirToTarget, 0.2);
 	renderObjects[0]->pTransform->LookDirection(lerp, renderObjects[0]->pTransform->GetUp());
-
+	}
 
 	//이동량
 	float deltaMove = 5.0f * TIME_MGR->GetFrameDeltaSec();
@@ -125,7 +133,7 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 	//}
 
 
-	if (m_State != Death && !bDeath)
+	if (m_State != Death && !bDeath && m_State != Stun)
 	{
 		if (dist > 20.0f)
 		{
@@ -176,14 +184,32 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 			}
 		}
 	}
+
+	if (m_State == Stun)
+	{
+		if (!bStun)
+		{
+			renderObjects[0]->pSkinned->Play("Stun", 0.0f);
+			bStun = true;
+			bWait = bRun = bAtt = false;
+			LOG_MGR->AddLog("충돌했니?");
+		}
+		if (renderObjects[0]->pSkinned->GetFactor() >= 0.95f)
+		{
+			m_State = Mempty;
+			bWait = bRun = bAtt = bStun = false;
+		}
+		
+	}
 	
 
-	if (KEY_MGR->IsOnceDown('1'))
+	if (m_fHP <= 0.0f && bStun && m_State == Stun)
 	{
 		if (m_State != Death)
 		{
 			renderObjects[0]->pSkinned->PlayOneShotAfterHold("Death", 0.0f);
 			m_State = Death;
+			bStun = true;
 			bWait = bRun = bAtt = false;
 		}
 	}
@@ -206,20 +232,20 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 		
 	}
 	
-	PrevAngle = angle;
+	//PrevAngle = angle;
 
-	char str[1024];
+	//char str[1024];
 	//sprintf_s(str, "%.2f", dist);
-	sprintf_s(str, "%.2f", angle);
-	LOG_MGR->AddLog(str);
+	//sprintf_s(str, "%.2f", angle);
+	//LOG_MGR->AddLog(str);
 }
 
 void cEnemy::Render()
 {
-	renderObjects[0]->Render();
-	renderObjects[0]->BoundBox.RenderGizmo(pMonTrans);
-	renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);
-	renderObjects[0]->pTransform->RenderGimozo();
+	//renderObjects[0]->Render();
+	//renderObjects[0]->BoundBox.RenderGizmo(pMonTrans);
+	//renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);
+	//renderObjects[0]->pTransform->RenderGimozo();
 
 }
 

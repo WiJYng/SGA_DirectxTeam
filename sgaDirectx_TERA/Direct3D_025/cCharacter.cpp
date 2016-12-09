@@ -36,6 +36,7 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 {
 	D3DXMATRIXA16 mat;
 	D3DXMatrixIdentity(&mat);
+	//D3DXMatrixTranslation(&mat, 0.0f, 0.0f, 0.0f);
 
 	Setup(PathBody, PathFace, PathHair, PathTail, PathRWeapon, PathLWeapon, &mat);	
 }
@@ -64,6 +65,8 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 	pBodyObject->pSkinned->Init(pBodyMesh);
 	pBodyObject->SetMesh(pBodyMesh);
 	pBodyObject->SetActive(true);
+	//pBodyObject->pTransform->SetWorldPosition(D3DXVECTOR3(90.0f, 0.0f, 63.0f));
+	pBodyObject->pTransform->SetWorldPosition(D3DXVECTOR3(45, 0.0f, 63.0f));
 	//pBodyObject->IgnoreCreateShadow = false;
 	//pBodyObject->ApplyShadow = true;
 	//pBodyObject->BoundBox.
