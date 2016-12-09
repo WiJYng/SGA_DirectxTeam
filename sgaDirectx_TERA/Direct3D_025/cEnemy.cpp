@@ -18,6 +18,10 @@ cEnemy::~cEnemy()
 
 void cEnemy::Setup(string PathMonster, D3DXVECTOR3* Pos)
 {
+	//바운드박스 충돌처리
+	//cPhysicManager에 IsOverlap함수를 이용하여 충돌을 확인한다
+	//cTickFunc을 이용하여 충돌이 여러번 들어가지 않도록 설정할 수 있다.
+
 	m_State = Wait;
 	bWait = true;
 	bRun = false;
@@ -71,14 +75,59 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 {
 	renderObjects[0]->Update(timDelta);
 
-	
+	//레이 세팅
+	D3DXVECTOR3 currentPos = renderObjects[0]->pTransform->GetWorldPosition();
 
-	float len = CalcLen(_PlayerPos, &renderObjects[0]->pTransform->GetWorldPosition());
-	float angle = CalcAngle(_PlayerPos, &renderObjects[0]->pTransform->GetWorldPosition());
+	//float len = CalcLen(_PlayerPos, &renderObjects[0]->pTransform->GetWorldPosition());
+	D3DXVECTOR3 dirToTarget = *_PlayerPos - renderObjects[0]->pTransform->GetWorldPosition();
+	float dist = D3DXVec3Length(&dirToTarget);
+	dirToTarget.y = 0;
+
+	//float angle = CalcAngle(_PlayerPos, &renderObjects[0]->pTransform->GetWorldPosition());
+	//방향을 구한다.
+	D3DXVec3Normalize(&dirToTarget, &dirToTarget);
+	dirToTarget.y = 0;
+	D3DXVECTOR3 forward = renderObjects[0]->pTransform->GetForward();
+	forward.y = 0;
+	D3DXVec3Normalize(&forward, &forward);
+
+	float angle = acosf(D3DXVec3Dot(&dirToTarget, &forward));
+	if (angle >= 90 * ONE_RAD)
+	{
+		renderObjects[0]->pTransform->RotateSelf(0, 5 * ONE_RAD, 0);
+	
+		//LOG_MGR->AddLog("%.2f, %d", angle * 180 / 3.14, m_nIndex);
+	}
+
+	D3DXVECTOR3 lerp = renderObjects[0]->pTransform->GetForward();
+	D3DXVec3Lerp(&lerp, &lerp, &dirToTarget, 0.2);
+	renderObjects[0]->pTransform->LookDirection(lerp, renderObjects[0]->pTransform->GetUp());
+
+
+	//이동량
+	float deltaMove = 5.0f * TIME_MGR->GetFrameDeltaSec();
+	float t = Clamp01(deltaMove / dist);
+
+	//D3DXVECTOR3 pos;
+	//레이랑 터레인 체크하자
+	//if (pTerrain->IsIntersectRay(&pos, &ray))
+	{
+		//renderObjects[0]->pTransform->SetWorldPosition(pos);
+	//	currentPos = renderObjects[0]->pTransform->GetWorldPosition();
+	}
+
+	// 레이랑 케릭터 거리가 멀어지면 레이가 더이상 넘어가지 못하게 만든다.
+	//float rayCheckDis = D3DXVec3Length(&(ray.origin - currentPos));
+	//if (rayCheckDis > t + 0.01f) // 상수 값은 속력 보다 조금 높은 값.
+	//{
+	//	ray.origin = currentPos;
+	//	ray.origin.y += 3;
+	//}
+
 
 	if (m_State != Death && !bDeath)
 	{
-		if (len > 30.0f)
+		if (dist > 20.0f)
 		{
 			if (m_State != Wait && !bWait)
 			{
@@ -88,7 +137,7 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 				bRun = bAtt = false;
 			}
 		}
-		else if (len <= 30.0f && len > 5.0f)
+		else if (dist <= 20.0f && dist > 1.5f)
 		{
 			if (m_State != Run && !bRun)
 			{
@@ -97,20 +146,10 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 				bRun = true;
 				bWait = bAtt = false;
 			}
-
-
-
-			if (PrevAngle != angle)
-			{
-				D3DXMATRIXA16 RotY, mat;
-				D3DXMatrixIdentity(&RotY);
-				D3DXMatrixRotationY(&RotY, angle);
-				mat = RotY * renderObjects[0]->pTransform->GetFinalMatrix();
-
-				renderObjects[0]->pTransform->SetWorldMatrix(mat);
-			}
+			renderObjects[0]->pTransform->MovePositionWorld(renderObjects[0]->pTransform->GetForward()*TIME_MGR->GetFrameDeltaSec());
+			
 		}
-		else if (len <= 5.0f && len > 0.0f)
+		else if (dist <= 1.5f && dist > 0.0f)
 		{
 			if (m_State != Attack && !bAtt)
 			{
@@ -170,8 +209,8 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 	PrevAngle = angle;
 
 	char str[1024];
-	sprintf_s(str, "%.2f", len);
-	//sprintf_s(str, "%.2f", angle);
+	//sprintf_s(str, "%.2f", dist);
+	sprintf_s(str, "%.2f", angle);
 	LOG_MGR->AddLog(str);
 }
 
@@ -180,6 +219,8 @@ void cEnemy::Render()
 	renderObjects[0]->Render();
 	renderObjects[0]->BoundBox.RenderGizmo(pMonTrans);
 	renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);
+	renderObjects[0]->pTransform->RenderGimozo();
+
 }
 
 float cEnemy::CalcLen(D3DXVECTOR3 * _PlayerPos, D3DXVECTOR3 * _ThisPos)
