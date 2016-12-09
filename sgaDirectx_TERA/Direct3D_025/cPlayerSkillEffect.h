@@ -1,25 +1,47 @@
 #pragma once
-#include "cEffect.h"
+#include "cPartcleEmitter.h"
+#include "cQuadParticleEmitter.h"
+
+enum EFFECT_NAME {
+	EFF_ATTACK = 0,
+
+};
+
+enum EFFECT_TYPE
+{
+	EFF_PLAY = 0,
+	EFF_BURST,
+
+};
 
 
 class cPlayerSkillEffect
 {
 public :
-	typedef vector<cEffect*> VEC_EFFECT;
-	typedef map<string, VEC_EFFECT> MAP_EFFECT;
+	typedef vector<cPartcleEmitter*>			VEC_PART;
+	typedef vector<cQuadParticleEmitter*>		VEC_QUADPART;
+	
+	typedef map<string, cPartcleEmitter*>		MAP_PART;
+	typedef map<string, cQuadParticleEmitter*>	MAP_QUADPART;
 
 private :
-	MAP_EFFECT m_mapEffects;
+	VEC_PART				m_AttackEffect;
+
 
 public :
 	cPlayerSkillEffect();
 	~cPlayerSkillEffect();
 	
-	void StartEffect(string _Name);
-	void StopEffect(string _Name);
+	void Setup();
+	void Update(float _TimeDelta);
+	void Render();
+
+	void PlayEffect(EFFECT_NAME _Name, EFFECT_TYPE _PlayType);
 
 private:
 	void InitPlayerSkill();						//½ºÅ³ Init
+
+	void PlayAttackEffect();
 
 };
 
