@@ -6,9 +6,10 @@ class cMeshMap
 {
 private:
 	cBaseObject*		pMap;
-
+	LPD3DXEFFECT		pDecalEffect;
+	
+	
 	vector<D3DXVECTOR3> vecToTerrian;
-
 public:
 	cMeshMap();
 	~cMeshMap();

@@ -36,7 +36,7 @@ void cPlayerSkillEffect::Render()
 	for each(auto v in m_vecAttackEffect)
 	{
 		v->Render();
-		v->pTransform->RenderGimozo(Device);
+		//v->pTransform->RenderGimozo(Device);
 	}
 }
 
@@ -45,7 +45,7 @@ void cPlayerSkillEffect::PlayEffect(EFFECT_NAME _Name)
 	switch (_Name)
 	{
 	case EFF_ATTACK_01:
-		PlayAttackEffect_01();
+		PlayAttackEffect_01(D3DXVECTOR3(10, 5, 10));
 
 		break;
 	default :
@@ -54,9 +54,13 @@ void cPlayerSkillEffect::PlayEffect(EFFECT_NAME _Name)
 	}
 }
 
-void cPlayerSkillEffect::PlayAttackEffect_01()
+void cPlayerSkillEffect::PlayAttackEffect_01(D3DXVECTOR3 pos)
 {
 	//°ø°İeffect index 0, 1
+	m_vecAttackEffect[0]->pTransform->SetWorldPosition(pos);
+	m_vecAttackEffect[1]->pTransform->SetWorldPosition(pos);
+
+
 	m_vecAttackEffect[0]->Burst(200, 0.8f, 1.0f, 0.1f, 0.2f);
 	m_vecAttackEffect[1]->Burst(5, 1.0f, 1.0f, 0.1f, 0.1f);
 }

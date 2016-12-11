@@ -10,6 +10,8 @@ cMeshMap::cMeshMap()
 
 cMeshMap::~cMeshMap()
 {
+	SAFE_RELEASE(pDecalEffect);
+
 }
 
 
@@ -39,13 +41,53 @@ void cMeshMap::Setup(string PathMap, D3DXMATRIXA16* mat)
 	pMap->IgnoreCreateShadow = false;		//그림자 안그린다.
 	pMap->ApplyShadow = true;
 
+	//effect
+	pDecalEffect = RESOURCE_FX->GetResource("./Tera/Effect/decal_shader.fx");
+
 	//RenderToTerrian();
 }
 
 void cMeshMap::Render()
 {
 	if (pMap)
-		pMap->Render();
+	{
+		//pMap->Render();
+		D3DXMATRIXA16 matWorld, matView, matProj;
+		D3DXMatrixIdentity(&matWorld);
+		Device->GetTransform(D3DTS_VIEW, &matView);
+		Device->GetTransform(D3DTS_PROJECTION, &matProj);
+		
+		pDecalEffect->SetMatrix("matWorld", &matWorld);
+		pDecalEffect->SetMatrix("matView", &matView);
+		pDecalEffect->SetMatrix("matProjection", &matProj);
+		//MagicArray001_Tex.tga
+		LPDIRECT3DTEXTURE9 tex = RESOURCE_TEXTURE->GetResource("./Tera/Effect/MagicArray001_Tex.tga"); 
+		pDecalEffect->SetTexture("Diffuse_Tex", tex);
+		
+		pDecalEffect->SetFloat("fRange", 3.0f);
+		D3DXVECTOR4 vPos[2];
+		vPos[0] = D3DXVECTOR4(1, 3, 0, 1);
+		vPos[1] = D3DXVECTOR4(0, 3, 1, 1);
+		pDecalEffect->SetVectorArray("vPos", vPos, 2);
+		
+		UINT numPasses = 0;
+		pDecalEffect->Begin(&numPasses, NULL);
+		
+		for (UINT i = 0; i < numPasses; ++i)
+		{
+			pDecalEffect->BeginPass(i);
+			
+			//((cXMesh_Static*)pMap->pMesh)->GetMesh()->DrawSubset(0);
+		
+			//(cXMesh_Static*)(pMap->pMesh)
+			pMap->Render();
+			//pMap->pMesh->Render(pMap->pTransform);
+			
+			pDecalEffect->EndPass();
+		}
+		
+		pDecalEffect->End();
+	}
 }
 
 float cMeshMap::GetHeight(float x, float z)

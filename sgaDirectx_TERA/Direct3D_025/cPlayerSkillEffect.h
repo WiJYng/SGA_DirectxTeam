@@ -38,7 +38,7 @@ private:
 	void InitPlayerSkill();						//스킬 Init
 
 	//공격이펙트
-	void PlayAttackEffect_01();
+	void PlayAttackEffect_01(D3DXVECTOR3 pos);
 
 
 
