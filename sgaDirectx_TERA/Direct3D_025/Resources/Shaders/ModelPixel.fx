@@ -114,7 +114,7 @@ PS_OUTPUT ps_main(PS_INPUT Input)
 
 	float diff = NdotL;
 	if (diff < 0.0)
-		diff = abs(NdotL) * 0.3f;
+		diff = abs(NdotL) * 1.0f;
 
 
 	//라이트 반사
@@ -165,7 +165,7 @@ PS_OUTPUT ps_main(PS_INPUT Input)
 		//
 		// Final Color 
 		//
-		float3 finalColor = diffuseColor + specularColor + emissionColor;
+		float3 finalColor = (diffuseColor + specularColor + emissionColor) * 10;
 
 
 		//행렬변환을 거친 값 z 에 행렬변환에서 얻는 가중치 w 를 나누면 0 ~ 1 사이의 깊이 값이 된다.
@@ -352,7 +352,8 @@ PS_OUTPUT ps_ReciveShadow(PS_INPUT_RECIVESHADOW Input)
 	//
 	// Diffuse
 	//
-	float3 diffuseColor = diffTex.rgb * finalDiffuse;
+	//float3 diffuseColor = diffTex.rgb * finalDiffuse;	
+	float3 diffuseColor = diffTex.rgb;
 
 		//
 		// Specular 
@@ -367,8 +368,8 @@ PS_OUTPUT ps_ReciveShadow(PS_INPUT_RECIVESHADOW Input)
 		//
 		// Final Color 
 		//
-		float3 finalColor = diffuseColor + specularColor + emissionColor;
-
+		//float3 finalColor = diffuseColor + specularColor + emissionColor;
+		float3 finalColor = diffuseColor;
 
 
 		//행렬변환을 거친 값 z 에 행렬변환에서 얻는 가중치 w 를 나누면 0 ~ 1 사이의 깊이 값이 된다.

@@ -156,7 +156,7 @@ void cScene_main::Scene_Update(float timDelta)
 	//this->pTrailRender->Transform.DefaultControl2(timDelta);
 
 	pPlayerSkillEff->Update(timDelta);
-	
+
 	if (pPlayer->GetIsAttack())
 	{
 		for (int i = 0; i < 36; i++)
@@ -171,6 +171,8 @@ void cScene_main::Scene_Update(float timDelta)
 			}
 		}
 	}
+
+	pEntireMap->m_pMap->pCharPosition = pPlayer->GetWorldPosition();
 
 	//for (int i = 0; i < 36; i++)
 	//{
@@ -210,7 +212,7 @@ void cScene_main::Scene_Render1()
 	
 	//Player
 	if (pPlayer)
-		pPlayer->Render();
+		pPlayer->Render(this->pSceneBaseDirectionLight);
 
 	for (int i = 0; i < 36; i++)
 	{

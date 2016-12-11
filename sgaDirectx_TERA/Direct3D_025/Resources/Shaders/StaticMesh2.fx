@@ -220,10 +220,10 @@ float4 ps_main(PS_INPUT Input) : COLOR0
 	float4 diffuseColor = diffuseTexColor* float4(finalDiffuse, 1);
 
 	// Ambient
-	float3 ambientColor = diffuseTexColor.rgb * 1f;
+	float3 ambientColor = diffuseTexColor.rgb * 1.0f;
 
 	// Specular
-	float3 specularColor = tex2D(SpecularSample, Input.Texcoord).rgb * finalSpecular;
+	float3 specularColor = (tex2D(SpecularSample, Input.Texcoord).rgb * finalSpecular) * 0;
 
 	// Emission
 	float3 emissionColor = tex2D(EmissionSample, Input.Texcoord).rgb;

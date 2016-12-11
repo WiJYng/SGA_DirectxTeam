@@ -304,7 +304,7 @@ VS_OUTPUT_RECIVESHADOW vs_ReciveShadow( VS_INPUT_RECIVESHADOW Input, uniform int
 
 
    Output.FinalPos = Output.Position;		//변환 정보
-   Output.LightClipPos = mul( worldPos, matLightViewProjection );	//광원 입장에서 본 위치
+   //Output.LightClipPos = mul( worldPos, matLightViewProjection );	//광원 입장에서 본 위치
 
    return( Output );
 }

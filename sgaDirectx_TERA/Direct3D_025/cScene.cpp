@@ -2,6 +2,7 @@
 #include "cScene.h"
 #include "cCamera.h"
 #include "cLight_Direction.h"
+#include "cLight_Point.h"
 #include "cTerrain.h"
 
 cScene::cScene(void)
@@ -24,9 +25,9 @@ cScene::cScene(void)
 
 	//기본 값
 	//20161209승현주석 
-	this->pSceneBaseDirectionLight->Color = D3DXCOLOR( 1, 1, 1, 1 );
+	this->pSceneBaseDirectionLight->Color = D3DXCOLOR( 1, 1, 1, 0.7);
 	this->pSceneBaseDirectionLight->Intensity = 1.0f; //1.0f
-	//this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(0, 700, 0);
+	this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(0, 100, 0);
 
 	//그림자 거리
 	shadowDistance = 100.0f;
@@ -119,9 +120,9 @@ void cScene::Update( float timeDelta )
 	//메인카메라에 DirectionLight 를 방향을 유지한체 따라다니게....
 	
 	//광원 위치
-	D3DXVECTOR3 camPos = pMainCamera->GetWorldPosition();		//메인카메라의 위치
-	D3DXVECTOR3 camFront = pMainCamera->GetForward();			//메인카메라의 정면
-	D3DXVECTOR3 lightDir = pSceneBaseDirectionLight->pTransform->GetForward();	//방향성 광원의 방향
+	D3DXVECTOR3 camPos = D3DXVECTOR3(0.0f, 500.0f, 0.0f);//pMainCamera->GetWorldPosition();		//메인카메라의 위치
+	D3DXVECTOR3 camFront = D3DXVECTOR3(-1.0f, -1.0f, -1.0f);//pMainCamera->GetForward();			//메인카메라의 정면
+	D3DXVECTOR3 lightDir = pMainCamera->GetForward();/*pSceneBaseDirectionLight->pTransform->GetForward();*/	//방향성 광원의 방향
 
 	D3DXVECTOR3 lightPos = camPos + 
 		( camFront * ( shadowDistance * 0.5f ) ) + 
@@ -129,7 +130,7 @@ void cScene::Update( float timeDelta )
 
 	this->pDirectionLightCamera->SetWorldPosition(lightPos.x, lightPos.y, lightPos.z );
 	this->pDirectionLightCamera->LookDirection( lightDir );
-
+	this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(pMainCamera->GetWorldPosition());
 
 	//씬의 업데이트가 일어난다.
 	this->Scene_Update( timeDelta );
