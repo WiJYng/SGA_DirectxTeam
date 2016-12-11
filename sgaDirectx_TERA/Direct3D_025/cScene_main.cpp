@@ -173,6 +173,13 @@ void cScene_main::Scene_Update(float timDelta)
 				{
 					pEnemy[i]->SetState(MonState::Stun);
 					pEnemy[i]->SetHP(pEnemy[i]->GetHP() - 1);
+					//0.0f, 0.75f, -0.025f
+					D3DXVECTOR3 vCenter;
+					float		ftemp;
+
+					pPlayer->GetBaseObject()[4]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[4]->pTransform, &vCenter, &ftemp);
+
+					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
 				}
 			}
 		}
@@ -230,8 +237,7 @@ void cScene_main::Scene_Render1()
 	}
 	
 
-	if (pPlayerSkillEff)
-		pPlayerSkillEff->Render();
+	
 
 	//PlayerUI //20161207 승현추가
 	if (pPlayerUI)
@@ -257,6 +263,9 @@ void cScene_main::Scene_Render1()
 	//프러텀을 그려보장
 	this->pDirectionLightCamera->Frustum.RenderGizmo();
 	this->pSceneBaseDirectionLight->pTransform->RenderGimozo();
+
+	if (pPlayerSkillEff)
+		pPlayerSkillEff->Render();
 
 
 	//랜더 ( 왠만하면 알파블랜딩이니깐 나중에 그리자... )

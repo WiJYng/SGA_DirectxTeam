@@ -110,7 +110,7 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 	pRWeapon->SetMesh(m_pRWeaponMesh);
 	pRWeapon->SetActive(true);
 	pRWeapon->pTransform = m_pRWeaponTrans;
-	pRWeapon->BoundBox.Init(D3DXVECTOR3(-0.1, 0.6, -0.15), D3DXVECTOR3(0.1, 0.9, 0.1));
+	pRWeapon->BoundBox.Init(D3DXVECTOR3(-0.1, 0.6, -0.15), D3DXVECTOR3(0.1, 0.9, 0.1)); //0.0f, 0.75f, -0.025f
 
 	cBaseObject* pLWeapon = new cBaseObject();
 	pLWeapon->SetMesh(m_pLWeaponMesh);
