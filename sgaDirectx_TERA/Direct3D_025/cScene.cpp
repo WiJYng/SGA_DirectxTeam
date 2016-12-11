@@ -27,7 +27,8 @@ cScene::cScene(void)
 	//20161209승현주석 
 	this->pSceneBaseDirectionLight->Color = D3DXCOLOR( 1, 1, 1, 1 );
 	this->pSceneBaseDirectionLight->Intensity = 1.0f; //1.0f
-	this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(0, 100, 0);
+	//this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(0, 100, 0);
+	//this->pSceneBaseDirectionLight->pTransform->SetRotateWorld(90 * ONE_RAD, 0, 0);
 
 	//그림자 거리
 	shadowDistance = 100.0f;
@@ -122,7 +123,7 @@ void cScene::Update( float timeDelta )
 	//광원 위치
 	D3DXVECTOR3 camPos = D3DXVECTOR3(0.0f, 500.0f, 0.0f);//pMainCamera->GetWorldPosition();		//메인카메라의 위치
 	D3DXVECTOR3 camFront = D3DXVECTOR3(-1.0f, -1.0f, -1.0f);//pMainCamera->GetForward();			//메인카메라의 정면
-	D3DXVECTOR3 lightDir = pMainCamera->GetForward();/*pSceneBaseDirectionLight->pTransform->GetForward();*/	//방향성 광원의 방향
+	D3DXVECTOR3 lightDir = /*pMainCamera->GetForward();*/pSceneBaseDirectionLight->pTransform->GetForward();	//방향성 광원의 방향
 
 	D3DXVECTOR3 lightPos = camPos + 
 		( camFront * ( shadowDistance * 0.5f ) ) + 
@@ -130,7 +131,7 @@ void cScene::Update( float timeDelta )
 
 	this->pDirectionLightCamera->SetWorldPosition(lightPos.x, lightPos.y, lightPos.z );
 	this->pDirectionLightCamera->LookDirection( lightDir );
-	this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(pMainCamera->GetWorldPosition());
+	//this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(pMainCamera->GetWorldPosition());
 
 	//씬의 업데이트가 일어난다.
 	this->Scene_Update( timeDelta );

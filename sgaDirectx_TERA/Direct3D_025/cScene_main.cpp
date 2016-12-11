@@ -117,12 +117,12 @@ void cScene_main::Scene_Update(float timDelta)
 	if (KEY_MGR->IsOnceDown(VK_RETURN)){
 		SCENE_MGR->ChangeSceneWithLoading("Test01", "로딩씬", 1, 1);
 	}
-
+	
 	this->pMainCamera->UpdateFrustum();
 	this->cullObjects.clear();
 	for (int i = 0; i < this->renderObjects.size(); i++){
 
-		this->renderObjects[i]->Update(timDelta);
+		//this->renderObjects[i]->Update(timDelta);
 
 		//프러스텀 안에 있니?
 		if (this->pMainCamera->Frustum.IsInFrustum(this->renderObjects[i]))
@@ -192,7 +192,7 @@ void cScene_main::Scene_Render1()
 	//cXMesh_Skinned::SetTechniqueName("ReciveShadow");
 	cXMesh_Skinned::SetBaseLight(this->pSceneBaseDirectionLight);
 
-	//cXMesh_Skinned::SetLighting(&this->lights);
+	cXMesh_Skinned::SetLighting(&this->lights);
 
 	//Map
 	//if (pMap) //20161206 승현주석

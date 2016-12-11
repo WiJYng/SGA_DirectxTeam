@@ -167,7 +167,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 			{
 				if (!renderObjects[i]->pSkinned) continue;
 				renderObjects[i]->pSkinned->Play("Dash", 0.3f);
-				renderObjects[i]->pSkinned->SetPlaySpeed(0.5f);
+				renderObjects[i]->pSkinned->SetPlaySpeed(0.75);
 			}
 		}
 	}

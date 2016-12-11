@@ -165,7 +165,7 @@ PS_OUTPUT ps_main(PS_INPUT Input)
 		//
 		// Final Color 
 		//
-		float3 finalColor = (diffuseColor + specularColor + emissionColor) * 10;
+		float3 finalColor = (diffuseColor + specularColor + emissionColor);
 
 
 		//행렬변환을 거친 값 z 에 행렬변환에서 얻는 가중치 w 를 나누면 0 ~ 1 사이의 깊이 값이 된다.
@@ -180,8 +180,9 @@ PS_OUTPUT ps_main(PS_INPUT Input)
 
 
 	Output.baseColor = float4(finalColor, 1);
+	//Output.baseColor = float4(1, 1, 1, 1);	
 	Output.normalDepth = float4(worldNormal, depth);		//alpha 값에 뎁스를 썼다.
-
+	//Output.normalDepth = float4(1, 1, 1, 1);
 
 	return Output;
 }

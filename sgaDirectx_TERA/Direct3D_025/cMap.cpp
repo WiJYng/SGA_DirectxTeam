@@ -289,6 +289,10 @@ void cMap::Update()
 }
 void cMap::Render()
 {
+	Device->SetRenderState(D3DRS_ALPHATESTENABLE, true);
+	Device->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+	Device->SetRenderState(D3DRS_ALPHAREF, 0.5f);
+
 	//ÁöÇü
 	if (m_pMap)
 		m_pMap->Render();

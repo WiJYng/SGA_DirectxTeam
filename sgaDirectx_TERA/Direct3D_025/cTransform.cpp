@@ -1535,21 +1535,21 @@ void cTransform::DefaultControl2( float timeDelta )
 
 void cTransform::GoControl(float timeDelta)
 {
-	float deltaMove = 3.0f * timeDelta;
+	float deltaMove = 4.5 * timeDelta;
 
 	this->MovePositionSelf(0.0f, 0.0f, deltaMove);
 }
 
 void cTransform::LeftControl(float timeDelta)
 {
-	float deltaAngle = 90.0f * ONE_RAD * timeDelta;
+	float deltaAngle = 180.0f * ONE_RAD * timeDelta;
 
 	this->RotateSelf(0.0f, -deltaAngle, 0.0f);
 }
 
 void cTransform::RightControl(float timeDelta)
 {
-	float deltaAngle = 90.0f * ONE_RAD * timeDelta;
+	float deltaAngle = 180.0f * ONE_RAD * timeDelta;
 
 	this->RotateSelf(0.0f, deltaAngle, 0.0f);
 }
