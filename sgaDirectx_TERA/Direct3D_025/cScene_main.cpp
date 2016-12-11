@@ -85,7 +85,7 @@ HRESULT cScene_main::Scene_Init()
 		1.0f,					//꼬리 라이브 타임 ( 이게 크면 환영큐 사이즈가 커지고 꼬리가 오랬동안 남아있다 )
 		1.0f,					//폭
 		RESOURCE_TEXTURE->GetResource("./Resources/Testures/TrailTest.png"),	//메인 Texture
-		D3DXCOLOR(0, 0.5, 1, 1),												//메인 Texture 로 그릴때 컬러
+		D3DXCOLOR(1, 0, 0, 1),												//메인 Texture 로 그릴때 컬러
 		RESOURCE_TEXTURE->GetResource("./Resources/Testures/TrailTest.png")	//외곡 그릴때 외곡 노말
 		);
 
@@ -93,6 +93,12 @@ HRESULT cScene_main::Scene_Init()
 
 	pPlayerSkillEff = new cPlayerSkillEffect;
 	pPlayerSkillEff->Setup();
+
+	cTransform* tempTrans = pPlayer->m_pRootTrans;
+	//tempTrans->SetRotateWorld(0.0f, 90.0f, 0.0f);
+
+	//this->pMainCamera->AttachTo(tempTrans);
+	this->pMainCamera->MovePositionWorld(D3DXVECTOR3(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().y - 10, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z - 5));
 
 	return S_OK;
 }
@@ -115,7 +121,6 @@ void cScene_main::Scene_Release()
 void cScene_main::Scene_Update(float timDelta)
 {
 
-
 	if (KEY_MGR->IsOnceDown(VK_RETURN)){
 		SCENE_MGR->ChangeSceneWithLoading("Test01", "로딩씬", 1, 1);
 	}
@@ -123,7 +128,7 @@ void cScene_main::Scene_Update(float timDelta)
 	//this->pSceneBaseDirectionLight->pTransform->DefaultControl2( timDelta );
 	//this->pMainCamera->DefaultControl3(timDelta, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition()); //
 	//this->pMainCamera->DefaultControl4(timDelta, pPlayer->GetBaseObject()[0]->pTransform); //
-	this->pMainCamera->DefaultControl(timDelta); //★
+	//this->pMainCamera->DefaultControl(timDelta); //★
 
 	this->pMainCamera->UpdateFrustum();
 	this->cullObjects.clear();
@@ -186,12 +191,12 @@ void cScene_main::Scene_Update(float timDelta)
 	//	}
 	//}
 	
-	//카메라
-	
-
-
+	this->pMainCamera->DefaultControl4(timDelta, pPlayer->GetBaseObject()[0]->pTransform); //★
+	//this->pMainCamera->SetWorldPosition(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition());
+	//this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().y + 10, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z - 10));
+	this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 10, pPlayer->m_pRootTrans->GetWorldPosition().z - 10));
 	//쉐도우맵 준비
-	//this->ReadyShadowMap(&this->renderObjects, NULL);
+	this->ReadyShadowMap(&this->renderObjects, NULL);
 }
 
 void cScene_main::Scene_Render1()
