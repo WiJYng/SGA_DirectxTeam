@@ -44,7 +44,7 @@ private:
 	cXMesh_Static*						m_pRWeaponMesh;
 	cXMesh_Static*						m_pLWeaponMesh;
 
-	cTransform*							m_pRootTrans;
+	//cTransform*							m_pRootTrans;
 	cTransform*							m_pNeckTrans;
 	cTransform*							m_pHairTrans;
 	cTransform*							m_pTailTrans;
@@ -55,6 +55,8 @@ private:
 	tagState							m_tState;
 
 public:
+	cTransform*							m_pRootTrans;
+
 	cCharacter();
 	~cCharacter();
 
