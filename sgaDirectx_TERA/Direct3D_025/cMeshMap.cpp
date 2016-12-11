@@ -41,6 +41,8 @@ void cMeshMap::Setup(string PathMap, D3DXMATRIXA16* mat)
 	pMap->IgnoreCreateShadow = false;		//그림자 안그린다.
 	pMap->ApplyShadow = true;
 
+	pCharPosition = D3DXVECTOR3(0, 0, 0); 
+
 	//effect
 	pDecalEffect = RESOURCE_FX->GetResource("./Tera/Effect/decal_shader.fx");
 
@@ -66,10 +68,13 @@ void cMeshMap::Render()
 		
 		pDecalEffect->SetFloat("fRange", 3.0f);
 		D3DXVECTOR4 vPos[2];
-		vPos[0] = D3DXVECTOR4(1, 3, 0, 1);
-		vPos[1] = D3DXVECTOR4(0, 3, 1, 1);
+		vPos[0] = D3DXVECTOR4(pCharPosition.x + 0.5f, pCharPosition.y, pCharPosition.z , 1.0f);
+		vPos[1] = D3DXVECTOR4(pCharPosition.x, pCharPosition.y, pCharPosition.z + 0.5f, 1.0f);
+		//vPos[1] = D3DXVECTOR4(0, 3, 1, 1);
 		pDecalEffect->SetVectorArray("vPos", vPos, 2);
 		
+		//Device->SetFVF();
+
 		UINT numPasses = 0;
 		pDecalEffect->Begin(&numPasses, NULL);
 		

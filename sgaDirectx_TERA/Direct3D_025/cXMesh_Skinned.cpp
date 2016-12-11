@@ -182,6 +182,7 @@ void cXMesh_Skinned::Render( const cTransform* pTrans )
 
 	m_pSkinnedEffect->SetTechnique( "SkinnedMesh" );
 
+
 	//SkinnedEffect WorldMatrix 적용
 	m_pSkinnedEffect->SetMatrix( "matWorld", &matFinal );
 
@@ -367,6 +368,7 @@ void cXMesh_Skinned::RenderBone( BONE* pBone )
 							pBoneMesh->ppBoneMatrixPtrs[ dwMatrixIndex ] );
 					}
 				}
+
 
 				//위에서 셋팅됭 작업행렬을 Effect 팔래스에 적용한다.
 				m_pSkinnedEffect->SetMatrixArray(

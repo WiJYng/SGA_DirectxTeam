@@ -352,8 +352,7 @@ PS_OUTPUT ps_ReciveShadow(PS_INPUT_RECIVESHADOW Input)
 	//
 	// Diffuse
 	//
-	//float3 diffuseColor = diffTex.rgb * finalDiffuse;	
-	float3 diffuseColor = diffTex.rgb;
+	float3 diffuseColor = diffTex.rgb * finalDiffuse;
 
 		//
 		// Specular 
@@ -368,8 +367,8 @@ PS_OUTPUT ps_ReciveShadow(PS_INPUT_RECIVESHADOW Input)
 		//
 		// Final Color 
 		//
-		//float3 finalColor = diffuseColor + specularColor + emissionColor;
-		float3 finalColor = diffuseColor;
+		float3 finalColor = diffuseColor + specularColor + emissionColor;
+
 
 
 		//행렬변환을 거친 값 z 에 행렬변환에서 얻는 가중치 w 를 나누면 0 ~ 1 사이의 깊이 값이 된다.

@@ -4,9 +4,11 @@ class cMeshMap;
 
 class cMap
 {
+public :
+	cMeshMap*				m_pMap;
 private:
 	//∏ 
-	cMeshMap*				m_pMap;
+	
 	cMeshMap*				m_pSurface_ter;
 
 	//æ∆¿Ã≈€

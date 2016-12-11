@@ -10,6 +10,9 @@ private:
 	
 	
 	vector<D3DXVECTOR3> vecToTerrian;
+
+public :
+	D3DXVECTOR3			pCharPosition;
 public:
 	cMeshMap();
 	~cMeshMap();

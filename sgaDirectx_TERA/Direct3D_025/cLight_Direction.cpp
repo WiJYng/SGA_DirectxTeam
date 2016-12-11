@@ -23,10 +23,11 @@ D3DXMATRIXA16 cLight_Direction::GetLightMatrix()
 	D3DXMatrixIdentity( &matLight );
 	matLight._14 = 0;		//Directional Light Type
 	D3DXVECTOR3 forward = this->pTransform->GetForward();
+	forward = D3DXVECTOR3(1, 1, 1);
 	memcpy( &matLight._21, &forward, sizeof( D3DXVECTOR3 ) );
 	memcpy( &matLight._31, &Color, sizeof( FLOAT ) * 5 ); 
 	matLight._34 = this->Intensity * 3;
-	int a = 0;
+	//int a = 0;
 	//D3DXMATRIXA16 matLight;
 	//D3DXMatrixIdentity(&matLight);
 	//matLight._14 = 1;		//Point Light Type
