@@ -32,7 +32,7 @@ public :
 	void Update(float _TimeDelta);
 	void Render();
 
-	void PlayEffect(EFFECT_NAME _Name);
+	void PlayEffect(EFFECT_NAME _Name, D3DXVECTOR3 pos);
 
 private:
 	void InitPlayerSkill();						//½ºÅ³ Init

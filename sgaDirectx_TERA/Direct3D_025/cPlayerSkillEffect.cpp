@@ -25,10 +25,10 @@ void cPlayerSkillEffect::Update(float _TimeDelta)
 	}
 
 	//Test
-	if (KEY_MGR->IsOnceDown(VK_SPACE))
-	{
-		PlayEffect(EFF_ATTACK_01);
-	}
+	//if (KEY_MGR->IsOnceDown(VK_SPACE))
+	//{
+	//	PlayEffect(EFF_ATTACK_01, D3DXVECTOR3(0, 0, 0));
+	//}
 }
 
 void cPlayerSkillEffect::Render()
@@ -40,12 +40,15 @@ void cPlayerSkillEffect::Render()
 	}
 }
 
-void cPlayerSkillEffect::PlayEffect(EFFECT_NAME _Name)
+void cPlayerSkillEffect::PlayEffect(EFFECT_NAME _Name, D3DXVECTOR3 pos)
 {
+	if (pos == NULL)
+		pos = D3DXVECTOR3(0, 0, 0);
+
 	switch (_Name)
 	{
 	case EFF_ATTACK_01:
-		PlayAttackEffect_01(D3DXVECTOR3(10, 5, 10));
+		PlayAttackEffect_01(pos);
 
 		break;
 	default :
