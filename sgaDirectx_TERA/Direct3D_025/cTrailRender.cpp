@@ -344,15 +344,6 @@ void		cTrailRender::RenderDistort( cCamera* pCam )
 	}
 
 
-
-
-
-
-
-
-
-
-
 	//Grab Texture ¾ò´Â´Ù.
 	GetDeviceGrabTexture( Device, m_pGrabTexture );
 
@@ -368,7 +359,7 @@ void		cTrailRender::RenderDistort( cCamera* pCam )
 	D3DXMATRIXA16 matViewProj = pCam->GetViewProjectionMatrix();
 	m_pDistortEffect->SetMatrix( "matViewProj", &matViewProj );
 	m_pDistortEffect->SetTexture( "grabTexture_Tex", m_pGrabTexture );
-	m_pDistortEffect->SetFloat( "DistortPower",0.01f );
+	m_pDistortEffect->SetFloat( "DistortPower", 0.0001f );
 	m_pDistortEffect->SetFloat( "CamNear", pCam->camNear );
 	m_pDistortEffect->SetFloat( "CamFar", pCam->camFar );
 	m_pDistortEffect->SetTexture( "distortNormal_Tex", m_pDistortTexture );
@@ -401,9 +392,9 @@ void		cTrailRender::RenderDistort( cCamera* pCam )
 	m_pDistortEffect->End();
 
 	
-	this->Transform.RenderGimozo( Device );
-	this->m_LeftTransform.RenderGimozo( Device );
-	this->m_RightTransform.RenderGimozo( Device );
+	//this->Transform.RenderGimozo( Device );
+	//this->m_LeftTransform.RenderGimozo( Device );
+	//this->m_RightTransform.RenderGimozo( Device );
 
 
 }
