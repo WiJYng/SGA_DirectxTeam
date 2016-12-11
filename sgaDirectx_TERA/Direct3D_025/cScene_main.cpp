@@ -188,19 +188,30 @@ void cScene_main::Scene_Update(float timDelta)
 				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[4], pEnemy[i]->GetBaseObject()[0]))
 				{
 					pEnemy[i]->SetState(MonState::Stun);
-					pEnemy[i]->SetHP(pEnemy[i]->GetHP() - 1);
+					//pEnemy[i]->SetHP(pEnemy[i]->GetHP() - 1);
 					//0.0f, 0.75f, -0.025f
 					D3DXVECTOR3 vCenter;
 					float		ftemp;
 
 					pPlayer->GetBaseObject()[4]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[4]->pTransform, &vCenter, &ftemp);
 					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
+				}
+
+				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[5], pEnemy[i]->GetBaseObject()[0]))
+				{
+					pEnemy[i]->SetState(MonState::Stun);
+					//pEnemy[i]->SetHP(pEnemy[i]->GetHP() - 1);
+					//0.0f, 0.75f, -0.025f
+					D3DXVECTOR3 vCenter;
+					float		ftemp;
 
 					pPlayer->GetBaseObject()[5]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[5]->pTransform, &vCenter, &ftemp);
 					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
 				}
 			}
 		}
+
+
 
 		D3DXVECTOR3 weaponPos;
 		float		fTemp;

@@ -189,9 +189,9 @@ void cScene::Render()
 
 
 	//스플라이트 랜더
-	SPRITE_MGR->BeginSpriteRender();
-	this->Scene_RenderSprite();
-	SPRITE_MGR->EndSpriteRender();
+	//SPRITE_MGR->BeginSpriteRender();
+	//this->Scene_RenderSprite();
+	//SPRITE_MGR->EndSpriteRender();
 
 }
 
