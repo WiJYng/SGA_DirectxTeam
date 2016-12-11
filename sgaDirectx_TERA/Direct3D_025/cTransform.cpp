@@ -4,6 +4,21 @@
 
 cTransform::cTransform(void)
 {
+	//테라카메라부분 변수 초기화 
+	ptPrevMouse.x = 0;
+	ptPrevMouse.y = 0;
+	m_fAngleX = 0.0f;
+	m_fAngleY = 0.0f;
+	m_fDistance = 0.0f; //5
+	m_isLButtonDown = false;
+	m_vEye = D3DXVECTOR3(0, 0, -5);
+	m_vLookAt = D3DXVECTOR3(0, 0, 0);
+	m_vUp = D3DXVECTOR3(0, 1, 0);
+
+	//MaxZoomIn = 5;
+	//MaxZoomOut = -5;
+	//Zoom = 0;
+
 	this->pParent = NULL;
 	this->pFirstChild = NULL;
 	this->pNextSibling = NULL;
@@ -1354,7 +1369,7 @@ void cTransform::DefaultControl( float timeDelta )
 	static float minAngleV = -85.0f;			//수직 최저 앵글
 	static float sensitivityH = 1.0f;					//가로 민감도
 	static float sensitivityV = 1.0f;					//세로 민감도 ( 이값이 음수면 Invert Mouse )
-	static D3DXVECTOR3 nowVelocity( 0, 0, 0);			//현제 방향과 속도를 가진 벡터
+	static D3DXVECTOR3 nowVelocity( 500, 0, 0);			//현제 방향과 속도를 가진 벡터
 
 	static float accelate = 30.0f;						//초당 이동 증가값
 	static float nowSpeed = 3.0f;						//현재 속도
@@ -1531,6 +1546,225 @@ void cTransform::DefaultControl2( float timeDelta )
 			this->RotateSelf( deltaAngle, 0.0f, 0.0f );
 	}
 
+}
+
+void cTransform::DefaultControl3(float timeDelta,D3DXVECTOR3 pTarget) //★
+{
+	//디폴트 컨트롤을 위한 카메라 Angle 값
+	//static float nowAngleH = 0.0f;			//수평앵글
+	//static float nowAngleV = 0.0f;			//수직앵글
+	//static float maxAngleV = 85.0f;			//수직 최대 앵글
+	//static float minAngleV = -85.0f;			//수직 최저 앵글
+	//static float sensitivityH = 1.0f;					//가로 민감도
+	//static float sensitivityV = 1.0f;					//세로 민감도 ( 이값이 음수면 Invert Mouse )
+	//static D3DXVECTOR3 nowVelocity(0, 0, 0);			//현제 방향과 속도를 가진 벡터
+
+	//static float accelate = 30.0f;					//초당 이동 증가값
+	//static float nowSpeed = 3.0f;						//현재 속도
+	static float maxSpeed = 10.0f;						//최고 속도 
+	static int   zoom = 0;
+	static bool  isZoom = 0;
+
+	D3DXVECTOR3 inputVector(0, 0, 0);
+
+	if (g_Wheel < 0)
+	{
+		inputVector.z = -1.0f;
+	}
+
+	if (g_Wheel > 0)
+	{
+		inputVector.z = 1.0f;
+	}
+
+	g_Wheel = 0;
+
+	
+
+	//if (KEY_MGR->IsStayDown('A')){
+	//	inputVector.x = -1.0f;
+	//}
+
+	//else if (KEY_MGR->IsStayDown('D')){
+	//	inputVector.x = 1.0f;
+	//}
+
+
+	//제로 벡터가 아닐때
+	if (VECTORZERO(inputVector) == false)
+	{
+		//정규화
+		D3DXVec3Normalize(&inputVector, &inputVector);
+	}
+
+	D3DXVECTOR3 target = inputVector * maxSpeed;
+	this->MovePositionSelf(target * timeDelta);
+
+
+
+	if (KEY_MGR->IsOnceDown(VK_LBUTTON))
+	{
+		ptPrevMouse = GetMousePos();
+	}	
+
+	if (KEY_MGR->IsStayDown(VK_LBUTTON))
+	{
+		//현재 마우스 위치
+		POINT mousePos = GetMousePos();
+
+		//이동량 ( 중앙에서 멀어진 량 )
+		float deltaX = mousePos.x - ptPrevMouse.x;
+		float deltaY = mousePos.y - ptPrevMouse.y;
+
+		m_fAngleX += deltaY / 10.f;
+
+		if (m_fAngleX <= -D3DX_PI / 2 + 0.0001f)
+			m_fAngleX = -D3DX_PI / 2 + 0.0001f;
+
+		if (m_fAngleX >= D3DX_PI / 2 - 0.0001f)
+			m_fAngleX = D3DX_PI / 2 - 0.0001f;
+
+		m_fAngleY += deltaX / 10.f;
+		ptPrevMouse = mousePos;
+
+		this->SetRotateWorld(m_fAngleX * ONE_RAD, m_fAngleY * ONE_RAD, 0.0f);
+
+
+		//m_vEye = D3DXVECTOR3(0, 1, -m_fDistance);
+		//m_vLookAt = D3DXVECTOR3(0, 0.7, 0);
+
+		//D3DXMATRIXA16 matRotX, matRotY;
+
+		//D3DXMatrixRotationX(&matRotX, m_fAngleX);
+		//D3DXMatrixRotationY(&matRotY, m_fAngleY);		//마우스로 y조절
+		////D3DXMatrixRotationY(&matRotY, Angle);			//캐릭터로 y조절
+
+		//D3DXMATRIXA16 matRot = matRotX * matRotY;
+
+		//D3DXVec3TransformCoord(&m_vEye, &m_vEye, &matRot);
+
+		//if (pTarget)
+		//{
+		//	m_vEye = m_vEye + pTarget;
+		//	m_vLookAt = m_vLookAt + pTarget;
+		//}
+
+		//D3DXMATRIXA16 matView;
+		//D3DXMatrixLookAtLH(&matView, &m_vEye, &m_vLookAt, &m_vUp);
+		//Device->SetTransform(D3DTS_VIEW, &matView);
+
+	}
+
+}
+
+void cTransform::DefaultControl4(float timeDelta, cTransform* charactor)
+{
+	////디폴트 컨트롤을 위한 카메라 Angle 값
+	//static float nowAngleH = 0.0f;         //수평앵글
+	//static float nowAngleV = 0.0f;         //수직앵글
+	//static float maxAngleV = 85.0f;         //수직 최대 앵글
+	//static float minAngleV = -85.0f;         //수직 최저 앵글
+	//static float sensitivityH = 0.5f;               //가로 민감도
+	//static float sensitivityV = 0.5f;               //세로 민감도 ( 이값이 음수면 Invert Mouse )
+	//static D3DXVECTOR3 nowVelocity(0, 0, 0);         //현제 방향과 속도를 가진 벡터
+
+	//static float accelate = 30.0f;                  //초당 이동 증가값
+	//static float nowSpeed = 3.0f;                  //현재 속도
+	//static float maxSpeed = 40.0f;                  //최고 속도 
+
+	//m_vLookAt = D3DXVECTOR3(charactor->GetWorldPosition().x, charactor->GetWorldPosition().y + 2, charactor->GetWorldPosition().z);
+
+	////입력 방향벡터
+	//D3DXVECTOR3 inputVector(0, 0, 0);
+
+	///*
+	//if (isCharView && KEY_MGR->IsStayDown(VK_MENU))
+	//{
+	//isAltView = true;
+	//isCharView = false;
+	////this->ReleaseParent();
+	////this->pTransForCamera->AddChild(this->pMainCamera);
+	//}
+
+	//if (isAltView && KEY_MGR->IsOnceUp(VK_MENU))
+	//{
+	////this->pMainCamera->Reset();
+	////this->pTransForCamera->Reset();
+	////this->pTransForCamera->SetWorldMatrix(this->pBerserker->pTransform->GetFinalMatrix());
+	////
+	////this->AttachTo(charactor);
+	////this->SetLocalPosition(0, 2, -5);
+	//isCharView = true;
+	//isAltView = false;
+	//}
+	//*/
+
+	//this->LookPosition(m_vLookAt, D3DXVECTOR3(0, 1, 0));
+
+	////줌인 줌아웃
+	//if (Zoom <= MaxZoomIn && ex_wheelUp) {
+	//	inputVector.z = 1.0f;
+	//	Zoom += 1.0f;
+	//	m_fDistance += 1.f;
+	//}
+
+	//else if (Zoom >= MaxZoomOut && ex_wheelDown) {
+	//	inputVector.z = -1.0f;
+	//	Zoom -= 1.0f;
+	//	m_fDistance -= 1.f;
+	//}
+
+	////제로 벡터가 아닐때
+	//if (VECTORZERO(inputVector) == false)
+	//{
+	//	//정규화
+	//	D3DXVec3Normalize(&inputVector, &inputVector);
+	//}
+
+	////타겟벡터 
+	//D3DXVECTOR3 target = inputVector * maxSpeed;
+	//this->MovePositionSelf(target * timeDelta);
+
+	////최초 누를때는 마우스 위치를 가운데로 놓고 시작
+	//if (KEY_MGR->IsOnceDown(VK_RBUTTON))
+	//{
+	//	//화면의 중심위치
+	//	int screenCenterX = WINSIZE_X / 2;
+	//	int screenCenterY = WINSIZE_Y / 2;
+
+	//	SetMousePos(screenCenterX, screenCenterY);
+	//	//다시 마우스 위치를 센터로...
+	//}
+	//else if (KEY_MGR->IsStayDown(VK_RBUTTON))
+	//{
+	//	//
+	//	// 회전 처리
+	//	// 
+	//	//화면의 중심위치
+	//	int screenCenterX = WINSIZE_X / 2;
+	//	int screenCenterY = WINSIZE_Y / 2;
+
+	//	//현재 마우스 위치
+	//	POINT mousePos = GetMousePos();
+
+	//	//이동량 ( 중앙에서 멀어진 량 )
+	//	float deltaX = mousePos.x - screenCenterX;
+	//	float deltaY = mousePos.y - screenCenterY;
+
+	//	//앵글 추가
+	//	nowAngleH += deltaX * sensitivityH;
+	//	nowAngleV += deltaY * sensitivityV;
+
+	//	//앵글값을 min max 범위 안으로
+	//	nowAngleV = Clamp(nowAngleV, minAngleV, maxAngleV);
+	//	SetMousePos(screenCenterX, screenCenterY);
+
+	//	if (mousePos.x > screenCenterX)
+	//		charactor->RotateSelf(0, 2.5*ONE_RAD, 0);
+
+	//	if (mousePos.x < screenCenterX)
+	//		charactor->RotateSelf(0, -2.5*ONE_RAD, 0);
+	//}
 }
 
 void cTransform::GoControl(float timeDelta)

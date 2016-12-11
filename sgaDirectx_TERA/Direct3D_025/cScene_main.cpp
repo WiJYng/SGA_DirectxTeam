@@ -114,10 +114,17 @@ void cScene_main::Scene_Release()
 
 void cScene_main::Scene_Update(float timDelta)
 {
+
+
 	if (KEY_MGR->IsOnceDown(VK_RETURN)){
 		SCENE_MGR->ChangeSceneWithLoading("Test01", "로딩씬", 1, 1);
 	}
 	
+	//this->pSceneBaseDirectionLight->pTransform->DefaultControl2( timDelta );
+	//this->pMainCamera->DefaultControl3(timDelta, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition()); //
+	//this->pMainCamera->DefaultControl4(timDelta, pPlayer->GetBaseObject()[0]->pTransform); //
+	this->pMainCamera->DefaultControl(timDelta); //★
+
 	this->pMainCamera->UpdateFrustum();
 	this->cullObjects.clear();
 	for (int i = 0; i < this->renderObjects.size(); i++){
@@ -144,12 +151,12 @@ void cScene_main::Scene_Update(float timDelta)
 	}
 	
 
-	//업데이트
+	//업데이트 //이건무엇인가 ★ 
 	//this->pTrailRender->Update(timDelta);
 	//this->pTrailRender->Transform.DefaultControl2(timDelta);
 
 	pPlayerSkillEff->Update(timDelta);
-	
+
 	if (pPlayer->GetIsAttack())
 	{
 		for (int i = 0; i < 36; i++)
@@ -164,6 +171,8 @@ void cScene_main::Scene_Update(float timDelta)
 			}
 		}
 	}
+
+	pEntireMap->m_pMap->pCharPosition = pPlayer->GetWorldPosition();
 
 	//for (int i = 0; i < 36; i++)
 	//{

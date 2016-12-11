@@ -25,7 +25,7 @@ cScene::cScene(void)
 
 	//기본 값
 	//20161209승현주석 
-	this->pSceneBaseDirectionLight->Color = D3DXCOLOR( 1, 1, 1, 1 );
+	this->pSceneBaseDirectionLight->Color = D3DXCOLOR( 1, 1, 1, 0.7);
 	this->pSceneBaseDirectionLight->Intensity = 1.0f; //1.0f
 	//this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(0, 100, 0);
 	//this->pSceneBaseDirectionLight->pTransform->SetRotateWorld(90 * ONE_RAD, 0, 0);
@@ -113,8 +113,8 @@ void cScene::Release()
 
 void cScene::Update( float timeDelta )
 {
-	pMainCamera->DefaultControl( timeDelta );
-	
+	//pMainCamera->DefaultControl(timeDelta);
+
 	pMainCamera->UpdateCamToDevice( Device );
 	pMainCamera->UpdateFrustum();
 

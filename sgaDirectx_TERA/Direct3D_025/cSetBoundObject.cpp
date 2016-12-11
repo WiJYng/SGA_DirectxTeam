@@ -15,7 +15,7 @@ cSetBoundObject::~cSetBoundObject(void)
 
 void cSetBoundObject::BaseObjectUpdate( float timeDelta )
 {
-	this->pTransform->DefaultControl2( timeDelta );
+	this->pTransform->DefaultControl2( timeDelta ); //¡Ú
 
 	if( KEY_MGR->IsStayDown( 'T' ) )
 	{

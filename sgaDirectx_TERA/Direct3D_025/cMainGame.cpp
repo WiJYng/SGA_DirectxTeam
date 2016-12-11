@@ -151,6 +151,9 @@ LRESULT cMainGame::MainProc( HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPa
 {
 	switch( iMessage )
 	{	
+	case WM_MOUSEWHEEL:
+		g_Wheel = (short)HIWORD(wParam);
+		break;
 	case WM_TIMER:
 		Update();
 		break;

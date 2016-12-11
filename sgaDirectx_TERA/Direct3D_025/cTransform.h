@@ -19,6 +19,19 @@ __declspec(align(16))
 class cTransform
 {
 protected:
+	//테라카메라 변수부분 추가
+
+	POINT			ptPrevMouse;
+	float			m_fAngleX;
+	float			m_fAngleY;
+	float			m_fDistance;
+	bool			m_isLButtonDown;
+	bool			m_bZoom;
+	D3DXVECTOR3		m_vEye;
+	D3DXVECTOR3		m_vLookAt;
+	D3DXVECTOR3		m_vUp;
+	
+	UINT message;
 
 	//축정보는 Union 으로 묵여 axis 배열로도 접근 가능하고, right, up, forward 로 도 접근가능하다.
 	// ( 부모가 있으면 부모에대한 상태적인 로컬방향 없으면 월드방향 )
@@ -221,6 +234,8 @@ public:
 	//디폴트 컨트롤 을해준다.
 	void DefaultControl( float timeDelta );
 	void DefaultControl2( float timeDelta );
+	void DefaultControl3(float timeDelta, D3DXVECTOR3 pTarget); //
+	void DefaultControl4(float timeDelta, cTransform* charactor);
 
 	void GoControl(float timeDelta);
 	void LeftControl(float timeDelta);
