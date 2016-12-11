@@ -98,7 +98,7 @@ HRESULT cScene_main::Scene_Init()
 	//tempTrans->SetRotateWorld(0.0f, 90.0f, 0.0f);
 
 	//this->pMainCamera->AttachTo(tempTrans);
-	this->pMainCamera->MovePositionWorld(D3DXVECTOR3(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().y - 10, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z - 5));
+	this->pMainCamera->MovePositionWorld(D3DXVECTOR3(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().y - 10, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z));
 
 	return S_OK;
 }
@@ -194,7 +194,7 @@ void cScene_main::Scene_Update(float timDelta)
 	this->pMainCamera->DefaultControl4(timDelta, pPlayer->GetBaseObject()[0]->pTransform); //¡Ú
 	//this->pMainCamera->SetWorldPosition(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition());
 	//this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().y + 10, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z - 10));
-	this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 10, pPlayer->m_pRootTrans->GetWorldPosition().z - 10));
+	this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->m_pRootTrans->GetWorldPosition().x + 5, pPlayer->m_pRootTrans->GetWorldPosition().y + 5, pPlayer->m_pRootTrans->GetWorldPosition().z + 1));
 	//½¦µµ¿ì¸Ê ÁØºñ
 	this->ReadyShadowMap(&this->renderObjects, NULL);
 }
