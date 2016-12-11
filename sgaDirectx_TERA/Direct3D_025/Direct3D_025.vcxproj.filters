@@ -225,9 +225,6 @@
     <ClInclude Include="cLoadingScene.h">
       <Filter>Tera\UI</Filter>
     </ClInclude>
-    <ClInclude Include="cEffect.h">
-      <Filter>Tera\Effect</Filter>
-    </ClInclude>
     <ClInclude Include="cPlayerSkillEffect.h">
       <Filter>Tera\Effect</Filter>
     </ClInclude>
@@ -412,9 +409,6 @@
     </ClCompile>
     <ClCompile Include="cLoadingScene.cpp">
       <Filter>Tera\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="cEffect.cpp">
-      <Filter>Tera\Effect</Filter>
     </ClCompile>
     <ClCompile Include="cPlayerSkillEffect.cpp">
       <Filter>Tera\Effect</Filter>

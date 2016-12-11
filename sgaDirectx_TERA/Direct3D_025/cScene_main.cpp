@@ -114,9 +114,16 @@ void cScene_main::Scene_Release()
 
 void cScene_main::Scene_Update(float timDelta)
 {
+
+
 	if (KEY_MGR->IsOnceDown(VK_RETURN)){
 		SCENE_MGR->ChangeSceneWithLoading("Test01", "로딩씬", 1, 1);
 	}
+
+	//this->pSceneBaseDirectionLight->pTransform->DefaultControl2( timDelta );
+	//this->pMainCamera->DefaultControl3(timDelta, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition()); //
+	//this->pMainCamera->DefaultControl4(timDelta, pPlayer->GetBaseObject()[0]->pTransform); //
+	this->pMainCamera->DefaultControl(timDelta); //★
 
 	this->pMainCamera->UpdateFrustum();
 	this->cullObjects.clear();
@@ -144,7 +151,7 @@ void cScene_main::Scene_Update(float timDelta)
 	}
 	
 
-	//업데이트
+	//업데이트 //이건무엇인가 ★ 
 	//this->pTrailRender->Update(timDelta);
 	//this->pTrailRender->Transform.DefaultControl2(timDelta);
 

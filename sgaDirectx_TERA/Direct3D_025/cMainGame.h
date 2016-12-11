@@ -7,7 +7,7 @@ class cMainGame
 {
 private:	
 	cScene*					m_pNowScene;
-
+	
 
 public:
 	cMainGame(void);

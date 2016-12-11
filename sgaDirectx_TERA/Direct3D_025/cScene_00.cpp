@@ -104,7 +104,7 @@ void cScene_00::Scene_Update( float timDelta )
 
 	}
 
-	//this->pSceneBaseDirectionLight->pTransform->DefaultControl2( timDelta );
+	//this->pSceneBaseDirectionLight->pTransform->DefaultControl2( timDelta ); //¡Ú
 
 	this->pMainCamera->UpdateFrustum();
 	this->cullObjects.clear();

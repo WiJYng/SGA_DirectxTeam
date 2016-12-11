@@ -9,6 +9,7 @@
 //
 HWND		g_hWnd;		//윈도우 핸들 ( 자신의 프로그램에서 돌고있는 윈도우 번호 )
 HINSTANCE	g_hInst;	//프로그램 인스턴스 핸들 ( OS 가 부여한 프로그램 번호 )
+int			g_Wheel = 0;
 
 //메인 게임 객체
 cMainGame	g_MainGame;

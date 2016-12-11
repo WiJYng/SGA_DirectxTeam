@@ -4,6 +4,7 @@
 
 cCamera::cCamera(void)
 	: bOrtho ( false )
+	, playerUse(false)
 
 {
 	//기본화각 60 도

@@ -40,7 +40,7 @@ private:
 	RenderTarget		renderTargets[MAX_RENDERTARGET];
 	RenderTarget		shadow;
 
-	//bool				m_
+	bool				playerUse;
 
 public:
 	cFrustum			Frustum;
@@ -50,6 +50,8 @@ public:
 	cCamera(void);
 	~cCamera(void);
 
+	void SetPlayerUse(bool value){ playerUse = value; }
+	bool GetPlayerUse(){ return playerUse; }
 
 	//투영행렬과 View 행렬을 업데이트
 	void UpdateMatrix();
