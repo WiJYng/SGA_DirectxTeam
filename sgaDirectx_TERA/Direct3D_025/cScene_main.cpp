@@ -80,15 +80,27 @@ HRESULT cScene_main::Scene_Init()
 	this->pSceneBaseDirectionLight->pTransform->SetRotateWorld(90.0f * ONE_RAD, 0, 0);
 
 	//TrailRenderSet
-	this->pTrailRender = new cTrailRender();
-	this->pTrailRender->Init(
-		1.0f,					//꼬리 라이브 타임 ( 이게 크면 환영큐 사이즈가 커지고 꼬리가 오랬동안 남아있다 )
-		1.0f,					//폭
-		RESOURCE_TEXTURE->GetResource("./Resources/Testures/TrailTest.png"),	//메인 Texture
-		D3DXCOLOR(1, 0, 0, 1),												//메인 Texture 로 그릴때 컬러
-		RESOURCE_TEXTURE->GetResource("./Resources/Testures/TrailTest.png")	//외곡 그릴때 외곡 노말
+	cTrailRender* t1 = new cTrailRender();
+	t1->Init(
+		0.5f,					//꼬리 라이브 타임 ( 이게 크면 환영큐 사이즈가 커지고 꼬리가 오랬동안 남아있다 )
+		1.f,					//폭
+		RESOURCE_TEXTURE->GetResource("./Resources/Testures/Tail.png"),	//메인 Texture
+		D3DXCOLOR(0, 0.5, 1, 0.7),												//메인 Texture 로 그릴때 컬러
+		RESOURCE_TEXTURE->GetResource("./Resources/Testures/Tail.png")	//외곡 그릴때 외곡 노말
 		);
 
+	cTrailRender* t2 = new cTrailRender();
+	t2->Init(
+		0.5f,					//꼬리 라이브 타임 ( 이게 크면 환영큐 사이즈가 커지고 꼬리가 오랬동안 남아있다 )
+		1.f,					//폭
+		RESOURCE_TEXTURE->GetResource("./Resources/Testures/Tail.png"),	//메인 Texture
+		D3DXCOLOR(0, 0.5, 1, 0.7),												//메인 Texture 로 그릴때 컬러
+		RESOURCE_TEXTURE->GetResource("./Resources/Testures/Tail.png")	//외곡 그릴때 외곡 노말
+		);
+
+	//왼쪽 오른쪽 두개
+	pVecTrailRender.push_back(t1);
+	pVecTrailRender.push_back(t2);
 
 
 	pPlayerSkillEff = new cPlayerSkillEffect;
@@ -98,7 +110,7 @@ HRESULT cScene_main::Scene_Init()
 	//tempTrans->SetRotateWorld(0.0f, 90.0f, 0.0f);
 
 	//this->pMainCamera->AttachTo(tempTrans);
-	this->pMainCamera->MovePositionWorld(D3DXVECTOR3(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().y - 10, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z - 5));
+	this->pMainCamera->MovePositionWorld(D3DXVECTOR3(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().y - 10, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z));
 
 	return S_OK;
 }
@@ -114,8 +126,11 @@ void cScene_main::Scene_Release()
 	//SAFE_DELETE_ARR(pEnemy);
 	delete[] pEnemy;
 	//Trail 해재
-	this->pTrailRender->Release();
-	SAFE_DELETE(this->pTrailRender);
+	for each(auto t in pVecTrailRender)
+	{
+		t->Release();
+		SAFE_DELETE(t);
+	}
 }
 
 void cScene_main::Scene_Update(float timDelta)
@@ -155,12 +170,14 @@ void cScene_main::Scene_Update(float timDelta)
 		pEnemy[i]->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
 	}
 	
-
-	//업데이트 //이건무엇인가 ★ 
-	//this->pTrailRender->Update(timDelta);
-	//this->pTrailRender->Transform.DefaultControl2(timDelta);
-
+	//업데이트
+	//스킬이펙트
 	pPlayerSkillEff->Update(timDelta);
+
+	//검선이펙트
+	pVecTrailRender[0]->Update(timDelta);
+	pVecTrailRender[1]->Update(timDelta);
+	
 
 	if (pPlayer->GetIsAttack())
 	{
@@ -172,9 +189,25 @@ void cScene_main::Scene_Update(float timDelta)
 				{
 					pEnemy[i]->SetState(MonState::Stun);
 					pEnemy[i]->SetHP(pEnemy[i]->GetHP() - 1);
+					//0.0f, 0.75f, -0.025f
+					D3DXVECTOR3 vCenter;
+					float		ftemp;
+
+					pPlayer->GetBaseObject()[4]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[4]->pTransform, &vCenter, &ftemp);
+
+					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
 				}
 			}
 		}
+
+		D3DXVECTOR3 weaponPos;
+		float		fTemp;
+
+		pPlayer->GetBaseObject()[4]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[4]->pTransform, &weaponPos, &fTemp);
+		pVecTrailRender[0]->Transform.SetWorldPosition(pPlayer->GetWorldPosition());
+
+		pPlayer->GetBaseObject()[5]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[5]->pTransform, &weaponPos, &fTemp);
+		pVecTrailRender[1]->Transform.SetWorldPosition(pPlayer->GetWorldPosition());
 	}
 
 	pEntireMap->m_pMap->pCharPosition = pPlayer->GetWorldPosition();
@@ -194,7 +227,7 @@ void cScene_main::Scene_Update(float timDelta)
 	this->pMainCamera->DefaultControl4(timDelta, pPlayer->GetBaseObject()[0]->pTransform); //★
 	//this->pMainCamera->SetWorldPosition(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition());
 	//this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().y + 10, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z - 10));
-	this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 10, pPlayer->m_pRootTrans->GetWorldPosition().z - 10));
+	this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->m_pRootTrans->GetWorldPosition().x + 5, pPlayer->m_pRootTrans->GetWorldPosition().y + 5, pPlayer->m_pRootTrans->GetWorldPosition().z + 1));
 	//쉐도우맵 준비
 	this->ReadyShadowMap(&this->renderObjects, NULL);
 }
@@ -227,10 +260,6 @@ void cScene_main::Scene_Render1()
 		if (pEnemy[i])
 			pEnemy[i]->Render();
 	}
-	
-
-	if (pPlayerSkillEff)
-		pPlayerSkillEff->Render();
 
 	//PlayerUI //20161207 승현추가
 	if (pPlayerUI)
@@ -257,9 +286,20 @@ void cScene_main::Scene_Render1()
 	this->pDirectionLightCamera->Frustum.RenderGizmo();
 	this->pSceneBaseDirectionLight->pTransform->RenderGimozo();
 
+	//-----------------------------
+	//Effect Rendering
+	//-----------------------------
+
+	if (pPlayerSkillEff)
+		pPlayerSkillEff->Render();
+
 
 	//랜더 ( 왠만하면 알파블랜딩이니깐 나중에 그리자... )
-	this->pTrailRender->Render();
+	for each (auto t in pVecTrailRender)
+	{
+		t->Render();
+	}
+	//this->pTrailRender->Render();
 }
 
 void cScene_main::Scene_RenderSprite()

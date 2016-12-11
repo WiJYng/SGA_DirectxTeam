@@ -24,7 +24,7 @@ private:
 	cCharacter*							pPlayer;
 	cEnemy*								pEnemy[36];
 
-	cTrailRender*						pTrailRender;
+	vector<cTrailRender*>				pVecTrailRender;
 	cMap*								pEntireMap;
 
 	cPlayerUI*							pPlayerUI;
