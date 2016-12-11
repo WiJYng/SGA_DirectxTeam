@@ -276,7 +276,6 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 		{
 			y = _Map->GetHeight(m_pRootTrans->GetWorldPosition().x, m_pRootTrans->GetWorldPosition().z);
 		}
-		
 		renderObjects[0]->pTransform->SetWorldPosition(renderObjects[0]->pTransform->GetWorldPosition().x, y, renderObjects[0]->pTransform->GetWorldPosition().z);
 	}
 	

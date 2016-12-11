@@ -237,11 +237,11 @@ void cScene_main::Scene_Update(float timDelta)
 	//	}
 	//}
 	
-	this->pMainCamera->DefaultControl4(timDelta, pPlayer->m_pRootTrans); //¡Ú
 	this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->m_pRootTrans->GetWorldPosition().x + 5, pPlayer->m_pRootTrans->GetWorldPosition().y + 5, pPlayer->m_pRootTrans->GetWorldPosition().z + 1));
+	this->pMainCamera->DefaultControl4(timDelta, pPlayer->m_pRootTrans); //¡Ú
 
-	//this->pMainCamera->DefaultControl4(timDelta, pPlayer->GetBaseObject()[0]->pTransform); //¡Ú
 	//this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x + 5, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().y + 5, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z + 1));
+	//this->pMainCamera->DefaultControl4(timDelta, pPlayer->GetBaseObject()[0]->pTransform); //¡Ú
 
 	//½¦µµ¿ì¸Ê ÁØºñ
 	this->ReadyShadowMap(&this->renderObjects, NULL);

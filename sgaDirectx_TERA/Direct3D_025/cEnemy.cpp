@@ -135,7 +135,7 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 
 	if (m_State != Death && !bDeath && m_State != Stun)
 	{
-		if (dist > 20.0f)
+		if (dist > 15.0f)
 		{
 			if (m_State != Wait && !bWait)
 			{
@@ -145,7 +145,7 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 				bRun = bAtt = false;
 			}
 		}
-		else if (dist <= 20.0f && dist > 1.5f)
+		else if (dist <= 15.0f && dist > 1.5f)
 		{
 			if (m_State != Run && !bRun)
 			{
@@ -154,7 +154,7 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 				bRun = true;
 				bWait = bAtt = false;
 			}
-			renderObjects[0]->pTransform->MovePositionWorld(renderObjects[0]->pTransform->GetForward()*TIME_MGR->GetFrameDeltaSec());
+			renderObjects[0]->pTransform->MovePositionWorld(renderObjects[0]->pTransform->GetForward()*timDelta);
 			
 		}
 		else if (dist <= 1.5f && dist > 0.0f)
@@ -229,7 +229,6 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 			D3DXVECTOR3 vTemp = D3DXVECTOR3(renderObjects[0]->pTransform->GetWorldPosition().x, y, renderObjects[0]->pTransform->GetWorldPosition().z);
 			renderObjects[0]->pTransform->SetWorldPosition(vTemp);
 		}
-		
 	}
 	
 	//PrevAngle = angle;
