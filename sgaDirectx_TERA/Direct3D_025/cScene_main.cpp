@@ -204,10 +204,10 @@ void cScene_main::Scene_Update(float timDelta)
 		float		fTemp;
 
 		pPlayer->GetBaseObject()[4]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[4]->pTransform, &weaponPos, &fTemp);
-		pVecTrailRender[0]->Transform.SetWorldPosition(pPlayer->GetWorldPosition());
+		pVecTrailRender[0]->Transform.SetWorldPosition(weaponPos);
 
 		pPlayer->GetBaseObject()[5]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[5]->pTransform, &weaponPos, &fTemp);
-		pVecTrailRender[1]->Transform.SetWorldPosition(pPlayer->GetWorldPosition());
+		pVecTrailRender[1]->Transform.SetWorldPosition(weaponPos);
 	}
 
 	pEntireMap->m_pMap->pCharPosition = pPlayer->GetWorldPosition();
@@ -224,10 +224,12 @@ void cScene_main::Scene_Update(float timDelta)
 	//	}
 	//}
 	
-	this->pMainCamera->DefaultControl4(timDelta, pPlayer->GetBaseObject()[0]->pTransform); //¡Ú
-	//this->pMainCamera->SetWorldPosition(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition());
-	//this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().y + 10, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z - 10));
+	this->pMainCamera->DefaultControl4(timDelta, pPlayer->m_pRootTrans); //¡Ú
 	this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->m_pRootTrans->GetWorldPosition().x + 5, pPlayer->m_pRootTrans->GetWorldPosition().y + 5, pPlayer->m_pRootTrans->GetWorldPosition().z + 1));
+
+	//this->pMainCamera->DefaultControl4(timDelta, pPlayer->GetBaseObject()[0]->pTransform); //¡Ú
+	//this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x + 5, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().y + 5, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z + 1));
+
 	//½¦µµ¿ì¸Ê ÁØºñ
 	this->ReadyShadowMap(&this->renderObjects, NULL);
 }
