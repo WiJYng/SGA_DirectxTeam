@@ -82,8 +82,8 @@ HRESULT cScene_main::Scene_Init()
 	//TrailRenderSet
 	cTrailRender* t1 = new cTrailRender();
 	t1->Init(
-		0.5f,					//꼬리 라이브 타임 ( 이게 크면 환영큐 사이즈가 커지고 꼬리가 오랬동안 남아있다 )
-		1.f,					//폭
+		0.1f,					//꼬리 라이브 타임 ( 이게 크면 환영큐 사이즈가 커지고 꼬리가 오랬동안 남아있다 )
+		0.5f,					//폭
 		RESOURCE_TEXTURE->GetResource("./Resources/Testures/Tail.png"),	//메인 Texture
 		D3DXCOLOR(0, 0.5, 1, 0.7),												//메인 Texture 로 그릴때 컬러
 		RESOURCE_TEXTURE->GetResource("./Resources/Testures/Tail.png")	//외곡 그릴때 외곡 노말
@@ -91,8 +91,8 @@ HRESULT cScene_main::Scene_Init()
 
 	cTrailRender* t2 = new cTrailRender();
 	t2->Init(
-		0.5f,					//꼬리 라이브 타임 ( 이게 크면 환영큐 사이즈가 커지고 꼬리가 오랬동안 남아있다 )
-		1.f,					//폭
+		0.1f,					//꼬리 라이브 타임 ( 이게 크면 환영큐 사이즈가 커지고 꼬리가 오랬동안 남아있다 )
+		0.5f,					//폭
 		RESOURCE_TEXTURE->GetResource("./Resources/Testures/Tail.png"),	//메인 Texture
 		D3DXCOLOR(0, 0.5, 1, 0.7),												//메인 Texture 로 그릴때 컬러
 		RESOURCE_TEXTURE->GetResource("./Resources/Testures/Tail.png")	//외곡 그릴때 외곡 노말
@@ -136,9 +136,9 @@ void cScene_main::Scene_Release()
 void cScene_main::Scene_Update(float timDelta)
 {
 
-	if (KEY_MGR->IsOnceDown(VK_RETURN)){
-		SCENE_MGR->ChangeSceneWithLoading("Test01", "로딩씬", 1, 1);
-	}
+	//if (KEY_MGR->IsOnceDown(VK_RETURN)){
+	//	SCENE_MGR->ChangeSceneWithLoading("Test01", "로딩씬", 1, 1);
+	//}
 	
 	//this->pSceneBaseDirectionLight->pTransform->DefaultControl2( timDelta );
 	//this->pMainCamera->DefaultControl3(timDelta, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition()); //
@@ -194,7 +194,9 @@ void cScene_main::Scene_Update(float timDelta)
 					float		ftemp;
 
 					pPlayer->GetBaseObject()[4]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[4]->pTransform, &vCenter, &ftemp);
+					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
 
+					pPlayer->GetBaseObject()[5]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[5]->pTransform, &vCenter, &ftemp);
 					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
 				}
 			}

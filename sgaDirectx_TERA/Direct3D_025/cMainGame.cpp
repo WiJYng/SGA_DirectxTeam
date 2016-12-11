@@ -34,8 +34,8 @@ HRESULT cMainGame::Init(void)
 	//°ÔÀÓ¿¡ »ç¿ëµÇ´Â ¾À Ãß°¡
 	//SCENE_MGR->AddScene( "Test00", new cScene_00() );
 	SCENE_MGR->AddScene("Test00", new cScene_main());
-	SCENE_MGR->AddScene( "Test01", new cScene_01() );
-	SCENE_MGR->AddLoadingScene( "·Îµù¾À", new cScene_02() );
+	//SCENE_MGR->AddScene( "Test01", new cScene_01() );
+	//SCENE_MGR->AddLoadingScene( "·Îµù¾À", new cScene_02() );
 
 	//°ÔÀÓ ½ÃÀÛ¾À
 	SCENE_MGR->ChangeScene( "Test00" );
