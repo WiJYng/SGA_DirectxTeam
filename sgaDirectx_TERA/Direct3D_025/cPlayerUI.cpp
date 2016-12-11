@@ -91,6 +91,9 @@ void cPlayerUI::Update()
 }
 void cPlayerUI::Render()
 {
+	RECT screenRc;
+	GetClientRect(g_hWnd, &screenRc);
+
 	//¹Ù ¹ÙÅÁ 
 	D3DXMATRIXA16 matR;
 	D3DXMatrixIdentity(&matR);
@@ -100,7 +103,11 @@ void cPlayerUI::Render()
 	m_pProgressBar_Sprite->Draw(m_pProgressBar_Texture,
 		&m_rcProgressBar,
 		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcProgressBar.left + 400, m_rcProgressBar.top + 615, 0),
+		&D3DXVECTOR3(
+		(screenRc.left + (screenRc.right - screenRc.left) / 2) - (m_rcProgressBar.right - m_rcProgressBar.left) / 2,
+		screenRc.bottom - (m_rcProgressBar.bottom - m_rcProgressBar.top) / 2 - 80,
+		0
+		),
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pProgressBar_Sprite->End();
 
@@ -112,7 +119,10 @@ void cPlayerUI::Render()
 	m_pHP_Sprite->Draw(m_pHP_Texture,
 		&m_rcHP,
 		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcProgressBar.left + 82 + 400, m_rcProgressBar.top + 619, 0),
+		&D3DXVECTOR3(
+		screenRc.left + (screenRc.right - screenRc.left) / 2 - (m_rcProgressBar.right - m_rcProgressBar.left) / 2 + 83,
+		screenRc.bottom - (m_rcProgressBar.bottom - m_rcProgressBar.top) / 2 - 76,
+		0),
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pHP_Sprite->End();
 
@@ -124,7 +134,10 @@ void cPlayerUI::Render()
 	m_pMP_Sprite->Draw(m_pMP_Texture,
 		&m_rcMP,
 		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcProgressBar.left + 82 + 400, m_rcProgressBar.top + 642, 0),
+		&D3DXVECTOR3(
+		(screenRc.left + (screenRc.right - screenRc.left) / 2) - (m_rcProgressBar.right - m_rcProgressBar.left) / 2 + 83,
+		screenRc.bottom - (m_rcProgressBar.bottom - m_rcProgressBar.top) / 2 - 54,
+		0),
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pMP_Sprite->End();
 
