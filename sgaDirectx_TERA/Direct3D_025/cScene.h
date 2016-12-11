@@ -3,6 +3,7 @@
 
 class cCamera;
 class cLight_Direction;
+class cLisht_Point;
 
 class cTerrain;
 

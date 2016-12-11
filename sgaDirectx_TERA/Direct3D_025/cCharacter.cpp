@@ -282,10 +282,11 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 	
 }
 
-void cCharacter::Render()
+void cCharacter::Render(cLight_Direction* pDirLight)
 {
 	//라이트 정보 셋팅
-	//cXMesh_Skinned::SetLighting(&this->lights);
+	//cXMesh_Skinned::SetBaseLight(pDirLight);
+	//cXMesh_Skinned::SetTechniqueName("Toon");
 	//cXMesh_Static::SetLighting(&this->lights);
 
 	for (int i = 0; i < renderObjects.size(); i++)

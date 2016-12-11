@@ -63,7 +63,7 @@ public:
 	
 	void Update(D3DXVECTOR3 worldPos);
 	void Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map);
-	void Render();
+	void Render(cLight_Direction* pDirLight);
 
 
 	//Getter/Setter

@@ -203,7 +203,7 @@ void cScene_main::Scene_Render1()
 	
 	//Player
 	if (pPlayer)
-		pPlayer->Render();
+		pPlayer->Render(this->pSceneBaseDirectionLight);
 
 	for (int i = 0; i < 36; i++)
 	{
