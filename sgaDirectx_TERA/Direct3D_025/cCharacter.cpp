@@ -293,7 +293,7 @@ void cCharacter::Render(cLight_Direction* pDirLight)
 	{
 		renderObjects[i]->Render();
 	}
-	renderObjects[4]->BoundBox.RenderGizmo(m_pRWeaponTrans);
+	//renderObjects[4]->BoundBox.RenderGizmo(m_pRWeaponTrans);
 	renderObjects[5]->BoundBox.RenderGizmo(m_pLWeaponTrans);
 }
 

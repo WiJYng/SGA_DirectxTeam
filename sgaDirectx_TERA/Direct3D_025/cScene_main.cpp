@@ -173,6 +173,11 @@ void cScene_main::Scene_Update(float timDelta)
 				{
 					pEnemy[i]->SetState(MonState::Stun);
 					pEnemy[i]->SetHP(pEnemy[i]->GetHP() - 1);
+
+					D3DXVECTOR3 effPos = pPlayer->GetBaseObject()[4]->BoundBox.localCenter;
+					D3DXVECTOR3 worldPos;
+
+					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, worldPos);
 				}
 			}
 		}
