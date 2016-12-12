@@ -123,7 +123,7 @@ void cPlayerUI::Render()
 		&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(
 		wid + 83,
-		screenRc.bottom - (m_rcProgressBar.bottom - m_rcProgressBar.top) / 2 - 76,
+		screenRc.bottom - ((m_rcProgressBar.bottom - m_rcProgressBar.top) / 2) - 76,
 		0),
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pHP_Sprite->End();
@@ -137,8 +137,8 @@ void cPlayerUI::Render()
 		&m_rcMP,
 		&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(
-		wid +83,
-		screenRc.bottom - (m_rcProgressBar.bottom - m_rcProgressBar.top) / 2 - 54,
+		wid + 83,
+		screenRc.bottom - ((m_rcProgressBar.bottom - m_rcProgressBar.top) / 2) - 54,
 		0),
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pMP_Sprite->End();
