@@ -172,7 +172,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 		}
 	}
 
-	if (KEY_MGR->IsOnceDown('P'))
+	if (KEY_MGR->IsOnceDown('O'))
 	{
 		if (!m_bAttack)
 		{
@@ -192,7 +192,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 		{
 			if (renderObjects[0]->pSkinned->GetFactor() >= 0.55)
 			{
-				if (m_tState == Combo1)
+				if (m_tState == Combo1 || m_tState == Rapid1)
 				{
 					m_tState = Combo2;
 					for (int i = 0; i < renderObjects.size(); i++)
@@ -203,7 +203,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 					}
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
-				else if (m_tState == Combo2)
+				else if (m_tState == Combo2 || m_tState == Rapid2)
 				{
 					m_tState = Combo3;
 					for (int i = 0; i < renderObjects.size(); i++)
@@ -214,7 +214,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 					}
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
-				else if (m_tState == Combo3)
+				else if (m_tState == Combo3 || m_tState == Rapid3)
 				{
 					m_tState = Combo4;
 					for (int i = 0; i < renderObjects.size(); i++)
@@ -229,12 +229,58 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 		}
 	}
 
+	if (KEY_MGR->IsOnceDown('P'))
+	{
+		if (!m_bAttack)
+		{
+			m_bAttack = true;
+			if (m_tState == Wait || m_tState == Dash || m_tState == Combo1)
+			{
+				m_tState = Rapid1;
+				for (int i = 0; i < renderObjects.size(); i++)
+				{
+					if (!renderObjects[i]->pSkinned) continue;
+					renderObjects[i]->pSkinned->PlayOneShot("Rapid1", 0.3f);
+					renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
+				}
+			}
+		}
+		else
+		{
+			if (renderObjects[0]->pSkinned->GetFactor() >= 0.55)
+			{
+				if (m_tState == Rapid1 || m_tState == Combo2)
+				{
+					m_tState = Rapid2;
+					for (int i = 0; i < renderObjects.size(); i++)
+					{
+						if (!renderObjects[i]->pSkinned) continue;
+						renderObjects[i]->pSkinned->PlayOneShot("Rapid2", 0.0f);
+						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
+					}
+					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
+				}
+				else if (m_tState == Rapid2 || m_tState == Combo2)
+				{
+					m_tState = Rapid3;
+					for (int i = 0; i < renderObjects.size(); i++)
+					{
+						if (!renderObjects[i]->pSkinned) continue;
+						renderObjects[i]->pSkinned->PlayOneShot("Rapid3", 0.0f);
+						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
+					}
+					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
+				}
+			}
+		}
+	}
 	
 	
 
 	if (m_bAttack)
 	{
-		if ((m_tState == Combo1 || m_tState == Combo2 || m_tState == Combo3 || m_tState == Combo4) && renderObjects[0]->pSkinned->GetFactor() >= 0.75f)
+		if ((m_tState == Combo1 || m_tState == Combo2 || m_tState == Combo3 || m_tState == Combo4
+			|| m_tState == Rapid1 || m_tState == Rapid2 || m_tState == Rapid3) && renderObjects[0]->pSkinned->GetFactor() >= 0.75f)
 		{
 			//renderObjects[0]->pTransform->SetWorldPosition(m_pRootTrans->GetWorldPosition());
 
@@ -292,8 +338,8 @@ void cCharacter::Render(cLight_Direction* pDirLight)
 	{
 		renderObjects[i]->Render();
 	}
-	//renderObjects[4]->BoundBox.RenderGizmo(m_pRWeaponTrans);
-	//renderObjects[5]->BoundBox.RenderGizmo(m_pLWeaponTrans);
+	renderObjects[4]->BoundBox.RenderGizmo(m_pRWeaponTrans);
+	renderObjects[5]->BoundBox.RenderGizmo(m_pLWeaponTrans);
 }
 
 void cCharacter::SetWorldPosition(D3DXVECTOR3 pos)
