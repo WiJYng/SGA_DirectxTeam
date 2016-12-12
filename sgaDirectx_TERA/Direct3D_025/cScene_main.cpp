@@ -37,10 +37,10 @@ HRESULT cScene_main::Scene_Init()
 	this->SetEnvironment("../Resources/skymap.dds");
 	//플레이어
 	pPlayer = new cCharacter();
-	pPlayer->Setup("./Tera/Character/Elin_Body_WDC.X"
-		, "./Tera/Character/Elin_Face_WDC.X"
-		, "./Tera/Character/Elin_Hair_WDC.X"
-		, "./Tera/Character/Elin_Tail_WDC.X"
+	pPlayer->Setup("./Tera/Character/Elin_Body_WDCR.X"
+		, "./Tera/Character/Elin_Face_WDCR.X"
+		, "./Tera/Character/Elin_Hair_WDCR.X"
+		, "./Tera/Character/Elin_Tail_WDCR.X"
 		, "./Tera/Character/Weapon_R.X"
 		, "./Tera/Character/Weapon_R.X");
 

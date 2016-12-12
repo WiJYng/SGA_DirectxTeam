@@ -22,7 +22,10 @@ private:
 		Combo3,
 		Combo4,
 		Dash,
-		Wait
+		Wait,
+		Rapid1,
+		Rapid2,
+		Rapid3
 	};
 
 
