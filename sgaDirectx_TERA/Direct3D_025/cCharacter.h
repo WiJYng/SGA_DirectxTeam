@@ -59,6 +59,7 @@ private:
 
 public:
 	cTransform*							m_pRootTrans;
+	cTransform*							m_pBottomTrans;
 
 	cCharacter();
 	~cCharacter();

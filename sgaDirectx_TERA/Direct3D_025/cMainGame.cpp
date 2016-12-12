@@ -25,7 +25,7 @@ HRESULT cMainGame::Init(void)
 
 	//매니져 셋팅
 	TIME_MGR->Init();
-	//LOG_MGR->Init( LOG_WINDOW | LOG_FILE, g_hWnd, "Dump" );
+	LOG_MGR->Init( LOG_WINDOW | LOG_FILE, g_hWnd, "Dump" );
 	DXFONT_MGR->Init( Device );	
 	GIZMO_MGR->Init( Device );
 	SPRITE_MGR->Init( Device );

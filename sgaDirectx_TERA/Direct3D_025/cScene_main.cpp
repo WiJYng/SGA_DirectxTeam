@@ -9,6 +9,7 @@
 #include "cTrailRender.h"
 #include "cCharacter.h"
 #include "cEnemy.h"
+#include "cBoss.h"
 #include "cMeshMap.h"
 #include "cTerrain.h"
 #include "cMap.h"
@@ -68,6 +69,12 @@ HRESULT cScene_main::Scene_Init()
 		renderObjects.push_back(pEnemy[i]->GetBaseObject()[0]);
 	}
 
+	//보스
+	pBoss = new cBoss();
+	pBoss->Setup("./Tera/Monster/Drowned.X", &D3DXVECTOR3(-128.f, 0.0f, 80.0f));
+
+	renderObjects.push_back(pBoss->GetBaseObject()[0]);
+
 	//보스몬스터UI 테스트 //20161207 승현추가
 	//pProgressBar_Boss = new cProgressBar_Boss();
 	//pProgressBar_Boss->Setup();
@@ -109,8 +116,9 @@ HRESULT cScene_main::Scene_Init()
 	cTransform* tempTrans = pPlayer->m_pRootTrans;
 	//tempTrans->SetRotateWorld(0.0f, 90.0f, 0.0f);
 
-	//this->pMainCamera->AttachTo(tempTrans);
-	this->pMainCamera->MovePositionWorld(D3DXVECTOR3(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().y - 10, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z));
+	this->pMainCamera->AttachTo(tempTrans);
+	this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 2.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 10.0f);
+	//this->pMainCamera->MovePositionWorld(D3DXVECTOR3(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().y - 10, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z));
 
 	return S_OK;
 }
@@ -170,6 +178,8 @@ void cScene_main::Scene_Update(float timDelta)
 		pEnemy[i]->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
 	}
 	
+	pBoss->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
+
 	//업데이트
 	//스킬이펙트
 	pPlayerSkillEff->Update(timDelta);
@@ -237,7 +247,7 @@ void cScene_main::Scene_Update(float timDelta)
 	//	}
 	//}
 	
-	this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->m_pRootTrans->GetWorldPosition().x + 5, pPlayer->m_pRootTrans->GetWorldPosition().y + 5, pPlayer->m_pRootTrans->GetWorldPosition().z + 1));
+	//this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->m_pRootTrans->GetWorldPosition().x + 5, pPlayer->m_pRootTrans->GetWorldPosition().y + 5, pPlayer->m_pRootTrans->GetWorldPosition().z + 1));
 	this->pMainCamera->DefaultControl4(timDelta, pPlayer->m_pRootTrans); //★
 
 	//쉐도우맵 준비
@@ -312,6 +322,8 @@ void cScene_main::Scene_Render1()
 		t->Render();
 	}
 	//this->pTrailRender->Render();
+
+	//LOG_MGR->AddLog("X : %.2f, Z : %.2f", pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z);
 }
 
 void cScene_main::Scene_RenderSprite()

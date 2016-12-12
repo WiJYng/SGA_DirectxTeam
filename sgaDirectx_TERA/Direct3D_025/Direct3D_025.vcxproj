@@ -82,6 +82,7 @@
   <ItemGroup>
     <ClInclude Include="BoneHierachy.h" />
     <ClInclude Include="cBaseObject.h" />
+    <ClInclude Include="cBoss.h" />
     <ClInclude Include="cBoundBox.h" />
     <ClInclude Include="cBoundSphere.h" />
     <ClInclude Include="cCamera.h" />
@@ -145,6 +146,7 @@
   <ItemGroup>
     <ClCompile Include="BoneHierachy.cpp" />
     <ClCompile Include="cBaseObject.cpp" />
+    <ClCompile Include="cBoss.cpp" />
     <ClCompile Include="cBoundBox.cpp" />
     <ClCompile Include="cBoundSphere.cpp" />
     <ClCompile Include="cCamera.cpp" />

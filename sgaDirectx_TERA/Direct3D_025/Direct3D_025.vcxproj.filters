@@ -43,6 +43,9 @@
     <Filter Include="Tera\Effect">
       <UniqueIdentifier>{e488ce4f-4d32-4841-a37a-f271dd32f7c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tera\Boss">
+      <UniqueIdentifier>{be09d6af-f87f-4cd1-9203-a7a4c932abf3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -228,6 +231,9 @@
     <ClInclude Include="cPlayerSkillEffect.h">
       <Filter>Tera\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="cBoss.h">
+      <Filter>Tera\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -412,6 +418,9 @@
     </ClCompile>
     <ClCompile Include="cPlayerSkillEffect.cpp">
       <Filter>Tera\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="cBoss.cpp">
+      <Filter>Tera\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

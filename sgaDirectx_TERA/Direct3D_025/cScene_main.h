@@ -5,6 +5,7 @@ class cCamera;
 class cTrailRender;
 class cCharacter;
 class cEnemy;
+class cBoss;
 class cMeshMap;
 class cTerrain;
 class cMap;
@@ -23,6 +24,7 @@ private:
 	cMeshMap*							pMap;
 	cCharacter*							pPlayer;
 	cEnemy*								pEnemy[36];
+	cBoss*								pBoss;
 
 	vector<cTrailRender*>				pVecTrailRender;
 	cMap*								pEntireMap;

@@ -59,14 +59,15 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 	m_pTailTrans = new cTransform();
 	m_pRWeaponTrans = new cTransform();
 	m_pLWeaponTrans = new cTransform();
+	m_pBottomTrans = new cTransform();
 
 	cBaseObject* pBodyObject = new cBaseObject();
 	pBodyObject->pSkinned = new cSkinnedAnimation();
 	pBodyObject->pSkinned->Init(pBodyMesh);
 	pBodyObject->SetMesh(pBodyMesh);
 	pBodyObject->SetActive(true);
-	//pBodyObject->pTransform->SetWorldPosition(D3DXVECTOR3(90.0f, 0.0f, 63.0f));
-	pBodyObject->pTransform->SetWorldPosition(D3DXVECTOR3(45, 0.0f, 63.0f));
+	//pBodyObject->pTransform->SetWorldPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	pBodyObject->pTransform->SetWorldPosition(D3DXVECTOR3(45.0f, 0.0f, 63.0f));
 	//pBodyObject->IgnoreCreateShadow = false;
 	//pBodyObject->ApplyShadow = true;
 	//pBodyObject->BoundBox.
@@ -77,6 +78,7 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 	pBodyObject->pSkinned->AddBoneTransform("Bip01-Spine", m_pTailTrans);
 	pBodyObject->pSkinned->AddBoneTransform("R_Sword", m_pRWeaponTrans);
 	pBodyObject->pSkinned->AddBoneTransform("L_Sword", m_pLWeaponTrans);
+	pBodyObject->pSkinned->AddBoneTransform("FxBottom", m_pBottomTrans);
 
 	cBaseObject* pFaceObject = new cBaseObject();
 	pFaceObject->pSkinned = new cSkinnedAnimation();
