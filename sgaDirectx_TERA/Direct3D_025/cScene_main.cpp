@@ -32,10 +32,10 @@ HRESULT cScene_main::Scene_Init()
 	//Map 
 	//pMap = new cMeshMap(); //20161206 ½ÂÇöÁÖ¼®
 	//pMap->Setup("./Tera/Map/EntireMap/moveMap/moveMap.X");
+	this->SetEnvironment("Tera/Map/Sky.dds");
 
 	pEntireMap = new cMap();
 	pEntireMap->Setup();
-	this->SetEnvironment("../Resources/skymap.dds");
 
 	//Á¨ À§Ä¡
 	GenSetup();
