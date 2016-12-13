@@ -56,11 +56,13 @@ public:
 	virtual void Scene_RenderSprite();
 
 	virtual float CalcLength(D3DXVECTOR3 P1, D3DXVECTOR3 P2);
+	
+	//플레이어
 	void PlayerAttack();
-
-	//젠 포인트
+	//젠
 	void GenSetup();
-	//몬스터 포인트
+	//몬스터
 	void MonsterSetup();
+	void MonsterAttack();
 };
 

@@ -153,31 +153,31 @@ void cScene_main::Scene_Update(float timDelta)
 			{
 				if (i == 0)
 				{
-					for (int i = 0; i < ENEMYMAX; i++)
+					for (int j = 0; j < ENEMYMAX; j++)
 					{
-						renderObjects.push_back(pEnemy1[i]->GetBaseObject()[0]);
+						renderObjects.push_back(pEnemy1[j]->GetBaseObject()[0]);
 					}
 
 				}
 				else if (i == 1)
 				{
-					for (int i = 0; i < ENEMYMAX; i++)
+					for (int j = 0; j < ENEMYMAX; j++)
 					{
-						renderObjects.push_back(pEnemy2[i]->GetBaseObject()[0]);
+						renderObjects.push_back(pEnemy2[j]->GetBaseObject()[0]);
 					}
 				}
 				else if (i == 2)
 				{
-					for (int i = 0; i < ENEMYMAX; i++)
+					for (int j = 0; j < ENEMYMAX; j++)
 					{
-						renderObjects.push_back(pEnemy3[i]->GetBaseObject()[0]);
+						renderObjects.push_back(pEnemy3[j]->GetBaseObject()[0]);
 					}
 				}
 				else if (i == 3)
 				{
-					for (int i = 0; i < ENEMYMAX; i++)
+					for (int j = 0; j < ENEMYMAX; j++)
 					{
-						renderObjects.push_back(pEnemy4[i]->GetBaseObject()[0]);
+						renderObjects.push_back(pEnemy4[j]->GetBaseObject()[0]);
 					}
 				}
 				vecGenPoint[i].Gen = true;
@@ -188,41 +188,41 @@ void cScene_main::Scene_Update(float timDelta)
 		{
 			if (i == 0)
 			{
-				for (int i = 0; i < ENEMYMAX; i++)
+				for (int j = 0; j < ENEMYMAX; j++)
 				{
-					if (this->pMainCamera->Frustum.IsInFrustum(pEnemy1[i]->GetBaseObject()[0]))
+					if (this->pMainCamera->Frustum.IsInFrustum(pEnemy1[j]->GetBaseObject()[0]))
 					{
-						pEnemy1[i]->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
+						pEnemy1[j]->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
 					}
 				}
 			}
 			if (i == 1)
 			{
-				for (int i = 0; i < ENEMYMAX; i++)
+				for (int j = 0; j < ENEMYMAX; j++)
 				{
-					if (this->pMainCamera->Frustum.IsInFrustum(pEnemy2[i]->GetBaseObject()[0]))
+					if (this->pMainCamera->Frustum.IsInFrustum(pEnemy2[j]->GetBaseObject()[0]))
 					{
-						pEnemy2[i]->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
+						pEnemy2[j]->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
 					}
 				}
 			}
 			if (i == 2)
 			{
-				for (int i = 0; i < ENEMYMAX; i++)
+				for (int j = 0; j < ENEMYMAX; j++)
 				{
-					if (this->pMainCamera->Frustum.IsInFrustum(pEnemy3[i]->GetBaseObject()[0]))
+					if (this->pMainCamera->Frustum.IsInFrustum(pEnemy3[j]->GetBaseObject()[0]))
 					{
-						pEnemy3[i]->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
+						pEnemy3[j]->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
 					}
 				}
 			}
 			if (i == 3)
 			{
-				for (int i = 0; i < ENEMYMAX; i++)
+				for (int j = 0; j < ENEMYMAX; j++)
 				{
-					if (this->pMainCamera->Frustum.IsInFrustum(pEnemy4[i]->GetBaseObject()[0]))
+					if (this->pMainCamera->Frustum.IsInFrustum(pEnemy4[j]->GetBaseObject()[0]))
 					{
-						pEnemy4[i]->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
+						pEnemy4[j]->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
 					}
 				}
 			}
@@ -262,6 +262,9 @@ void cScene_main::Scene_Update(float timDelta)
 
 	pEntireMap->m_pMap->pCharPosition = pPlayer->GetWorldPosition();
 
+	//몬스터 공격
+	MonsterAttack();
+
 	//for (int i = 0; i < 36; i++)
 	//{
 	//	if (pEnemy[i]->GetState() != MonState::Death || pEnemy[i]->GetState() != MonState::DeathWait)
@@ -279,7 +282,7 @@ void cScene_main::Scene_Update(float timDelta)
 	//this->pMainCamera->DefaultControl(timDelta); //★
 
 	//쉐도우맵 준비
-	this->ReadyShadowMap(&this->renderObjects, NULL);
+	//this->ReadyShadowMap(&this->renderObjects, NULL);
 }
 
 void cScene_main::Scene_Render1()
@@ -344,8 +347,9 @@ void cScene_main::Scene_Render1()
 		t->Render();
 	}
 	//this->pTrailRender->Render();
-	//LOG_MGR->AddLog("%.2f", CalcLength(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition(), vecGenPoint[0].p));
-	LOG_MGR->AddLog("X : %.2f, Z : %.2f", pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z);
+	//LOG_MGR->AddLog("%d", renderObjects.size());
+	LOG_MGR->AddLog("%.2f", CalcLength(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition(), vecGenPoint[3].p));
+	//LOG_MGR->AddLog("X : %.2f, Z : %.2f", pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z);
 }
 
 void cScene_main::Scene_RenderSprite()
@@ -374,7 +378,7 @@ float cScene_main::CalcLength(D3DXVECTOR3 P1, D3DXVECTOR3 P2)
 void cScene_main::PlayerAttack()
 {
 	if (vecGenPoint[0].Gen == true)
-		for (int i = 0; i < 36; i++)
+		for (int i = 0; i < ENEMYMAX; i++)
 		{
 			if (pEnemy1[i]->GetState() != MonState::Death && pEnemy1[i]->GetState() != MonState::DeathWait)
 			{
@@ -405,7 +409,7 @@ void cScene_main::PlayerAttack()
 		}
 
 	if (vecGenPoint[1].Gen == true)
-		for (int i = 0; i < 36; i++)
+		for (int i = 0; i < ENEMYMAX; i++)
 		{
 			if (pEnemy2[i]->GetState() != MonState::Death && pEnemy2[i]->GetState() != MonState::DeathWait)
 			{
@@ -436,7 +440,7 @@ void cScene_main::PlayerAttack()
 		}
 
 	if (vecGenPoint[2].Gen == true)
-		for (int i = 0; i < 36; i++)
+		for (int i = 0; i < ENEMYMAX; i++)
 		{
 			if (pEnemy3[i]->GetState() != MonState::Death && pEnemy3[i]->GetState() != MonState::DeathWait)
 			{
@@ -467,11 +471,11 @@ void cScene_main::PlayerAttack()
 		}
 
 	if (vecGenPoint[3].Gen == true)
-		for (int i = 0; i < 36; i++)
+		for (int i = 0; i < ENEMYMAX; i++)
 		{
 			if (pEnemy4[i]->GetState() != MonState::Death && pEnemy4[i]->GetState() != MonState::DeathWait)
 			{
-				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[4], pEnemy1[i]->GetBaseObject()[0]))
+				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[4], pEnemy4[i]->GetBaseObject()[0]))
 				{
 					pEnemy4[i]->SetState(MonState::Stun);
 					//pEnemy[i]->SetHP(pEnemy[i]->GetHP() - 1);
@@ -512,13 +516,15 @@ void cScene_main::GenSetup()
 	Point2.Gen = false;
 
 	ST_GenPoint Point3;
-	y = pEntireMap->GetMap()->GetHeight(-33.0f, 43.0f);
-	Point3.p = D3DXVECTOR3(-33.0f, y, 43.0f);
+	y = pEntireMap->GetMap()->GetHeight(-27.0f, 43.0f);
+	Point3.p = D3DXVECTOR3(-27.0f, y, 43.0f);
 	Point3.Gen = false;
 
 	ST_GenPoint Point4;
-	y = pEntireMap->GetMap()->GetHeight(-78.0f, 53.0f);
-	Point4.p = D3DXVECTOR3(-78.0f, y, 53.0f);
+	y = pEntireMap->GetMap()->GetHeight(-72.0f, 53.0f);
+	Point4.p = D3DXVECTOR3(-72.0f, y, 53.0f);
+	//y = pEntireMap->GetMap()->GetHeight(-50.0f, 53.0f);
+	//Point4.p = D3DXVECTOR3(-50.0f, y, 53.0f);
 	Point4.Gen = false;
 
 	vecGenPoint.push_back(Point1);
@@ -535,7 +541,7 @@ void cScene_main::MonsterSetup()
 		for (int z = 0; z < 5; z++)
 		{
 			pEnemy1[(x * 5) + z] = new cEnemy();
-			pEnemy1[(x * 5) + z]->Setup("./Tera/Monster/Kalan.X", &D3DXVECTOR3(70.0f + (x * 1), 0.0f, 40.0f + (z * 1)));
+			pEnemy1[(x * 5) + z]->Setup("./Tera/Monster/Kalan.X", &D3DXVECTOR3(70.0f + (x * 1), -10.0f, 40.0f + (z * 1)));
 		}
 	}
 
@@ -544,7 +550,7 @@ void cScene_main::MonsterSetup()
 		for (int z = 0; z < 5; z++)
 		{
 			pEnemy2[(x * 5) + z] = new cEnemy();
-			pEnemy2[(x * 5) + z]->Setup("./Tera/Monster/Kalan.X", &D3DXVECTOR3(40.0f + (x * 1), 0.0f, 50.0f + (z * 1)));
+			pEnemy2[(x * 5) + z]->Setup("./Tera/Monster/Kalan.X", &D3DXVECTOR3(40.0f + (x * 1), -10.0f, 50.0f + (z * 1)));
 		}
 	}
 
@@ -553,7 +559,7 @@ void cScene_main::MonsterSetup()
 		for (int z = 0; z < 5; z++)
 		{
 			pEnemy3[(x * 5) + z] = new cEnemy();
-			pEnemy3[(x * 5) + z]->Setup("./Tera/Monster/Kalan.X", &D3DXVECTOR3(-30.0f + (x * 1), 0.0f, 40.0f + (z * 1)));
+			pEnemy3[(x * 5) + z]->Setup("./Tera/Monster/Kalan.X", &D3DXVECTOR3(-27.0f + (x * 1), -10.0f, 40.0f + (z * 1)));
 		}
 	}
 
@@ -562,7 +568,43 @@ void cScene_main::MonsterSetup()
 		for (int z = 0; z < 5; z++)
 		{
 			pEnemy4[(x * 5) + z] = new cEnemy();
-			pEnemy4[(x * 5) + z]->Setup("./Tera/Monster/Kalan.X", &D3DXVECTOR3(-75.0f + (x * 1), 0.0f, 50.0f + (z * 1)));
+			pEnemy4[(x * 5) + z]->Setup("./Tera/Monster/Kalan.X", &D3DXVECTOR3(-72.0f + (x * 1), -10.0f, 50.0f + (z * 1)));
+			//pEnemy4[(x * 5) + z]->Setup("./Tera/Monster/Kalan.X", &D3DXVECTOR3(-50.0f + (x * 1), 0.0f, 50.0f + (z * 1)));
 		}
+	}
+}
+
+void cScene_main::MonsterAttack()
+{
+	for (int i = 0; i < ENEMYMAX; i++)
+	{
+		if (pEnemy1[i]->GetState() == MonState::Attack)
+		{
+			if (PHYSICS_MGR->IsOverlap(pEnemy1[i]->pWeaponTrans, &renderObjects[i]->BoundBox01, pPlayer->m_pRootTrans, &pPlayer->GetBaseObject()[0]->BoundBox))
+			{
+				LOG_MGR->AddLog("%d번 에게 맞았다!", i);
+			}
+		}
+		//if (pEnemy1[i]->GetState() == MonState::Attack)
+		//{
+		//	if (PHYSICS_MGR->IsOverlap(renderObjects[i], pPlayer->GetBaseObject()[0]))
+		//	{
+		//		LOG_MGR->AddLog("%d번 에게 맞았다!", i);
+		//	}
+		//}
+		//if (pEnemy1[i]->GetState() == MonState::Attack)
+		//{
+		//	if (PHYSICS_MGR->IsOverlap(renderObjects[i], pPlayer->GetBaseObject()[0]))
+		//	{
+		//		LOG_MGR->AddLog("%d번 에게 맞았다!", i);
+		//	}
+		//}
+		//if (pEnemy1[i]->GetState() == MonState::Attack)
+		//{
+		//	if (PHYSICS_MGR->IsOverlap(renderObjects[i], pPlayer->GetBaseObject()[0]))
+		//	{
+		//		LOG_MGR->AddLog("%d번 에게 맞았다!", i);
+		//	}
+		//}
 	}
 }
