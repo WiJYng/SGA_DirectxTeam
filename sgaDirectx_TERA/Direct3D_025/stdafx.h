@@ -130,7 +130,9 @@ using namespace std;
 #include "cResourceMgr_Texture.h"
 #include "cResourceMgr_ShaderFX.h"
 #include "cResourceMgr_XStaticMesh.h"
-#include "cResourceMgr_XSkinnedMesh.h"//enum
+#include "cResourceMgr_XSkinnedMesh.h"
+
+//enum
 enum MonState
 {
 	Wait,
@@ -140,4 +142,14 @@ enum MonState
 	Death,
 	DeathWait,
 	Mempty
+};
+
+//struct
+struct ST_GenPoint
+{
+	D3DXVECTOR3 p;
+	bool		Gen;
+
+	ST_GenPoint() : p(0, 0, 0), Gen(false) {}
+	ST_GenPoint(D3DXVECTOR3 _p, bool _Gen) : p(_p), Gen(_Gen) {}
 };

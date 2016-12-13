@@ -38,7 +38,7 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 	D3DXMatrixIdentity(&mat);
 	//D3DXMatrixTranslation(&mat, 0.0f, 0.0f, 0.0f);
 
-	Setup(PathBody, PathFace, PathHair, PathTail, PathRWeapon, PathLWeapon, &mat);	
+	Setup(PathBody, PathFace, PathHair, PathTail, PathRWeapon, PathLWeapon, &mat);
 }
 
 void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string PathTail, string PathRWeapon, string PathLWeapon, D3DXMATRIXA16* mat)
@@ -69,6 +69,7 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 	//pBodyObject->pTransform->SetWorldPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	pBodyObject->pTransform->RotateSelf(0.0f, -110.0f * ONE_RAD, 0.0f);
 	pBodyObject->pTransform->SetWorldPosition(D3DXVECTOR3(92.0f, 0.0f, 65.0f));
+	pBodyObject->BoundBox.Init(D3DXVECTOR3(0.25f, -0.4f, -0.25f), D3DXVECTOR3(-0.25f, 0.4f, 0.25f));
 	//pBodyObject->IgnoreCreateShadow = false;
 	//pBodyObject->ApplyShadow = true;
 	//pBodyObject->BoundBox.
@@ -105,7 +106,7 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 
 	if (PathRWeapon.length() > 0)
 		m_pRWeaponMesh = RESOURCE_STATICXMESH->GetResource(PathRWeapon, mat);
-	
+
 	if (PathLWeapon.length() > 0)
 		m_pLWeaponMesh = RESOURCE_STATICXMESH->GetResource(PathLWeapon, mat);
 
@@ -146,8 +147,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 	}
 	//renderObjects[0]->pSkinned->AddBoneTransform("Dummy_root", m_pRootTrans);
 	//m_pRootTrans = renderObjects[0]->pTransform;
-	
-	
+
+
 	if (!m_bAttack)
 	{
 		if (KEY_MGR->IsStayDown('A'))
@@ -277,8 +278,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 			}
 		}
 	}
-	
-	
+
+
 
 	if (m_bAttack)
 	{
@@ -327,7 +328,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 		}
 		renderObjects[0]->pTransform->SetWorldPosition(renderObjects[0]->pTransform->GetWorldPosition().x, y, renderObjects[0]->pTransform->GetWorldPosition().z);
 	}
-	
+
 }
 
 void cCharacter::Render(cLight_Direction* pDirLight)
@@ -341,6 +342,7 @@ void cCharacter::Render(cLight_Direction* pDirLight)
 	{
 		renderObjects[i]->Render();
 	}
+	renderObjects[0]->BoundBox.RenderGizmo(m_pRootTrans);
 	renderObjects[4]->BoundBox.RenderGizmo(m_pRWeaponTrans);
 	renderObjects[5]->BoundBox.RenderGizmo(m_pLWeaponTrans);
 }
