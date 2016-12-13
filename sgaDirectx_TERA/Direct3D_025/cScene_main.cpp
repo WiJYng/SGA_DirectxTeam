@@ -102,8 +102,7 @@ HRESULT cScene_main::Scene_Init()
 	//tempTrans->SetRotateWorld(0.0f, 90.0f, 0.0f);
 
 	this->pMainCamera->AttachTo(tempTrans);
-	this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 2.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 10.0f);
-	//this->pMainCamera->MovePositionWorld(D3DXVECTOR3(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().y - 10, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z));
+	this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 5.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 10.0f);
 
 	for (int i = 0; i < ENEMYMAX_1; i++)
 	{
