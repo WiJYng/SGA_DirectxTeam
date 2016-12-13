@@ -2,11 +2,9 @@
 
 class cMeshMap;
 
-class cEnemy
+class cBoss
 {
 private:
-	
-
 	std::vector<cBaseObject*>			renderObjects;			//오브젝트 배열
 
 	MonState							m_State;
@@ -18,16 +16,15 @@ private:
 	float								PrevAngle;
 
 	cTransform*							pMonTrans;
-	
+	cTransform*							pWeaponTrans;
 
 	float								m_fHP;
 	float								m_fMAXHP;
 
+	int									m_nCount;
 public:
-	cTransform*							pWeaponTrans;
-
-	cEnemy();
-	~cEnemy();
+	cBoss();
+	~cBoss();
 
 	void Setup(string PathMonster, D3DXVECTOR3* Pos = NULL);
 	void Setup(string PathMonster, D3DXMATRIXA16* mat, D3DXVECTOR3* Pos);
@@ -68,7 +65,6 @@ public:
 		m_fHP = _fHP;
 	}
 
+	void AttackFuntion();
 };
 
-#define PI		3.141592654f
-#define PI2		(PI * 2)

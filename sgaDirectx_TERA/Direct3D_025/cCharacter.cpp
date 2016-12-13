@@ -38,7 +38,7 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 	D3DXMatrixIdentity(&mat);
 	//D3DXMatrixTranslation(&mat, 0.0f, 0.0f, 0.0f);
 
-	Setup(PathBody, PathFace, PathHair, PathTail, PathRWeapon, PathLWeapon, &mat);	
+	Setup(PathBody, PathFace, PathHair, PathTail, PathRWeapon, PathLWeapon, &mat);
 }
 
 void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string PathTail, string PathRWeapon, string PathLWeapon, D3DXMATRIXA16* mat)
@@ -59,14 +59,17 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 	m_pTailTrans = new cTransform();
 	m_pRWeaponTrans = new cTransform();
 	m_pLWeaponTrans = new cTransform();
+	m_pBottomTrans = new cTransform();
 
 	cBaseObject* pBodyObject = new cBaseObject();
 	pBodyObject->pSkinned = new cSkinnedAnimation();
 	pBodyObject->pSkinned->Init(pBodyMesh);
 	pBodyObject->SetMesh(pBodyMesh);
 	pBodyObject->SetActive(true);
-	//pBodyObject->pTransform->SetWorldPosition(D3DXVECTOR3(90.0f, 0.0f, 63.0f));
-	pBodyObject->pTransform->SetWorldPosition(D3DXVECTOR3(45, 0.0f, 63.0f));
+	//pBodyObject->pTransform->SetWorldPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	pBodyObject->pTransform->RotateSelf(0.0f, -110.0f * ONE_RAD, 0.0f);
+	pBodyObject->pTransform->SetWorldPosition(D3DXVECTOR3(92.0f, 0.0f, 65.0f));
+	pBodyObject->BoundBox.Init(D3DXVECTOR3(0.25f, -0.4f, -0.25f), D3DXVECTOR3(-0.25f, 0.4f, 0.25f));
 	//pBodyObject->IgnoreCreateShadow = false;
 	//pBodyObject->ApplyShadow = true;
 	//pBodyObject->BoundBox.
@@ -77,6 +80,7 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 	pBodyObject->pSkinned->AddBoneTransform("Bip01-Spine", m_pTailTrans);
 	pBodyObject->pSkinned->AddBoneTransform("R_Sword", m_pRWeaponTrans);
 	pBodyObject->pSkinned->AddBoneTransform("L_Sword", m_pLWeaponTrans);
+	pBodyObject->pSkinned->AddBoneTransform("FxBottom", m_pBottomTrans);
 
 	cBaseObject* pFaceObject = new cBaseObject();
 	pFaceObject->pSkinned = new cSkinnedAnimation();
@@ -102,7 +106,7 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 
 	if (PathRWeapon.length() > 0)
 		m_pRWeaponMesh = RESOURCE_STATICXMESH->GetResource(PathRWeapon, mat);
-	
+
 	if (PathLWeapon.length() > 0)
 		m_pLWeaponMesh = RESOURCE_STATICXMESH->GetResource(PathLWeapon, mat);
 
@@ -144,8 +148,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 	}
 	//renderObjects[0]->pSkinned->AddBoneTransform("Dummy_root", m_pRootTrans);
 	//m_pRootTrans = renderObjects[0]->pTransform;
-	
-	
+
+
 	if (!m_bAttack)
 	{
 		if (KEY_MGR->IsStayDown('A'))
@@ -173,7 +177,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 		}
 	}
 
-	if (KEY_MGR->IsOnceDown('P'))
+	if (KEY_MGR->IsOnceDown('O'))
 	{
 		if (!m_bAttack)
 		{
@@ -193,7 +197,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 		{
 			if (renderObjects[0]->pSkinned->GetFactor() >= 0.55)
 			{
-				if (m_tState == Combo1)
+				if (m_tState == Combo1 || m_tState == Rapid1)
 				{
 					m_tState = Combo2;
 					for (int i = 0; i < renderObjects.size(); i++)
@@ -204,7 +208,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 					}
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
-				else if (m_tState == Combo2)
+				else if (m_tState == Combo2 || m_tState == Rapid2)
 				{
 					m_tState = Combo3;
 					for (int i = 0; i < renderObjects.size(); i++)
@@ -215,7 +219,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 					}
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
-				else if (m_tState == Combo3)
+				else if (m_tState == Combo3 || m_tState == Rapid3)
 				{
 					m_tState = Combo4;
 					for (int i = 0; i < renderObjects.size(); i++)
@@ -230,12 +234,58 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 		}
 	}
 
-	
-	
+	if (KEY_MGR->IsOnceDown('P'))
+	{
+		if (!m_bAttack)
+		{
+			m_bAttack = true;
+			if (m_tState == Wait || m_tState == Dash || m_tState == Combo1)
+			{
+				m_tState = Rapid1;
+				for (int i = 0; i < renderObjects.size(); i++)
+				{
+					if (!renderObjects[i]->pSkinned) continue;
+					renderObjects[i]->pSkinned->PlayOneShot("Rapid1", 0.3f);
+					renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
+				}
+			}
+		}
+		else
+		{
+			if (renderObjects[0]->pSkinned->GetFactor() >= 0.55)
+			{
+				if (m_tState == Rapid1 || m_tState == Combo2)
+				{
+					m_tState = Rapid2;
+					for (int i = 0; i < renderObjects.size(); i++)
+					{
+						if (!renderObjects[i]->pSkinned) continue;
+						renderObjects[i]->pSkinned->PlayOneShot("Rapid2", 0.0f);
+						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
+					}
+					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
+				}
+				else if (m_tState == Rapid2 || m_tState == Combo2)
+				{
+					m_tState = Rapid3;
+					for (int i = 0; i < renderObjects.size(); i++)
+					{
+						if (!renderObjects[i]->pSkinned) continue;
+						renderObjects[i]->pSkinned->PlayOneShot("Rapid3", 0.0f);
+						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
+					}
+					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
+				}
+			}
+		}
+	}
+
+
 
 	if (m_bAttack)
 	{
-		if ((m_tState == Combo1 || m_tState == Combo2 || m_tState == Combo3 || m_tState == Combo4) && renderObjects[0]->pSkinned->GetFactor() >= 0.75f)
+		if ((m_tState == Combo1 || m_tState == Combo2 || m_tState == Combo3 || m_tState == Combo4
+			|| m_tState == Rapid1 || m_tState == Rapid2 || m_tState == Rapid3) && renderObjects[0]->pSkinned->GetFactor() >= 0.75f)
 		{
 			//renderObjects[0]->pTransform->SetWorldPosition(m_pRootTrans->GetWorldPosition());
 
@@ -277,10 +327,9 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 		{
 			y = _Map->GetHeight(m_pRootTrans->GetWorldPosition().x, m_pRootTrans->GetWorldPosition().z);
 		}
-		
 		renderObjects[0]->pTransform->SetWorldPosition(renderObjects[0]->pTransform->GetWorldPosition().x, y, renderObjects[0]->pTransform->GetWorldPosition().z);
 	}
-	
+
 }
 
 void cCharacter::Render(cLight_Direction* pDirLight)
@@ -294,7 +343,8 @@ void cCharacter::Render(cLight_Direction* pDirLight)
 	{
 		renderObjects[i]->Render();
 	}
-	//renderObjects[4]->BoundBox.RenderGizmo(m_pRWeaponTrans);
+	renderObjects[0]->BoundBox.RenderGizmo(m_pRootTrans);
+	renderObjects[4]->BoundBox.RenderGizmo(m_pRWeaponTrans);
 	renderObjects[5]->BoundBox.RenderGizmo(m_pLWeaponTrans);
 }
 

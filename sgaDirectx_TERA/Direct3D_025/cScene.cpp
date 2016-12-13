@@ -168,7 +168,7 @@ void cScene::Render()
 #ifdef _DEBUG		//디버그 모드에서만 실행
 		//디바이스 랜더링 종료 명령
 		//월드 그리드
-		//GIZMO_MGR->WorldGrid( 1, 10 );
+		GIZMO_MGR->WorldGrid( 1, 10 );
 #endif
 	
 	//중요 RenderTextureBegin 역순으로 간다.
@@ -189,9 +189,9 @@ void cScene::Render()
 
 
 	//스플라이트 랜더
-	SPRITE_MGR->BeginSpriteRender();
+	//SPRITE_MGR->BeginSpriteRender();
 	//this->Scene_RenderSprite();
-	SPRITE_MGR->EndSpriteRender();
+	//SPRITE_MGR->EndSpriteRender();
 
 }
 

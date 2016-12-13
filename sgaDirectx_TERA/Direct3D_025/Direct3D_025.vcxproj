@@ -29,7 +29,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -48,6 +48,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -80,10 +82,12 @@
   <ItemGroup>
     <ClInclude Include="BoneHierachy.h" />
     <ClInclude Include="cBaseObject.h" />
+    <ClInclude Include="cBoss.h" />
     <ClInclude Include="cBoundBox.h" />
     <ClInclude Include="cBoundSphere.h" />
     <ClInclude Include="cCamera.h" />
     <ClInclude Include="cCharacter.h" />
+    <ClInclude Include="cDecalEffect.h" />
     <ClInclude Include="cDXFontManager.h" />
     <ClInclude Include="cEnemy.h" />
     <ClInclude Include="cFrustum.h" />
@@ -130,6 +134,7 @@
     <ClInclude Include="cSpriteManager.h" />
     <ClInclude Include="cStartScene.h" />
     <ClInclude Include="cTerrain.h" />
+    <ClInclude Include="cTickFunc.h" />
     <ClInclude Include="cTimeMgr.h" />
     <ClInclude Include="cTrailRender.h" />
     <ClInclude Include="cTransform.h" />
@@ -143,10 +148,12 @@
   <ItemGroup>
     <ClCompile Include="BoneHierachy.cpp" />
     <ClCompile Include="cBaseObject.cpp" />
+    <ClCompile Include="cBoss.cpp" />
     <ClCompile Include="cBoundBox.cpp" />
     <ClCompile Include="cBoundSphere.cpp" />
     <ClCompile Include="cCamera.cpp" />
     <ClCompile Include="cCharacter.cpp" />
+    <ClCompile Include="cDecalEffect.cpp" />
     <ClCompile Include="cDXFontManager.cpp" />
     <ClCompile Include="cEnemy.cpp" />
     <ClCompile Include="cFrustum.cpp" />
@@ -193,6 +200,7 @@
     <ClCompile Include="cSpriteManager.cpp" />
     <ClCompile Include="cStartScene.cpp" />
     <ClCompile Include="cTerrain.cpp" />
+    <ClCompile Include="cTickFunc.cpp" />
     <ClCompile Include="cTimeMgr.cpp" />
     <ClCompile Include="cTrailRender.cpp" />
     <ClCompile Include="cTransform.cpp" />
