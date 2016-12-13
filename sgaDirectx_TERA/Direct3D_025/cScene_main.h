@@ -17,7 +17,7 @@ class cPlayerSkillEffect;
 class cTickFunc;
 
 #define ENEMYMAX	25
-#define ENEMYMAX_1	101
+#define ENEMYMAX_1	100
 #define TICKMAX		1
 
 class cScene_main : public cScene
@@ -45,8 +45,10 @@ private:
 	cPlayerSkillEffect*					pPlayerSkillEff;
 
 	cTickFunc*							m_pTick[ENEMYMAX_1];
-	cTickFunc*							m_pTickPlayer[ENEMYMAX_1];
+	cTickFunc*							m_pTickPlayer[ENEMYMAX_1 + 1];
 
+	int									DeathCount;
+	bool								bDraw;
 
 public:
 	cScene_main();
