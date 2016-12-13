@@ -14,7 +14,11 @@ class cProgressBar_Boss;
 class cPlayerUI;
 class cPlayerSkillEffect;
 
-#define ENEMYMAX 25
+class cTickFunc;
+
+#define ENEMYMAX	25
+#define ENEMYMAX_1	101
+#define TICKMAX		1
 
 class cScene_main : public cScene
 {
@@ -40,7 +44,8 @@ private:
 
 	cPlayerSkillEffect*					pPlayerSkillEff;
 
-
+	cTickFunc*							m_pTick[ENEMYMAX_1];
+	cTickFunc*							m_pTickPlayer[ENEMYMAX_1];
 
 
 public:
@@ -58,11 +63,11 @@ public:
 	virtual float CalcLength(D3DXVECTOR3 P1, D3DXVECTOR3 P2);
 	
 	//플레이어
-	void PlayerAttack();
+	void PlayerAttack(float timDelta);
 	//젠
 	void GenSetup();
 	//몬스터
 	void MonsterSetup();
-	void MonsterAttack();
+	void MonsterAttack(float timDelta);
 };
 

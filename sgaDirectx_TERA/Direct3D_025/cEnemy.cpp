@@ -192,7 +192,7 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 			renderObjects[0]->pSkinned->Play("Stun", 0.0f);
 			bStun = true;
 			bWait = bRun = bAtt = false;
-			LOG_MGR->AddLog("충돌했니?");
+			//LOG_MGR->AddLog("충돌했니?");
 		}
 		if (renderObjects[0]->pSkinned->GetFactor() >= 0.95f)
 		{

@@ -16,6 +16,7 @@
 #include "cPlayerUI.h"
 #include "cProgressBar_Boss.h"
 #include "cPlayerSkillEffect.h"
+#include "cTickFunc.h"
 
 
 cScene_main::cScene_main()
@@ -61,7 +62,7 @@ HRESULT cScene_main::Scene_Init()
 	pBoss = new cBoss();
 	pBoss->Setup("./Tera/Monster/Drowned.X", &D3DXVECTOR3(-128.f, 0.0f, 80.0f));
 
-	renderObjects.push_back(pBoss->GetBaseObject()[0]);
+	//renderObjects.push_back(pBoss->GetBaseObject()[0]);
 
 	//보스몬스터UI 테스트 //20161207 승현추가
 	//pProgressBar_Boss = new cProgressBar_Boss();
@@ -108,6 +109,18 @@ HRESULT cScene_main::Scene_Init()
 	this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 2.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 10.0f);
 	//this->pMainCamera->MovePositionWorld(D3DXVECTOR3(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().y - 10, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z));
 
+	for (int i = 0; i < ENEMYMAX_1; i++)
+	{
+		m_pTick[i] = new cTickFunc();
+		m_pTick[i]->init(0.75f);
+
+		m_pTickPlayer[i] = new cTickFunc();
+		m_pTickPlayer[i]->init(0.25f);
+	}
+	
+	
+
+
 	return S_OK;
 }
 
@@ -136,11 +149,6 @@ void cScene_main::Scene_Update(float timDelta)
 	//if (KEY_MGR->IsOnceDown(VK_RETURN)){
 	//	SCENE_MGR->ChangeSceneWithLoading("Test01", "로딩씬", 1, 1);
 	//}
-
-	//this->pSceneBaseDirectionLight->pTransform->DefaultControl2( timDelta );
-	//this->pMainCamera->DefaultControl3(timDelta, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition()); //
-	//this->pMainCamera->DefaultControl4(timDelta, pPlayer->GetBaseObject()[0]->pTransform); //
-	//this->pMainCamera->DefaultControl(timDelta); //★
 
 	this->pMainCamera->UpdateFrustum();
 	this->cullObjects.clear();
@@ -248,7 +256,7 @@ void cScene_main::Scene_Update(float timDelta)
 
 	if (pPlayer->GetIsAttack())
 	{
-		PlayerAttack();
+		PlayerAttack(timDelta);
 
 		D3DXVECTOR3 weaponPos;
 		float		fTemp;
@@ -263,7 +271,7 @@ void cScene_main::Scene_Update(float timDelta)
 	pEntireMap->m_pMap->pCharPosition = pPlayer->GetWorldPosition();
 
 	//몬스터 공격
-	MonsterAttack();
+	MonsterAttack(timDelta);
 
 	//for (int i = 0; i < 36; i++)
 	//{
@@ -348,7 +356,7 @@ void cScene_main::Scene_Render1()
 	}
 	//this->pTrailRender->Render();
 	//LOG_MGR->AddLog("%d", renderObjects.size());
-	LOG_MGR->AddLog("%.2f", CalcLength(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition(), vecGenPoint[3].p));
+	//LOG_MGR->AddLog("%.2f", CalcLength(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition(), vecGenPoint[3].p));
 	//LOG_MGR->AddLog("X : %.2f, Z : %.2f", pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z);
 }
 
@@ -375,17 +383,25 @@ float cScene_main::CalcLength(D3DXVECTOR3 P1, D3DXVECTOR3 P2)
 	return len;
 }
 
-void cScene_main::PlayerAttack()
+void cScene_main::PlayerAttack(float timDelta)
 {
+	
+
 	if (vecGenPoint[0].Gen == true)
 		for (int i = 0; i < ENEMYMAX; i++)
 		{
 			if (pEnemy1[i]->GetState() != MonState::Death && pEnemy1[i]->GetState() != MonState::DeathWait)
 			{
+				m_pTickPlayer[i]->tickUpdate(timDelta);
 				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[4], pEnemy1[i]->GetBaseObject()[0]))
 				{
 					pEnemy1[i]->SetState(MonState::Stun);
-					//pEnemy[i]->SetHP(pEnemy[i]->GetHP() - 1);
+					if (m_pTickPlayer[i]->tickStart())
+					{
+						pEnemy1[i]->SetHP(pEnemy1[i]->GetHP() - 1);
+						LOG_MGR->AddLog("%d번을 때렸다", i);
+					}
+						
 					//0.0f, 0.75f, -0.025f
 					D3DXVECTOR3 vCenter;
 					float		ftemp;
@@ -397,7 +413,12 @@ void cScene_main::PlayerAttack()
 				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[5], pEnemy1[i]->GetBaseObject()[0]))
 				{
 					pEnemy1[i]->SetState(MonState::Stun);
-					//pEnemy[i]->SetHP(pEnemy[i]->GetHP() - 1);
+					if (m_pTickPlayer[i]->tickStart())
+					{
+						pEnemy1[i]->SetHP(pEnemy1[i]->GetHP() - 1);
+						LOG_MGR->AddLog("%d번을 때렸다", i);
+					}
+						
 					//0.0f, 0.75f, -0.025f
 					D3DXVECTOR3 vCenter;
 					float		ftemp;
@@ -413,10 +434,16 @@ void cScene_main::PlayerAttack()
 		{
 			if (pEnemy2[i]->GetState() != MonState::Death && pEnemy2[i]->GetState() != MonState::DeathWait)
 			{
+				m_pTickPlayer[i + 25]->tickUpdate(timDelta);
 				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[4], pEnemy2[i]->GetBaseObject()[0]))
 				{
 					pEnemy2[i]->SetState(MonState::Stun);
-					//pEnemy[i]->SetHP(pEnemy[i]->GetHP() - 1);
+					if (m_pTickPlayer[i + 25]->tickStart())
+					{
+						pEnemy2[i]->SetHP(pEnemy2[i]->GetHP() - 1);
+						LOG_MGR->AddLog("%d번을 때렸다", i + 25);
+					}
+					
 					//0.0f, 0.75f, -0.025f
 					D3DXVECTOR3 vCenter;
 					float		ftemp;
@@ -428,7 +455,11 @@ void cScene_main::PlayerAttack()
 				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[5], pEnemy2[i]->GetBaseObject()[0]))
 				{
 					pEnemy2[i]->SetState(MonState::Stun);
-					//pEnemy[i]->SetHP(pEnemy[i]->GetHP() - 1);
+					if (m_pTickPlayer[i + 25]->tickStart())
+					{
+						pEnemy2[i]->SetHP(pEnemy2[i]->GetHP() - 1);
+						LOG_MGR->AddLog("%d번을 때렸다", i + 25);
+					}
 					//0.0f, 0.75f, -0.025f
 					D3DXVECTOR3 vCenter;
 					float		ftemp;
@@ -444,10 +475,15 @@ void cScene_main::PlayerAttack()
 		{
 			if (pEnemy3[i]->GetState() != MonState::Death && pEnemy3[i]->GetState() != MonState::DeathWait)
 			{
+				m_pTickPlayer[i + 50]->tickUpdate(timDelta);
 				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[4], pEnemy3[i]->GetBaseObject()[0]))
 				{
 					pEnemy3[i]->SetState(MonState::Stun);
-					//pEnemy[i]->SetHP(pEnemy[i]->GetHP() - 1);
+					if (m_pTickPlayer[i + 50]->tickStart())
+					{
+						pEnemy3[i]->SetHP(pEnemy3[i]->GetHP() - 1);
+						LOG_MGR->AddLog("%d번을 때렸다", i + 50);
+					}
 					//0.0f, 0.75f, -0.025f
 					D3DXVECTOR3 vCenter;
 					float		ftemp;
@@ -459,7 +495,11 @@ void cScene_main::PlayerAttack()
 				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[5], pEnemy3[i]->GetBaseObject()[0]))
 				{
 					pEnemy3[i]->SetState(MonState::Stun);
-					//pEnemy[i]->SetHP(pEnemy[i]->GetHP() - 1);
+					if (m_pTickPlayer[i + 50]->tickStart())
+					{
+						pEnemy3[i]->SetHP(pEnemy3[i]->GetHP() - 1);
+						LOG_MGR->AddLog("%d번을 때렸다", i + 50);
+					}
 					//0.0f, 0.75f, -0.025f
 					D3DXVECTOR3 vCenter;
 					float		ftemp;
@@ -475,10 +515,15 @@ void cScene_main::PlayerAttack()
 		{
 			if (pEnemy4[i]->GetState() != MonState::Death && pEnemy4[i]->GetState() != MonState::DeathWait)
 			{
+				m_pTickPlayer[i + 75]->tickUpdate(timDelta);
 				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[4], pEnemy4[i]->GetBaseObject()[0]))
 				{
 					pEnemy4[i]->SetState(MonState::Stun);
-					//pEnemy[i]->SetHP(pEnemy[i]->GetHP() - 1);
+					if (m_pTickPlayer[i + 75]->tickStart())
+					{
+						pEnemy4[i]->SetHP(pEnemy4[i]->GetHP() - 1);
+						LOG_MGR->AddLog("%d번을 때렸다", i + 75);
+					}
 					//0.0f, 0.75f, -0.025f
 					D3DXVECTOR3 vCenter;
 					float		ftemp;
@@ -490,7 +535,11 @@ void cScene_main::PlayerAttack()
 				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[5], pEnemy4[i]->GetBaseObject()[0]))
 				{
 					pEnemy4[i]->SetState(MonState::Stun);
-					//pEnemy[i]->SetHP(pEnemy[i]->GetHP() - 1);
+					if (m_pTickPlayer[i + 75]->tickStart())
+					{
+						pEnemy4[i]->SetHP(pEnemy4[i]->GetHP() - 1);
+						LOG_MGR->AddLog("%d번을 때렸다", i + 75);
+					}
 					//0.0f, 0.75f, -0.025f
 					D3DXVECTOR3 vCenter;
 					float		ftemp;
@@ -523,8 +572,6 @@ void cScene_main::GenSetup()
 	ST_GenPoint Point4;
 	y = pEntireMap->GetMap()->GetHeight(-72.0f, 53.0f);
 	Point4.p = D3DXVECTOR3(-72.0f, y, 53.0f);
-	//y = pEntireMap->GetMap()->GetHeight(-50.0f, 53.0f);
-	//Point4.p = D3DXVECTOR3(-50.0f, y, 53.0f);
 	Point4.Gen = false;
 
 	vecGenPoint.push_back(Point1);
@@ -569,42 +616,57 @@ void cScene_main::MonsterSetup()
 		{
 			pEnemy4[(x * 5) + z] = new cEnemy();
 			pEnemy4[(x * 5) + z]->Setup("./Tera/Monster/Kalan.X", &D3DXVECTOR3(-72.0f + (x * 1), -10.0f, 50.0f + (z * 1)));
-			//pEnemy4[(x * 5) + z]->Setup("./Tera/Monster/Kalan.X", &D3DXVECTOR3(-50.0f + (x * 1), 0.0f, 50.0f + (z * 1)));
 		}
 	}
 }
 
-void cScene_main::MonsterAttack()
+void cScene_main::MonsterAttack(float timDelta)
 {
 	for (int i = 0; i < ENEMYMAX; i++)
 	{
 		if (pEnemy1[i]->GetState() == MonState::Attack)
 		{
+			
+			m_pTick[i]->tickUpdate(timDelta);
+
 			if (PHYSICS_MGR->IsOverlap(pEnemy1[i]->pWeaponTrans, &renderObjects[i]->BoundBox01, pPlayer->m_pRootTrans, &pPlayer->GetBaseObject()[0]->BoundBox))
 			{
-				LOG_MGR->AddLog("%d번 에게 맞았다!", i);
+				if(m_pTick[i]->tickStart())
+					LOG_MGR->AddLog("%d번 에게 맞았다!", i);
 			}
 		}
-		//if (pEnemy1[i]->GetState() == MonState::Attack)
-		//{
-		//	if (PHYSICS_MGR->IsOverlap(renderObjects[i], pPlayer->GetBaseObject()[0]))
-		//	{
-		//		LOG_MGR->AddLog("%d번 에게 맞았다!", i);
-		//	}
-		//}
-		//if (pEnemy1[i]->GetState() == MonState::Attack)
-		//{
-		//	if (PHYSICS_MGR->IsOverlap(renderObjects[i], pPlayer->GetBaseObject()[0]))
-		//	{
-		//		LOG_MGR->AddLog("%d번 에게 맞았다!", i);
-		//	}
-		//}
-		//if (pEnemy1[i]->GetState() == MonState::Attack)
-		//{
-		//	if (PHYSICS_MGR->IsOverlap(renderObjects[i], pPlayer->GetBaseObject()[0]))
-		//	{
-		//		LOG_MGR->AddLog("%d번 에게 맞았다!", i);
-		//	}
-		//}
+		if (pEnemy2[i]->GetState() == MonState::Attack)
+		{
+
+			m_pTick[i + 25]->tickUpdate(timDelta);
+
+			if (PHYSICS_MGR->IsOverlap(pEnemy2[i]->pWeaponTrans, &renderObjects[i + 25]->BoundBox01, pPlayer->m_pRootTrans, &pPlayer->GetBaseObject()[0]->BoundBox))
+			{
+				if (m_pTick[i + 25]->tickStart())
+					LOG_MGR->AddLog("%d번 에게 맞았다!", i + 25);
+			}
+		}
+		if (pEnemy3[i]->GetState() == MonState::Attack)
+		{
+
+			m_pTick[i + 50]->tickUpdate(timDelta);
+
+			if (PHYSICS_MGR->IsOverlap(pEnemy3[i]->pWeaponTrans, &renderObjects[i + 50]->BoundBox01, pPlayer->m_pRootTrans, &pPlayer->GetBaseObject()[0]->BoundBox))
+			{
+				if (m_pTick[i + 50]->tickStart())
+					LOG_MGR->AddLog("%d번 에게 맞았다!", i + 50);
+			}
+		}
+		if (pEnemy4[i]->GetState() == MonState::Attack)
+		{
+
+			m_pTick[i + 75]->tickUpdate(timDelta);
+
+			if (PHYSICS_MGR->IsOverlap(pEnemy4[i]->pWeaponTrans, &renderObjects[i + 75]->BoundBox01, pPlayer->m_pRootTrans, &pPlayer->GetBaseObject()[0]->BoundBox))
+			{
+				if (m_pTick[i + 75]->tickStart())
+					LOG_MGR->AddLog("%d번 에게 맞았다!", i + 75);
+			}
+		}
 	}
 }

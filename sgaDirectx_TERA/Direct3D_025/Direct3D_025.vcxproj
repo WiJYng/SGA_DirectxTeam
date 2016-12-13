@@ -134,6 +134,7 @@
     <ClInclude Include="cSpriteManager.h" />
     <ClInclude Include="cStartScene.h" />
     <ClInclude Include="cTerrain.h" />
+    <ClInclude Include="cTickFunc.h" />
     <ClInclude Include="cTimeMgr.h" />
     <ClInclude Include="cTrailRender.h" />
     <ClInclude Include="cTransform.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="cSpriteManager.cpp" />
     <ClCompile Include="cStartScene.cpp" />
     <ClCompile Include="cTerrain.cpp" />
+    <ClCompile Include="cTickFunc.cpp" />
     <ClCompile Include="cTimeMgr.cpp" />
     <ClCompile Include="cTrailRender.cpp" />
     <ClCompile Include="cTransform.cpp" />
