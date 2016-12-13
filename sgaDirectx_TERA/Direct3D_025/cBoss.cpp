@@ -2,6 +2,7 @@
 #include "cBoss.h"
 #include "cMeshMap.h"
 #include "cTransform.h"
+#include "cTickFunc.h"
 
 cBoss::cBoss()
 {
@@ -22,8 +23,17 @@ void cBoss::Setup(string PathMonster, D3DXVECTOR3 * Pos)
 	bStun = false;
 	PrevAngle = 0.0f;
 	m_nCount = 0;
+	for (int i = 0; i < 3; i++)
+	{
+		m_pTick[i] = new cTickFunc();
+		m_pTick[i]->init(0.7f);
+	}
+	
+	m_pTick[0]->init(2.1f);
+	m_pTick[1]->init(0.7f);
+	m_pTick[2]->init(0.7f);
 
-	m_fHP = m_fMAXHP = 3.0f;
+	m_fHP = m_fMAXHP = 10.0f;
 
 	D3DXMATRIXA16 mat;
 	D3DXMatrixIdentity(&mat);
@@ -46,13 +56,13 @@ void cBoss::Setup(string PathMonster, D3DXMATRIXA16 * mat, D3DXVECTOR3 * Pos)
 	pMonObj->SetActive(true);
 	pMonObj->pTransform->SetWorldPosition(*Pos);
 	pMonObj->pSkinned->AddBoneTransform("Dummy_root", pMonTrans);
-	pMonObj->pSkinned->AddBoneTransform("FxHand01", pWeaponTrans);
+	pMonObj->pSkinned->AddBoneTransform("Bip01-R-Hand", pWeaponTrans);
 	
 	renderObjects.push_back(pMonObj);
 	
 	renderObjects[0]->pSkinned->Play("Wait", 0.0f);
-	//renderObjects[0]->BoundBox.Init(D3DXVECTOR3(-0.4, 0, -0.5), D3DXVECTOR3(0.4, 1, 0.25));
-	//renderObjects[0]->BoundBox01.Init(D3DXVECTOR3(-0.1, 0, -0.1), D3DXVECTOR3(0.1, 1.0, 0.1));
+	renderObjects[0]->BoundBox.Init(D3DXVECTOR3(-1.0, 0, -1.0), D3DXVECTOR3(1.0, 2.5, 1.0));
+	renderObjects[0]->BoundBox01.Init(D3DXVECTOR3(-0.7, -0.4, 0.0), D3DXVECTOR3(0.7, 0.6, 1.6));
 }
 
 void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
@@ -97,7 +107,7 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 	float deltaMove = 5.0f * TIME_MGR->GetFrameDeltaSec();
 	float t = Clamp01(deltaMove / dist);
 	
-	if (m_State != Death && !bDeath && m_State != Stun)
+	if (m_State != Death && !bDeath && !bStun)
 	{
 		if (dist > 15.0f)
 		{
@@ -109,7 +119,7 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 				bRun = bAtt = false;
 			}
 		}
-		else if (dist <= 15.0f && dist > 1.25f)
+		else if (dist <= 15.0f && dist > 2.75f)
 		{
 			if (m_State != Run && !bRun)
 			{
@@ -121,24 +131,24 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 			renderObjects[0]->pTransform->MovePositionWorld(renderObjects[0]->pTransform->GetForward()*timDelta);
 	
 		}
-		else if (dist <= 1.25f && dist > 0.0f)
+		else if (dist <= 2.75f && dist > 0.0f)
 		{
 			if (m_State != Attack && !bAtt)
 			{
 				m_nCount = 0;
-				renderObjects[0]->pSkinned->Play("Attack1", 0.0f);
+				//renderObjects[0]->pSkinned->Play("Attack1", 0.0f);
 				m_State = Attack;
 				bAtt = true;
 				bWait = bRun = false;
-				m_nCount++;
+				//m_nCount++;
 			}
 			else if (m_State == Attack)
 			{
-				AttackFuntion();
+				AttackFuntion(timDelta);
 			}
 		}
 	}
-	else if (m_State == Death && !bDeath)
+	else if (m_State == Death && !bDeath && bStun)
 	{
 		if (renderObjects[0]->pSkinned->GetFactor() >= 0.95f)
 		{
@@ -147,7 +157,7 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 				D3DXVECTOR3 vTemp = D3DXVECTOR3(pMonTrans->GetWorldPosition().x, 0.0f, pMonTrans->GetWorldPosition().z);
 				renderObjects[0]->pTransform->SetWorldPosition(vTemp);
 				
-				renderObjects[0]->pSkinned->Play("DeathWait", 0.0f);
+				renderObjects[0]->pSkinned->Play("Deathwait", 0.0f);
 				m_State = DeathWait;
 				bDeath = true;
 				bWait = bRun = bAtt = false;
@@ -155,7 +165,7 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 		}
 	}
 	
-	if (m_fHP <= 0.0f && bStun && m_State == Stun)
+	if (m_fHP <= 0.0f && !bStun)
 	{
 		if (m_State != Death)
 		{
@@ -189,20 +199,28 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 
 void cBoss::Render()
 {
+	renderObjects[0]->Render();
+	renderObjects[0]->BoundBox.RenderGizmo(pMonTrans);
+	renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);
 }
 
-void cBoss::AttackFuntion()
+void cBoss::AttackFuntion(float timDelta)
 {
-	if (m_nCount % 5 == 1 || m_nCount % 5 == 2 || m_nCount % 5 == 3)
+	if (m_nCount % 5 == 0 || m_nCount % 5 == 1 || m_nCount % 5 == 2)
 	{
-		if (renderObjects[0]->pSkinned->GetFactor() >= 0.999f)
-		//if (renderObjects[0]->pSkinned->GetFactor() >= 3.0f)
+		m_pTick[0]->tickUpdate(timDelta);
+		//if (renderObjects[0]->pSkinned->GetFactor() >= 0.999f)
+		if (renderObjects[0]->pSkinned->GetAniEnd())
 		{
 			renderObjects[0]->pSkinned->Play("Attack1", 0.0f);
 			m_State = Attack;
 			bAtt = true;
 			bWait = bRun = false;
+		}
+		if (m_pTick[0]->tickStart())
+		{
 			m_nCount++;
+			LOG_MGR->AddLog("보스공격1");
 		}
 	}
 	//else if ()
@@ -212,7 +230,7 @@ void cBoss::AttackFuntion()
 	//		m_nCount++;
 	//	}
 	//}
-	else if (m_nCount % 5 == 4)
+	else if (m_nCount % 5 == 3)
 	{
 		if (renderObjects[0]->pSkinned->GetAniEnd())
 		{
@@ -224,7 +242,7 @@ void cBoss::AttackFuntion()
 		}
 		int a = 0;
 	}
-	else if (m_nCount % 5 == 0)
+	else if (m_nCount % 5 == 4)
 	{
 		if (renderObjects[0]->pSkinned->GetAniEnd())
 		{
