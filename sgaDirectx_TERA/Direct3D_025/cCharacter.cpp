@@ -139,6 +139,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 	for (int i = 0; i < renderObjects.size(); i++)
 	{
 		if (!renderObjects[i]->pSkinned) continue;
+
 		renderObjects[i]->pSkinned->Update(timDelta);
 	}
 	//renderObjects[0]->pSkinned->AddBoneTransform("Dummy_root", m_pRootTrans);
