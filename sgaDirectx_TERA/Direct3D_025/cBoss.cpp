@@ -15,7 +15,7 @@ cBoss::~cBoss()
 
 void cBoss::Setup(string PathMonster, D3DXVECTOR3 * Pos)
 {
-	m_State = Wait;
+	m_State = Mempty;
 	bWait = true;
 	bRun = false;
 	bAtt = false;
@@ -55,12 +55,13 @@ void cBoss::Setup(string PathMonster, D3DXMATRIXA16 * mat, D3DXVECTOR3 * Pos)
 	pMonObj->SetMesh(pMonster);
 	pMonObj->SetActive(true);
 	pMonObj->pTransform->SetWorldPosition(*Pos);
+	pMonObj->pTransform->RotateSelf(0.0f, 90.0f * ONE_RAD, 0.0f);
 	pMonObj->pSkinned->AddBoneTransform("Dummy_root", pMonTrans);
 	pMonObj->pSkinned->AddBoneTransform("Bip01-R-Hand", pWeaponTrans);
 	
 	renderObjects.push_back(pMonObj);
 	
-	renderObjects[0]->pSkinned->Play("Wait", 0.0f);
+	renderObjects[0]->pSkinned->Play("Unarmedwait", 0.0f);
 	renderObjects[0]->BoundBox.Init(D3DXVECTOR3(-1.0, 0, -1.0), D3DXVECTOR3(1.0, 2.5, 1.0));
 	renderObjects[0]->BoundBox01.Init(D3DXVECTOR3(-0.7, -0.4, 0.0), D3DXVECTOR3(0.7, 0.6, 1.6));
 }
@@ -79,7 +80,7 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 	
 	//float angle = CalcAngle(_PlayerPos, &renderObjects[0]->pTransform->GetWorldPosition());
 	
-	if (m_State != Stun && m_State != Death && m_State != DeathWait)
+	if (m_State != Stun && m_State != Death && m_State != DeathWait && dist <= 13.0f)
 	{
 		//방향을 구한다.
 		D3DXVec3Normalize(&dirToTarget, &dirToTarget);
@@ -109,17 +110,26 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 	
 	if (m_State != Death && !bDeath && !bStun)
 	{
-		if (dist > 15.0f)
+		if (dist > 13.0f)
 		{
-			if (m_State != Wait && !bWait)
+			if (m_State != Wait && bWait)
 			{
-				renderObjects[0]->pSkinned->Play("Wait", 0.0f);
+				renderObjects[0]->pSkinned->Play("Unarmedwait", 0.0f);
 				m_State = Wait;
-				bWait = true;
-				bRun = bAtt = false;
+				bRun = bAtt = bWait = false;
 			}
 		}
-		else if (dist <= 15.0f && dist > 2.75f)
+		else if (dist <= 13.0f && dist > 10.0f)
+		{
+			if (m_State == Wait && !bWait)
+			{
+				renderObjects[0]->pSkinned->Play("Wait", 0.0f);
+				m_State = Mempty;
+				bWait = true;
+				bWait = bAtt = false;
+			}
+		}
+		else if (dist <= 10.0f && dist > 2.75f)
 		{
 			if (m_State != Run && !bRun)
 			{
