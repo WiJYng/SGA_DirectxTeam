@@ -43,6 +43,9 @@
     <Filter Include="Tera\Effect">
       <UniqueIdentifier>{e488ce4f-4d32-4841-a37a-f271dd32f7c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tera\Boss">
+      <UniqueIdentifier>{0fce69ec-14c2-4e1d-bdb1-b01dc0348e42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -231,6 +234,9 @@
     <ClInclude Include="cDecalEffect.h">
       <Filter>Tera\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="cBoss.h">
+      <Filter>Tera\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -418,6 +424,9 @@
     </ClCompile>
     <ClCompile Include="cDecalEffect.cpp">
       <Filter>Tera\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="cBoss.cpp">
+      <Filter>Tera\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

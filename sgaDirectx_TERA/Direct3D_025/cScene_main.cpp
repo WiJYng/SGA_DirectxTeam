@@ -49,10 +49,10 @@ HRESULT cScene_main::Scene_Init()
 	pPlayerUI = new cPlayerUI();
 	pPlayerUI->Setup();
 
-	for (int i = 0; i < pPlayer->GetBaseObject().size(); i++)
-	{
-		renderObjects.push_back(pPlayer->GetBaseObject()[i]);
-	}
+	//for (int i = 0; i < pPlayer->GetBaseObject().size(); i++)
+	//{
+	//	renderObjects.push_back(pPlayer->GetBaseObject()[i]);
+	//}
 
 	//몬스터
 	for (int x = 0; x < 6; x++)
@@ -60,7 +60,7 @@ HRESULT cScene_main::Scene_Init()
 		for (int z = 0; z < 6; z++)
 		{
 			pEnemy[(x * 6) + z] = new cEnemy();
-			pEnemy[(x * 6) + z]->Setup("./Tera/Monster/Kalan.X", &D3DXVECTOR3(30.0f + (x * 1), 0.0f, 33.0f + (z * 1)));
+			pEnemy[(x * 6) + z]->Setup("./Tera/Monster/Kalan.X", &D3DXVECTOR3(35.0f + (x * 1), 0.0f, 38.0f + (z * 1)));
 		}
 	}
 
@@ -155,30 +155,21 @@ void cScene_main::Scene_Update(float timDelta)
 
 	this->pMainCamera->UpdateFrustum();
 	this->cullObjects.clear();
-	for (int i = 0; i < this->renderObjects.size(); i++){
-
-		//this->renderObjects[i]->Update(timDelta);
-
-		//프러스텀 안에 있니?
-		if (this->pMainCamera->Frustum.IsInFrustum(this->renderObjects[i]))
+	//프러스텀 안에 있니?
+	for (int i = 0; i < 36; i++)
+	{
+		if (this->pMainCamera->Frustum.IsInFrustum(pEnemy[i]->GetBaseObject()[0]))
 		{
-			this->cullObjects.push_back(this->renderObjects[i]);
+			pEnemy[i]->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
 		}
 	}
-	for (int i = 0; i < this->cullObjects.size(); i++)
-	{
-		cullObjects[i]->Update(timDelta);
-	}
+	if (this->pMainCamera->Frustum.IsInFrustum(pBoss->GetBaseObject()[0]))
+	pBoss->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
 
 	//20161206승현 getMap으로 바꾸기
 	pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta, pEntireMap->GetMap());
 
-	for (int i = 0; i < 36; i++)
-	{
-		pEnemy[i]->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
-	}
 	
-	pBoss->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
 
 	//업데이트
 	//스킬이펙트
@@ -277,12 +268,6 @@ void cScene_main::Scene_Render1()
 	if (pPlayer)
 		pPlayer->Render(this->pSceneBaseDirectionLight);
 
-	for (int i = 0; i < 36; i++)
-	{
-		if (pEnemy[i])
-			pEnemy[i]->Render();
-	}
-
 	//PlayerUI //20161207 승현추가
 	if (pPlayerUI)
 		pPlayerUI->Render();
@@ -305,7 +290,7 @@ void cScene_main::Scene_Render1()
 	}
 
 	//프러텀을 그려보장
-	this->pDirectionLightCamera->Frustum.RenderGizmo();
+	//this->pDirectionLightCamera->Frustum.RenderGizmo();
 	this->pSceneBaseDirectionLight->pTransform->RenderGimozo();
 
 	//-----------------------------
@@ -323,7 +308,7 @@ void cScene_main::Scene_Render1()
 	}
 	//this->pTrailRender->Render();
 
-	//LOG_MGR->AddLog("X : %.2f, Z : %.2f", pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z);
+	LOG_MGR->AddLog("X : %.2f, Z : %.2f", pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z);
 }
 
 void cScene_main::Scene_RenderSprite()

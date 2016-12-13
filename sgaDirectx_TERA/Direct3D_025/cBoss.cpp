@@ -184,7 +184,7 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 		int a = 0;
 	}
 
-	LOG_MGR->AddLog("%d", m_nCount);
+	//LOG_MGR->AddLog("%d", m_nCount);
 }
 
 void cBoss::Render()
@@ -195,7 +195,7 @@ void cBoss::AttackFuntion()
 {
 	if (m_nCount % 5 == 1 || m_nCount % 5 == 2 || m_nCount % 5 == 3)
 	{
-		if (renderObjects[0]->pSkinned->GetAniEnd())
+		if (renderObjects[0]->pSkinned->GetFactor() >= 0.999f)
 		//if (renderObjects[0]->pSkinned->GetFactor() >= 3.0f)
 		{
 			renderObjects[0]->pSkinned->Play("Attack1", 0.0f);
