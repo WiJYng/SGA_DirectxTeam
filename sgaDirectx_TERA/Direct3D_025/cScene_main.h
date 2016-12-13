@@ -46,6 +46,7 @@ private:
 
 	cTickFunc*							m_pTick[ENEMYMAX_1];
 	cTickFunc*							m_pTickPlayer[ENEMYMAX_1 + 1];
+	cTickFunc*							m_pTickBoss;
 
 	int									DeathCount;
 	bool								bDraw;

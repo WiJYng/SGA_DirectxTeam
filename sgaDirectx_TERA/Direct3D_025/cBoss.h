@@ -17,7 +17,7 @@ private:
 	float								PrevAngle;
 
 	cTransform*							pMonTrans;
-	cTransform*							pWeaponTrans;
+	
 
 	float								m_fHP;
 	float								m_fMAXHP;
@@ -27,6 +27,8 @@ private:
 	cTickFunc*							m_pTick[3];
 
 public:
+	cTransform*							pWeaponTrans;
+	
 	cBoss();
 	~cBoss();
 

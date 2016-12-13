@@ -61,8 +61,8 @@ void cBoss::Setup(string PathMonster, D3DXMATRIXA16 * mat, D3DXVECTOR3 * Pos)
 	renderObjects.push_back(pMonObj);
 	
 	renderObjects[0]->pSkinned->Play("Wait", 0.0f);
-	renderObjects[0]->BoundBox.Init(D3DXVECTOR3(-0.6, 0, -0.5), D3DXVECTOR3(0.6, 1.75, 0.5));
-	renderObjects[0]->BoundBox01.Init(D3DXVECTOR3(-0.3, -0.2, -0.5), D3DXVECTOR3(0.3, 0.4, 0.6));
+	renderObjects[0]->BoundBox.Init(D3DXVECTOR3(-1.0, 0, -1.0), D3DXVECTOR3(1.0, 2.5, 1.0));
+	renderObjects[0]->BoundBox01.Init(D3DXVECTOR3(-0.7, -0.4, 0.0), D3DXVECTOR3(0.7, 0.6, 1.6));
 }
 
 void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
@@ -119,7 +119,7 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 				bRun = bAtt = false;
 			}
 		}
-		else if (dist <= 15.0f && dist > 1.25f)
+		else if (dist <= 15.0f && dist > 2.75f)
 		{
 			if (m_State != Run && !bRun)
 			{
@@ -131,7 +131,7 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 			renderObjects[0]->pTransform->MovePositionWorld(renderObjects[0]->pTransform->GetForward()*timDelta);
 	
 		}
-		else if (dist <= 1.25f && dist > 0.0f)
+		else if (dist <= 2.75f && dist > 0.0f)
 		{
 			if (m_State != Attack && !bAtt)
 			{

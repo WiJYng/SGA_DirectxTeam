@@ -115,7 +115,10 @@ HRESULT cScene_main::Scene_Init()
 	}
 	m_pTickPlayer[ENEMYMAX_1] = new cTickFunc();
 	m_pTickPlayer[ENEMYMAX_1]->init(0.25f);
-	
+	m_pTickBoss = new cTickFunc();
+	m_pTickBoss->init(0.5f);
+
+
 	bDraw = false;
 
 
@@ -723,6 +726,17 @@ void cScene_main::MonsterAttack(float timDelta)
 				//if (m_pTick[i + 75]->tickStart())
 				//	LOG_MGR->AddLog("%d번 에게 맞았다!", i + 75);
 			}
+		}
+	}
+
+	if (pBoss->GetState() == MonState::Attack)
+	{
+		m_pTickBoss->tickUpdate(timDelta);
+
+		if (PHYSICS_MGR->IsOverlap(pBoss->pWeaponTrans, &renderObjects[100]->BoundBox01, pPlayer->m_pRootTrans, &pPlayer->GetBaseObject()[0]->BoundBox))
+		{
+			//if (m_pTickBoss->tickStart())
+				LOG_MGR->AddLog("보스에게 맞았다!");
 		}
 	}
 }
