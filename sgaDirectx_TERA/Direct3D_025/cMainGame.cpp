@@ -34,6 +34,7 @@ HRESULT cMainGame::Init(void)
 	//게임에 사용되는 씬 추가
 	//SCENE_MGR->AddScene( "Test00", new cScene_00() );
 	SCENE_MGR->AddScene("Test00", new cScene_main());
+	//SCENE_MGR->AddScene("Test00", new cScene_main());
 	//SCENE_MGR->AddScene( "Test01", new cScene_01() );
 	//SCENE_MGR->AddLoadingScene( "로딩씬", new cScene_02() );
 
