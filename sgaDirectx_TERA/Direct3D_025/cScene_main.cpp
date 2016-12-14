@@ -75,19 +75,19 @@ HRESULT cScene_main::Scene_Init()
 	cTrailRender* t1 = new cTrailRender();
 	t1->Init(
 		0.1f,					//꼬리 라이브 타임 ( 이게 크면 환영큐 사이즈가 커지고 꼬리가 오랬동안 남아있다 )
-		0.5f,					//폭
-		RESOURCE_TEXTURE->GetResource("./Resources/Testures/Tail.png"),	//메인 Texture
+		0.7f,					//폭
+		RESOURCE_TEXTURE->GetResource("./Tera/Effect/E_Swordtrail005_emis.tga"),	//메인 Texture
 		D3DXCOLOR(0, 0.5, 1, 0.7),												//메인 Texture 로 그릴때 컬러
-		RESOURCE_TEXTURE->GetResource("./Resources/Testures/Tail.png")	//외곡 그릴때 외곡 노말
+		RESOURCE_TEXTURE->GetResource("./Tera/Effect/E_Swordtrail004_emis.tga")	//외곡 그릴때 외곡 노말
 	);
 
 	cTrailRender* t2 = new cTrailRender();
 	t2->Init(
 		0.1f,					//꼬리 라이브 타임 ( 이게 크면 환영큐 사이즈가 커지고 꼬리가 오랬동안 남아있다 )
-		0.5f,					//폭
-		RESOURCE_TEXTURE->GetResource("./Resources/Testures/Tail.png"),	//메인 Texture
-		D3DXCOLOR(0, 0.5, 1, 0.7),												//메인 Texture 로 그릴때 컬러
-		RESOURCE_TEXTURE->GetResource("./Resources/Testures/Tail.png")	//외곡 그릴때 외곡 노말
+		0.7f,					//폭
+		RESOURCE_TEXTURE->GetResource("./Tera/Effect/E_Swordtrail005_emis.tga"),	//메인 Texture
+		D3DXCOLOR(0, 0.5, 1, 0.7),														//메인 Texture 로 그릴때 컬러
+		RESOURCE_TEXTURE->GetResource("./Tera/Effect/E_Swordtrail004_emis.tga")	//외곡 그릴때 외곡 노말
 	);
 
 	//왼쪽 오른쪽 두개
@@ -318,7 +318,7 @@ void cScene_main::Scene_Update(float timDelta)
 	//this->pMainCamera->DefaultControl(timDelta); //★
 
 	//쉐도우맵 준비
-	//this->ReadyShadowMap(&this->renderObjects, NULL);
+	this->ReadyShadowMap(&this->renderObjects, NULL);
 }
 
 void cScene_main::Scene_Render1()
@@ -377,6 +377,8 @@ void cScene_main::Scene_Render1()
 
 	if (pPlayerSkillEff)
 		pPlayerSkillEff->Render();
+
+	Scene_RenderSprite();
 
 
 	//랜더 ( 왠만하면 알파블랜딩이니깐 나중에 그리자... )
