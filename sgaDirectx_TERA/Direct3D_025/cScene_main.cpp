@@ -115,7 +115,7 @@ HRESULT cScene_main::Scene_Init()
 	m_pTickPlayer[ENEMYMAX_1] = new cTickFunc();
 	m_pTickPlayer[ENEMYMAX_1]->init(0.25f);
 	m_pTickBoss = new cTickFunc();
-	m_pTickBoss->init(0.5f);
+	m_pTickBoss->init(0.85f);
 
 
 	bDraw = false;
@@ -135,6 +135,11 @@ void cScene_main::Scene_Release()
 	//SAFE_DELETE_ARR(pEnemy);
 	delete[] pEnemy1;
 	delete[] pEnemy2;
+	delete[] pEnemy3;
+	delete[] pEnemy4;
+	delete[] m_pTick;
+	delete[] m_pTickPlayer;
+	delete m_pTickBoss;
 	//Trail 해재
 	for each(auto t in pVecTrailRender)
 	{
@@ -149,7 +154,8 @@ void cScene_main::Scene_Update(float timDelta)
 	//if (KEY_MGR->IsOnceDown(VK_RETURN)){
 	//	SCENE_MGR->ChangeSceneWithLoading("Test01", "로딩씬", 1, 1);
 	//}
-	DeathCount = 0;
+	//DeathCount = ENEMYMAX_1;
+	DeathCount = ENEMYMAX_1;
 	for (int i = 0; i < ENEMYMAX; i++)
 	{
 		if (pEnemy1[i]->GetHP() <= 0)
@@ -174,7 +180,7 @@ void cScene_main::Scene_Update(float timDelta)
 	{
 		if (bDraw == false)
 		{
-			renderObjects.push_back(pBoss->GetBaseObject()[0]);
+			//renderObjects.push_back(pBoss->GetBaseObject()[0]);
 			bDraw = true;
 			LOG_MGR->AddLog("보스가 나타났다");
 		}
@@ -267,8 +273,12 @@ void cScene_main::Scene_Update(float timDelta)
 		}
 	}
 
-	if (this->pMainCamera->Frustum.IsInFrustum(pBoss->GetBaseObject()[0]))
-		pBoss->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
+	if (bDraw == true)
+	{
+		//if (this->pMainCamera->Frustum.IsInFrustum(pBoss->GetBaseObject()[0]))
+			pBoss->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
+	}
+	
 
 	//20161206승현 getMap으로 바꾸기
 	pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta, pEntireMap->GetMap());
@@ -355,7 +365,7 @@ void cScene_main::Scene_Render1()
 		cullObjects[i]->Render();
 	}
 
-	pBoss->Render();
+	if(bDraw) pBoss->Render();
 
 	//프러텀을 그려보장
 	//this->pDirectionLightCamera->Frustum.RenderGizmo();
@@ -378,6 +388,7 @@ void cScene_main::Scene_Render1()
 	//LOG_MGR->AddLog("%d", DeathCount);
 	//LOG_MGR->AddLog("%d", renderObjects.size());
 	//LOG_MGR->AddLog("%.2f", CalcLength(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition(), vecGenPoint[3].p));
+	//LOG_MGR->AddLog("%.2f", CalcLength(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition(), D3DXVECTOR3(-128.f, -15.0f, 80.0f)));
 	//LOG_MGR->AddLog("X : %.2f, Z : %.2f", pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().x, pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition().z);
 }
 
@@ -689,7 +700,10 @@ void cScene_main::MonsterAttack(float timDelta)
 
 			if (PHYSICS_MGR->IsOverlap(pEnemy1[i]->pWeaponTrans, &renderObjects[i]->BoundBox01, pPlayer->m_pRootTrans, &pPlayer->GetBaseObject()[0]->BoundBox))
 			{
-				//if(m_pTick[i]->tickStart())
+				if (m_pTick[i]->tickStart())
+				{
+
+				}
 				//	LOG_MGR->AddLog("%d번 에게 맞았다!", i);
 			}
 		}
@@ -700,7 +714,10 @@ void cScene_main::MonsterAttack(float timDelta)
 
 			if (PHYSICS_MGR->IsOverlap(pEnemy2[i]->pWeaponTrans, &renderObjects[i + 25]->BoundBox01, pPlayer->m_pRootTrans, &pPlayer->GetBaseObject()[0]->BoundBox))
 			{
-				//if (m_pTick[i + 25]->tickStart())
+				if (m_pTick[i + 25]->tickStart())
+				{
+
+				}
 				//	LOG_MGR->AddLog("%d번 에게 맞았다!", i + 25);
 			}
 		}
@@ -711,7 +728,10 @@ void cScene_main::MonsterAttack(float timDelta)
 
 			if (PHYSICS_MGR->IsOverlap(pEnemy3[i]->pWeaponTrans, &renderObjects[i + 50]->BoundBox01, pPlayer->m_pRootTrans, &pPlayer->GetBaseObject()[0]->BoundBox))
 			{
-				//if (m_pTick[i + 50]->tickStart())
+				if (m_pTick[i + 50]->tickStart())
+				{
+
+				}
 				//	LOG_MGR->AddLog("%d번 에게 맞았다!", i + 50);
 			}
 		}
@@ -722,7 +742,10 @@ void cScene_main::MonsterAttack(float timDelta)
 
 			if (PHYSICS_MGR->IsOverlap(pEnemy4[i]->pWeaponTrans, &renderObjects[i + 75]->BoundBox01, pPlayer->m_pRootTrans, &pPlayer->GetBaseObject()[0]->BoundBox))
 			{
-				//if (m_pTick[i + 75]->tickStart())
+				if (m_pTick[i + 75]->tickStart())
+				{
+
+				}
 				//	LOG_MGR->AddLog("%d번 에게 맞았다!", i + 75);
 			}
 		}
@@ -732,9 +755,9 @@ void cScene_main::MonsterAttack(float timDelta)
 	{
 		m_pTickBoss->tickUpdate(timDelta);
 
-		if (PHYSICS_MGR->IsOverlap(pBoss->pWeaponTrans, &renderObjects[100]->BoundBox01, pPlayer->m_pRootTrans, &pPlayer->GetBaseObject()[0]->BoundBox))
+		if (PHYSICS_MGR->IsOverlap(pBoss->pWeaponTrans, &pBoss->GetBaseObject()[0]->BoundBox01, pPlayer->m_pRootTrans, &pPlayer->GetBaseObject()[0]->BoundBox))
 		{
-			//if (m_pTickBoss->tickStart())
+			if (m_pTickBoss->tickStart())
 				LOG_MGR->AddLog("보스에게 맞았다!");
 		}
 	}

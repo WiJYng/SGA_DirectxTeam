@@ -238,6 +238,7 @@ public:
 	void DefaultControl4(float timeDelta, cTransform* charactor);
 
 	void GoControl(float timeDelta);
+	void BackControl(float timeDelta);
 	void LeftControl(float timeDelta);
 	void RightControl(float timeDelta);
 

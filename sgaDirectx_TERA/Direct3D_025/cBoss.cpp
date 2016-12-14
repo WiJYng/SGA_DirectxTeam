@@ -15,8 +15,9 @@ cBoss::~cBoss()
 
 void cBoss::Setup(string PathMonster, D3DXVECTOR3 * Pos)
 {
-	m_State = Wait;
-	bWait = true;
+	m_State = UWait;
+	bUWait = true;
+	bWait = false;
 	bRun = false;
 	bAtt = false;
 	bDeath = false;
@@ -55,12 +56,13 @@ void cBoss::Setup(string PathMonster, D3DXMATRIXA16 * mat, D3DXVECTOR3 * Pos)
 	pMonObj->SetMesh(pMonster);
 	pMonObj->SetActive(true);
 	pMonObj->pTransform->SetWorldPosition(*Pos);
+	pMonObj->pTransform->RotateSelf(0.0f, 90.0f * ONE_RAD, 0.0f);
 	pMonObj->pSkinned->AddBoneTransform("Dummy_root", pMonTrans);
 	pMonObj->pSkinned->AddBoneTransform("Bip01-R-Hand", pWeaponTrans);
 	
 	renderObjects.push_back(pMonObj);
 	
-	renderObjects[0]->pSkinned->Play("Wait", 0.0f);
+	renderObjects[0]->pSkinned->Play("Unarmedwait", 0.0f);
 	renderObjects[0]->BoundBox.Init(D3DXVECTOR3(-1.0, 0, -1.0), D3DXVECTOR3(1.0, 2.5, 1.0));
 	renderObjects[0]->BoundBox01.Init(D3DXVECTOR3(-0.7, -0.4, 0.0), D3DXVECTOR3(0.7, 0.6, 1.6));
 }
@@ -79,7 +81,7 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 	
 	//float angle = CalcAngle(_PlayerPos, &renderObjects[0]->pTransform->GetWorldPosition());
 	
-	if (m_State != Stun && m_State != Death && m_State != DeathWait)
+	if (m_State != Stun && m_State != Death && m_State != DeathWait && dist <= 15.0f)
 	{
 		//방향을 구한다.
 		D3DXVec3Normalize(&dirToTarget, &dirToTarget);
@@ -111,22 +113,32 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 	{
 		if (dist > 15.0f)
 		{
+			if (m_State != UWait && !bUWait)
+			{
+				renderObjects[0]->pSkinned->Play("Unarmedwait", 0.0f);
+				m_State = UWait;
+				bUWait = true;
+				bRun = bAtt = bWait = false;
+			}
+		}
+		else if (dist <= 15.0f && dist > 10.0f)
+		{
 			if (m_State != Wait && !bWait)
 			{
 				renderObjects[0]->pSkinned->Play("Wait", 0.0f);
 				m_State = Wait;
 				bWait = true;
-				bRun = bAtt = false;
+				bRun = bAtt = bUWait = false;
 			}
 		}
-		else if (dist <= 15.0f && dist > 2.75f)
+		else if (dist <= 10.0f && dist > 2.75f)
 		{
 			if (m_State != Run && !bRun)
 			{
 				renderObjects[0]->pSkinned->Play("Run", 0.0f);
 				m_State = Run;
 				bRun = true;
-				bWait = bAtt = false;
+				bWait = bAtt = bWait = false;
 			}
 			renderObjects[0]->pTransform->MovePositionWorld(renderObjects[0]->pTransform->GetForward()*timDelta);
 	
@@ -139,7 +151,7 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 				//renderObjects[0]->pSkinned->Play("Attack1", 0.0f);
 				m_State = Attack;
 				bAtt = true;
-				bWait = bRun = false;
+				bWait = bRun = bWait = false;
 				//m_nCount++;
 			}
 			else if (m_State == Attack)
@@ -160,7 +172,7 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 				renderObjects[0]->pSkinned->Play("Deathwait", 0.0f);
 				m_State = DeathWait;
 				bDeath = true;
-				bWait = bRun = bAtt = false;
+				bWait = bRun = bAtt = bWait = false;
 			}
 		}
 	}
@@ -200,8 +212,8 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 void cBoss::Render()
 {
 	renderObjects[0]->Render();
-	renderObjects[0]->BoundBox.RenderGizmo(pMonTrans);
-	renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);
+	//renderObjects[0]->BoundBox.RenderGizmo(pMonTrans);
+	//renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);
 }
 
 void cBoss::AttackFuntion(float timDelta)
@@ -220,16 +232,9 @@ void cBoss::AttackFuntion(float timDelta)
 		if (m_pTick[0]->tickStart())
 		{
 			m_nCount++;
-			LOG_MGR->AddLog("보스공격1");
+			//LOG_MGR->AddLog("보스공격1");
 		}
 	}
-	//else if ()
-	//{
-	//	if (renderObjects[0]->pSkinned->GetAniEnd())
-	//	{
-	//		m_nCount++;
-	//	}
-	//}
 	else if (m_nCount % 5 == 3)
 	{
 		if (renderObjects[0]->pSkinned->GetAniEnd())

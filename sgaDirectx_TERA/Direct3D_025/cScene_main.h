@@ -29,12 +29,12 @@ private:
 	std::vector<ST_GenPoint>			vecGenPoint;
 
 	cMeshMap*							pMap;
-	cCharacter*							pPlayer;
-	cEnemy*								pEnemy1[ENEMYMAX];
-	cEnemy*								pEnemy2[ENEMYMAX];
-	cEnemy*								pEnemy3[ENEMYMAX];
-	cEnemy*								pEnemy4[ENEMYMAX];
-	cBoss*								pBoss;
+	cCharacter*							pPlayer;				//Ä³¸¯ÅÍ
+	cEnemy*								pEnemy1[ENEMYMAX];		//¸ó½ºÅÍ Á¨ 1¹ø
+	cEnemy*								pEnemy2[ENEMYMAX];		//¸ó½ºÅÍ Á¨ 2¹ø
+	cEnemy*								pEnemy3[ENEMYMAX];		//¸ó½ºÅÍ Á¨ 3¹ø
+	cEnemy*								pEnemy4[ENEMYMAX];		//¸ó½ºÅÍ Á¨ 4¹ø
+	cBoss*								pBoss;					//º¸½º
 
 	vector<cTrailRender*>				pVecTrailRender;
 	cMap*								pEntireMap;

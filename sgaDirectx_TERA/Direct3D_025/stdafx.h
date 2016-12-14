@@ -141,7 +141,8 @@ enum MonState
 	Stun,
 	Death,
 	DeathWait,
-	Mempty
+	Mempty,
+	UWait
 };
 
 //struct
@@ -152,4 +153,21 @@ struct ST_GenPoint
 
 	ST_GenPoint() : p(0, 0, 0), Gen(false) {}
 	ST_GenPoint(D3DXVECTOR3 _p, bool _Gen) : p(_p), Gen(_Gen) {}
+};
+
+//wjy Ãß°¡
+enum E_DECALEFFECT
+{
+	DECAL_BASE = 0,
+};
+
+struct ST_PT_VERTEX
+{
+	D3DXVECTOR3 p;
+	D3DXVECTOR2 t;
+
+	ST_PT_VERTEX() : p(0, 0, 0), t(0, 0) {}
+	ST_PT_VERTEX(D3DXVECTOR3 _p, D3DXVECTOR2 _t) : p(_p), t(_t) {}
+
+	enum { FVF = D3DFVF_XYZ | D3DFVF_TEX1, };
 };
