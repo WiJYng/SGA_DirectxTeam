@@ -83,6 +83,7 @@
     <ClInclude Include="BoneHierachy.h" />
     <ClInclude Include="cBaseObject.h" />
     <ClInclude Include="cBoss.h" />
+    <ClInclude Include="cBossEffect.h" />
     <ClInclude Include="cBoundBox.h" />
     <ClInclude Include="cBoundSphere.h" />
     <ClInclude Include="cCamera.h" />
@@ -90,6 +91,7 @@
     <ClInclude Include="cDecalEffect.h" />
     <ClInclude Include="cDXFontManager.h" />
     <ClInclude Include="cEnemy.h" />
+    <ClInclude Include="cEnemyEffect.h" />
     <ClInclude Include="cFrustum.h" />
     <ClInclude Include="cGizmoManager.h" />
     <ClInclude Include="cImage.h" />
@@ -149,6 +151,7 @@
     <ClCompile Include="BoneHierachy.cpp" />
     <ClCompile Include="cBaseObject.cpp" />
     <ClCompile Include="cBoss.cpp" />
+    <ClCompile Include="cBossEffect.cpp" />
     <ClCompile Include="cBoundBox.cpp" />
     <ClCompile Include="cBoundSphere.cpp" />
     <ClCompile Include="cCamera.cpp" />
@@ -156,6 +159,7 @@
     <ClCompile Include="cDecalEffect.cpp" />
     <ClCompile Include="cDXFontManager.cpp" />
     <ClCompile Include="cEnemy.cpp" />
+    <ClCompile Include="cEnemyEffect.cpp" />
     <ClCompile Include="cFrustum.cpp" />
     <ClCompile Include="cGizmoManager.cpp" />
     <ClCompile Include="cImage.cpp" />
