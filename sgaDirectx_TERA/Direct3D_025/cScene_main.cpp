@@ -102,7 +102,9 @@ HRESULT cScene_main::Scene_Init()
 	//tempTrans->SetRotateWorld(0.0f, 90.0f, 0.0f);
 
 	this->pMainCamera->AttachTo(tempTrans);
-	this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 5.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 10.0f);
+	//this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 5.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 10.0f);
+	this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x - 2.0f, pPlayer->m_pRootTrans->GetWorldPosition().y + 2.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 2.0f);
+	//this->pMainCamera->ShakePos(10.0f, 10.0f);
 
 	for (int i = 0; i < ENEMYMAX_1; i++)
 	{
@@ -305,6 +307,8 @@ void cScene_main::Scene_Update(float timDelta)
 
 	//this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->m_pRootTrans->GetWorldPosition().x + 5, pPlayer->m_pRootTrans->GetWorldPosition().y + 5, pPlayer->m_pRootTrans->GetWorldPosition().z + 1));
 	this->pMainCamera->DefaultControl4(timDelta, pPlayer->m_pRootTrans); //¡Ú
+	
+	//this->pMainCamera->ShakeUpdate(timDelta);
 	//this->pMainCamera->DefaultControl(timDelta); //¡Ú
 
 	//½¦µµ¿ì¸Ê ÁØºñ
