@@ -130,7 +130,9 @@ using namespace std;
 #include "cResourceMgr_Texture.h"
 #include "cResourceMgr_ShaderFX.h"
 #include "cResourceMgr_XStaticMesh.h"
-#include "cResourceMgr_XSkinnedMesh.h"//enum
+#include "cResourceMgr_XSkinnedMesh.h"
+
+//enum
 enum MonState
 {
 	Wait,
@@ -139,24 +141,16 @@ enum MonState
 	Stun,
 	Death,
 	DeathWait,
-	Mempty
+	Mempty,
+	UWait
 };
 
-//데칼 종류
-enum E_DECALEFFECT
-{
-	DECAL_BASE = 0,
-	DECAL_LOTATION,
-};
-
-//pt구조체
-struct ST_PT_VERTEX
+//struct
+struct ST_GenPoint
 {
 	D3DXVECTOR3 p;
-	D3DXVECTOR2 t;
+	bool		Gen;
 
-	ST_PT_VERTEX() : p(0, 0, 0), t(0, 0) {}
-	ST_PT_VERTEX(D3DXVECTOR3 _p, D3DXVECTOR2 _t) : p(_p), t(_t) {}
-
-	enum { FVF = D3DFVF_XYZ | D3DFVF_TEX1, };
+	ST_GenPoint() : p(0, 0, 0), Gen(false) {}
+	ST_GenPoint(D3DXVECTOR3 _p, bool _Gen) : p(_p), Gen(_Gen) {}
 };

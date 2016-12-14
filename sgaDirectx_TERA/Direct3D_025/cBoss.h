@@ -1,6 +1,7 @@
 #pragma once
 
 class cMeshMap;
+class cTickFunc;
 
 class cBoss
 {
@@ -13,16 +14,22 @@ private:
 	bool								bAtt;
 	bool								bDeath;
 	bool								bStun;
+	bool								bUWait;
 	float								PrevAngle;
 
 	cTransform*							pMonTrans;
-	cTransform*							pWeaponTrans;
+	
 
 	float								m_fHP;
 	float								m_fMAXHP;
 
 	int									m_nCount;
+
+	cTickFunc*							m_pTick[3];
+
 public:
+	cTransform*							pWeaponTrans;
+	
 	cBoss();
 	~cBoss();
 
@@ -65,6 +72,6 @@ public:
 		m_fHP = _fHP;
 	}
 
-	void AttackFuntion();
+	void AttackFuntion(float timDelta);
 };
 

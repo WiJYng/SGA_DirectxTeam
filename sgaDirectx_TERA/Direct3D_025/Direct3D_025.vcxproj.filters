@@ -43,6 +43,12 @@
     <Filter Include="Tera\Effect">
       <UniqueIdentifier>{e488ce4f-4d32-4841-a37a-f271dd32f7c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tera\Boss">
+      <UniqueIdentifier>{0fce69ec-14c2-4e1d-bdb1-b01dc0348e42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tera\Utility">
+      <UniqueIdentifier>{02114441-9a65-481a-ab9e-f99b4bf46f4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -71,9 +77,6 @@
     </ClInclude>
     <ClInclude Include="cScene.h">
       <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="MyUtil.h">
-      <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="cDXFontManager.h">
       <Filter>Managers</Filter>
@@ -232,7 +235,13 @@
       <Filter>Tera\Effect</Filter>
     </ClInclude>
     <ClInclude Include="cBoss.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Tera\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="cTickFunc.h">
+      <Filter>Tera\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="MyUtil.h">
+      <Filter>Tera\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -262,9 +271,6 @@
     </ClCompile>
     <ClCompile Include="cScene.cpp">
       <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="MyUtil.cpp">
-      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="cDXFontManager.cpp">
       <Filter>Managers</Filter>
@@ -423,7 +429,13 @@
       <Filter>Tera\Effect</Filter>
     </ClCompile>
     <ClCompile Include="cBoss.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Tera\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="cTickFunc.cpp">
+      <Filter>Tera\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="MyUtil.cpp">
+      <Filter>Tera\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

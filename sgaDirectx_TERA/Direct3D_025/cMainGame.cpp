@@ -129,7 +129,7 @@ void cMainGame::Draw()
 		//GIZMO_MGR->WorldGrid( 1, 10 );
 
 		//타임정보 출력
-		//TIME_MGR->DrawTimeInfo();
+		TIME_MGR->DrawTimeInfo();
 #endif
 
 		Device->EndScene();

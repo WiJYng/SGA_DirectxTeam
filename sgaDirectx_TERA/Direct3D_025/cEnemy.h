@@ -18,12 +18,14 @@ private:
 	float								PrevAngle;
 
 	cTransform*							pMonTrans;
-	cTransform*							pWeaponTrans;
+	
 
 	float								m_fHP;
 	float								m_fMAXHP;
 
 public:
+	cTransform*							pWeaponTrans;
+
 	cEnemy();
 	~cEnemy();
 

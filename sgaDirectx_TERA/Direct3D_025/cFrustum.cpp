@@ -15,10 +15,10 @@ cFrustum::cFrustum(void)
 	m_RHWPos[1] = D3DXVECTOR3(  1,  1,  0 );
 	m_RHWPos[2] = D3DXVECTOR3( -1, -1,  0 );
 	m_RHWPos[3] = D3DXVECTOR3(  1, -1,  0 );
-	m_RHWPos[4] = D3DXVECTOR3( -1,  1,  0.995f );
-	m_RHWPos[5] = D3DXVECTOR3(  1,  1,  0.995f );
-	m_RHWPos[6] = D3DXVECTOR3( -1, -1,  0.995f );
-	m_RHWPos[7] = D3DXVECTOR3(  1, -1,  0.995f );
+	m_RHWPos[4] = D3DXVECTOR3( -1,  1,  0.9965f );
+	m_RHWPos[5] = D3DXVECTOR3(  1,  1,  0.9965f );
+	m_RHWPos[6] = D3DXVECTOR3( -1, -1,  0.9965f );
+	m_RHWPos[7] = D3DXVECTOR3(  1, -1,  0.9965f );
 
 }
 
