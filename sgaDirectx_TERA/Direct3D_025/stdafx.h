@@ -141,3 +141,22 @@ enum MonState
 	DeathWait,
 	Mempty
 };
+
+//데칼 종류
+enum E_DECALEFFECT
+{
+	DECAL_BASE = 0,
+	DECAL_LOTATION,
+};
+
+//pt구조체
+struct ST_PT_VERTEX
+{
+	D3DXVECTOR3 p;
+	D3DXVECTOR2 t;
+
+	ST_PT_VERTEX() : p(0, 0, 0), t(0, 0) {}
+	ST_PT_VERTEX(D3DXVECTOR3 _p, D3DXVECTOR2 _t) : p(_p), t(_t) {}
+
+	enum { FVF = D3DFVF_XYZ | D3DFVF_TEX1, };
+};

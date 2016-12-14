@@ -36,6 +36,7 @@ HRESULT cScene_main::Scene_Init()
 	pEntireMap = new cMap();
 	pEntireMap->Setup();
 	this->SetEnvironment("../Resources/skymap.dds");
+
 	//플레이어
 	pPlayer = new cCharacter();
 	pPlayer->Setup("./Tera/Character/Elin_Body_WDCR.X"
@@ -234,6 +235,8 @@ void cScene_main::Scene_Update(float timDelta)
 	}
 
 	pEntireMap->m_pMap->pCharPosition = pPlayer->GetWorldPosition();
+	pEntireMap->GeneratePlayerPos();
+
 
 	//for (int i = 0; i < 36; i++)
 	//{

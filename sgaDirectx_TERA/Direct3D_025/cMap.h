@@ -1,14 +1,20 @@
 #pragma once
 
 class cMeshMap;
+class cDecalEffect;
 
 class cMap
 {
 public :
 	cMeshMap*				m_pMap;
 private:
+	//decalEffectøÎ
+	vector<D3DXVECTOR3> pMapVertex;		//∏ mesh ¡§¡°¡§∫∏
+	LPD3DXMESH			pMapMesh;		//∏ mesh¡§∫∏
+	cDecalEffect*		playerPosDecal;
+
+
 	//∏ 
-	
 	cMeshMap*				m_pSurface_ter;
 
 	//æ∆¿Ã≈€
@@ -97,6 +103,8 @@ public:
 	cMeshMap* GetMap(){ return m_pMap; }
 	cMeshMap* GetSurface(){ return m_pSurface_ter; }
 	cMeshMap* GetPotion(){ return m_pPotion; }
+
+	void GeneratePlayerPos();
 
 };
 

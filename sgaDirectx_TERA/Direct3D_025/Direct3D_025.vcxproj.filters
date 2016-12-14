@@ -231,6 +231,9 @@
     <ClInclude Include="cDecalEffect.h">
       <Filter>Tera\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="cBoss.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -418,6 +421,9 @@
     </ClCompile>
     <ClCompile Include="cDecalEffect.cpp">
       <Filter>Tera\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="cBoss.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "cMap.h"
 #include "cMeshMap.h"
+#include "cDecalEffect.h"
 
 
 cMap::cMap()
@@ -72,6 +73,8 @@ cMap::cMap()
 }
 cMap::~cMap()
 {
+	SAFE_DELETE(playerPosDecal);
+
 	SAFE_DELETE(m_pMap);
 	SAFE_DELETE(m_pSurface_ter);
 
@@ -149,6 +152,33 @@ void cMap::Setup()
 	//지형
 	m_pMap = new cMeshMap();
 	m_pMap->Setup("./Tera/Map/EntireMap/moveMap/moveMap.X");
+
+	playerPosDecal = new cDecalEffect();
+	playerPosDecal->SetEffect(DECAL_BASE);
+
+	pMapMesh = ((cXMesh_Static*)m_pMap->GetBaseObject()->pMesh)->GetMesh();
+
+	//정점정보를 가지고있는다
+	//cXMesh_Static* m = (cXMesh_Static*)m_pMap->GetBaseObject()->pMesh;
+	//
+	//DWORD verNum = m->GetMesh()->GetNumVertices();
+	//
+	//pMapVertex.reserve(verNum);
+	//D3DVERTEXELEMENT9 pVerElement[MAX_FVF_DECL_SIZE];
+	//DWORD verSize = D3DXGetFVFVertexSize(m->GetMesh()->GetFVF());
+	//
+	//void* p = NULL;
+	//m->GetMesh()->LockVertexBuffer(0, &p);
+	//
+	//for (DWORD i = 0; i < verNum; i++){
+	//	//버텍스 시작 주소
+	//	char* pVertex = ((char*)p + (i * verSize));
+	//	D3DXVECTOR3* pos = (D3DXVECTOR3*)(pVertex);
+	//
+	//	pMapVertex.push_back(*pos);
+	//}
+	//m->GetMesh()->UnlockVertexBuffer();
+	
 	m_pSurface_ter = new cMeshMap();
 	m_pSurface_ter->Setup("Tera/Map/EntireMap/moveMapSurface/moveMapSurface.X");
 
@@ -425,4 +455,12 @@ void cMap::Render()
 	//벨리카마을
 	if (m_pVelica)
 		m_pVelica->Render();
+
+	//데칼이미지
+	if (playerPosDecal)
+		playerPosDecal->Render();
+}
+
+void cMap::GeneratePlayerPos() {
+	playerPosDecal->GenerateDecal(m_pMap->pCharPosition, 2.0f, pMapMesh);
 }
