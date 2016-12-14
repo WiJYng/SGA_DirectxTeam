@@ -1774,6 +1774,13 @@ void cTransform::GoControl(float timeDelta)
 	this->MovePositionSelf(0.0f, 0.0f, deltaMove);
 }
 
+void cTransform::BackControl(float timeDelta)
+{
+	float deltaMove = 4.5 * timeDelta;
+
+	this->MovePositionSelf(0.0f, 0.0f, -deltaMove);
+}
+
 void cTransform::LeftControl(float timeDelta)
 {
 	float deltaAngle = 180.0f * ONE_RAD * timeDelta;

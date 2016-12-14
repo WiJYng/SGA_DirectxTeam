@@ -159,6 +159,10 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 		{
 			renderObjects[0]->pTransform->RightControl(timDelta);
 		}
+		if (KEY_MGR->IsStayDown('S'))
+		{
+			renderObjects[0]->pTransform->BackControl(timDelta);
+		}
 	}
 
 	if (KEY_MGR->IsStayDown('W'))
@@ -342,9 +346,9 @@ void cCharacter::Render(cLight_Direction* pDirLight)
 	{
 		renderObjects[i]->Render();
 	}
-	renderObjects[0]->BoundBox.RenderGizmo(m_pRootTrans);
-	renderObjects[4]->BoundBox.RenderGizmo(m_pRWeaponTrans);
-	renderObjects[5]->BoundBox.RenderGizmo(m_pLWeaponTrans);
+	//renderObjects[0]->BoundBox.RenderGizmo(m_pRootTrans);
+	//renderObjects[4]->BoundBox.RenderGizmo(m_pRWeaponTrans);
+	//renderObjects[5]->BoundBox.RenderGizmo(m_pLWeaponTrans);
 }
 
 void cCharacter::SetWorldPosition(D3DXVECTOR3 pos)

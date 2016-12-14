@@ -141,7 +141,8 @@ enum MonState
 	Stun,
 	Death,
 	DeathWait,
-	Mempty
+	Mempty,
+	UWait
 };
 
 //struct

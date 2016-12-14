@@ -154,6 +154,7 @@ void cScene_main::Scene_Update(float timDelta)
 	//if (KEY_MGR->IsOnceDown(VK_RETURN)){
 	//	SCENE_MGR->ChangeSceneWithLoading("Test01", "로딩씬", 1, 1);
 	//}
+	//DeathCount = ENEMYMAX_1;
 	DeathCount = ENEMYMAX_1;
 	for (int i = 0; i < ENEMYMAX; i++)
 	{
@@ -179,7 +180,7 @@ void cScene_main::Scene_Update(float timDelta)
 	{
 		if (bDraw == false)
 		{
-			renderObjects.push_back(pBoss->GetBaseObject()[0]);
+			//renderObjects.push_back(pBoss->GetBaseObject()[0]);
 			bDraw = true;
 			LOG_MGR->AddLog("보스가 나타났다");
 		}
@@ -274,7 +275,7 @@ void cScene_main::Scene_Update(float timDelta)
 
 	if (bDraw == true)
 	{
-		if (this->pMainCamera->Frustum.IsInFrustum(pBoss->GetBaseObject()[0]))
+		//if (this->pMainCamera->Frustum.IsInFrustum(pBoss->GetBaseObject()[0]))
 			pBoss->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
 	}
 	
@@ -364,7 +365,7 @@ void cScene_main::Scene_Render1()
 		cullObjects[i]->Render();
 	}
 
-	//pBoss->Render();
+	if(bDraw) pBoss->Render();
 
 	//프러텀을 그려보장
 	//this->pDirectionLightCamera->Frustum.RenderGizmo();
@@ -754,7 +755,7 @@ void cScene_main::MonsterAttack(float timDelta)
 	{
 		m_pTickBoss->tickUpdate(timDelta);
 
-		if (PHYSICS_MGR->IsOverlap(pBoss->pWeaponTrans, &renderObjects[100]->BoundBox01, pPlayer->m_pRootTrans, &pPlayer->GetBaseObject()[0]->BoundBox))
+		if (PHYSICS_MGR->IsOverlap(pBoss->pWeaponTrans, &pBoss->GetBaseObject()[0]->BoundBox01, pPlayer->m_pRootTrans, &pPlayer->GetBaseObject()[0]->BoundBox))
 		{
 			if (m_pTickBoss->tickStart())
 				LOG_MGR->AddLog("보스에게 맞았다!");
