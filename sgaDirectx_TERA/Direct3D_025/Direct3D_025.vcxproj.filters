@@ -243,6 +243,15 @@
     <ClInclude Include="MyUtil.h">
       <Filter>Tera\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="cEnemyEffect.h">
+      <Filter>Tera\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="cBossEffect.h">
+      <Filter>Tera\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="cEffect.h">
+      <Filter>Tera\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -436,6 +445,15 @@
     </ClCompile>
     <ClCompile Include="MyUtil.cpp">
       <Filter>Tera\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="cBossEffect.cpp">
+      <Filter>Tera\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="cEnemyEffect.cpp">
+      <Filter>Tera\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="cEffect.cpp">
+      <Filter>Tera\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

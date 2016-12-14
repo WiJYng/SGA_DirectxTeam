@@ -6,7 +6,6 @@
 #include "cBaseObject.h"
 #include "cTransform.h"
 #include "cCamera.h"
-#include "cTrailRender.h"
 #include "cCharacter.h"
 #include "cEnemy.h"
 #include "cBoss.h"
@@ -70,31 +69,7 @@ HRESULT cScene_main::Scene_Init()
 	//라이트 위치
 	this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(0, 0, 0);
 	this->pSceneBaseDirectionLight->pTransform->SetRotateWorld(90.0f * ONE_RAD, 0, 0);
-
-	//TrailRenderSet
-	cTrailRender* t1 = new cTrailRender();
-	t1->Init(
-		0.1f,					//꼬리 라이브 타임 ( 이게 크면 환영큐 사이즈가 커지고 꼬리가 오랬동안 남아있다 )
-		0.7f,					//폭
-		RESOURCE_TEXTURE->GetResource("./Tera/Effect/E_Swordtrail005_emis.tga"),	//메인 Texture
-		D3DXCOLOR(0, 0.5, 1, 0.7),												//메인 Texture 로 그릴때 컬러
-		RESOURCE_TEXTURE->GetResource("./Tera/Effect/E_Swordtrail004_emis.tga")	//외곡 그릴때 외곡 노말
-	);
-
-	cTrailRender* t2 = new cTrailRender();
-	t2->Init(
-		0.1f,					//꼬리 라이브 타임 ( 이게 크면 환영큐 사이즈가 커지고 꼬리가 오랬동안 남아있다 )
-		0.7f,					//폭
-		RESOURCE_TEXTURE->GetResource("./Tera/Effect/E_Swordtrail005_emis.tga"),	//메인 Texture
-		D3DXCOLOR(0, 0.5, 1, 0.7),														//메인 Texture 로 그릴때 컬러
-		RESOURCE_TEXTURE->GetResource("./Tera/Effect/E_Swordtrail004_emis.tga")	//외곡 그릴때 외곡 노말
-	);
-
-	//왼쪽 오른쪽 두개
-	pVecTrailRender.push_back(t1);
-	pVecTrailRender.push_back(t2);
-
-
+	
 	pPlayerSkillEff = new cPlayerSkillEffect;
 	pPlayerSkillEff->Setup();
 
@@ -140,12 +115,6 @@ void cScene_main::Scene_Release()
 	delete[] m_pTick;
 	delete[] m_pTickPlayer;
 	delete m_pTickBoss;
-	//Trail 해재
-	for each(auto t in pVecTrailRender)
-	{
-		t->Release();
-		SAFE_DELETE(t);
-	}
 }
 
 void cScene_main::Scene_Update(float timDelta)
@@ -282,17 +251,9 @@ void cScene_main::Scene_Update(float timDelta)
 
 	//20161206승현 getMap으로 바꾸기
 	pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta, pEntireMap->GetMap());
-
-
-
-	//업데이트
+	
 	//스킬이펙트
 	pPlayerSkillEff->Update(timDelta);
-
-	//검선이펙트
-	pVecTrailRender[0]->Update(timDelta);
-	pVecTrailRender[1]->Update(timDelta);
-
 
 	if (pPlayer->GetIsAttack())
 	{
@@ -302,10 +263,10 @@ void cScene_main::Scene_Update(float timDelta)
 		float		fTemp;
 
 		pPlayer->GetBaseObject()[4]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[4]->pTransform, &weaponPos, &fTemp);
-		pVecTrailRender[0]->Transform.SetWorldPosition(weaponPos);
+		pPlayerSkillEff->PlayEffect(PLAYER_ATTACK_01_L, weaponPos);
 
 		pPlayer->GetBaseObject()[5]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[5]->pTransform, &weaponPos, &fTemp);
-		pVecTrailRender[1]->Transform.SetWorldPosition(weaponPos);
+		pPlayerSkillEff->PlayEffect(PLAYER_ATTACK_01_R, weaponPos);
 	}
 
 	pEntireMap->m_pMap->pCharPosition = pPlayer->GetWorldPosition();
@@ -318,7 +279,7 @@ void cScene_main::Scene_Update(float timDelta)
 	//this->pMainCamera->DefaultControl(timDelta); //★
 
 	//쉐도우맵 준비
-	this->ReadyShadowMap(&this->renderObjects, NULL);
+	//this->ReadyShadowMap(&this->renderObjects, NULL);
 }
 
 void cScene_main::Scene_Render1()
@@ -378,14 +339,6 @@ void cScene_main::Scene_Render1()
 	if (pPlayerSkillEff)
 		pPlayerSkillEff->Render();
 
-	Scene_RenderSprite();
-
-
-	//랜더 ( 왠만하면 알파블랜딩이니깐 나중에 그리자... )
-	for each (auto t in pVecTrailRender)
-	{
-		t->Render();
-	}
 	//this->pTrailRender->Render();
 	//LOG_MGR->AddLog("%d", DeathCount);
 	//LOG_MGR->AddLog("%d", renderObjects.size());
@@ -439,7 +392,7 @@ void cScene_main::PlayerAttack(float timDelta)
 					float		ftemp;
 
 					pPlayer->GetBaseObject()[4]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[4]->pTransform, &vCenter, &ftemp);
-					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
+					pPlayerSkillEff->PlayEffect(PLAYER_ATTACL_02, vCenter);
 				}
 
 				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[5], pEnemy1[i]->GetBaseObject()[0]))
@@ -456,7 +409,7 @@ void cScene_main::PlayerAttack(float timDelta)
 					float		ftemp;
 
 					pPlayer->GetBaseObject()[5]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[5]->pTransform, &vCenter, &ftemp);
-					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
+					pPlayerSkillEff->PlayEffect(PLAYER_ATTACL_02, vCenter);
 				}
 			}
 		}
@@ -481,7 +434,7 @@ void cScene_main::PlayerAttack(float timDelta)
 					float		ftemp;
 
 					pPlayer->GetBaseObject()[4]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[4]->pTransform, &vCenter, &ftemp);
-					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
+					pPlayerSkillEff->PlayEffect(PLAYER_ATTACL_02, vCenter);
 				}
 
 				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[5], pEnemy2[i]->GetBaseObject()[0]))
@@ -497,7 +450,7 @@ void cScene_main::PlayerAttack(float timDelta)
 					float		ftemp;
 
 					pPlayer->GetBaseObject()[5]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[5]->pTransform, &vCenter, &ftemp);
-					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
+					pPlayerSkillEff->PlayEffect(PLAYER_ATTACL_02, vCenter);
 				}
 			}
 		}
@@ -521,7 +474,7 @@ void cScene_main::PlayerAttack(float timDelta)
 					float		ftemp;
 
 					pPlayer->GetBaseObject()[4]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[4]->pTransform, &vCenter, &ftemp);
-					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
+					pPlayerSkillEff->PlayEffect(PLAYER_ATTACL_02, vCenter);
 				}
 
 				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[5], pEnemy3[i]->GetBaseObject()[0]))
@@ -537,7 +490,7 @@ void cScene_main::PlayerAttack(float timDelta)
 					float		ftemp;
 
 					pPlayer->GetBaseObject()[5]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[5]->pTransform, &vCenter, &ftemp);
-					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
+					pPlayerSkillEff->PlayEffect(PLAYER_ATTACL_02, vCenter);
 				}
 			}
 		}
@@ -561,7 +514,7 @@ void cScene_main::PlayerAttack(float timDelta)
 					float		ftemp;
 
 					pPlayer->GetBaseObject()[4]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[4]->pTransform, &vCenter, &ftemp);
-					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
+					pPlayerSkillEff->PlayEffect(PLAYER_ATTACL_02, vCenter);
 				}
 
 				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[5], pEnemy4[i]->GetBaseObject()[0]))
@@ -577,7 +530,7 @@ void cScene_main::PlayerAttack(float timDelta)
 					float		ftemp;
 
 					pPlayer->GetBaseObject()[5]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[5]->pTransform, &vCenter, &ftemp);
-					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
+					pPlayerSkillEff->PlayEffect(PLAYER_ATTACL_02, vCenter);
 				}
 			}
 		}
@@ -600,7 +553,7 @@ void cScene_main::PlayerAttack(float timDelta)
 				float		ftemp;
 
 				pPlayer->GetBaseObject()[4]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[4]->pTransform, &vCenter, &ftemp);
-				pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
+				pPlayerSkillEff->PlayEffect(PLAYER_ATTACL_02, vCenter);
 			}
 
 			if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[5], pBoss->GetBaseObject()[0]))
@@ -616,7 +569,7 @@ void cScene_main::PlayerAttack(float timDelta)
 				float		ftemp;
 
 				pPlayer->GetBaseObject()[5]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[5]->pTransform, &vCenter, &ftemp);
-				pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
+				pPlayerSkillEff->PlayEffect(PLAYER_ATTACL_02, vCenter);
 			}
 		}
 	}
