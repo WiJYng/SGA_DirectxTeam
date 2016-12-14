@@ -69,7 +69,7 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 	//pBodyObject->pTransform->SetWorldPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	pBodyObject->pTransform->RotateSelf(0.0f, -110.0f * ONE_RAD, 0.0f);
 	pBodyObject->pTransform->SetWorldPosition(D3DXVECTOR3(92.0f, 0.0f, 65.0f));
-	pBodyObject->BoundBox.Init(D3DXVECTOR3(0.25f, -0.4f, -0.25f), D3DXVECTOR3(-0.25f, 0.7f, 0.25f));
+	pBodyObject->BoundBox.Init(D3DXVECTOR3(0.25f, -0.4f, -0.25f), D3DXVECTOR3(-0.25f, 1.5f, 0.25f));
 	//pBodyObject->IgnoreCreateShadow = false;
 	//pBodyObject->ApplyShadow = true;
 	//pBodyObject->BoundBox.
@@ -158,6 +158,10 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 		if (KEY_MGR->IsStayDown('D'))
 		{
 			renderObjects[0]->pTransform->RightControl(timDelta);
+		}
+		if (KEY_MGR->IsStayDown('S'))
+		{
+			renderObjects[0]->pTransform->BackControl(timDelta);
 		}
 	}
 
@@ -342,9 +346,9 @@ void cCharacter::Render(cLight_Direction* pDirLight)
 	{
 		renderObjects[i]->Render();
 	}
-	renderObjects[0]->BoundBox.RenderGizmo(m_pRootTrans);
-	renderObjects[4]->BoundBox.RenderGizmo(m_pRWeaponTrans);
-	renderObjects[5]->BoundBox.RenderGizmo(m_pLWeaponTrans);
+	//renderObjects[0]->BoundBox.RenderGizmo(m_pRootTrans);
+	//renderObjects[4]->BoundBox.RenderGizmo(m_pRWeaponTrans);
+	//renderObjects[5]->BoundBox.RenderGizmo(m_pLWeaponTrans);
 }
 
 void cCharacter::SetWorldPosition(D3DXVECTOR3 pos)

@@ -14,6 +14,7 @@ private:
 	bool								bAtt;
 	bool								bDeath;
 	bool								bStun;
+	bool								bUWait;
 	float								PrevAngle;
 
 	cTransform*							pMonTrans;
