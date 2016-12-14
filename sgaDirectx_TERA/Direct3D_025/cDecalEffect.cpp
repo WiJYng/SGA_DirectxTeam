@@ -101,36 +101,6 @@ void cDecalEffect::Render()
 		pDecalEffect->End();
 
 		break;
-	case DECAL_LOTATION :
-		pDecalEffect->SetMatrix("matWorld", &matWorld);
-		pDecalEffect->SetMatrix("matView", &matView);
-		pDecalEffect->SetMatrix("matProj", &matProjection);
-
-		pDecalEffect->SetFloat("fTime", fTime);
-		pDecalEffect->SetFloat("fSpeed", 1.0f);
-
-		pDecalEffect->SetTexture("DiffuseMap_Tex", RESOURCE_TEXTURE->GetResource("./Tera/Effect/MagicArray001_Tex.tga"));
-		Device->SetFVF(ST_PT_VERTEX::FVF);
-
-		pDecalEffect->Begin(&numPasses, NULL);
-
-		for (UINT i = 0; i < numPasses; ++i)
-		{
-			pDecalEffect->BeginPass(i);
-
-			Device->DrawPrimitiveUP(D3DPT_TRIANGLELIST,
-				vecDecalVertex.size() / 3,
-				&vecDecalVertex[0],
-				sizeof(ST_PT_VERTEX));
-
-			pDecalEffect->EndPass();
-		}
-
-		pDecalEffect->End();
-
-
-
-		break;
 	}
 
 	Device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
@@ -143,9 +113,6 @@ void cDecalEffect::SetEffect(E_DECALEFFECT e)
 	{
 	case DECAL_BASE :
 		pDecalEffect = RESOURCE_FX->GetResource("./Tera/Effect/base_texture.fx");
-		break;
-	case DECAL_LOTATION :
-		pDecalEffect = RESOURCE_FX->GetResource("./Tera/Effect/rotation_texture.fx");
 		break;
 	}
 }
