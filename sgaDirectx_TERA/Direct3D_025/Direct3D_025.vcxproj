@@ -137,10 +137,12 @@
     <ClInclude Include="cSpriteManager.h" />
     <ClInclude Include="cStartScene.h" />
     <ClInclude Include="cTerrain.h" />
+    <ClInclude Include="cTestVideo.h" />
     <ClInclude Include="cTickFunc.h" />
     <ClInclude Include="cTimeMgr.h" />
     <ClInclude Include="cTrailRender.h" />
     <ClInclude Include="cTransform.h" />
+    <ClInclude Include="cVideo.h" />
     <ClInclude Include="cXMesh.h" />
     <ClInclude Include="cXMesh_Skinned.h" />
     <ClInclude Include="cXMesh_Static.h" />
@@ -206,10 +208,12 @@
     <ClCompile Include="cSpriteManager.cpp" />
     <ClCompile Include="cStartScene.cpp" />
     <ClCompile Include="cTerrain.cpp" />
+    <ClCompile Include="cTestVideo.cpp" />
     <ClCompile Include="cTickFunc.cpp" />
     <ClCompile Include="cTimeMgr.cpp" />
     <ClCompile Include="cTrailRender.cpp" />
     <ClCompile Include="cTransform.cpp" />
+    <ClCompile Include="cVideo.cpp" />
     <ClCompile Include="cXMesh.cpp" />
     <ClCompile Include="cXMesh_Skinned.cpp" />
     <ClCompile Include="cXMesh_Static.cpp" />

@@ -28,6 +28,7 @@ cScene_main::~cScene_main()
 
 HRESULT cScene_main::Scene_Init()
 {
+	g_bRender = true;
 	//Map 
 	//pMap = new cMeshMap(); //20161206 ½ÂÇöÁÖ¼®
 	//pMap->Setup("./Tera/Map/EntireMap/moveMap/moveMap.X");

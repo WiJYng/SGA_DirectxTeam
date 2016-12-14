@@ -5,6 +5,7 @@
 #include "cScene_01.h"
 #include "cScene_02.h"
 #include "cScene_main.h"
+#include "cTestVideo.h"
 
 cMainGame::cMainGame(void)
 {
@@ -33,13 +34,13 @@ HRESULT cMainGame::Init(void)
 	
 	//게임에 사용되는 씬 추가
 	//SCENE_MGR->AddScene( "Test00", new cScene_00() );
-	SCENE_MGR->AddScene("Test00", new cScene_main());
-	//SCENE_MGR->AddScene("Test00", new cScene_main());
+	SCENE_MGR->AddScene("InGame", new cScene_main());
+	SCENE_MGR->AddScene("Trailer", new cTestVideo());
 	//SCENE_MGR->AddScene( "Test01", new cScene_01() );
 	//SCENE_MGR->AddLoadingScene( "로딩씬", new cScene_02() );
 
 	//게임 시작씬
-	SCENE_MGR->ChangeScene( "Test00" );
+	SCENE_MGR->ChangeScene( "InGame" );
 	
 	//return E_FAIL;
 	return S_OK;		

@@ -144,9 +144,6 @@
     <ClInclude Include="cSkinnedAnimation.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="cSpriteManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="cPartcleEmitter.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -243,14 +240,23 @@
     <ClInclude Include="MyUtil.h">
       <Filter>Tera\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="cEnemyEffect.h">
-      <Filter>Tera\Effect</Filter>
-    </ClInclude>
     <ClInclude Include="cBossEffect.h">
-      <Filter>Tera\Effect</Filter>
+      <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="cEffect.h">
-      <Filter>Tera\Effect</Filter>
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="cEnemyEffect.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="cSpriteManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="cTestVideo.h">
+      <Filter>Tera</Filter>
+    </ClInclude>
+    <ClInclude Include="cVideo.h">
+      <Filter>Tera\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -346,9 +352,6 @@
     </ClCompile>
     <ClCompile Include="cSkinnedAnimation.cpp">
       <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="cSpriteManager.cpp">
-      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="cParticle.cpp">
       <Filter>Common</Filter>
@@ -447,13 +450,22 @@
       <Filter>Tera\Utility</Filter>
     </ClCompile>
     <ClCompile Include="cBossEffect.cpp">
-      <Filter>Tera\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="cEnemyEffect.cpp">
-      <Filter>Tera\Effect</Filter>
+      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="cEffect.cpp">
-      <Filter>Tera\Effect</Filter>
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cEnemyEffect.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cSpriteManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="cTestVideo.cpp">
+      <Filter>Tera</Filter>
+    </ClCompile>
+    <ClCompile Include="cVideo.cpp">
+      <Filter>Tera\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
