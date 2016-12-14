@@ -437,7 +437,7 @@ void cScene_main::PlayerAttack(float timDelta)
 					float		ftemp;
 
 					pPlayer->GetBaseObject()[4]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[4]->pTransform, &vCenter, &ftemp);
-					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
+					pPlayerSkillEff->PlayEffect(PLAYER_ATTACK_01, vCenter);
 				}
 
 				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[5], pEnemy1[i]->GetBaseObject()[0]))
@@ -454,7 +454,7 @@ void cScene_main::PlayerAttack(float timDelta)
 					float		ftemp;
 
 					pPlayer->GetBaseObject()[5]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[5]->pTransform, &vCenter, &ftemp);
-					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
+					pPlayerSkillEff->PlayEffect(PLAYER_ATTACK_01, vCenter);
 				}
 			}
 		}
@@ -479,7 +479,7 @@ void cScene_main::PlayerAttack(float timDelta)
 					float		ftemp;
 
 					pPlayer->GetBaseObject()[4]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[4]->pTransform, &vCenter, &ftemp);
-					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
+					pPlayerSkillEff->PlayEffect(PLAYER_ATTACK_01, vCenter);
 				}
 
 				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[5], pEnemy2[i]->GetBaseObject()[0]))
@@ -495,7 +495,7 @@ void cScene_main::PlayerAttack(float timDelta)
 					float		ftemp;
 
 					pPlayer->GetBaseObject()[5]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[5]->pTransform, &vCenter, &ftemp);
-					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
+					pPlayerSkillEff->PlayEffect(PLAYER_ATTACK_01, vCenter);
 				}
 			}
 		}
@@ -519,7 +519,7 @@ void cScene_main::PlayerAttack(float timDelta)
 					float		ftemp;
 
 					pPlayer->GetBaseObject()[4]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[4]->pTransform, &vCenter, &ftemp);
-					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
+					pPlayerSkillEff->PlayEffect(PLAYER_ATTACK_01, vCenter);
 				}
 
 				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[5], pEnemy3[i]->GetBaseObject()[0]))
@@ -535,7 +535,7 @@ void cScene_main::PlayerAttack(float timDelta)
 					float		ftemp;
 
 					pPlayer->GetBaseObject()[5]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[5]->pTransform, &vCenter, &ftemp);
-					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
+					pPlayerSkillEff->PlayEffect(PLAYER_ATTACK_01, vCenter);
 				}
 			}
 		}
@@ -559,7 +559,7 @@ void cScene_main::PlayerAttack(float timDelta)
 					float		ftemp;
 
 					pPlayer->GetBaseObject()[4]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[4]->pTransform, &vCenter, &ftemp);
-					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
+					pPlayerSkillEff->PlayEffect(PLAYER_ATTACK_01, vCenter);
 				}
 
 				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[5], pEnemy4[i]->GetBaseObject()[0]))
@@ -575,7 +575,7 @@ void cScene_main::PlayerAttack(float timDelta)
 					float		ftemp;
 
 					pPlayer->GetBaseObject()[5]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[5]->pTransform, &vCenter, &ftemp);
-					pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
+					pPlayerSkillEff->PlayEffect(PLAYER_ATTACK_01, vCenter);
 				}
 			}
 		}
@@ -598,7 +598,7 @@ void cScene_main::PlayerAttack(float timDelta)
 				float		ftemp;
 
 				pPlayer->GetBaseObject()[4]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[4]->pTransform, &vCenter, &ftemp);
-				pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
+				pPlayerSkillEff->PlayEffect(PLAYER_ATTACK_01, vCenter);
 			}
 
 			if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[5], pBoss->GetBaseObject()[0]))
@@ -614,7 +614,7 @@ void cScene_main::PlayerAttack(float timDelta)
 				float		ftemp;
 
 				pPlayer->GetBaseObject()[5]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[5]->pTransform, &vCenter, &ftemp);
-				pPlayerSkillEff->PlayEffect(EFF_ATTACK_01, vCenter);
+				pPlayerSkillEff->PlayEffect(PLAYER_ATTACK_01, vCenter);
 			}
 		}
 	}

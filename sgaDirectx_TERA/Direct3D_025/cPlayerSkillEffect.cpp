@@ -47,7 +47,7 @@ void cPlayerSkillEffect::PlayEffect(EFFECT_NAME _Name, D3DXVECTOR3 pos)
 
 	switch (_Name)
 	{
-	case EFF_ATTACK_01:
+	case PLAYER_ATTACK_01:
 		PlayAttackEffect_01(pos);
 
 		break;
