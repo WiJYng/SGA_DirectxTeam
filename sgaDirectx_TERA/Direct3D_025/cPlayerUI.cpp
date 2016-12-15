@@ -158,7 +158,7 @@ void cPlayerUI::Render()
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pKcBoard_sprite->End();
 
-	m_nKillNum = 32;
+	m_nKillNum = 1111;
 	Cut_KillNum_Img();
 
 	//1자리 
@@ -168,7 +168,7 @@ void cPlayerUI::Render()
 	m_pkcNumber_sprite->Draw(m_pkcNumber_Texture,
 		&m_rcKcNumber,
 		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcKcNumber.left + 720 - (m_nKillNumOne_w), m_rcKcNumber.top + 20, 0),
+		&D3DXVECTOR3(m_rcKcNumber.left + 700 - (m_nKillNumOne_w), m_rcKcNumber.top + 20, 0),
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pkcNumber_sprite->End();
 
@@ -179,7 +179,7 @@ void cPlayerUI::Render()
 	m_pkcNumber_sprite->Draw(m_pkcNumber_Texture,
 		&m_rcKcNumber,
 		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcKcNumber.left + 690 - (m_nKillNumTen_w), m_rcKcNumber.top + 20, 0),
+		&D3DXVECTOR3(m_rcKcNumber.left + 660 - (m_nKillNumTen_w), m_rcKcNumber.top + 20, 0),
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pkcNumber_sprite->End();
 
@@ -190,7 +190,7 @@ void cPlayerUI::Render()
 	m_pkcNumber_sprite->Draw(m_pkcNumber_Texture,
 		&m_rcKcNumber,
 		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcKcNumber.left + 660 - (m_nKillNumHun_w), m_rcKcNumber.top + 20, 0),
+		&D3DXVECTOR3(m_rcKcNumber.left + 620 - (m_nKillNumHun_w), m_rcKcNumber.top + 20, 0),
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pkcNumber_sprite->End();
 
@@ -201,7 +201,7 @@ void cPlayerUI::Render()
 	m_pkcNumber_sprite->Draw(m_pkcNumber_Texture,
 		&m_rcKcNumber,
 		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcKcNumber.left + 625 - (m_nKillNumTho_w), m_rcKcNumber.top + 20, 0),
+		&D3DXVECTOR3(m_rcKcNumber.left + 580 - (m_nKillNumTho_w), m_rcKcNumber.top + 20, 0),
 		D3DCOLOR_XRGB(255, 255, 255));
 	m_pkcNumber_sprite->End();
 
@@ -216,9 +216,9 @@ void cPlayerUI::Cut_KillNum_Img()
 	
 	//1자리
 	m_nKillNumOne = m_nKillNum % 10;
-	m_nKillNumTen = m_nKillNum / 10;
-	m_nKillNumHun = m_nKillNum / 100;
-	m_nKillNumTho = m_nKillNum / 1000;
+	m_nKillNumTen = (m_nKillNum / 10) % 10;
+	m_nKillNumHun = (m_nKillNum / 100) % 10;
+	m_nKillNumTho = (m_nKillNum / 1000) % 10;
 
 	if (m_nKillNumOne == 0)
 	{
@@ -227,8 +227,8 @@ void cPlayerUI::Cut_KillNum_Img()
 	}
 	else if (m_nKillNumOne == 1)
 	{
-		m_nKillNumOne_x = 100;
-		m_nKillNumOne_w = 138;
+		m_nKillNumOne_x = 95;
+		m_nKillNumOne_w = 135;
 	}
 	else if (m_nKillNumOne == 2)
 	{
@@ -242,8 +242,8 @@ void cPlayerUI::Cut_KillNum_Img()
 	}
 	else if (m_nKillNumOne == 4)
 	{
-		m_nKillNumOne_x = 0;
-		m_nKillNumOne_w = 50;
+		m_nKillNumOne_x = 8;
+		m_nKillNumOne_w = 44;
 	}
 	else if (m_nKillNumOne == 5)
 	{
@@ -279,13 +279,13 @@ void cPlayerUI::Cut_KillNum_Img()
 	}
 	else if (m_nKillNumTen == 1)
 	{
-		m_nKillNumTen_x = 100;
-		m_nKillNumTen_w = 138;
+		m_nKillNumTen_x = 95;
+		m_nKillNumTen_w = 135;
 	}
 	else if (m_nKillNumTen == 2)
 	{
-		m_nKillNumTen_x = 140;
-		m_nKillNumTen_w = 180;
+		m_nKillNumTen_x = 137;
+		m_nKillNumTen_w = 177;
 	}
 	else if (m_nKillNumTen == 3)
 	{
@@ -331,13 +331,13 @@ void cPlayerUI::Cut_KillNum_Img()
 	}
 	else if (m_nKillNumHun == 1)
 	{
-		m_nKillNumHun_x = 100;
-		m_nKillNumHun_w = 150;
+		m_nKillNumHun_x = 95;
+		m_nKillNumHun_w = 135;
 	}
 	else if (m_nKillNumHun == 2)
 	{
-		m_nKillNumHun_x = 140;
-		m_nKillNumHun_w = 180;
+		m_nKillNumHun_x = 137;
+		m_nKillNumHun_w = 177;
 	}
 	else if (m_nKillNumHun == 3)
 	{
@@ -383,13 +383,13 @@ void cPlayerUI::Cut_KillNum_Img()
 	}
 	else if (m_nKillNumTho == 1)
 	{
-		m_nKillNumTho_x = 100;
-		m_nKillNumTho_w = 150;
+		m_nKillNumTho_x = 95;
+		m_nKillNumTho_w = 135;
 	}
 	else if (m_nKillNumTho == 2)
 	{
-		m_nKillNumTho_x = 140;
-		m_nKillNumTho_w = 180;
+		m_nKillNumTho_x = 137;
+		m_nKillNumTho_w = 177;
 	}
 	else if (m_nKillNumTho == 3)
 	{

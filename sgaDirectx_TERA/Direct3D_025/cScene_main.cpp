@@ -145,6 +145,8 @@ void cScene_main::Scene_Update(float timDelta)
 			DeathCount--;
 		}
 	}
+	pPlayerUI->SetKillNum(DeathCount);
+
 
 	if (DeathCount == 0)
 	{
