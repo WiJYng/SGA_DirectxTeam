@@ -43,7 +43,7 @@ HRESULT cMainGame::Init(void)
 	SCENE_MGR->AddLoadingScene( "·Îµù¾À", new cScene_02() );
 
 	//°ÔÀÓ ½ÃÀÛ¾À
-	SCENE_MGR->ChangeScene( "StartScene" );
+	SCENE_MGR->ChangeScene( "InGame" );
 	
 	//return E_FAIL;
 	return S_OK;		
