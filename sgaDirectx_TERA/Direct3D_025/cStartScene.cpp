@@ -13,28 +13,34 @@ cStartScene::~cStartScene()
 	SAFE_DELETE(m_pBG_Texture);
 }
 
-void cStartScene::Setup()
+HRESULT cStartScene::Scene_Init()
 {
+	g_bRender = true;
+
 	//텍스쳐파일셋팅
 	D3DXCreateTextureFromFileEx(
-		Device, "Tera/UI/StartScene/Image_ClientLoading_Tex_34.tga",
+		Device, "Tera/UI/StartScene/openingImage.tga",
 		D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT,
 		0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
 		D3DX_FILTER_NONE, D3DX_DEFAULT, 0,
 		&m_BG_Sprite_Info, NULL, &m_pBG_Texture);
 	D3DXCreateSprite(Device, &m_pBG_Sprite);
 
-
+	return S_OK;
 
 }
-void cStartScene::Update()
+void cStartScene::Scene_Release()
 {
-	if (GetKeyState(VK_LBUTTON) & 0x8000)
+
+}
+void cStartScene::Scene_Update(float timDelta)
+{
+	if (KEY_MGR->IsOnceDown(VK_LBUTTON))
 	{
-		//씬체인지
+		SCENE_MGR->ChangeSceneWithLoading("InGame", "로딩씬", 1, 1);
 	}
 }
-void cStartScene::Render()
+void cStartScene::Scene_Render1()
 {
 
 	//스프라이트 그리기
@@ -70,8 +76,10 @@ void cStartScene::Render()
 	//pFont->DrawTextA(NULL, szTemp, strlen(szTemp), &rc, DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 
 }
-void cStartScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+void cStartScene::Scene_RenderSprite()
 {
 
 }
+
+
 

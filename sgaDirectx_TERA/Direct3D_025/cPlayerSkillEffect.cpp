@@ -39,16 +39,21 @@ void cPlayerSkillEffect::Update(float _TimeDelta)
 
 void cPlayerSkillEffect::Render()
 {
-	for each(auto v in m_vecAttackEffect)
-	{
-		v->Render();
-	}
+	Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	Device->SetRenderState(D3DRS_ALPHATESTENABLE, true);
+	Device->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+	Device->SetRenderState(D3DRS_ALPHAREF, 0.5f);
 
-	//알파이므로 마지막에 그림
-	for each(auto v in m_vectailEffect)
-	{
-		v->Render();
-	}
+	//Render
+	//=================================================
+	
+	for each(auto v in m_vecAttackEffect) { v->Render(); }
+	for each(auto v in m_vectailEffect) { v->Render(); }
+
+	//=================================================
+
+	Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	Device->SetRenderState(D3DRS_ALPHATESTENABLE, false);
 }
 
 void cPlayerSkillEffect::PlayEffect(EFFECT_NAME _Name, D3DXVECTOR3 pos)

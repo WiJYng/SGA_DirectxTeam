@@ -5,6 +5,9 @@
 #include "cScene_01.h"
 #include "cScene_02.h"
 #include "cScene_main.h"
+#include "cTestVideo.h"
+#include "cStartScene.h"
+#include "cLoadingScene.h"
 
 cMainGame::cMainGame(void)
 {
@@ -33,12 +36,14 @@ HRESULT cMainGame::Init(void)
 	
 	//°ÔÀÓ¿¡ »ç¿ëµÇ´Â ¾À Ãß°¡
 	//SCENE_MGR->AddScene( "Test00", new cScene_00() );
-	SCENE_MGR->AddScene("Test00", new cScene_main());
-	//SCENE_MGR->AddScene( "Test01", new cScene_01() );
-	//SCENE_MGR->AddLoadingScene( "·Îµù¾À", new cScene_02() );
+	SCENE_MGR->AddScene("InGame", new cScene_main());
+	SCENE_MGR->AddScene("Trailer", new cTestVideo());
+	SCENE_MGR->AddScene("StartScene", new cStartScene());
+	SCENE_MGR->AddScene("LoadingScene", new cLoadingScene());
+	SCENE_MGR->AddLoadingScene( "·Îµù¾À", new cScene_02() );
 
 	//°ÔÀÓ ½ÃÀÛ¾À
-	SCENE_MGR->ChangeScene( "Test00" );
+	SCENE_MGR->ChangeScene( "StartScene" );
 	
 	//return E_FAIL;
 	return S_OK;		

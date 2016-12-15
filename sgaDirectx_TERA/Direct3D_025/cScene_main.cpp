@@ -28,14 +28,18 @@ cScene_main::~cScene_main()
 
 HRESULT cScene_main::Scene_Init()
 {
-	//Map 
-	//pMap = new cMeshMap(); //20161206 ½ÂÇöÁÖ¼®
-	//pMap->Setup("./Tera/Map/EntireMap/moveMap/moveMap.X");
+	g_bRender = true;
+
+	SCENE_MGR->fProgress = 40.0f;
+	SCENE_MGR->fString = "Map loading..";
 	this->SetEnvironment("Tera/Map/Sky.dds");
 
 	pEntireMap = new cMap();
 	pEntireMap->Setup();
 
+
+	SCENE_MGR->fProgress = 50.0f;
+	SCENE_MGR->fString = "Player loading..";
 	//Á¨ À§Ä¡
 	GenSetup();
 
@@ -52,6 +56,8 @@ HRESULT cScene_main::Scene_Init()
 	pPlayerUI = new cPlayerUI();
 	pPlayerUI->Setup();
 
+	SCENE_MGR->fProgress = 80.0f;
+	SCENE_MGR->fString = "Monster loading..";
 	//¸ó½ºÅÍ
 	MonsterSetup();
 
@@ -66,6 +72,8 @@ HRESULT cScene_main::Scene_Init()
 	//·»´õ ¿ÀºêÁ§Æ® Çª½¬
 	//this->renderObjects.push_back(pMapObject);
 
+	SCENE_MGR->fProgress = 100.0f;
+	SCENE_MGR->fString = "loading complete";
 	//¶óÀÌÆ® À§Ä¡
 	this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(0, 0, 0);
 	this->pSceneBaseDirectionLight->pTransform->SetRotateWorld(90.0f * ONE_RAD, 0, 0);
@@ -78,6 +86,9 @@ HRESULT cScene_main::Scene_Init()
 
 	this->pMainCamera->AttachTo(tempTrans);
 	this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 5.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 10.0f);
+	//this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 2.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 2.0f);
+	//this->pMainCamera->SetWorldPosition(0,10.0f, 1);
+	//this->pMainCamera->ShakePos(10.0f, 10.0f);
 
 	for (int i = 0; i < ENEMYMAX_1; i++)
 	{
@@ -119,12 +130,8 @@ void cScene_main::Scene_Release()
 
 void cScene_main::Scene_Update(float timDelta)
 {
-
-	//if (KEY_MGR->IsOnceDown(VK_RETURN)){
-	//	SCENE_MGR->ChangeSceneWithLoading("Test01", "·Îµù¾À", 1, 1);
-	//}
 	//DeathCount = ENEMYMAX_1;
-	DeathCount = ENEMYMAX_1;
+	DeathCount = 0;
 	for (int i = 0; i < ENEMYMAX; i++)
 	{
 		if (pEnemy1[i]->GetHP() <= 0)
@@ -276,6 +283,8 @@ void cScene_main::Scene_Update(float timDelta)
 
 	//this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->m_pRootTrans->GetWorldPosition().x + 5, pPlayer->m_pRootTrans->GetWorldPosition().y + 5, pPlayer->m_pRootTrans->GetWorldPosition().z + 1));
 	this->pMainCamera->DefaultControl4(timDelta, pPlayer->m_pRootTrans); //¡Ú
+	
+	//this->pMainCamera->ShakeUpdate(timDelta);
 	//this->pMainCamera->DefaultControl(timDelta); //¡Ú
 
 	//½¦µµ¿ì¸Ê ÁØºñ

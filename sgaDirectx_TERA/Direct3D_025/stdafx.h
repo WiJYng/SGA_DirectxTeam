@@ -31,6 +31,7 @@
 //(DirectSDK 설치폴더/Include) 경로가 프로젝트의 System 폴더로 등록이 되어있다면 < > 로도 포함가능
 #include <d3d9.h>
 #include <d3dx9.h>
+#include <vfw.h>
 
 //System 폴더 (DirectSDK 설치폴더/Include) 등록 방법
 //솔루션탐색기에서 프로젝트 우클릭
@@ -51,6 +52,7 @@
 //#pragma comment( lib, "C:/Program Files (x86)/Microsoft DirectX SDK (June 2010)/Lib/x86/d3dx9.lib" )
 #pragma comment( lib, "d3d9.lib" )
 #pragma comment( lib, "d3dx9.lib" )
+#pragma comment( lib, "vfw32.lib" )
 
 
 //System 폴더 (DirectSDK 설치폴더/Lib/x86) 등록 방법
@@ -96,6 +98,7 @@
 extern HWND			g_hWnd;		//윈도우 핸들 ( 자신의 프로그램에서 돌고있는 윈도우 번호 )
 extern HINSTANCE	g_hInst;	//프로그램 인스턴스 핸들 ( OS 가 부여한 프로그램 번호 )
 extern int			g_Wheel;
+extern bool			g_bRender;
 
 //extern bool         ex_wheelUp;
 //extern bool         ex_wheelDown;

@@ -1,5 +1,5 @@
 #pragma once
-class cStartScene
+class cStartScene : public cScene
 {
 private:
 
@@ -12,10 +12,11 @@ public:
 	cStartScene();
 	~cStartScene();
 
-	void Setup();
-	void Update();
-	void Render();
-	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+	virtual HRESULT Scene_Init();
+	virtual void Scene_Release();
+	virtual void Scene_Update(float timDelta);
+	virtual void Scene_Render1();
+	virtual void Scene_RenderSprite();
 
 };
 
