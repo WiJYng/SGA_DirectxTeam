@@ -14,8 +14,9 @@
 #include "cMap.h"
 #include "cPlayerUI.h"
 #include "cProgressBar_Boss.h"
-#include "cPlayerSkillEffect.h"
 #include "cTickFunc.h"
+
+#include "cPlayerSkillEffect.h"
 
 
 cScene_main::cScene_main()
@@ -78,9 +79,6 @@ HRESULT cScene_main::Scene_Init()
 	this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(0, 0, 0);
 	this->pSceneBaseDirectionLight->pTransform->SetRotateWorld(90.0f * ONE_RAD, 0, 0);
 	
-	pPlayerSkillEff = new cPlayerSkillEffect;
-	pPlayerSkillEff->Setup();
-
 	cTransform* tempTrans = pPlayer->m_pRootTrans;
 	//tempTrans->SetRotateWorld(0.0f, 90.0f, 0.0f);
 
@@ -102,6 +100,10 @@ HRESULT cScene_main::Scene_Init()
 	m_pTickPlayer[ENEMYMAX_1]->init(0.25f);
 	m_pTickBoss = new cTickFunc();
 	m_pTickBoss->init(0.85f);
+
+	//Effect
+	pPlayerSkillEff = new cPlayerSkillEffect;
+	pPlayerSkillEff->Setup();
 
 
 	bDraw = false;
@@ -126,6 +128,9 @@ void cScene_main::Scene_Release()
 	delete[] m_pTick;
 	delete[] m_pTickPlayer;
 	delete m_pTickBoss;
+
+	SAFE_DELETE(pPlayerSkillEff);
+
 }
 
 void cScene_main::Scene_Update(float timDelta)
@@ -261,9 +266,6 @@ void cScene_main::Scene_Update(float timDelta)
 	//20161206승현 getMap으로 바꾸기
 	pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta, pEntireMap->GetMap());
 	
-	//스킬이펙트
-	pPlayerSkillEff->Update(timDelta);
-
 	if (pPlayer->GetIsAttack())
 	{
 		PlayerAttack(timDelta);
@@ -282,6 +284,11 @@ void cScene_main::Scene_Update(float timDelta)
 
 	//몬스터 공격
 	MonsterAttack(timDelta);
+
+	//스킬이펙트
+	pPlayerSkillEff->Update(timDelta);
+
+	//pEnemySkillEff->PlayEffect(ENEMY_ATTACK_01, pPlayer->GetWorldPosition(), 0);
 
 	//this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->m_pRootTrans->GetWorldPosition().x + 5, pPlayer->m_pRootTrans->GetWorldPosition().y + 5, pPlayer->m_pRootTrans->GetWorldPosition().z + 1));
 	this->pMainCamera->DefaultControl4(timDelta, pPlayer->m_pRootTrans); //★
@@ -354,6 +361,7 @@ void cScene_main::Scene_Render1()
 
 	if (pPlayerSkillEff)
 		pPlayerSkillEff->Render();
+
 
 	//this->pTrailRender->Render();
 	//LOG_MGR->AddLog("%d", DeathCount);

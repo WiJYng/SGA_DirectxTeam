@@ -13,6 +13,7 @@ class cProgressBar_Boss;
 class cPlayerUI;
 class cPlayerSkillEffect;
 
+
 class cTickFunc;
 
 #define ENEMYMAX	25

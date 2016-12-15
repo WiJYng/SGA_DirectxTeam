@@ -1,6 +1,7 @@
 #pragma once
 
 class cMeshMap;
+class cEnemyEffect;
 
 class cEnemy
 {
@@ -25,6 +26,7 @@ private:
 
 public:
 	cTransform*							pWeaponTrans;
+	cEnemyEffect*						pEnemySkillEff;
 
 	cEnemy();
 	~cEnemy();

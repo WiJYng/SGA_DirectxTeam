@@ -18,25 +18,38 @@ void cEnemyEffect::Setup()
 
 void cEnemyEffect::Update(float _TimeDelta)
 {
+	for each (auto v in m_vecAttackEffect)
+	{
+		v->Update(_TimeDelta);
+	}
 
 }
 
 void cEnemyEffect::Render()
 {
+	DWORD prevLight;
+	Device->GetRenderState(D3DRS_LIGHTING, &prevLight);
+	Device->SetRenderState(D3DRS_LIGHTING, FALSE);
+
 	Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	Device->SetRenderState(D3DRS_ALPHATESTENABLE, true);
+	Device->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 	Device->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 	Device->SetRenderState(D3DRS_ALPHAREF, 0.5f);
 	
 	//Render
 	//=================================================
 
-
+	for each(auto v in m_vecAttackEffect)
+	{
+		v->Render();
+	}
 
 	//=================================================
 
 	Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-	Device->SetRenderState(D3DRS_ALPHATESTENABLE, false);
+	Device->SetRenderState(D3DRS_LIGHTING, prevLight);
+	Device->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+	
 }
 
 void cEnemyEffect::PlayEffect(EFFECT_NAME _Name, D3DXVECTOR3 pos)
@@ -54,9 +67,25 @@ void cEnemyEffect::PlayEffect(EFFECT_NAME _Name, D3DXVECTOR3 pos)
 		break;
 	default:
 		break;
-
 	}
 }
+
+
+//void cEnemyEffect::PlayEffect(EFFECT_NAME _Name, D3DXVECTOR3 pos, int idx)
+//{
+//	switch (_Name)
+//	{
+//	case ENEMY_ATTACK_01:
+//		EnemyAttackEffect_01(pos);
+//		break;
+//	case ENEMY_ATTACK_02:
+//		EnemyAttackEffect_02(pos);
+//		break;
+//	default:
+//		break;
+//	}
+//}
+
 
 void cEnemyEffect::EnemyAttackEffect_01(D3DXVECTOR3 pos)
 {
@@ -64,8 +93,13 @@ void cEnemyEffect::EnemyAttackEffect_01(D3DXVECTOR3 pos)
 	if (this->m_fxEffect == NULL)
 		m_fxEffect = NULL;
 
+	for each(auto v in m_vecAttackEffect)
+	{
+		v->Transform.SetWorldPosition(pos);
+	}
 
-
+	//m_vecAttackEffect[idx]->Transform.SetWorldPosition(pos);
+	//m_vecAttackEffect[idx]->Render();
 }
 
 void cEnemyEffect::EnemyAttackEffect_02(D3DXVECTOR3 pos)
@@ -75,7 +109,21 @@ void cEnemyEffect::EnemyAttackEffect_02(D3DXVECTOR3 pos)
 
 //Skill Init
 void cEnemyEffect::EnemyEffectInit()
-{
-	//m_stingEffect
+{	
+	//busrt로 그려도 괜찮을거같은..?
+
+	for (int i = 0; i < 3; i++)
+	{
+		cTrailRender* t = new cTrailRender;
+		t->Init(
+			0.3f,
+			2.0f,
+			RESOURCE_TEXTURE->GetResource("./Tera/Effect/E_trail003_tex.tga"),	//메인 Texture
+			D3DXCOLOR(1, 0.2, 0, 0.7),												//메인 Texture 로 그릴때 컬러
+			RESOURCE_TEXTURE->GetResource("./Tera/Effect/E_trail003_tex.tga")	//외곡 그릴때 외곡 노말
+			);
+		m_vecAttackEffect.push_back(t);
+	}
+
 
 }
