@@ -17,7 +17,6 @@
 #include "cTickFunc.h"
 
 #include "cPlayerSkillEffect.h"
-#include "cEnemyEffect.h"
 
 
 cScene_main::cScene_main()
@@ -106,9 +105,6 @@ HRESULT cScene_main::Scene_Init()
 	pPlayerSkillEff = new cPlayerSkillEffect;
 	pPlayerSkillEff->Setup();
 
-	pEnemySkillEff = new cEnemyEffect;
-	pEnemySkillEff->Setup();
-
 
 	bDraw = false;
 
@@ -134,7 +130,6 @@ void cScene_main::Scene_Release()
 	delete m_pTickBoss;
 
 	SAFE_DELETE(pPlayerSkillEff);
-	SAFE_DELETE(pEnemySkillEff);
 
 }
 
@@ -292,7 +287,6 @@ void cScene_main::Scene_Update(float timDelta)
 
 	//½ºÅ³ÀÌÆåÆ®
 	pPlayerSkillEff->Update(timDelta);
-	pEnemySkillEff->Update(timDelta);
 
 	//pEnemySkillEff->PlayEffect(ENEMY_ATTACK_01, pPlayer->GetWorldPosition(), 0);
 
@@ -367,8 +361,6 @@ void cScene_main::Scene_Render1()
 
 	if (pPlayerSkillEff)
 		pPlayerSkillEff->Render();
-	if (pEnemySkillEff)
-		pEnemySkillEff->Render();
 
 
 	//this->pTrailRender->Render();
