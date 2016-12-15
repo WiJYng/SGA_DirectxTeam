@@ -29,14 +29,17 @@ cScene_main::~cScene_main()
 HRESULT cScene_main::Scene_Init()
 {
 	g_bRender = true;
-	//Map 
-	//pMap = new cMeshMap(); //20161206 승현주석
-	//pMap->Setup("./Tera/Map/EntireMap/moveMap/moveMap.X");
+
+	SCENE_MGR->fProgress = 40.0f;
+	SCENE_MGR->fString = "Map loading..";
 	this->SetEnvironment("Tera/Map/Sky.dds");
 
 	pEntireMap = new cMap();
 	pEntireMap->Setup();
 
+
+	SCENE_MGR->fProgress = 50.0f;
+	SCENE_MGR->fString = "Player loading..";
 	//젠 위치
 	GenSetup();
 
@@ -53,6 +56,8 @@ HRESULT cScene_main::Scene_Init()
 	pPlayerUI = new cPlayerUI();
 	pPlayerUI->Setup();
 
+	SCENE_MGR->fProgress = 80.0f;
+	SCENE_MGR->fString = "Monster loading..";
 	//몬스터
 	MonsterSetup();
 
@@ -67,6 +72,8 @@ HRESULT cScene_main::Scene_Init()
 	//렌더 오브젝트 푸쉬
 	//this->renderObjects.push_back(pMapObject);
 
+	SCENE_MGR->fProgress = 100.0f;
+	SCENE_MGR->fString = "loading complete";
 	//라이트 위치
 	this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(0, 0, 0);
 	this->pSceneBaseDirectionLight->pTransform->SetRotateWorld(90.0f * ONE_RAD, 0, 0);
@@ -78,8 +85,8 @@ HRESULT cScene_main::Scene_Init()
 	//tempTrans->SetRotateWorld(0.0f, 90.0f, 0.0f);
 
 	this->pMainCamera->AttachTo(tempTrans);
-	//this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 5.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 10.0f);
-	this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 2.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 2.0f);
+	this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 5.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 10.0f);
+	//this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 2.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 2.0f);
 	//this->pMainCamera->SetWorldPosition(0,10.0f, 1);
 	//this->pMainCamera->ShakePos(10.0f, 10.0f);
 

@@ -47,7 +47,8 @@ void cTestVideo::Scene_Update(float timeDelta)
 	if (KEY_MGR->IsOnceDown('3'))
 	{
 		g_bRender = true;
-		SCENE_MGR->ChangeScene("InGame");
+		SCENE_MGR->ChangeScene("StartScene");
+		//SCENE_MGR->ChangeSceneWithLoading("StartScene", "·Îµù¾À", 1, 1);
 	}
 }
 
