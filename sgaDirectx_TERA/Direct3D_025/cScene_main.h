@@ -70,5 +70,6 @@ public:
 	//∏ÛΩ∫≈Õ
 	void MonsterSetup();
 	void MonsterAttack(float timDelta);
+	void MonsterRender();
 };
 
