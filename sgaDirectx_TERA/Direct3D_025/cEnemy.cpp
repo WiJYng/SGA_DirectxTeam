@@ -244,6 +244,9 @@ void cEnemy::Render()
 	renderObjects[0]->Render();
 	//renderObjects[0]->BoundBox.RenderGizmo(pMonTrans);
 	//renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);
+	D3DXVECTOR3 vCenter;
+	float R;
+	renderObjects[0]->BoundBox01.GetWorldCenterRadius(pWeaponTrans, &vCenter, &R);
 	//renderObjects[0]->pTransform->RenderGimozo();
 
 }
