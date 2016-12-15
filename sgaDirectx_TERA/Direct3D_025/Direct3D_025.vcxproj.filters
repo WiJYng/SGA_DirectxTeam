@@ -144,9 +144,6 @@
     <ClInclude Include="cSkinnedAnimation.h">
       <Filter>Managers\Common</Filter>
     </ClInclude>
-    <ClInclude Include="cSpriteManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="cPartcleEmitter.h">
       <Filter>Managers\Common</Filter>
     </ClInclude>
@@ -241,6 +238,24 @@
       <Filter>Tera\Utility</Filter>
     </ClInclude>
     <ClInclude Include="MyUtil.h">
+      <Filter>Tera\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="cBossEffect.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="cEffect.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="cEnemyEffect.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="cSpriteManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="cTestVideo.h">
+      <Filter>Tera</Filter>
+    </ClInclude>
+    <ClInclude Include="cVideo.h">
       <Filter>Tera\Utility</Filter>
     </ClInclude>
   </ItemGroup>
@@ -338,9 +353,6 @@
     <ClCompile Include="cSkinnedAnimation.cpp">
       <Filter>Managers\Common</Filter>
     </ClCompile>
-    <ClCompile Include="cSpriteManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="cParticle.cpp">
       <Filter>Managers\Common</Filter>
     </ClCompile>
@@ -435,6 +447,24 @@
       <Filter>Tera\Utility</Filter>
     </ClCompile>
     <ClCompile Include="MyUtil.cpp">
+      <Filter>Tera\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="cBossEffect.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cEffect.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cEnemyEffect.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cSpriteManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="cTestVideo.cpp">
+      <Filter>Tera</Filter>
+    </ClCompile>
+    <ClCompile Include="cVideo.cpp">
       <Filter>Tera\Utility</Filter>
     </ClCompile>
   </ItemGroup>

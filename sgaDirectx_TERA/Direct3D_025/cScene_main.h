@@ -2,7 +2,6 @@
 
 class cBaseObject;
 class cCamera;
-class cTrailRender;
 class cCharacter;
 class cEnemy;
 class cBoss;
@@ -36,7 +35,6 @@ private:
 	cEnemy*								pEnemy4[ENEMYMAX];		//몬스터 젠 4번
 	cBoss*								pBoss;					//보스
 
-	vector<cTrailRender*>				pVecTrailRender;
 	cMap*								pEntireMap;
 
 	cPlayerUI*							pPlayerUI;

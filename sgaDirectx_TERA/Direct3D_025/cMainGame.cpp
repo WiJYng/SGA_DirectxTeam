@@ -5,6 +5,7 @@
 #include "cScene_01.h"
 #include "cScene_02.h"
 #include "cScene_main.h"
+#include "cTestVideo.h"
 
 cMainGame::cMainGame(void)
 {
@@ -25,7 +26,7 @@ HRESULT cMainGame::Init(void)
 
 	//매니져 셋팅
 	TIME_MGR->Init();
-	LOG_MGR->Init( LOG_WINDOW | LOG_FILE, g_hWnd, "Dump" );
+	//LOG_MGR->Init( LOG_WINDOW | LOG_FILE, g_hWnd, "Dump" );
 	DXFONT_MGR->Init( Device );	
 	GIZMO_MGR->Init( Device );
 	SPRITE_MGR->Init( Device );
@@ -33,12 +34,13 @@ HRESULT cMainGame::Init(void)
 	
 	//게임에 사용되는 씬 추가
 	//SCENE_MGR->AddScene( "Test00", new cScene_00() );
-	SCENE_MGR->AddScene("Test00", new cScene_main());
+	SCENE_MGR->AddScene("InGame", new cScene_main());
+	SCENE_MGR->AddScene("Trailer", new cTestVideo());
 	//SCENE_MGR->AddScene( "Test01", new cScene_01() );
 	//SCENE_MGR->AddLoadingScene( "로딩씬", new cScene_02() );
 
 	//게임 시작씬
-	SCENE_MGR->ChangeScene( "Test00" );
+	SCENE_MGR->ChangeScene( "InGame" );
 	
 	//return E_FAIL;
 	return S_OK;		
@@ -129,7 +131,7 @@ void cMainGame::Draw()
 		//GIZMO_MGR->WorldGrid( 1, 10 );
 
 		//타임정보 출력
-		TIME_MGR->DrawTimeInfo();
+		//TIME_MGR->DrawTimeInfo();
 #endif
 
 		Device->EndScene();

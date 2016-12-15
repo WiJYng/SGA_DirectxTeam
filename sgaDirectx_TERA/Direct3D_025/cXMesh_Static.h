@@ -53,6 +53,8 @@ public:
 	virtual void Render( const cTransform* Trans );
 
 	LPD3DXMESH GetMesh() { return pMesh; }
+	DWORD	   GetMaterialsNum() { return dwMaterialsNum; }
+	std::vector<D3DXVECTOR3> GetVerts() { return Vertices; }
 private:
 	//보정행렬대로 메쉬를 수정한다.
 	void MeshCorrection( const D3DXMATRIXA16* pmatCorrection );

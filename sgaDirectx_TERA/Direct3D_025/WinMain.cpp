@@ -10,6 +10,7 @@
 HWND		g_hWnd;		//윈도우 핸들 ( 자신의 프로그램에서 돌고있는 윈도우 번호 )
 HINSTANCE	g_hInst;	//프로그램 인스턴스 핸들 ( OS 가 부여한 프로그램 번호 )
 int			g_Wheel = 0;
+bool		g_bRender = false;
 
 //메인 게임 객체
 cMainGame	g_MainGame;
@@ -121,6 +122,7 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdP
 			g_MainGame.Update();
 
 			//드로우
+			if(g_bRender)
 			g_MainGame.Draw();
 
 		}
