@@ -241,7 +241,7 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 
 void cEnemy::Render()
 {
-	//renderObjects[0]->Render();
+	renderObjects[0]->Render();
 	//renderObjects[0]->BoundBox.RenderGizmo(pMonTrans);
 	//renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);
 	//renderObjects[0]->pTransform->RenderGimozo();

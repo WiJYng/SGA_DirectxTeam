@@ -338,17 +338,22 @@ void cScene_main::Scene_Render1()
 	//	pProgressBar_Boss->Render();
 
 	//컬링된 오브젝트만
-	this->cullObjects.clear();
-	for (int i = 0; i < this->renderObjects.size(); i++) {
-		//프러스텀 안에 있니?
-		if (this->pMainCamera->Frustum.IsInFrustum(this->renderObjects[i]))
-			this->cullObjects.push_back(this->renderObjects[i]);
-	}
+	MonsterRender();
 
-	for (int i = 0; i < this->cullObjects.size(); i++)
-	{
-		cullObjects[i]->Render();
-	}
+	//this->cullObjects.clear();
+	//for (int i = 0; i < this->renderObjects.size(); i++) {
+	//	//프러스텀 안에 있니?
+	//	if (this->pMainCamera->Frustum.IsInFrustum(this->renderObjects[i]))
+	//	{
+	//		
+	//	}
+	//		//this->cullObjects.push_back(this->renderObjects[i]);
+	//}
+	//
+	//for (int i = 0; i < this->cullObjects.size(); i++)
+	//{
+	//	cullObjects[i]->Render();
+	//}
 
 	if(bDraw) pBoss->Render();
 
@@ -741,6 +746,54 @@ void cScene_main::MonsterAttack(float timDelta)
 		{
 			if (m_pTickBoss->tickStart())
 				LOG_MGR->AddLog("보스에게 맞았다!");
+		}
+	}
+}
+
+void cScene_main::MonsterRender()
+{
+	//0번포인트
+	if (vecGenPoint[0].Gen)
+	{
+		for (int i = 0; i < ENEMYMAX; i++)
+		{
+			if (this->pMainCamera->Frustum.IsInFrustum(pEnemy1[i]->GetBaseObject()[0]))
+			{
+				pEnemy1[i]->Render();
+			}
+		}
+	}
+	//1번포인트
+	if (vecGenPoint[1].Gen)
+	{
+		for (int i = 0; i < ENEMYMAX; i++)
+		{
+			if (this->pMainCamera->Frustum.IsInFrustum(pEnemy2[i]->GetBaseObject()[0]))
+			{
+				pEnemy2[i]->Render();
+			}
+		}
+	}
+	//2번포인트
+	if (vecGenPoint[2].Gen)
+	{
+		for (int i = 0; i < ENEMYMAX; i++)
+		{
+			if (this->pMainCamera->Frustum.IsInFrustum(pEnemy3[i]->GetBaseObject()[0]))
+			{
+				pEnemy3[i]->Render();
+			}
+		}
+	}
+	//3번포인트
+	if (vecGenPoint[3].Gen)
+	{
+		for (int i = 0; i < ENEMYMAX; i++)
+		{
+			if (this->pMainCamera->Frustum.IsInFrustum(pEnemy4[i]->GetBaseObject()[0]))
+			{
+				pEnemy4[i]->Render();
+			}
 		}
 	}
 }
