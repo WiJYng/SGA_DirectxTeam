@@ -26,8 +26,10 @@ cLoadingScene::~cLoadingScene()
 
 }
 
-void cLoadingScene::Setup()
+HRESULT cLoadingScene::Scene_Init()
 {
+	g_bRender = true;
+
 	//배경
 	D3DXCreateTextureFromFileEx(
 		Device, "Tera/UI/LoadingScene/loadingimage_citywar_1_2.tga",
@@ -62,18 +64,22 @@ void cLoadingScene::Setup()
 	SetRect(&m_rcLB_front, 200, 200, m_LBfront_ImgInfo.Width+200, m_LBfront_ImgInfo.Height+200);
 	SetRect(&m_rcLB_back, 0, 0, m_LBback_ImgInfo.Width, m_LBback_ImgInfo.Height);
 
+	return S_OK;
+}
+void cLoadingScene::Scene_Release()
+{
 
 }
-void cLoadingScene::Update()
+void cLoadingScene::Scene_Update(float timDelta)
 {
-	if (GetKeyState(VK_LBUTTON) & 0x8000)
+	if (KEY_MGR->IsOnceDown(VK_LBUTTON))
 	{
-		//씬체인지
+		//SCENE_MGR->ChangeScene("Trailer");
 	}
 
 	SetRect(&m_rcLB_front, 200, 200, m_LBfront_ImgInfo.Width + 200, m_LBfront_ImgInfo.Height + 200);
 }
-void cLoadingScene::Render()
+void cLoadingScene::Scene_Render1()
 {
 
 	//배경
@@ -161,7 +167,7 @@ void cLoadingScene::Render()
 	//pFont->DrawTextA(NULL, szTemp, strlen(szTemp), &rc, DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 
 }
-void cLoadingScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+void cLoadingScene::Scene_RenderSprite()
 {
 
 }

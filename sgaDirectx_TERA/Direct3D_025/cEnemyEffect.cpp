@@ -64,6 +64,8 @@ void cEnemyEffect::EnemyAttackEffect_01(D3DXVECTOR3 pos)
 	if (this->m_fxEffect == NULL)
 		m_fxEffect = NULL;
 
+
+
 }
 
 void cEnemyEffect::EnemyAttackEffect_02(D3DXVECTOR3 pos)
