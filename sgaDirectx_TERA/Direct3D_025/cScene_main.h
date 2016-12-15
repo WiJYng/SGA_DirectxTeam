@@ -12,6 +12,8 @@ class cProgressBar_Boss;
 
 class cPlayerUI;
 class cPlayerSkillEffect;
+class cEnemyEffect;
+
 
 class cTickFunc;
 
@@ -41,6 +43,7 @@ private:
 	cProgressBar_Boss*					pProgressBar_Boss;
 
 	cPlayerSkillEffect*					pPlayerSkillEff;
+	cEnemyEffect*						pEnemySkillEff;
 
 	cTickFunc*							m_pTick[ENEMYMAX_1];
 	cTickFunc*							m_pTickPlayer[ENEMYMAX_1 + 1];
