@@ -19,9 +19,6 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{a75ff49d-ed99-4035-ad9d-d5e43b0b8914}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Common">
-      <UniqueIdentifier>{4df8fbb7-444a-4298-bd48-08c3880c617b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="BaseObject">
       <UniqueIdentifier>{41599c7b-b182-4887-8ba8-dce59ccf7f11}</UniqueIdentifier>
     </Filter>
@@ -48,6 +45,9 @@
     </Filter>
     <Filter Include="Tera\Utility">
       <UniqueIdentifier>{02114441-9a65-481a-ab9e-f99b4bf46f4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Managers\Common">
+      <UniqueIdentifier>{4df8fbb7-444a-4298-bd48-08c3880c617b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -85,10 +85,10 @@
       <Filter>Managers</Filter>
     </ClInclude>
     <ClInclude Include="cTransform.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="cCamera.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="cResourceMgr.h">
       <Filter>Managers</Filter>
@@ -100,22 +100,22 @@
       <Filter>Managers</Filter>
     </ClInclude>
     <ClInclude Include="cTerrain.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="cXMesh.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="cXMesh_Static.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="cLight.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="cLight_Direction.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="cLight_Point.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="cResourceMgr_XStaticMesh.h">
       <Filter>Managers</Filter>
@@ -130,34 +130,34 @@
       <Filter>BaseObject</Filter>
     </ClInclude>
     <ClInclude Include="cQuadTree.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="BoneHierachy.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="cXMesh_Skinned.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="cResourceMgr_XSkinnedMesh.h">
       <Filter>Managers</Filter>
     </ClInclude>
     <ClInclude Include="cSkinnedAnimation.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="cSpriteManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="cPartcleEmitter.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="cParticle.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="cParticleQuad.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="cQuadParticleEmitter.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="cScene_00.h">
       <Filter>Scenes</Filter>
@@ -172,16 +172,16 @@
       <Filter>Managers</Filter>
     </ClInclude>
     <ClInclude Include="cSceneChangeEffect.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="cSceneChangeEffectUpDown.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="cQuad.h">
       <Filter>BaseObject</Filter>
     </ClInclude>
     <ClInclude Include="cTrailRender.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="cScene_main.h">
       <Filter>Tera</Filter>
@@ -190,13 +190,13 @@
       <Filter>Tera\Character</Filter>
     </ClInclude>
     <ClInclude Include="cFrustum.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="cBoundBox.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="cBoundSphere.h">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClInclude>
     <ClInclude Include="cMeshMap.h">
       <Filter>Tera\Map</Filter>
@@ -279,10 +279,10 @@
       <Filter>Managers</Filter>
     </ClCompile>
     <ClCompile Include="cTransform.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="cCamera.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="cResourceMgr.cpp">
       <Filter>Managers</Filter>
@@ -294,22 +294,22 @@
       <Filter>Managers</Filter>
     </ClCompile>
     <ClCompile Include="cTerrain.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="cXMesh.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="cXMesh_Static.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="cLight.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="cLight_Direction.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="cLight_Point.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="cResourceMgr_XStaticMesh.cpp">
       <Filter>Managers</Filter>
@@ -324,34 +324,34 @@
       <Filter>BaseObject</Filter>
     </ClCompile>
     <ClCompile Include="cQuadTree.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="BoneHierachy.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="cXMesh_Skinned.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="cResourceMgr_XSkinnedMesh.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
     <ClCompile Include="cSkinnedAnimation.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="cSpriteManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="cParticle.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="cPartcleEmitter.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="cParticleQuad.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="cQuadParticleEmitter.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="cScene_00.cpp">
       <Filter>Scenes</Filter>
@@ -366,16 +366,16 @@
       <Filter>Managers</Filter>
     </ClCompile>
     <ClCompile Include="cSceneChangeEffect.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="cSceneChangeEffectUpDown.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="cQuad.cpp">
       <Filter>BaseObject</Filter>
     </ClCompile>
     <ClCompile Include="cTrailRender.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="cScene_main.cpp">
       <Filter>Tera</Filter>
@@ -384,13 +384,13 @@
       <Filter>Tera\Character</Filter>
     </ClCompile>
     <ClCompile Include="cFrustum.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="cBoundBox.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="cBoundSphere.cpp">
-      <Filter>Common</Filter>
+      <Filter>Managers\Common</Filter>
     </ClCompile>
     <ClCompile Include="cMeshMap.cpp">
       <Filter>Tera\Map</Filter>

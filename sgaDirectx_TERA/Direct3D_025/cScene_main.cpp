@@ -103,7 +103,8 @@ HRESULT cScene_main::Scene_Init()
 
 	this->pMainCamera->AttachTo(tempTrans);
 	//this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 5.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 10.0f);
-	this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x - 2.0f, pPlayer->m_pRootTrans->GetWorldPosition().y + 2.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 2.0f);
+	this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 2.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 2.0f);
+	//this->pMainCamera->SetWorldPosition(0,10.0f, 1);
 	//this->pMainCamera->ShakePos(10.0f, 10.0f);
 
 	for (int i = 0; i < ENEMYMAX_1; i++)
@@ -152,12 +153,8 @@ void cScene_main::Scene_Release()
 
 void cScene_main::Scene_Update(float timDelta)
 {
-
-	//if (KEY_MGR->IsOnceDown(VK_RETURN)){
-	//	SCENE_MGR->ChangeSceneWithLoading("Test01", "·Îµù¾À", 1, 1);
-	//}
 	//DeathCount = ENEMYMAX_1;
-	DeathCount = ENEMYMAX_1;
+	DeathCount = 0;
 	for (int i = 0; i < ENEMYMAX; i++)
 	{
 		if (pEnemy1[i]->GetHP() <= 0)
