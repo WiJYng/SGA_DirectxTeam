@@ -134,6 +134,8 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 		if (!renderObjects[i]->pSkinned) continue;
 		renderObjects[i]->pSkinned->Play("Wait", 0.3f);
 	}
+
+	m_fHP = m_fMaxHP = 100;
 }
 
 

@@ -61,6 +61,9 @@ public:
 	cTransform*							m_pRootTrans;
 	cTransform*							m_pBottomTrans;
 
+	float								m_fHP;
+	float								m_fMaxHP;
+
 	cCharacter();
 	~cCharacter();
 

@@ -57,6 +57,7 @@ HRESULT cScene_main::Scene_Init()
 	//PlayerUI //20161207 승현추가
 	pPlayerUI = new cPlayerUI();
 	pPlayerUI->Setup();
+	
 
 	SCENE_MGR->fProgress = 80.0f;
 	SCENE_MGR->fString = "Monster loading..";
@@ -145,6 +146,8 @@ void cScene_main::Scene_Update(float timDelta)
 {
 
 	pPlayerUI->Update();
+	pPlayerUI->SetHp(pPlayer->m_fHP);
+	pPlayerUI->SetHpMax(pPlayer->m_fMaxHP);
 
 	DeathCount = ENEMYMAX_1;
 	//DeathCount = 0;
@@ -309,12 +312,12 @@ void cScene_main::Scene_Update(float timDelta)
 
 	if (pPlayerUI->getKillNum() == 0)
 	{
-		m_bBossVideoPlay = true;
-		if (m_bBossVideoPlay)
+		if (!m_bBossVideoPlay)
 		{	
+			m_bBossVideoPlay = true;
 			g_bRender = false;
 			m_pBossVideo->Play("./Video/Trailer.wmv");
-			m_bBossVideoPlay = false;
+			//m_bBossVideoPlay = false;
 		}
 		pPlayerUI->SetKillNum(-1);
 	}
@@ -329,6 +332,14 @@ void cScene_main::Scene_Update(float timDelta)
 		g_bRender = true;
 		m_pBossVideo->Stop();
 		pPlayerUI->SetBossMeet(true);
+	}
+
+	if (KEY_MGR->IsStayDown('0'))
+	{
+		//this->pMainCamera->ShakePos(0.00000000001, 0);
+		this->pMainCamera->ShakeRot(0.1, 0);
+		//this->pMainCamera->LookDirection(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition());
+		this->pMainCamera->ShakeUpdate(timDelta);
 	}
 
 }
@@ -714,7 +725,14 @@ void cScene_main::MonsterAttack(float timDelta)
 			{
 				if (m_pTick[i]->tickStart())
 				{
-
+					if (pPlayer->m_fHP > 0)
+					{
+						(pPlayer->m_fHP)--;
+					}
+					else
+					{
+						pPlayer->m_fHP = 0;
+					}
 				}
 				//	LOG_MGR->AddLog("%d번 에게 맞았다!", i);
 			}
@@ -728,7 +746,14 @@ void cScene_main::MonsterAttack(float timDelta)
 			{
 				if (m_pTick[i + 25]->tickStart())
 				{
-
+					if (pPlayer->m_fHP > 0)
+					{
+						(pPlayer->m_fHP)--;
+					}
+					else
+					{
+						pPlayer->m_fHP = 0;
+					}
 				}
 				//	LOG_MGR->AddLog("%d번 에게 맞았다!", i + 25);
 			}
@@ -742,7 +767,14 @@ void cScene_main::MonsterAttack(float timDelta)
 			{
 				if (m_pTick[i + 50]->tickStart())
 				{
-
+					if (pPlayer->m_fHP > 0)
+					{
+						(pPlayer->m_fHP)--;
+					}
+					else
+					{
+						pPlayer->m_fHP = 0;
+					}
 				}
 				//	LOG_MGR->AddLog("%d번 에게 맞았다!", i + 50);
 			}
@@ -756,7 +788,14 @@ void cScene_main::MonsterAttack(float timDelta)
 			{
 				if (m_pTick[i + 75]->tickStart())
 				{
-
+					if (pPlayer->m_fHP > 0)
+					{
+						(pPlayer->m_fHP)--;
+					}
+					else
+					{
+						pPlayer->m_fHP = 0;
+					}
 				}
 				//	LOG_MGR->AddLog("%d번 에게 맞았다!", i + 75);
 			}
@@ -770,7 +809,18 @@ void cScene_main::MonsterAttack(float timDelta)
 		if (PHYSICS_MGR->IsOverlap(pBoss->pWeaponTrans, &pBoss->GetBaseObject()[0]->BoundBox01, pPlayer->m_pRootTrans, &pPlayer->GetBaseObject()[0]->BoundBox))
 		{
 			if (m_pTickBoss->tickStart())
-				LOG_MGR->AddLog("보스에게 맞았다!");
+			{
+				if (pPlayer->m_fHP > 0)
+				{
+					pPlayer->m_fHP = (pPlayer->m_fHP) - 10;
+				}
+				
+				if (pPlayer->m_fHP <= 0)
+				{
+					pPlayer->m_fHP = 0;
+				}
+			}
+			//LOG_MGR->AddLog("보스에게 맞았다!");
 		}
 	}
 }
