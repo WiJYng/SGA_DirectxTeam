@@ -88,6 +88,8 @@ void cEnemy::Release()
 
 void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 {
+	//ProgressBar->SetX(renderObjects[0]->pTransform->GetWorldPosition().x);
+	//ProgressBar->SetY(renderObjects[0]->pTransform->GetWorldPosition().y);
 	ProgressBar->SetX(10);
 	ProgressBar->SetY(10);
 	ProgressBar->SetHp(100);
@@ -271,9 +273,12 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 void cEnemy::Render()
 {
 	ProgressBar->Render();
-	//renderObjects[0]->Render();
+	renderObjects[0]->Render();
 	//renderObjects[0]->BoundBox.RenderGizmo(pMonTrans);
 	//renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);
+	D3DXVECTOR3 vCenter;
+	float R;
+	renderObjects[0]->BoundBox01.GetWorldCenterRadius(pWeaponTrans, &vCenter, &R);
 	//renderObjects[0]->pTransform->RenderGimozo();
 
 
