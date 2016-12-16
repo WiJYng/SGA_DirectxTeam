@@ -54,7 +54,7 @@ void cProgressBar_sMonster::Render()
 		m_pProgressBar_Sprite->Draw(m_pProgressBar_Texture,
 			&m_rcProgressBar,
 			&D3DXVECTOR3(0, 0, 0),
-			&D3DXVECTOR3(m_rcProgressBar.left + m_fX, m_rcProgressBar.top + m_fY, 0), // + 숫자 부분에 X,Y 대입 
+			&D3DXVECTOR3(m_rcProgressBar.left + m_fX - (m_ProgressBar_Sprite_Info.Width/2), m_rcProgressBar.top + m_fY, 0), // + 숫자 부분에 X,Y 대입 
 			D3DCOLOR_XRGB(255, 255, 255));
 		m_pProgressBar_Sprite->End();
 
@@ -66,7 +66,7 @@ void cProgressBar_sMonster::Render()
 		m_pHP_Sprite->Draw(m_pHP_Texture,
 			&m_rcHP,
 			&D3DXVECTOR3(0, 0, 0),
-			&D3DXVECTOR3(m_rcProgressBar.left + m_fX, m_rcProgressBar.top + m_fY + 3, 0), // + 숫자 부분에 X+3,Y+3 대입 
+			&D3DXVECTOR3(m_rcProgressBar.left + m_fX - (m_ProgressBar_Sprite_Info.Width / 2)+4, m_rcProgressBar.top + m_fY + 3, 0), // + 숫자 부분에 X+3,Y+3 대입 
 			D3DCOLOR_XRGB(255, 255, 255));
 		m_pHP_Sprite->End();
 	}

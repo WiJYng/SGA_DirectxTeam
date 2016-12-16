@@ -36,6 +36,7 @@ void cEnemy::Setup(string PathMonster, D3DXVECTOR3* Pos)
 	bDeath = false;
 	bStun = false;
 	PrevAngle = 0.0f;
+	fRanderTime = 0.0f;
 
 	m_fHP = m_fMAXHP = 3.0f;
 
@@ -93,10 +94,25 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 {
 	//ProgressBar->SetX(renderObjects[0]->pTransform->GetWorldPosition().x);
 	//ProgressBar->SetY(renderObjects[0]->pTransform->GetWorldPosition().y);
-	ProgressBar->SetX(10);
-	ProgressBar->SetY(10);
-	ProgressBar->SetHp(100);
-	ProgressBar->SetHpMax(500);
+	D3DXVECTOR3 temp = renderObjects[0]->pTransform->GetWorldPosition();
+	temp.y += 1.25;
+
+	D3DXMATRIXA16 viewMat, projectMat,worldMat;
+	D3DVIEWPORT9  viewPort;
+	D3DXMatrixIdentity(&worldMat);
+
+	Device->GetTransform(D3DTS_VIEW, &viewMat);
+	Device->GetTransform(D3DTS_PROJECTION, &projectMat);
+	Device->GetViewport(&viewPort);
+	D3DXVec3Project(&temp, &temp, &viewPort, &projectMat, &viewMat, &worldMat);
+
+	//D3DXVec3TransformCoord(&temp, &temp, &viewMat);
+	//D3DXVec3TransformCoord(&temp, &temp, &projectMat);
+
+	ProgressBar->SetX(temp.x);
+	ProgressBar->SetY(temp.y);
+	ProgressBar->SetHp(m_fHP);
+	ProgressBar->SetHpMax(m_fMAXHP);
 
 	renderObjects[0]->Update(timDelta);
 
@@ -266,6 +282,14 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 
 	pEnemySkillEff->Update(timDelta);
 
+
+	if (fRanderTime < 11.0f && bDeath)
+	{
+		fRanderTime += (0.1);
+		LOG_MGR->AddLog("%.2f", fRanderTime);
+	}
+
+
 	//PrevAngle = angle;
 
 	//char str[1024];
@@ -276,12 +300,22 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 
 void cEnemy::Render()
 {
-	ProgressBar->Render();
-	renderObjects[0]->Render();
+	if (!bDeath)
+	{
+		ProgressBar->Render();
+		//LOG_MGR->AddLog("¡Í±›");
+	}
+	if (fRanderTime <= 10.0f)
+	{
+		renderObjects[0]->Render();
+		
+	}
 	//renderObjects[0]->BoundBox.RenderGizmo(pMonTrans);
 	//renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);
 	//renderObjects[0]->pTransform->RenderGimozo();
 	//m_pBB->RenderGizmo(pWeaponTrans);
+
+	
 
 	if (pEnemySkillEff)
 		pEnemySkillEff->Render();
