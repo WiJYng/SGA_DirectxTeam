@@ -67,7 +67,7 @@ void cCharacter::Setup(string PathBody, string PathFace, string PathHair, string
 	pBodyObject->SetMesh(pBodyMesh);
 	pBodyObject->SetActive(true);
 	//pBodyObject->pTransform->SetWorldPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-	pBodyObject->pTransform->RotateSelf(0.0f, -110.0f * ONE_RAD, 0.0f);
+	pBodyObject->pTransform->RotateSelf(0.0f, -110.0f * ONE_RAD, 0.0f); //-110
 	pBodyObject->pTransform->SetWorldPosition(D3DXVECTOR3(92.0f, 0.0f, 65.0f));
 	pBodyObject->BoundBox.Init(D3DXVECTOR3(0.25f, -0.4f, -0.25f), D3DXVECTOR3(-0.25f, 1.5f, 0.25f));
 	//pBodyObject->IgnoreCreateShadow = false;
