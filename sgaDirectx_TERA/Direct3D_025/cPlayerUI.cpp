@@ -28,8 +28,11 @@ cPlayerUI::cPlayerUI()
 , m_pQwindowCenter_Texture(NULL)
 , m_pQwindowRight_Sprite(NULL)
 , m_pQwindowRight_Texture(NULL)
+, m_pQwindowRight_Sprite2(NULL)
+, m_pQwindowRight_Texture2(NULL)
 
 , m_bBossMeet(false)
+, m_nQuestNum(1)
 { 
 }
 cPlayerUI::~cPlayerUI()
@@ -53,6 +56,8 @@ cPlayerUI::~cPlayerUI()
 	SAFE_DELETE(m_pQwindowCenter_Texture);
 	SAFE_DELETE(m_pQwindowRight_Sprite);
 	SAFE_DELETE(m_pQwindowRight_Texture);
+	SAFE_DELETE(m_pQwindowRight_Sprite2);
+	SAFE_DELETE(m_pQwindowRight_Texture2);
 }
 
 void cPlayerUI::Setup()
@@ -77,12 +82,29 @@ void cPlayerUI::Setup()
 
 	//오른쪽퀘스트창
 	D3DXCreateTextureFromFileEx(
-		Device, "Tera/UI/PlayerUI/QuestWindow3.tga",
+		Device, "Tera/UI/PlayerUI/QuestWindow3.tga", //3,4
 		D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT,
 		0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
 		D3DX_FILTER_NONE, D3DX_DEFAULT, 0,
 		&m_QwindowRight_Sprite_Info, NULL, &m_pQwindowRight_Texture);
 	D3DXCreateSprite(Device, &m_pQwindowRight_Sprite);
+
+	D3DXCreateTextureFromFileEx(
+		Device, "Tera/UI/PlayerUI/QuestWindow4.tga", //3,4
+		D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT,
+		0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
+		D3DX_FILTER_NONE, D3DX_DEFAULT, 0,
+		&m_QwindowRight_Sprite_Info2, NULL, &m_pQwindowRight_Texture2);
+	D3DXCreateSprite(Device, &m_pQwindowRight_Sprite2);
+
+
+	RECT screenRc;
+	GetClientRect(g_hWnd, &screenRc);
+	//SetRect(&m_rcQwindowRightMove, 0, 0, m_QwindowRight_Sprite_Info2.Width, m_QwindowRight_Sprite_Info2.Height);
+	SetRect(&m_rcQwindowRightMove, 1000, 350, m_QwindowRight_Sprite_Info2.Width + 1000, m_QwindowRight_Sprite_Info2.Height + 350);
+	//SetRect(&m_rcQwindowRight, 0, 0, m_QwindowRight_Sprite_Info.Width, m_QwindowRight_Sprite_Info.Height);
+	//SetRect(&m_rcQwindowRightMove, screenRc.right - 200, screenRc.top + (screenRc.bottom - screenRc.top) / 2 - 100, m_QwindowRight_Sprite_Info.Width, m_QwindowRight_Sprite_Info.Height);
+	
 
 	//바 바탕 
 	D3DXCreateTextureFromFileEx(
@@ -153,10 +175,24 @@ void cPlayerUI::Update()
 		m_bKeyWindow_On = !m_bKeyWindow_On;
 	}
 
-	if (m_nKillNum <= 0)
+	if (PtInRect(&m_rcQwindowRightMove, g_ptMouse))
 	{
+		if (KEY_MGR->IsStayDown(VK_LBUTTON))
+		{
+			m_bQWindowRightClick = true;
+			m_rcQwindowRightMove.left = g_ptMouse.x - (m_QwindowRight_Sprite_Info.Width/2);
+			m_rcQwindowRightMove.right = g_ptMouse.x + (m_QwindowRight_Sprite_Info.Width / 2);
+			m_rcQwindowRightMove.top = g_ptMouse.y - (m_QwindowRight_Sprite_Info.Height / 2);
+			m_rcQwindowRightMove.bottom = g_ptMouse.y + (m_QwindowRight_Sprite_Info.Height / 2);
 
+			if (KEY_MGR->IsOnceUp(VK_LBUTTON))
+			{
+				m_bQWindowRightClick = false;
+			}
+		}
 	}
+
+	/*LOG_MGR->AddLog("%d, %d", g_ptMouse.x, g_ptMouse.y);*/
 }
 void cPlayerUI::Render()
 {
@@ -202,23 +238,47 @@ void cPlayerUI::Render()
 		m_pQwindowCenter_Sprite->End();
 	}
 
+
 	//오른쪽퀘스트창
-	if (m_bQwindowRight_On)
+	if (!m_bBossMeet)
 	{
-		SetRect(&m_rcQwindowRight, 0, 0, m_QwindowRight_Sprite_Info.Width, m_QwindowRight_Sprite_Info.Height);
-		m_pQwindowRight_Sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-		m_pQwindowRight_Sprite->SetTransform(&matR);
-		m_pQwindowRight_Sprite->Draw(m_pQwindowRight_Texture,
-			&m_rcQwindowRight,
-			&D3DXVECTOR3(0, 0, 0),
-			&D3DXVECTOR3(
-			screenRc.right - 200,
-			screenRc.top + (screenRc.bottom - screenRc.top) / 2 - 100,
-			0
-			),
-			D3DCOLOR_XRGB(255, 255, 255));
-		m_pQwindowRight_Sprite->End();
+		if (m_bQwindowRight_On)
+		{
+			SetRect(&m_rcQwindowRight, 0, 0, m_QwindowRight_Sprite_Info.Width, m_QwindowRight_Sprite_Info.Height);
+			m_pQwindowRight_Sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+			m_pQwindowRight_Sprite->SetTransform(&matR);
+			m_pQwindowRight_Sprite->Draw(m_pQwindowRight_Texture,
+				&m_rcQwindowRight,
+				&D3DXVECTOR3(0, 0, 0),
+				&D3DXVECTOR3(
+					m_rcQwindowRightMove.left,//screenRc.right - 200,
+					m_rcQwindowRightMove.top,//screenRc.top + (screenRc.bottom - screenRc.top) / 2 - 100,
+					0
+				),
+				D3DCOLOR_XRGB(255, 255, 255));
+			m_pQwindowRight_Sprite->End();
+		}
 	}
+	if (m_bBossMeet)
+	{
+		if (m_bQwindowRight_On)
+		{
+			SetRect(&m_rcQwindowRight, 0, 0, m_QwindowRight_Sprite_Info2.Width, m_QwindowRight_Sprite_Info2.Height);
+			m_pQwindowRight_Sprite2->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+			m_pQwindowRight_Sprite2->SetTransform(&matR);
+			m_pQwindowRight_Sprite2->Draw(m_pQwindowRight_Texture2,
+				&m_rcQwindowRight,
+				&D3DXVECTOR3(0, 0, 0),
+				&D3DXVECTOR3(
+					screenRc.right - 200,
+					screenRc.top + (screenRc.bottom - screenRc.top) / 2 - 100,
+					0
+				),
+				D3DCOLOR_XRGB(255, 255, 255));
+			m_pQwindowRight_Sprite2->End();
+		}
+	}
+
 
 
 	float wid = screenRc.left + 20;
@@ -283,7 +343,6 @@ void cPlayerUI::Render()
 			&D3DXVECTOR3(m_rcKcBoard.left + 460, m_rcKcBoard.top + 15, 0),
 			D3DCOLOR_XRGB(255, 255, 255));
 		m_pKcBoard_sprite->End();
-
 		//m_nKillNum = 32;
 		Cut_KillNum_Img();
 

@@ -3,6 +3,7 @@
 class cPlayerUI
 {
 private:
+	int						m_nQuestNum;
 	bool					m_bBossMeet;
 	bool					m_bQWindowCenter_firstCheck;
 	bool					m_bQwindowCenter_On;
@@ -27,6 +28,9 @@ private:
 	LPD3DXSPRITE			m_pQwindowRight_Sprite;
 	LPDIRECT3DTEXTURE9		m_pQwindowRight_Texture;
 	D3DXIMAGE_INFO			m_QwindowRight_Sprite_Info;
+	LPD3DXSPRITE			m_pQwindowRight_Sprite2;
+	LPDIRECT3DTEXTURE9		m_pQwindowRight_Texture2;
+	D3DXIMAGE_INFO			m_QwindowRight_Sprite_Info2;
 	RECT					m_rcQwindowRight;
 	RECT					m_rcQwindowRightMove;
 	bool					m_bQWindowRightClick;

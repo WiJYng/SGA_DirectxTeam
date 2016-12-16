@@ -90,7 +90,9 @@ HRESULT cScene_main::Scene_Init()
 	//tempTrans->SetRotateWorld(0.0f, 90.0f, 0.0f);
 
 	this->pMainCamera->AttachTo(tempTrans);
-	this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 5.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 10.0f);
+	//this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 5.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 10.0f);
+	this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 3.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 5.0f);
+	//this->pMainCamera->RotateWorld(D3DXVECTOR3(0, 0, 3));
 	//this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 2.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 2.0f);
 	//this->pMainCamera->SetWorldPosition(0,10.0f, 1);
 	//this->pMainCamera->ShakePos(10.0f, 10.0f);
@@ -154,7 +156,7 @@ void cScene_main::Scene_Update(float timDelta)
 	pPlayerUI->SetHpMax(pPlayer->m_fMaxHP);
 
 	//DeathCount = ENEMYMAX_1;
-	DeathCount = 0;
+	DeathCount = 10;
 	for (int i = 0; i < ENEMYMAX; i++)
 	{
 		if (pEnemy1[i]->GetHP() <= 0)
@@ -332,6 +334,7 @@ void cScene_main::Scene_Update(float timDelta)
 			m_bBossVideoPlay = true;
 			g_bRender = false;
 			m_pBossVideo->Play("./Video/Trailer.wmv");
+			pPlayerUI->SetBossMeet(true);
 			//m_bBossVideoPlay = false;
 		}
 		pPlayerUI->SetKillNum(-1);
@@ -347,6 +350,7 @@ void cScene_main::Scene_Update(float timDelta)
 		g_bRender = true;
 		m_pBossVideo->Stop();
 		pPlayerUI->SetBossMeet(true);
+		pBoss->SetUIon(true);
 	}
 
 	if (KEY_MGR->IsStayDown('0'))
