@@ -28,7 +28,7 @@ HRESULT cMainGame::Init(void)
 
 	//매니져 셋팅
 	TIME_MGR->Init();
-	//LOG_MGR->Init( LOG_WINDOW | LOG_FILE, g_hWnd, "Dump" );
+	LOG_MGR->Init( LOG_WINDOW , g_hWnd, "Dump" );
 	DXFONT_MGR->Init( Device );	
 	GIZMO_MGR->Init( Device );
 	SPRITE_MGR->Init( Device );
@@ -43,7 +43,7 @@ HRESULT cMainGame::Init(void)
 	SCENE_MGR->AddLoadingScene( "로딩씬", new cScene_02() );
 
 	//게임 시작씬
-	SCENE_MGR->ChangeScene( "StartScene" );
+	SCENE_MGR->ChangeScene( "InGame" );
 	
 	//return E_FAIL;
 	return S_OK;		
@@ -156,6 +156,9 @@ LRESULT cMainGame::MainProc( HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPa
 {
 	switch( iMessage )
 	{	
+	case WM_MOUSEMOVE:
+		g_ptMouse.x = LOWORD(lParam);
+		g_ptMouse.y = HIWORD(lParam);
 	case WM_MOUSEWHEEL:
 		g_Wheel = (short)HIWORD(wParam);
 		break;

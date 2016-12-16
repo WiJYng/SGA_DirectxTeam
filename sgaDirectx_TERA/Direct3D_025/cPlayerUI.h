@@ -29,6 +29,7 @@ private:
 	D3DXIMAGE_INFO			m_QwindowRight_Sprite_Info;
 	RECT					m_rcQwindowRight;
 	RECT					m_rcQwindowRightMove;
+	bool					m_bQWindowRightClick;
 
 
 	//프로그레스바 바탕

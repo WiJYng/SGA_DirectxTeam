@@ -5,6 +5,8 @@
 #include "cSkinnedAnimation.h"
 #include "cProgressBar_sMonster.h"
 
+#include "cEnemyEffect.h"
+
 
 cEnemy::cEnemy()
 {
@@ -13,6 +15,8 @@ cEnemy::~cEnemy()
 {
 	SAFE_DELETE(pMonTrans);
 	SAFE_DELETE(pWeaponTrans);
+
+	SAFE_DELETE(pEnemySkillEff);
 }
 
 void cEnemy::Setup(string PathMonster, D3DXVECTOR3* Pos)
@@ -44,6 +48,11 @@ void cEnemy::Setup(string PathMonster, D3DXVECTOR3* Pos)
 	//}
 
 	Setup(PathMonster, &mat, Pos);
+
+	//effect
+	pEnemySkillEff = new cEnemyEffect;
+	pEnemySkillEff->Setup();
+
 }
 
 void cEnemy::Setup(string PathMonster, D3DXMATRIXA16 * mat, D3DXVECTOR3* Pos)
@@ -174,6 +183,15 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 				bAtt = true;
 				bWait = bRun = false;
 			}
+
+			if (m_State == Attack && renderObjects[0]->pSkinned->GetFactor() >= 0.5f)
+			{
+				D3DXVECTOR3 weaponPos;
+				float		fTemp;
+
+				renderObjects[0]->BoundBox01.GetWorldCenterRadius(pWeaponTrans, &weaponPos, &fTemp);
+				pEnemySkillEff->PlayEffect(ENEMY_ATTACK_01, weaponPos);
+			}
 		}
 	}
 	else if (m_State == Death && !bDeath)
@@ -239,6 +257,9 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 		}
 	}
 	
+
+	pEnemySkillEff->Update(timDelta);
+
 	//PrevAngle = angle;
 
 	//char str[1024];
@@ -255,6 +276,9 @@ void cEnemy::Render()
 	//renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);
 	//renderObjects[0]->pTransform->RenderGimozo();
 
+
+	if (pEnemySkillEff)
+		pEnemySkillEff->Render();
 }
 
 float cEnemy::CalcLen(D3DXVECTOR3 * _PlayerPos, D3DXVECTOR3 * _ThisPos)

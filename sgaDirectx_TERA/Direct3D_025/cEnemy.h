@@ -2,6 +2,7 @@
 
 class cMeshMap;
 class cProgressBar_sMonster;
+class cEnemyEffect;
 
 class cEnemy
 {
@@ -26,6 +27,7 @@ private:
 
 public:
 	cTransform*							pWeaponTrans;
+	cEnemyEffect*						pEnemySkillEff;
 
 	cEnemy();
 	~cEnemy();

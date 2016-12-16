@@ -4,6 +4,7 @@
 #include "cQuadParticleEmitter.h"
 #include "cTrailRender.h"
 #include "cXMesh_Static.h"
+#include "cBaseObject.h"
 
 //effeectName
 enum EFFECT_NAME {

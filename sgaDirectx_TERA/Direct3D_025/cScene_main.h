@@ -13,6 +13,7 @@ class cProgressBar_Boss;
 class cPlayerUI;
 class cPlayerSkillEffect;
 
+
 class cTickFunc;
 class cVideo;
 
@@ -75,5 +76,6 @@ public:
 	//∏ÛΩ∫≈Õ
 	void MonsterSetup();
 	void MonsterAttack(float timDelta);
+	void MonsterRender();
 };
 

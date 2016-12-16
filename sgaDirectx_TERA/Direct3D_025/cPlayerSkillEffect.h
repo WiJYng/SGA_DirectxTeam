@@ -16,6 +16,7 @@ public :
 	void Update(float _TimeDelta) override;
 	void Render() override;
 	void PlayEffect(EFFECT_NAME _Name, D3DXVECTOR3 pos) override;
+
 private:
 	void InitPlayerSkill();						//½ºÅ³ Init
 
