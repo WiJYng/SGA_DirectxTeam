@@ -67,8 +67,8 @@ HRESULT cScene_main::Scene_Init()
 
 	//보스
 	pBoss = new cBoss();
-	pBoss->Setup("./Tera/Monster/Drowned.X", &D3DXVECTOR3(-120.f, -15.0f, 76.0f));
-	//pBoss->Setup("./Tera/Monster/Drowned.X", &D3DXVECTOR3(70.0f, 0.0f, 65.0f));
+	//pBoss->Setup("./Tera/Monster/Drowned.X", &D3DXVECTOR3(-120.f, -15.0f, 76.0f));
+	pBoss->Setup("./Tera/Monster/Drowned.X", &D3DXVECTOR3(70.0f, 0.0f, 65.0f));
 	
 	m_pBossVideo = new cVideo;
 	m_pBossVideo->Init();
@@ -859,7 +859,16 @@ void cScene_main::MonsterAttack(float timDelta)
 				{
 					pPlayer->m_fHP = 0;
 				}
+
+				D3DXVECTOR3 pos;
+				float fTemp;
+
+				//pBoss->GetBaseObject()[0]->BoundBox01.GetWorldCenterRadius(pBoss->pWeaponTrans, &pos, &fTemp);
+				pPlayer->GetBaseObject()[0]->BoundBox.GetWorldCenterRadius(pPlayer->m_pRootTrans, &pos, &fTemp);
+				pos.y -= 0.25;
+				pBoss->pBossEffect->PlayEffect(BOSS_ATTACK_01, pos);
 			}
+
 			//LOG_MGR->AddLog("보스에게 맞았다!");
 		}
 	}

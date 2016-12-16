@@ -6,6 +6,7 @@ class cBossEffect : public cEffect
 private:
 	cTrailRender*			m_pTail;
 	cQuadParticleEmitter*	m_pGroundAttack;
+	VEC_PART				m_vecAttackEffect;
 
 	bool					m_isGaPlay;
 
