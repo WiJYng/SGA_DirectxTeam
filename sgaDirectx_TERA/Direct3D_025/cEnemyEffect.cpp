@@ -70,21 +70,20 @@ void cEnemyEffect::PlayEffect(EFFECT_NAME _Name, D3DXVECTOR3 pos)
 	}
 }
 
-
-//void cEnemyEffect::PlayEffect(EFFECT_NAME _Name, D3DXVECTOR3 pos, int idx)
-//{
-//	switch (_Name)
-//	{
-//	case ENEMY_ATTACK_01:
-//		EnemyAttackEffect_01(pos);
-//		break;
-//	case ENEMY_ATTACK_02:
-//		EnemyAttackEffect_02(pos);
-//		break;
-//	default:
-//		break;
-//	}
-//}
+void cEnemyEffect::PlayEffect(EFFECT_NAME _Name, cTransform* trans)
+{
+	switch (_Name)
+	{
+	case ENEMY_ATTACK_01:
+		EnemyAttackEffect_01(trans);
+		break;
+	case ENEMY_ATTACK_02:
+		EnemyAttackEffect_02(trans);
+		break;
+	default:
+		break;
+	}
+}
 
 
 void cEnemyEffect::EnemyAttackEffect_01(D3DXVECTOR3 pos)
@@ -97,12 +96,23 @@ void cEnemyEffect::EnemyAttackEffect_01(D3DXVECTOR3 pos)
 	{
 		v->Transform.SetWorldPosition(pos);
 	}
-
-	//m_vecAttackEffect[idx]->Transform.SetWorldPosition(pos);
-	//m_vecAttackEffect[idx]->Render();
 }
 
+void cEnemyEffect::EnemyAttackEffect_01(cTransform* trans)
+{
+	for each(auto v in m_vecAttackEffect)
+	{
+		v->Transform = *trans;
+	}
+}
+
+
 void cEnemyEffect::EnemyAttackEffect_02(D3DXVECTOR3 pos)
+{
+
+}
+
+void cEnemyEffect::EnemyAttackEffect_02(cTransform* trans)
 {
 
 }
@@ -118,9 +128,9 @@ void cEnemyEffect::EnemyEffectInit()
 		t->Init(
 			0.3f,
 			2.0f,
-			RESOURCE_TEXTURE->GetResource("./Tera/Effect/E_trail003_tex.tga"),	//메인 Texture
+			RESOURCE_TEXTURE->GetResource("./Tera/Effect/Lens_Flare_A001_EMIS.tga"),	//메인 Texture
 			D3DXCOLOR(1, 0.2, 0, 0.7),												//메인 Texture 로 그릴때 컬러
-			RESOURCE_TEXTURE->GetResource("./Tera/Effect/E_trail003_tex.tga")	//외곡 그릴때 외곡 노말
+			RESOURCE_TEXTURE->GetResource("./Tera/Effect/Lens_Flare_A001_EMIS.tga")	//외곡 그릴때 외곡 노말
 			);
 		m_vecAttackEffect.push_back(t);
 	}

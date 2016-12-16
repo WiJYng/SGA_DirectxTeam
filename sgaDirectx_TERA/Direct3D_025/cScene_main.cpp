@@ -307,15 +307,11 @@ void cScene_main::Scene_Update(float timDelta)
 	//this->pMainCamera->ShakeUpdate(timDelta);
 	//this->pMainCamera->DefaultControl(timDelta); //¡Ú
 
-	//½¦µµ¿ì¸Ê ÁØºñ
-	//this->ReadyShadowMap(&this->renderObjects, NULL);
-
-	
 	if (pPlayerUI->getKillNum() == 0)
 	{
 		m_bBossVideoPlay = true;
 		if (m_bBossVideoPlay)
-		{
+		{	
 			g_bRender = false;
 			m_pBossVideo->Play("./Video/Trailer.wmv");
 			m_bBossVideoPlay = false;

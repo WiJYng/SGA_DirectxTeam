@@ -21,15 +21,14 @@ cDecalEffect::~cDecalEffect()
 void cDecalEffect::GenerateDecal(D3DXVECTOR3 pos, float r, LPD3DXMESH m)
 {
 	vecDecalVertex.clear();
-	D3DXVECTOR3 p0 = D3DXVECTOR3(pos.x - r, 0, pos.z - r);
-	D3DXVECTOR3 p1 = D3DXVECTOR3(pos.x - r, 0, pos.z + r);
-	D3DXVECTOR3 p2 = D3DXVECTOR3(pos.x + r, 0, pos.z + r);
-	D3DXVECTOR3 p3 = D3DXVECTOR3(pos.x + r, 0, pos.z - r);
+	//D3DXVECTOR3 p0 = D3DXVECTOR3(pos.x - r, 0, pos.z - r);
+	//D3DXVECTOR3 p1 = D3DXVECTOR3(pos.x - r, 0, pos.z + r);
+	//D3DXVECTOR3 p2 = D3DXVECTOR3(pos.x + r, 0, pos.z + r);
+	//D3DXVECTOR3 p3 = D3DXVECTOR3(pos.x + r, 0, pos.z - r);
 
-	float yBuffer = 1000;
-	BOOL isHit = false;
-	DWORD i = 0;
-	float u = 0, v = 0, dist = 0;
+	
+
+
 
 
 
