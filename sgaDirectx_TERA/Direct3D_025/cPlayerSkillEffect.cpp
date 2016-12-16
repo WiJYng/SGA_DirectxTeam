@@ -80,13 +80,11 @@ void cPlayerSkillEffect::PlayEffect(EFFECT_NAME _Name, D3DXVECTOR3 pos)
 void cPlayerSkillEffect::PlayerAttackEffect_01_L(D3DXVECTOR3 pos)
 {
 	m_vectailEffect[0]->Transform.SetWorldPosition(pos);
-	m_vectailEffect[0]->Render();
 }
 
 void cPlayerSkillEffect::PlayerAttackEffect_01_R(D3DXVECTOR3 pos)
 {
 	m_vectailEffect[1]->Transform.SetWorldPosition(pos);
-	m_vectailEffect[1]->Render();
 }
 
 void cPlayerSkillEffect::PlayerAttackEffect_02(D3DXVECTOR3 pos)

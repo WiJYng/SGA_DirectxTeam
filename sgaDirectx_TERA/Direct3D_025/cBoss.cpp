@@ -4,6 +4,7 @@
 #include "cTransform.h"
 #include "cTickFunc.h"
 #include "cProgressBar_Boss.h"
+#include "cBossEffect.h"
 
 cBoss::cBoss()
 {
@@ -69,6 +70,9 @@ void cBoss::Setup(string PathMonster, D3DXMATRIXA16 * mat, D3DXVECTOR3 * Pos)
 	renderObjects[0]->pSkinned->Play("Unarmedwait", 0.0f);
 	renderObjects[0]->BoundBox.Init(D3DXVECTOR3(-1.0, 0, -1.0), D3DXVECTOR3(1.0, 2.5, 1.0));
 	renderObjects[0]->BoundBox01.Init(D3DXVECTOR3(-0.7, -0.4, 0.0), D3DXVECTOR3(0.7, 0.6, 1.6));
+
+	pBossEffect = new cBossEffect;
+	pBossEffect->Setup();
 }
 
 void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
@@ -218,6 +222,7 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 	}
 
 	//LOG_MGR->AddLog("%d", m_nCount);
+	pBossEffect->Update(timDelta);
 }
 
 void cBoss::Render()
@@ -230,6 +235,9 @@ void cBoss::Render()
 
 
 	renderObjects[0]->Render();
+
+	//effect 
+	if (pBossEffect) pBossEffect->Render();
 	//renderObjects[0]->BoundBox.RenderGizmo(pMonTrans);
 	//renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);
 }
@@ -275,5 +283,14 @@ void cBoss::AttackFuntion(float timDelta)
 			bWait = bRun = false;
 			m_nCount++;
 		}
+	}
+
+	if (m_State == Attack)
+	{
+		D3DXVECTOR3 pos;
+		float fTemp;
+
+		renderObjects[0]->BoundBox01.GetWorldCenterRadius(pWeaponTrans, &pos, &fTemp);
+		pBossEffect->PlayEffect(BOSS_ATTACK,pos);
 	}
 }

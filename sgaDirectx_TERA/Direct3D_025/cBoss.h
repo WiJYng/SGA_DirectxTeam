@@ -3,6 +3,7 @@
 class cMeshMap;
 class cTickFunc;
 class cProgressBar_Boss;
+class cBossEffect;
 
 class cBoss
 {
@@ -33,6 +34,7 @@ private:
 
 public:
 	cTransform*							pWeaponTrans;
+	cBossEffect*						pBossEffect;
 	
 	cBoss();
 	~cBoss();
@@ -71,6 +73,7 @@ public:
 	{
 		return m_fHP;
 	}
+
 	void SetHP(float _fHP)
 	{
 		m_fHP = _fHP;

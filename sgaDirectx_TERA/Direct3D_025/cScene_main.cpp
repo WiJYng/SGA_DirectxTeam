@@ -149,8 +149,8 @@ void cScene_main::Scene_Update(float timDelta)
 	pPlayerUI->SetHp(pPlayer->m_fHP);
 	pPlayerUI->SetHpMax(pPlayer->m_fMaxHP);
 
-	DeathCount = ENEMYMAX_1;
-	//DeathCount = 0;
+	//DeathCount = ENEMYMAX_1;
+	DeathCount = 0;
 	for (int i = 0; i < ENEMYMAX; i++)
 	{
 		if (pEnemy1[i]->GetHP() <= 0)
