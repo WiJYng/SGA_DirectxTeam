@@ -79,7 +79,7 @@ public:
 		m_fHP = _fHP;
 	}
 
-	void AttackFuntion(float timDelta);
+	void AttackFuntion(float timDelta, cMeshMap* _Map);
 
 	void SetUIon(bool value){ bUIon = value; }
 	bool GetUIon(){ return bUIon; }

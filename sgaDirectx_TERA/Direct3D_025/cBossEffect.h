@@ -4,8 +4,10 @@
 class cBossEffect : public cEffect
 {
 private:
-	cTrailRender*	m_pTail;
+	cTrailRender*			m_pTail;
+	cQuadParticleEmitter*	m_pGroundAttack;
 
+	bool					m_isGaPlay;
 
 public:
 	cBossEffect();
@@ -20,5 +22,6 @@ private:
 	void BossSkillEffectInit();
 
 	void PlayBossTail(D3DXVECTOR3 pos);
+	void PlayBossGroundAttack(D3DXVECTOR3 pos, bool isOn);
 };
 

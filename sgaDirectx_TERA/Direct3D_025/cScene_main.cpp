@@ -18,6 +18,7 @@
 #include "cVideo.h"
 
 #include "cPlayerSkillEffect.h"
+#include "cBossEffect.h"
 
 
 cScene_main::cScene_main()
@@ -112,6 +113,9 @@ HRESULT cScene_main::Scene_Init()
 	//Effect
 	pPlayerSkillEff = new cPlayerSkillEffect;
 	pPlayerSkillEff->Setup();
+
+	//effTest = new cBossEffect;
+	//effTest->Setup();
 
 
 	bDraw = false;
@@ -303,6 +307,17 @@ void cScene_main::Scene_Update(float timDelta)
 
 	//½ºÅ³ÀÌÆåÆ®
 	pPlayerSkillEff->Update(timDelta);
+	//effTest->Update(timDelta);
+	//
+	//D3DXVECTOR3 pTemp = pPlayer->GetWorldPosition();
+	//if (KEY_MGR->IsOnceDown(VK_SPACE))
+	//{
+	//	pTemp.y += 0.1;
+	//	effTest->PlayEffect(BOSS_ATTACK_GROUND, pTemp);
+	//}
+	//else {
+	//	effTest->PlayEffect(BOSS_ATTACK_GROUND_STOP, pTemp);
+	//}
 
 	//pEnemySkillEff->PlayEffect(ENEMY_ATTACK_01, pPlayer->GetWorldPosition(), 0);
 
@@ -410,6 +425,10 @@ void cScene_main::Scene_Render1()
 	if (pPlayerSkillEff)
 		pPlayerSkillEff->Render();
 
+	//if (effTest)
+	//	effTest->Render();
+
+	
 
 	//this->pTrailRender->Render();
 	//LOG_MGR->AddLog("%d", DeathCount);

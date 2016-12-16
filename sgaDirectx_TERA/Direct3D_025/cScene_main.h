@@ -13,6 +13,7 @@ class cProgressBar_Boss;
 class cPlayerUI;
 class cPlayerSkillEffect;
 
+class cBossEffect;
 
 class cTickFunc;
 class cVideo;
@@ -54,6 +55,8 @@ private:
 
 	int									DeathCount;
 	bool								bDraw;
+
+	cBossEffect*						effTest;
 
 public:
 	cScene_main();
