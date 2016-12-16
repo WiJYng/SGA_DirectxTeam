@@ -128,9 +128,9 @@ void cEnemyEffect::EnemyEffectInit()
 		t->Init(
 			0.3f,
 			2.0f,
-			RESOURCE_TEXTURE->GetResource("./Tera/Effect/A_Sim_Side.tga"),	//메인 Texture
+			RESOURCE_TEXTURE->GetResource("./Tera/Effect/Lens_Flare_A001_EMIS.tga"),	//메인 Texture
 			D3DXCOLOR(1, 0.2, 0, 0.7),												//메인 Texture 로 그릴때 컬러
-			RESOURCE_TEXTURE->GetResource("./Tera/Effect/A_Sim_Side.tga")	//외곡 그릴때 외곡 노말
+			RESOURCE_TEXTURE->GetResource("./Tera/Effect/Lens_Flare_A001_EMIS.tga")	//외곡 그릴때 외곡 노말
 			);
 		m_vecAttackEffect.push_back(t);
 	}
