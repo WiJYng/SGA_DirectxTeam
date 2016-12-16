@@ -12,6 +12,7 @@ private :
 	//
 	//VEC_QUADPART	m_vecAttackEffect;
 	VEC_TAIL		m_vecAttackEffect;
+	VEC_PART		m_vecAttackEffect2;
 	
 
 public :
@@ -22,16 +23,11 @@ public :
 	void Update(float _TimeDelta) override;
 	void Render() override;
 	void PlayEffect(EFFECT_NAME _Name, D3DXVECTOR3 pos) override;
-	void PlayEffect(EFFECT_NAME _Name, cTransform* trans);
 	
-
 private : 
 	void EnemyEffectInit();			//¿Ã∆Â∆Æ init
 
 	void EnemyAttackEffect_01(D3DXVECTOR3 pos);
-	void EnemyAttackEffect_01(cTransform* trans);
-
 	void EnemyAttackEffect_02(D3DXVECTOR3 pos);
-	void EnemyAttackEffect_02(cTransform* trans);
 };
 

@@ -733,8 +733,11 @@ void cScene_main::MonsterAttack(float timDelta)
 					{
 						pPlayer->m_fHP = 0;
 					}
+				D3DXVECTOR3 pos;
+				float fTemp;
+				renderObjects[i]->BoundBox01.GetWorldCenterRadius(pEnemy1[i]->pWeaponTrans, &pos, &fTemp);
+				pEnemy1[i]->pEnemySkillEff->PlayEffect(ENEMY_ATTACK_02, pos);
 				}
-				//	LOG_MGR->AddLog("%d번 에게 맞았다!", i);
 			}
 		}
 		if (pEnemy2[i]->GetState() == MonState::Attack)
@@ -754,8 +757,11 @@ void cScene_main::MonsterAttack(float timDelta)
 					{
 						pPlayer->m_fHP = 0;
 					}
+					D3DXVECTOR3 pos;
+					float fTemp;
+					renderObjects[i + 25]->BoundBox01.GetWorldCenterRadius(pEnemy2[i]->pWeaponTrans, &pos, &fTemp);
+					pEnemy2[i]->pEnemySkillEff->PlayEffect(ENEMY_ATTACK_02, pos);
 				}
-				//	LOG_MGR->AddLog("%d번 에게 맞았다!", i + 25);
 			}
 		}
 		if (pEnemy3[i]->GetState() == MonState::Attack)
@@ -775,8 +781,12 @@ void cScene_main::MonsterAttack(float timDelta)
 					{
 						pPlayer->m_fHP = 0;
 					}
+					D3DXVECTOR3 pos;
+					float fTemp;
+
+					renderObjects[i + 50]->BoundBox01.GetWorldCenterRadius(pEnemy3[i]->pWeaponTrans, &pos, &fTemp);
+					pEnemy3[i]->pEnemySkillEff->PlayEffect(ENEMY_ATTACK_02, pos);
 				}
-				//	LOG_MGR->AddLog("%d번 에게 맞았다!", i + 50);
 			}
 		}
 		if (pEnemy4[i]->GetState() == MonState::Attack)
@@ -796,8 +806,12 @@ void cScene_main::MonsterAttack(float timDelta)
 					{
 						pPlayer->m_fHP = 0;
 					}
+					D3DXVECTOR3 pos;
+					float fTemp;
+
+					renderObjects[i + 75]->BoundBox01.GetWorldCenterRadius(pEnemy4[i]->pWeaponTrans, &pos, &fTemp);
+					pEnemy4[i]->pEnemySkillEff->PlayEffect(ENEMY_ATTACK_02, pos);
 				}
-				//	LOG_MGR->AddLog("%d번 에게 맞았다!", i + 75);
 			}
 		}
 	}

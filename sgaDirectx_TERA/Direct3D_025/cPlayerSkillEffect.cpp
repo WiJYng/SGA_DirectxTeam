@@ -4,6 +4,7 @@
 
 cPlayerSkillEffect::cPlayerSkillEffect()
 {
+
 }
 
 
@@ -21,7 +22,6 @@ void cPlayerSkillEffect::Setup()
 {
 	InitPlayerSkill();
 
-	
 }
 
 void cPlayerSkillEffect::Update(float _TimeDelta)
@@ -74,7 +74,6 @@ void cPlayerSkillEffect::PlayEffect(EFFECT_NAME _Name, D3DXVECTOR3 pos)
 		break;
 	default :
 		break;
-
 	}
 }
 
@@ -95,7 +94,6 @@ void cPlayerSkillEffect::PlayerAttackEffect_02(D3DXVECTOR3 pos)
 	//공격effect index 0, 1
 	m_vecAttackEffect[0]->pTransform->SetWorldPosition(pos);
 	m_vecAttackEffect[1]->pTransform->SetWorldPosition(pos);
-
 
 	m_vecAttackEffect[0]->Burst(200, 0.8f, 1.0f, 0.1f, 0.2f);
 	m_vecAttackEffect[1]->Burst(5, 1.0f, 1.0f, 0.1f, 0.1f);
@@ -139,7 +137,6 @@ void cPlayerSkillEffect::InitPlayerSkill()
 		false
 		);
 
-	//
 	cPartcleEmitter* e_02 = new cPartcleEmitter;
 	e_02->SetActive(true);
 
@@ -163,7 +160,6 @@ void cPlayerSkillEffect::InitPlayerSkill()
 	m_vecAttackEffect.push_back(e_01);
 	m_vecAttackEffect.push_back(e_02);
 	
-
 
 	//--------------------------------------------
 	// 2. 공격시 검선 이펙트

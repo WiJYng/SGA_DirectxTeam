@@ -1,4 +1,5 @@
 #pragma once
+#include "cEnemyEffect.h"
 
 class cMeshMap;
 class cProgressBar_sMonster;
@@ -25,11 +26,11 @@ private:
 	float								m_fHP;
 	float								m_fMAXHP;
 
-	cBoundBox*							m_pBB;
-
 public:
 	cTransform*							pWeaponTrans;
 	cEnemyEffect*						pEnemySkillEff;
+
+	cBoundBox*							m_pBB;
 
 	cEnemy();
 	~cEnemy();
