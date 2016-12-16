@@ -194,9 +194,7 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 				D3DXVECTOR3 weaponPos;
 				float		fTemp;
 
-				//renderObjects[0]->BoundBox01.GetWorldCenterRadius(pWeaponTrans, &weaponPos, &fTemp);
 				m_pBB->GetWorldCenterRadius(pWeaponTrans, &weaponPos, &fTemp);
-				//renderObjects[0]->BoundBox01.GetWorldBox(pWeaponTrans, &weaponPos);
 				weaponPos.y += 0.03;
 				pEnemySkillEff->PlayEffect(ENEMY_ATTACK_01, weaponPos);
 			}
@@ -283,7 +281,7 @@ void cEnemy::Render()
 	//renderObjects[0]->BoundBox.RenderGizmo(pMonTrans);
 	//renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);
 	//renderObjects[0]->pTransform->RenderGimozo();
-	m_pBB->RenderGizmo(pWeaponTrans);
+	//m_pBB->RenderGizmo(pWeaponTrans);
 
 	if (pEnemySkillEff)
 		pEnemySkillEff->Render();
