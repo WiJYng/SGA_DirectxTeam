@@ -171,7 +171,7 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 			}
 			else if (m_State == Attack)
 			{
-				AttackFuntion(timDelta);
+				AttackFuntion(timDelta, _Map);
 			}
 		}
 	}
@@ -242,7 +242,7 @@ void cBoss::Render()
 	//renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);
 }
 
-void cBoss::AttackFuntion(float timDelta)
+void cBoss::AttackFuntion(float timDelta, cMeshMap* _Map)
 {
 	if (m_nCount % 5 == 0 || m_nCount % 5 == 1 || m_nCount % 5 == 2)
 	{
@@ -278,10 +278,25 @@ void cBoss::AttackFuntion(float timDelta)
 		if (renderObjects[0]->pSkinned->GetAniEnd())
 		{
 			renderObjects[0]->pSkinned->Play("Attack3", 0.0f);
+
 			m_State = Attack;
 			bAtt = true;
 			bWait = bRun = false;
 			m_nCount++;
+		}
+
+		float fFactor = renderObjects[0]->pSkinned->GetFactor();
+		if (fFactor >= 0.7 && fFactor <= 0.8)
+		{
+			D3DXVECTOR3 pos;
+			float fTemp;
+
+			renderObjects[0]->BoundBox01.GetWorldCenterRadius(pWeaponTrans, &pos, &fTemp);
+			pos.y = _Map->GetHeight(pos.x, pos.z) + 0.1;
+			pBossEffect->PlayEffect(BOSS_ATTACK_GROUND, pos);
+		}
+		else {
+			pBossEffect->PlayEffect(BOSS_ATTACK_GROUND_STOP, D3DXVECTOR3(0, 0, 0));
 		}
 	}
 
