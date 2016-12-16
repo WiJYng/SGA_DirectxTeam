@@ -284,10 +284,53 @@ void cPlayerUI::Render()
 			D3DCOLOR_XRGB(255, 255, 255));
 		m_pKcBoard_sprite->End();
 
-		m_nKillNum = 32;
+		//m_nKillNum = 32;
 		Cut_KillNum_Img();
 
-		Cut_KillNum_Img();
+		//1磊府 
+		SetRect(&m_rcKcNumber, m_nKillNumOne_x, 0, m_nKillNumOne_w, m_KcNumber_ImgInfo.Height - 5);
+		m_pkcNumber_sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pkcNumber_sprite->SetTransform(&matR);
+		m_pkcNumber_sprite->Draw(m_pkcNumber_Texture,
+			&m_rcKcNumber,
+			&D3DXVECTOR3(0, 0, 0),
+			&D3DXVECTOR3(m_rcKcNumber.left + 700 - (m_nKillNumOne_w), m_rcKcNumber.top + 20, 0),
+			D3DCOLOR_XRGB(255, 255, 255));
+		m_pkcNumber_sprite->End();
+
+		//2磊府 
+		SetRect(&m_rcKcNumber, m_nKillNumTen_x, 0, m_nKillNumTen_w, m_KcNumber_ImgInfo.Height - 5);
+		m_pkcNumber_sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pkcNumber_sprite->SetTransform(&matR);
+		m_pkcNumber_sprite->Draw(m_pkcNumber_Texture,
+			&m_rcKcNumber,
+			&D3DXVECTOR3(0, 0, 0),
+			&D3DXVECTOR3(m_rcKcNumber.left + 660 - (m_nKillNumTen_w), m_rcKcNumber.top + 20, 0),
+			D3DCOLOR_XRGB(255, 255, 255));
+		m_pkcNumber_sprite->End();
+
+		//3磊府 
+		SetRect(&m_rcKcNumber, m_nKillNumHun_x, 0, m_nKillNumHun_w, m_KcNumber_ImgInfo.Height - 5);
+		m_pkcNumber_sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pkcNumber_sprite->SetTransform(&matR);
+		m_pkcNumber_sprite->Draw(m_pkcNumber_Texture,
+			&m_rcKcNumber,
+			&D3DXVECTOR3(0, 0, 0),
+			&D3DXVECTOR3(m_rcKcNumber.left + 620 - (m_nKillNumHun_w), m_rcKcNumber.top + 20, 0),
+			D3DCOLOR_XRGB(255, 255, 255));
+		m_pkcNumber_sprite->End();
+
+		//4磊府
+		SetRect(&m_rcKcNumber, m_nKillNumTho_x, 0, m_nKillNumTho_w, m_KcNumber_ImgInfo.Height - 5);
+		m_pkcNumber_sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pkcNumber_sprite->SetTransform(&matR);
+		m_pkcNumber_sprite->Draw(m_pkcNumber_Texture,
+			&m_rcKcNumber,
+			&D3DXVECTOR3(0, 0, 0),
+			&D3DXVECTOR3(m_rcKcNumber.left + 580 - (m_nKillNumTho_w), m_rcKcNumber.top + 20, 0),
+			D3DCOLOR_XRGB(255, 255, 255));
+		m_pkcNumber_sprite->End();
+
 	}
 }
 void cPlayerUI::Cut_KillNum_Img()
