@@ -99,7 +99,7 @@ extern HWND			g_hWnd;		//윈도우 핸들 ( 자신의 프로그램에서 돌고있는 윈도우 번호 
 extern HINSTANCE	g_hInst;	//프로그램 인스턴스 핸들 ( OS 가 부여한 프로그램 번호 )
 extern int			g_Wheel;
 extern bool			g_bRender;
-
+extern POINT		g_ptMouse;
 //extern bool         ex_wheelUp;
 //extern bool         ex_wheelDown;
 //extern bool         g_bDXRender;

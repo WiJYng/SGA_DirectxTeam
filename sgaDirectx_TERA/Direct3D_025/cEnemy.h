@@ -1,13 +1,14 @@
 #pragma once
 
 class cMeshMap;
+class cProgressBar_sMonster;
 class cEnemyEffect;
 
 class cEnemy
 {
 private:
 	
-
+	cProgressBar_sMonster*				ProgressBar;
 	std::vector<cBaseObject*>			renderObjects;			//오브젝트 배열
 
 	MonState							m_State;

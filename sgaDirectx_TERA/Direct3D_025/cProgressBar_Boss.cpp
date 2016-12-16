@@ -142,8 +142,8 @@ void cProgressBar_Boss::Render()
 	m_pHP_Sprite->End();
 
 	//엔딩로고 
-	//if (m_bDeath)
-	//{
+	if (m_bDeath)
+	{
 		D3DXMatrixIdentity(&matR);
 		SetRect(&m_rcEndLogo, 0, 0, m_EndLogo_Sprite_Info.Width, m_EndLogo_Sprite_Info.Height);
 		m_pEndLogo_Sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
@@ -154,7 +154,7 @@ void cProgressBar_Boss::Render()
 			&D3DXVECTOR3(m_rcEndLogo.left + 455, m_rcEndLogo.top + 270, 0),
 			D3DCOLOR_XRGB(255, 255, 255));
 		m_pEndLogo_Sprite->End();
-	//}
+	}
 }
 void cProgressBar_Boss::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {

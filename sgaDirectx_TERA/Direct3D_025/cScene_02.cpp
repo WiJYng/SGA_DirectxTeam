@@ -142,7 +142,7 @@ void cScene_02::Scene_Render1()
 	char szTemp[128];
 	sprintf(szTemp, "%.2f percent 로딩중", SCENE_MGR->fProgress);
 
-	DXFONT_MGR->PrintText(szTemp, wid+15 + 120, hei - 20, D3DCOLOR_XRGB(255, 255, 255));
+	DXFONT_MGR->PrintText(szTemp, wid+15 + 150, hei - 20, D3DCOLOR_XRGB(255, 255, 255));
 	//
 	//cXMesh_Static::SetCamera( this->pMainCamera );
 	//cXMesh_Static::SetTechniqueName("Base");		//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅

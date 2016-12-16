@@ -156,6 +156,9 @@ LRESULT cMainGame::MainProc( HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPa
 {
 	switch( iMessage )
 	{	
+	case WM_MOUSEMOVE:
+		g_ptMouse.x = LOWORD(lParam);
+		g_ptMouse.y = HIWORD(lParam);
 	case WM_MOUSEWHEEL:
 		g_Wheel = (short)HIWORD(wParam);
 		break;
