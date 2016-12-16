@@ -70,21 +70,6 @@ void cEnemyEffect::PlayEffect(EFFECT_NAME _Name, D3DXVECTOR3 pos)
 	}
 }
 
-void cEnemyEffect::PlayEffect(EFFECT_NAME _Name, cTransform* trans)
-{
-	switch (_Name)
-	{
-	case ENEMY_ATTACK_01:
-		EnemyAttackEffect_01(trans);
-		break;
-	case ENEMY_ATTACK_02:
-		EnemyAttackEffect_02(trans);
-		break;
-	default:
-		break;
-	}
-}
-
 
 void cEnemyEffect::EnemyAttackEffect_01(D3DXVECTOR3 pos)
 {
@@ -98,24 +83,12 @@ void cEnemyEffect::EnemyAttackEffect_01(D3DXVECTOR3 pos)
 	}
 }
 
-void cEnemyEffect::EnemyAttackEffect_01(cTransform* trans)
-{
-	for each(auto v in m_vecAttackEffect)
-	{
-		v->Transform = *trans;
-	}
-}
-
 
 void cEnemyEffect::EnemyAttackEffect_02(D3DXVECTOR3 pos)
 {
 
 }
 
-void cEnemyEffect::EnemyAttackEffect_02(cTransform* trans)
-{
-
-}
 
 //Skill Init
 void cEnemyEffect::EnemyEffectInit()
