@@ -223,7 +223,7 @@ void cPlayerUI::Render()
 
 	float wid = screenRc.left + 20;
 	float hei = screenRc.bottom - (m_rcProgressBar.bottom - m_rcProgressBar.top) / 2 + 50;
-		//(screenRc.left + (screenRc.right - screenRc.left) / 2) - (m_rcProgressBar.right - m_rcProgressBar.left) / 2;
+	//(screenRc.left + (screenRc.right - screenRc.left) / 2) - (m_rcProgressBar.right - m_rcProgressBar.left) / 2;
 
 	//바 바탕 
 	SetRect(&m_rcProgressBar, 0, 0, m_ProgressBar_Sprite_Info.Width, m_ProgressBar_Sprite_Info.Height);
@@ -287,22 +287,16 @@ void cPlayerUI::Render()
 		m_nKillNum = 32;
 		Cut_KillNum_Img();
 
-	Cut_KillNum_Img();
-
-		
-
-
-
-
+		Cut_KillNum_Img();
+	}
 }
-
 void cPlayerUI::Cut_KillNum_Img()
 {
 	//킬카운터 숫자 // 
 	//4 (x=0,w=50), 0 (x=50,w=100), 1 (x=100,w=150), 2 (x=140,w=180),  
 	//3 (x=180,w=220), 5 (x=222,w=262), 6 (x=265,w=305), 7 (x=307,w=347), 
 	//8 (x=349,w=389), 9 (x=391,w=435), 
-	
+
 	//1자리
 	m_nKillNumOne = m_nKillNum % 10;
 	m_nKillNumTen = (m_nKillNum / 10) % 10;
