@@ -1,6 +1,7 @@
 #include "stdafx.h"
 //test¡÷ºÆ 
 #include "cProgressBar_sMonster.h"
+#include "cPartcleEmitter.h"
 
 
 cProgressBar_sMonster::cProgressBar_sMonster()

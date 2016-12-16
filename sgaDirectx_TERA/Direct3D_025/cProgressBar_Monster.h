@@ -1,8 +1,11 @@
 #pragma once
 //test주석 
+class cPartcleEmitter;
+
 class cProgressBar_Monster
 {
 protected:
+	cPartcleEmitter*		m_ptProgressBar;
 
 	//프로그레스바 바탕
 	LPD3DXSPRITE			m_pProgressBar_Sprite;
@@ -24,6 +27,8 @@ protected:
 	//위치
 	float					m_fX;
 	float					m_fY;
+
+
 
 
 
