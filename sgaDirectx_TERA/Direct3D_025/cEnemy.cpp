@@ -190,7 +190,7 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 				float		fTemp;
 
 				renderObjects[0]->BoundBox01.GetWorldCenterRadius(pWeaponTrans, &weaponPos, &fTemp);
-				pEnemySkillEff->PlayEffect(ENEMY_ATTACK_01, weaponPos);
+				pEnemySkillEff->PlayEffect(ENEMY_ATTACK_01, pWeaponTrans);
 			}
 		}
 	}

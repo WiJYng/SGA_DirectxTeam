@@ -287,13 +287,13 @@ void cPlayerUI::Render()
 		m_nKillNum = 32;
 		Cut_KillNum_Img();
 
-	Cut_KillNum_Img();
-
-		
+		Cut_KillNum_Img();
 
 
 
 
+
+	}
 }
 
 void cPlayerUI::Cut_KillNum_Img()
