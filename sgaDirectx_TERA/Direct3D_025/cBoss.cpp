@@ -5,6 +5,7 @@
 #include "cTickFunc.h"
 #include "cProgressBar_Boss.h"
 #include "cBossEffect.h"
+#include "cCamera.h"
 
 cBoss::cBoss()
 {
@@ -27,6 +28,8 @@ void cBoss::Setup(string PathMonster, D3DXVECTOR3 * Pos)
 	bAtt = false;
 	bDeath = false;
 	bStun = false;
+	bEffectOn = true;
+	bS = false;
 	PrevAngle = 0.0f;
 	m_nCount = 0;
 	for (int i = 0; i < 3; i++)
@@ -80,6 +83,7 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 	//º¸½ºUIÃß°¡
 	BossUI->SetHp(100);
 	BossUI->SetHpMax(1000);
+	
 
 	if (m_fHP <= 0)
 		BossUI->SetIsDeath(true);
@@ -270,6 +274,8 @@ void cBoss::AttackFuntion(float timDelta, cMeshMap* _Map)
 			bAtt = true;
 			bWait = bRun = false;
 			m_nCount++;
+
+			bEffectOn = false;
 		}
 		int a = 0;
 	}
@@ -285,18 +291,42 @@ void cBoss::AttackFuntion(float timDelta, cMeshMap* _Map)
 			m_nCount++;
 		}
 
-		float fFactor = renderObjects[0]->pSkinned->GetFactor();
-		if (fFactor >= 0.7 && fFactor <= 0.8)
-		{
-			D3DXVECTOR3 pos;
-			float fTemp;
+		
+	}
 
-			renderObjects[0]->BoundBox01.GetWorldCenterRadius(pWeaponTrans, &pos, &fTemp);
-			pos.y = _Map->GetHeight(pos.x, pos.z) + 0.1;
-			pBossEffect->PlayEffect(BOSS_ATTACK_GROUND, pos);
+	if (m_nCount % 5 == 0)
+	{
+		float fFactor = renderObjects[0]->pSkinned->GetFactor();
+		if (fFactor >= 0.63 && fFactor <= 0.659)
+		{
+			if (!bEffectOn)
+			{
+				D3DXVECTOR3 pos;
+				float fTemp;
+
+				renderObjects[0]->BoundBox01.GetWorldCenterRadius(pWeaponTrans, &pos, &fTemp);
+				pos.y = _Map->GetHeight(pos.x, pos.z) + 0.1;
+				pBossEffect->PlayEffect(BOSS_ATTACK_GROUND, pos);
+
+				LOG_MGR->AddLog("ÄíÄâÄç!");
+				bEffectOn = true;
+			}
+			
+			//cCam->ShakeRot(0.1, 0);
+			//cCam->ShakeUpdate(timDelta);
 		}
 		else {
 			pBossEffect->PlayEffect(BOSS_ATTACK_GROUND_STOP, D3DXVECTOR3(0, 0, 0));
+			bEffectOn = false;
+		
+		}
+		if (fFactor >= 0.63 && fFactor <= 0.8)
+		{
+			bS = true;
+		}
+		else
+		{
+			bS = false;
 		}
 	}
 

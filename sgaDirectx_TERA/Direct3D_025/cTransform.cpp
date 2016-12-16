@@ -1851,12 +1851,12 @@ void cTransform::ShakeUpdate(float timeDelta)
 		D3DXVECTOR3 localRot( 0, 0, 0 );
 		if( this->ShakeRotFlag & SHAKE_X )
 			localRot.x = RandomFloatRange( -this->ShakeRotPower, this->ShakeRotPower );
-		if( this->ShakeRotFlag & SHAKE_Y )
+		if( this->ShakeRotFlag & SHAKE_Y)
 			localRot.y = RandomFloatRange( -this->ShakeRotPower, this->ShakeRotPower );
 		if( this->ShakeRotFlag & SHAKE_Z )
 			localRot.z = RandomFloatRange( -this->ShakeRotPower, this->ShakeRotPower );
 
-		this->SetRotateLocal( localRot.y, localRot.x, localRot.z );
+		this->SetRotateLocal( localRot.y + 0.2, localRot.x, localRot.z );
 
 		this->ShakeRotPower -= this->ShakeRotRelease * timeDelta;
 

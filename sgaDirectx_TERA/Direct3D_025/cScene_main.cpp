@@ -67,7 +67,8 @@ HRESULT cScene_main::Scene_Init()
 
 	//º¸½º
 	pBoss = new cBoss();
-	pBoss->Setup("./Tera/Monster/Drowned.X", &D3DXVECTOR3(-128.f, -15.0f, 80.0f));
+	pBoss->Setup("./Tera/Monster/Drowned.X", &D3DXVECTOR3(-120.f, -15.0f, 76.0f));
+	//pBoss->Setup("./Tera/Monster/Drowned.X", &D3DXVECTOR3(70.0f, 0.0f, 65.0f));
 	
 	m_pBossVideo = new cVideo;
 	m_pBossVideo->Init();
@@ -156,7 +157,7 @@ void cScene_main::Scene_Update(float timDelta)
 	pPlayerUI->SetHpMax(pPlayer->m_fMaxHP);
 
 	//DeathCount = ENEMYMAX_1;
-	DeathCount = 100;
+	DeathCount = 0;
 	for (int i = 0; i < ENEMYMAX; i++)
 	{
 		if (pEnemy1[i]->GetHP() <= 0)
@@ -353,13 +354,15 @@ void cScene_main::Scene_Update(float timDelta)
 		pBoss->SetUIon(true);
 	}
 
-	if (KEY_MGR->IsStayDown('0'))
+	//if (KEY_MGR->IsStayDown('0'))
+	if(pBoss->bS)
 	{
 		//this->pMainCamera->ShakePos(0.00000000001, 0);
-		this->pMainCamera->ShakeRot(0.1, 0);
+		this->pMainCamera->ShakeRot(0.01, -1);
 		//this->pMainCamera->LookDirection(pPlayer->GetBaseObject()[0]->pTransform->GetWorldPosition());
 		this->pMainCamera->ShakeUpdate(timDelta);
 	}
+
 
 }
 

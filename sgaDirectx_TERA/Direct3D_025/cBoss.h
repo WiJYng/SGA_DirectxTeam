@@ -4,6 +4,7 @@ class cMeshMap;
 class cTickFunc;
 class cProgressBar_Boss;
 class cBossEffect;
+class cCamera;
 
 class cBoss
 {
@@ -20,6 +21,7 @@ private:
 	bool								bDeath;
 	bool								bStun;
 	bool								bUWait;
+	bool								bEffectOn;
 	float								PrevAngle;
 
 	cTransform*							pMonTrans;
@@ -35,6 +37,7 @@ private:
 public:
 	cTransform*							pWeaponTrans;
 	cBossEffect*						pBossEffect;
+	bool								bS;
 	
 	cBoss();
 	~cBoss();
