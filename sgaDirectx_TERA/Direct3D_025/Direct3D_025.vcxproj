@@ -101,6 +101,7 @@
     <ClInclude Include="cLight_Direction.h" />
     <ClInclude Include="cLight_Point.h" />
     <ClInclude Include="cLoadingScene.h" />
+    <ClInclude Include="cLocationEffect.h" />
     <ClInclude Include="cLogMgr.h" />
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cMap.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="cLight_Direction.cpp" />
     <ClCompile Include="cLight_Point.cpp" />
     <ClCompile Include="cLoadingScene.cpp" />
+    <ClCompile Include="cLocationEffect.cpp" />
     <ClCompile Include="cLogMgr.cpp" />
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="cMap.cpp" />

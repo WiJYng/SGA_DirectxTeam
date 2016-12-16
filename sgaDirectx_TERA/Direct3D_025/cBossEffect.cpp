@@ -55,6 +55,9 @@ void cBossEffect::PlayEffect(EFFECT_NAME _Name, D3DXVECTOR3 pos)
 	case BOSS_ATTACK_GROUND_STOP:
 		PlayBossGroundAttack(pos, false);
 		break;
+	case BOSS_ATTACK_01:
+		void PlayBossAttackEffect(pos);
+		break;
 	default:
 		break;
 	}
@@ -80,8 +83,16 @@ void cBossEffect::PlayBossGroundAttack(D3DXVECTOR3 pos, bool isOn)
 	}
 }
 
+void cBossEffect::PlayBossAttackEffect(D3DXVECTOR3 pos)
+{
+
+}
+
 void cBossEffect::BossSkillEffectInit()
 {
+	//======================================
+	// 1. 보스 공격시 
+	//======================================
 	m_pTail = new cTrailRender();
 	m_pTail->Init(
 		1.0f,					//꼬리 라이브 타임 ( 이게 크면 환영큐 사이즈가 커지고 꼬리가 오랬동안 남아있다 )
@@ -90,6 +101,10 @@ void cBossEffect::BossSkillEffectInit()
 		D3DXCOLOR(1, 0.1, 0.7, 0.7),												//메인 Texture 로 그릴때 컬러
 		RESOURCE_TEXTURE->GetResource("./Tera/Effect/E_Swordtrail004_emis.tga")	//외곡 그릴때 외곡 노말
 		);
+
+	//======================================
+	// 2. 보스가 땅을 찍는 모션일 때
+	//======================================
 
 	m_pGroundAttack = new cQuadParticleEmitter();
 	m_pGroundAttack->SetActive(true);
@@ -121,4 +136,10 @@ void cBossEffect::BossSkillEffectInit()
 		2.f, 3.0f,
 		RESOURCE_TEXTURE->GetResource("./Tera/Effect/C_Crak.png"),
 		true);
+
+	//======================================
+	// 3. 보스가 플레이어를 공격했을 때
+	//======================================
+
+
 }

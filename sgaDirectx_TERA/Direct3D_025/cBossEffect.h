@@ -23,5 +23,6 @@ private:
 
 	void PlayBossTail(D3DXVECTOR3 pos);
 	void PlayBossGroundAttack(D3DXVECTOR3 pos, bool isOn);
+	void PlayBossAttackEffect(D3DXVECTOR3 pos);
 };
 

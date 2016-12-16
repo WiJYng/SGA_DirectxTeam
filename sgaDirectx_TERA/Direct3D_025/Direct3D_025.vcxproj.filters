@@ -258,6 +258,9 @@
     <ClInclude Include="cEnemyEffect.h">
       <Filter>Tera\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="cLocationEffect.h">
+      <Filter>Tera\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -465,6 +468,9 @@
       <Filter>Tera\Effect</Filter>
     </ClCompile>
     <ClCompile Include="cEffect.cpp">
+      <Filter>Tera\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="cLocationEffect.cpp">
       <Filter>Tera\Effect</Filter>
     </ClCompile>
   </ItemGroup>

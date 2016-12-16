@@ -18,6 +18,7 @@ enum EFFECT_NAME {
 	BOSS_ATTACK_GROUND,							//보스 공격시 이펙트 바닥
 	BOSS_ATTACK_GROUND_STOP,
 	BOSS_ATTACK_01,								//보스 공격시 히트이펙트
+	LOCATION_ARROW,
 };
 
 class cEffect
