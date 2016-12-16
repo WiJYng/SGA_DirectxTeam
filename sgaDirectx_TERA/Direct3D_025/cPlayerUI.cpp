@@ -16,7 +16,21 @@ cPlayerUI::cPlayerUI()
 , m_pkcNumber_sprite(NULL)
 , m_pKcBoard_Texture(NULL)
 , m_pkcNumber_Texture(NULL)
-{
+
+, m_bQWindowCenter_firstCheck(true)
+, m_bQwindowCenter_On(true)
+, m_bQwindowRight_On(false)
+, m_bKeyWindow_On(false)
+
+, m_pKeyWindow_Sprite(NULL)
+, m_pKeyWindow_Texture(NULL)
+, m_pQwindowCenter_Sprite(NULL)
+, m_pQwindowCenter_Texture(NULL)
+, m_pQwindowRight_Sprite(NULL)
+, m_pQwindowRight_Texture(NULL)
+
+, m_bBossMeet(false)
+{ 
 }
 cPlayerUI::~cPlayerUI()
 {
@@ -32,10 +46,44 @@ cPlayerUI::~cPlayerUI()
 	SAFE_DELETE(m_pkcNumber_sprite);
 	SAFE_DELETE(m_pKcBoard_Texture);
 	SAFE_DELETE(m_pkcNumber_Texture);
+
+	SAFE_DELETE(m_pKeyWindow_Sprite);
+	SAFE_DELETE(m_pKeyWindow_Texture);
+	SAFE_DELETE(m_pQwindowCenter_Sprite);
+	SAFE_DELETE(m_pQwindowCenter_Texture);
+	SAFE_DELETE(m_pQwindowRight_Sprite);
+	SAFE_DELETE(m_pQwindowRight_Texture);
 }
 
 void cPlayerUI::Setup()
 {
+	//키설명창
+	D3DXCreateTextureFromFileEx(
+		Device, "Tera/UI/PlayerUI/KeyExplain2.tga",
+		D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT,
+		0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
+		D3DX_FILTER_NONE, D3DX_DEFAULT, 0,
+		&m_KeyWindow_Sprite_Info, NULL, &m_pKeyWindow_Texture);
+	D3DXCreateSprite(Device, &m_pKeyWindow_Sprite);
+
+	//중앙퀘스트창
+	D3DXCreateTextureFromFileEx(
+		Device, "Tera/UI/PlayerUI/QuestWindow1.tga",
+		D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT,
+		0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
+		D3DX_FILTER_NONE, D3DX_DEFAULT, 0,
+		&m_QwindowCenter_Sprite_Info, NULL, &m_pQwindowCenter_Texture);
+	D3DXCreateSprite(Device, &m_pQwindowCenter_Sprite);
+
+	//오른쪽퀘스트창
+	D3DXCreateTextureFromFileEx(
+		Device, "Tera/UI/PlayerUI/QuestWindow3.tga",
+		D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT,
+		0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
+		D3DX_FILTER_NONE, D3DX_DEFAULT, 0,
+		&m_QwindowRight_Sprite_Info, NULL, &m_pQwindowRight_Texture);
+	D3DXCreateSprite(Device, &m_pQwindowRight_Sprite);
+
 	//바 바탕 
 	D3DXCreateTextureFromFileEx(
 		Device, "Tera/UI/PlayerUI/ProgressBar.tga",
@@ -87,20 +135,97 @@ void cPlayerUI::Setup()
 }
 void cPlayerUI::Update()
 {
+	if (m_bQWindowCenter_firstCheck)
+	{
+		if (KEY_MGR->IsOnceDown(VK_LBUTTON))
+		{
+			m_bQwindowCenter_On = false;
+			m_bQWindowCenter_firstCheck = false;
+			m_bQwindowRight_On = true;
+		}
+	}
+	//if (m_bQwindowCenter_On == false)
+	//{
+	//	m_bQwindowRight_On = true;
+	//}
+	if (KEY_MGR->IsOnceDown('Z'))
+	{
+		m_bKeyWindow_On = !m_bKeyWindow_On;
+	}
 
+	if (m_nKillNum <= 0)
+	{
+
+	}
 }
 void cPlayerUI::Render()
 {
+	D3DXMATRIXA16 matR;
+	D3DXMatrixIdentity(&matR);
+
 	RECT screenRc;
 	GetClientRect(g_hWnd, &screenRc);
+
+	//키설명창
+	if (m_bKeyWindow_On)
+	{
+		SetRect(&m_rcKeyWindow, 0, 0, m_KeyWindow_Sprite_Info.Width, m_KeyWindow_Sprite_Info.Height);
+		m_pKeyWindow_Sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pKeyWindow_Sprite->SetTransform(&matR);
+		m_pKeyWindow_Sprite->Draw(m_pKeyWindow_Texture,
+			&m_rcKeyWindow,
+			&D3DXVECTOR3(0, 0, 0),
+			&D3DXVECTOR3(
+			screenRc.left + 20,
+			screenRc.bottom - 285,
+			0
+			),
+			D3DCOLOR_XRGB(255, 255, 255));
+		m_pKeyWindow_Sprite->End();
+	}
+
+	//중앙퀘스트창
+	if (m_bQwindowCenter_On)
+	{
+		SetRect(&m_rcQwindowCenter, 0, 0, m_QwindowCenter_Sprite_Info.Width, m_QwindowCenter_Sprite_Info.Height);
+		m_pQwindowCenter_Sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pQwindowCenter_Sprite->SetTransform(&matR);
+		m_pQwindowCenter_Sprite->Draw(m_pQwindowCenter_Texture,
+			&m_rcQwindowCenter,
+			&D3DXVECTOR3(0, 0, 0),
+			&D3DXVECTOR3(
+			screenRc.left + (screenRc.right - screenRc.left) / 2 - 250,
+			screenRc.top + (screenRc.bottom - screenRc.top) / 2 - 100,
+			0
+			),
+			D3DCOLOR_XRGB(255, 255, 255));
+		m_pQwindowCenter_Sprite->End();
+	}
+
+	//오른쪽퀘스트창
+	if (m_bQwindowRight_On)
+	{
+		SetRect(&m_rcQwindowRight, 0, 0, m_QwindowRight_Sprite_Info.Width, m_QwindowRight_Sprite_Info.Height);
+		m_pQwindowRight_Sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pQwindowRight_Sprite->SetTransform(&matR);
+		m_pQwindowRight_Sprite->Draw(m_pQwindowRight_Texture,
+			&m_rcQwindowRight,
+			&D3DXVECTOR3(0, 0, 0),
+			&D3DXVECTOR3(
+			screenRc.right - 200,
+			screenRc.top + (screenRc.bottom - screenRc.top) / 2 - 100,
+			0
+			),
+			D3DCOLOR_XRGB(255, 255, 255));
+		m_pQwindowRight_Sprite->End();
+	}
+
 
 	float wid = screenRc.left + 20;
 	float hei = screenRc.bottom - (m_rcProgressBar.bottom - m_rcProgressBar.top) / 2 + 50;
 		//(screenRc.left + (screenRc.right - screenRc.left) / 2) - (m_rcProgressBar.right - m_rcProgressBar.left) / 2;
 
 	//바 바탕 
-	D3DXMATRIXA16 matR;
-	D3DXMatrixIdentity(&matR);
 	SetRect(&m_rcProgressBar, 0, 0, m_ProgressBar_Sprite_Info.Width, m_ProgressBar_Sprite_Info.Height);
 	m_pProgressBar_Sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 	m_pProgressBar_Sprite->SetTransform(&matR);
@@ -146,64 +271,67 @@ void cPlayerUI::Render()
 	m_pMP_Sprite->End();
 
 
+	if (!m_bBossMeet)
+	{
+		//킬카운터 보드
+		SetRect(&m_rcKcBoard, 0, 0, m_KcBoard_ImgInfo.Width, m_KcBoard_ImgInfo.Height);
+		m_pKcBoard_sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pKcBoard_sprite->SetTransform(&matR);
+		m_pKcBoard_sprite->Draw(m_pKcBoard_Texture,
+			&m_rcKcBoard,
+			&D3DXVECTOR3(0, 0, 0),
+			&D3DXVECTOR3(m_rcKcBoard.left + 460, m_rcKcBoard.top + 15, 0),
+			D3DCOLOR_XRGB(255, 255, 255));
+		m_pKcBoard_sprite->End();
 
-	//킬카운터 보드
-	SetRect(&m_rcKcBoard, 0, 0, m_KcBoard_ImgInfo.Width, m_KcBoard_ImgInfo.Height);
-	m_pKcBoard_sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	m_pKcBoard_sprite->SetTransform(&matR);
-	m_pKcBoard_sprite->Draw(m_pKcBoard_Texture,
-		&m_rcKcBoard,
-		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcKcBoard.left + 460, m_rcKcBoard.top + 15, 0),
-		D3DCOLOR_XRGB(255, 255, 255));
-	m_pKcBoard_sprite->End();
+		m_nKillNum = 32;
+		Cut_KillNum_Img();
 
-	m_nKillNum = 32;
-	Cut_KillNum_Img();
+		//1자리 
+		SetRect(&m_rcKcNumber, m_nKillNumOne_x, 0, m_nKillNumOne_w, m_KcNumber_ImgInfo.Height - 5);
+		m_pkcNumber_sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pkcNumber_sprite->SetTransform(&matR);
+		m_pkcNumber_sprite->Draw(m_pkcNumber_Texture,
+			&m_rcKcNumber,
+			&D3DXVECTOR3(0, 0, 0),
+			&D3DXVECTOR3(m_rcKcNumber.left + 720 - (m_nKillNumOne_w), m_rcKcNumber.top + 20, 0),
+			D3DCOLOR_XRGB(255, 255, 255));
+		m_pkcNumber_sprite->End();
 
-	//1자리 
-	SetRect(&m_rcKcNumber, m_nKillNumOne_x, 0, m_nKillNumOne_w, m_KcNumber_ImgInfo.Height-5);
-	m_pkcNumber_sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	m_pkcNumber_sprite->SetTransform(&matR);
-	m_pkcNumber_sprite->Draw(m_pkcNumber_Texture,
-		&m_rcKcNumber,
-		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcKcNumber.left + 720 - (m_nKillNumOne_w), m_rcKcNumber.top + 20, 0),
-		D3DCOLOR_XRGB(255, 255, 255));
-	m_pkcNumber_sprite->End();
+		//2자리 
+		SetRect(&m_rcKcNumber, m_nKillNumTen_x, 0, m_nKillNumTen_w, m_KcNumber_ImgInfo.Height - 5);
+		m_pkcNumber_sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pkcNumber_sprite->SetTransform(&matR);
+		m_pkcNumber_sprite->Draw(m_pkcNumber_Texture,
+			&m_rcKcNumber,
+			&D3DXVECTOR3(0, 0, 0),
+			&D3DXVECTOR3(m_rcKcNumber.left + 690 - (m_nKillNumTen_w), m_rcKcNumber.top + 20, 0),
+			D3DCOLOR_XRGB(255, 255, 255));
+		m_pkcNumber_sprite->End();
 
-	//2자리 
-	SetRect(&m_rcKcNumber, m_nKillNumTen_x, 0, m_nKillNumTen_w, m_KcNumber_ImgInfo.Height - 5);
-	m_pkcNumber_sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	m_pkcNumber_sprite->SetTransform(&matR);
-	m_pkcNumber_sprite->Draw(m_pkcNumber_Texture,
-		&m_rcKcNumber,
-		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcKcNumber.left + 690 - (m_nKillNumTen_w), m_rcKcNumber.top + 20, 0),
-		D3DCOLOR_XRGB(255, 255, 255));
-	m_pkcNumber_sprite->End();
+		//3자리 
+		SetRect(&m_rcKcNumber, m_nKillNumHun_x, 0, m_nKillNumHun_w, m_KcNumber_ImgInfo.Height - 5);
+		m_pkcNumber_sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pkcNumber_sprite->SetTransform(&matR);
+		m_pkcNumber_sprite->Draw(m_pkcNumber_Texture,
+			&m_rcKcNumber,
+			&D3DXVECTOR3(0, 0, 0),
+			&D3DXVECTOR3(m_rcKcNumber.left + 660 - (m_nKillNumHun_w), m_rcKcNumber.top + 20, 0),
+			D3DCOLOR_XRGB(255, 255, 255));
+		m_pkcNumber_sprite->End();
 
-	//3자리 
-	SetRect(&m_rcKcNumber, m_nKillNumHun_x, 0, m_nKillNumHun_w, m_KcNumber_ImgInfo.Height - 5);
-	m_pkcNumber_sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	m_pkcNumber_sprite->SetTransform(&matR);
-	m_pkcNumber_sprite->Draw(m_pkcNumber_Texture,
-		&m_rcKcNumber,
-		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcKcNumber.left + 660 - (m_nKillNumHun_w), m_rcKcNumber.top + 20, 0),
-		D3DCOLOR_XRGB(255, 255, 255));
-	m_pkcNumber_sprite->End();
+		//4자리
+		SetRect(&m_rcKcNumber, m_nKillNumTho_x, 0, m_nKillNumTho_w, m_KcNumber_ImgInfo.Height - 5);
+		m_pkcNumber_sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pkcNumber_sprite->SetTransform(&matR);
+		m_pkcNumber_sprite->Draw(m_pkcNumber_Texture,
+			&m_rcKcNumber,
+			&D3DXVECTOR3(0, 0, 0),
+			&D3DXVECTOR3(m_rcKcNumber.left + 625 - (m_nKillNumTho_w), m_rcKcNumber.top + 20, 0),
+			D3DCOLOR_XRGB(255, 255, 255));
+		m_pkcNumber_sprite->End();
+	}
 
-	//4자리
-	SetRect(&m_rcKcNumber, m_nKillNumTho_x, 0, m_nKillNumTho_w, m_KcNumber_ImgInfo.Height - 5);
-	m_pkcNumber_sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	m_pkcNumber_sprite->SetTransform(&matR);
-	m_pkcNumber_sprite->Draw(m_pkcNumber_Texture,
-		&m_rcKcNumber,
-		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(m_rcKcNumber.left + 625 - (m_nKillNumTho_w), m_rcKcNumber.top + 20, 0),
-		D3DCOLOR_XRGB(255, 255, 255));
-	m_pkcNumber_sprite->End();
 
 }
 

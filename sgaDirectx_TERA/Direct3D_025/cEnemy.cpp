@@ -3,13 +3,12 @@
 #include "cMeshMap.h"
 #include "cTransform.h"
 #include "cSkinnedAnimation.h"
+#include "cProgressBar_sMonster.h"
 
 
 cEnemy::cEnemy()
 {
 }
-
-
 cEnemy::~cEnemy()
 {
 	SAFE_DELETE(pMonTrans);
@@ -18,6 +17,10 @@ cEnemy::~cEnemy()
 
 void cEnemy::Setup(string PathMonster, D3DXVECTOR3* Pos)
 {
+	//UI추가
+	ProgressBar = new cProgressBar_sMonster;
+	ProgressBar->Setup();
+
 	//바운드박스 충돌처리
 	//cPhysicManager에 IsOverlap함수를 이용하여 충돌을 확인한다
 	//cTickFunc을 이용하여 충돌이 여러번 들어가지 않도록 설정할 수 있다.
@@ -76,6 +79,11 @@ void cEnemy::Release()
 
 void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 {
+	ProgressBar->SetX(10);
+	ProgressBar->SetY(10);
+	ProgressBar->SetHp(100);
+	ProgressBar->SetHpMax(500);
+
 	renderObjects[0]->Update(timDelta);
 
 	//레이 세팅
@@ -241,6 +249,7 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 
 void cEnemy::Render()
 {
+	ProgressBar->Render();
 	//renderObjects[0]->Render();
 	//renderObjects[0]->BoundBox.RenderGizmo(pMonTrans);
 	//renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);

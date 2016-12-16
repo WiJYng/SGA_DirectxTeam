@@ -2,10 +2,14 @@
 
 class cMeshMap;
 class cTickFunc;
+class cProgressBar_Boss;
 
 class cBoss
 {
 private:
+	cProgressBar_Boss*					BossUI;
+	bool								bUIon;
+
 	std::vector<cBaseObject*>			renderObjects;			//오브젝트 배열
 
 	MonState							m_State;
@@ -73,5 +77,8 @@ public:
 	}
 
 	void AttackFuntion(float timDelta);
+
+	void SetUIon(bool value){ bUIon = value; }
+	bool GetUIon(){ return bUIon; }
 };
 

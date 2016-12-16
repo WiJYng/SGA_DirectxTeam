@@ -16,6 +16,7 @@
 #include "cProgressBar_Boss.h"
 #include "cPlayerSkillEffect.h"
 #include "cTickFunc.h"
+#include "cVideo.h"
 
 
 cScene_main::cScene_main()
@@ -64,6 +65,10 @@ HRESULT cScene_main::Scene_Init()
 	//보스
 	pBoss = new cBoss();
 	pBoss->Setup("./Tera/Monster/Drowned.X", &D3DXVECTOR3(-128.f, -15.0f, 80.0f));
+	
+	m_pBossVideo = new cVideo;
+	m_pBossVideo->Init();
+	m_bBossVideoPlay = false;
 
 	//보스몬스터UI 테스트 //20161207 승현추가
 	//pProgressBar_Boss = new cProgressBar_Boss();
@@ -105,13 +110,16 @@ HRESULT cScene_main::Scene_Init()
 
 
 	bDraw = false;
-
+	pPlayerUI->SetKillNum(0);
 
 	return S_OK;
 }
 
 void cScene_main::Scene_Release()
 {
+	m_pBossVideo->Release();
+	SAFE_DELETE(m_pBossVideo);
+
 	//오브젝트 해재
 	for (int i = 0; i < this->renderObjects.size(); i++)
 		SAFE_DELETE(this->renderObjects[i]);
@@ -130,7 +138,9 @@ void cScene_main::Scene_Release()
 
 void cScene_main::Scene_Update(float timDelta)
 {
-	//DeathCount = ENEMYMAX_1;
+
+	pPlayerUI->Update();
+
 	DeathCount = 0;
 	for (int i = 0; i < ENEMYMAX; i++)
 	{
@@ -289,6 +299,32 @@ void cScene_main::Scene_Update(float timDelta)
 
 	//쉐도우맵 준비
 	//this->ReadyShadowMap(&this->renderObjects, NULL);
+
+	
+	if (pPlayerUI->getKillNum() == 0)
+	{
+		m_bBossVideoPlay = true;
+		if (m_bBossVideoPlay)
+		{
+			g_bRender = false;
+			m_pBossVideo->Play("./Video/Trailer.wmv");
+			m_bBossVideoPlay = false;
+		}
+		pPlayerUI->SetKillNum(-1);
+	}
+
+	if (KEY_MGR->IsOnceDown('1'))
+	{
+		g_bRender = false;
+		m_pBossVideo->Play("./Video/Trailer.wmv");
+	}
+	if (KEY_MGR->IsOnceDown('2'))
+	{
+		g_bRender = true;
+		m_pBossVideo->Stop();
+		pPlayerUI->SetBossMeet(true);
+	}
+
 }
 
 void cScene_main::Scene_Render1()

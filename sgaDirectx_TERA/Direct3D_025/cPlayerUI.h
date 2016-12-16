@@ -3,6 +3,33 @@
 class cPlayerUI
 {
 private:
+	bool					m_bBossMeet;
+	bool					m_bQWindowCenter_firstCheck;
+	bool					m_bQwindowCenter_On;
+	bool					m_bQwindowRight_On;
+	bool					m_bKeyWindow_On;
+
+
+	//키설명창
+	LPD3DXSPRITE			m_pKeyWindow_Sprite;
+	LPDIRECT3DTEXTURE9		m_pKeyWindow_Texture;
+	D3DXIMAGE_INFO			m_KeyWindow_Sprite_Info;
+	RECT					m_rcKeyWindow;
+
+	//중앙퀘스트창
+	LPD3DXSPRITE			m_pQwindowCenter_Sprite;
+	LPDIRECT3DTEXTURE9		m_pQwindowCenter_Texture;
+	D3DXIMAGE_INFO			m_QwindowCenter_Sprite_Info;
+	RECT					m_rcQwindowCenter;
+
+
+	//오른쪽퀘스트창
+	LPD3DXSPRITE			m_pQwindowRight_Sprite;
+	LPDIRECT3DTEXTURE9		m_pQwindowRight_Texture;
+	D3DXIMAGE_INFO			m_QwindowRight_Sprite_Info;
+	RECT					m_rcQwindowRight;
+	RECT					m_rcQwindowRightMove;
+
 
 	//프로그레스바 바탕
 	LPD3DXSPRITE			m_pProgressBar_Sprite;
@@ -25,6 +52,7 @@ private:
 
 
 	//킬카운터
+	bool					m_bKillCounterOff;
 	LPD3DXSPRITE			m_pKcBoard_sprite; //kill counter
 	LPD3DXSPRITE			m_pkcNumber_sprite;
 
@@ -53,10 +81,6 @@ private:
 	int						m_nKillNumOne_x, m_nKillNumOne_w;
 
 
-
-
-
-
 public:
 	cPlayerUI();
 	~cPlayerUI();
@@ -80,6 +104,10 @@ public:
 
 	void SetKillNum(int value){ m_nKillNum = value; }
 	int getKillNum(){ return m_nKillNum; }
+
+	void SetBossMeet(bool value){ m_bBossMeet = value; }
+	bool GetBossMeet(){ return m_bBossMeet; }
+
 
 };
 

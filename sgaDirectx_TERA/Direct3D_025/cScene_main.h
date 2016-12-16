@@ -14,6 +14,7 @@ class cPlayerUI;
 class cPlayerSkillEffect;
 
 class cTickFunc;
+class cVideo;
 
 #define ENEMYMAX	25
 #define ENEMYMAX_1	100
@@ -22,6 +23,10 @@ class cTickFunc;
 class cScene_main : public cScene
 {
 private:
+
+	cVideo*								m_pBossVideo;
+	bool								m_bBossVideoPlay;
+
 	std::vector<cBaseObject*>			renderObjects;			//씬에 배치된 랜더 오브젝트 배열
 	std::vector<cBaseObject*>			cullObjects;			//컬링된 오브젝트
 	std::vector<cLight*>				lights;					//라이팅..
