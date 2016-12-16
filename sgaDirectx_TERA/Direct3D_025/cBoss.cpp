@@ -42,7 +42,7 @@ void cBoss::Setup(string PathMonster, D3DXVECTOR3 * Pos)
 	m_pTick[1]->init(0.7f);
 	m_pTick[2]->init(0.7f);
 
-	m_fHP = m_fMAXHP = 10.0f;
+	m_fHP = m_fMAXHP = 50.0f;
 
 	D3DXMATRIXA16 mat;
 	D3DXMatrixIdentity(&mat);
@@ -81,8 +81,8 @@ void cBoss::Setup(string PathMonster, D3DXMATRIXA16 * mat, D3DXVECTOR3 * Pos)
 void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 {
 	//보스UI추가
-	BossUI->SetHp(100);
-	BossUI->SetHpMax(1000);
+	BossUI->SetHp(m_fHP);
+	BossUI->SetHpMax(m_fMAXHP);
 	
 
 	if (m_fHP <= 0)
@@ -138,6 +138,7 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 				m_State = UWait;
 				bUWait = true;
 				bRun = bAtt = bWait = false;
+				m_nCount = 0;
 			}
 		}
 		else if (dist <= 15.0f && dist > 10.0f)
@@ -148,6 +149,7 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 				m_State = Wait;
 				bWait = true;
 				bRun = bAtt = bUWait = false;
+				m_nCount = 0;
 			}
 		}
 		else if (dist <= 10.0f && dist > 2.75f)
@@ -158,6 +160,8 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 				m_State = Run;
 				bRun = true;
 				bWait = bAtt = bWait = false;
+				m_nCount = 0;
+				bEffectOn = false;
 			}
 			renderObjects[0]->pTransform->MovePositionWorld(renderObjects[0]->pTransform->GetForward()*timDelta);
 	
@@ -258,6 +262,8 @@ void cBoss::AttackFuntion(float timDelta, cMeshMap* _Map)
 			m_State = Attack;
 			bAtt = true;
 			bWait = bRun = false;
+			if(m_nCount % 5 == 1 || m_nCount % 5 == 2)
+				bEffectOn = false;
 		}
 		if (m_pTick[0]->tickStart())
 		{
@@ -326,6 +332,7 @@ void cBoss::AttackFuntion(float timDelta, cMeshMap* _Map)
 		}
 		else
 		{
+			pBossEffect->PlayEffect(BOSS_ATTACK_GROUND_STOP, D3DXVECTOR3(0, 0, 0));
 			bS = false;
 		}
 	}
