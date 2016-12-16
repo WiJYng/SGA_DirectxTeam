@@ -25,6 +25,8 @@ private:
 	float								m_fHP;
 	float								m_fMAXHP;
 
+	cBoundBox*							m_pBB;
+
 public:
 	cTransform*							pWeaponTrans;
 	cEnemyEffect*						pEnemySkillEff;

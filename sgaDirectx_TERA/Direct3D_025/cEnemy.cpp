@@ -65,6 +65,9 @@ void cEnemy::Setup(string PathMonster, D3DXMATRIXA16 * mat, D3DXVECTOR3* Pos)
 	pMonTrans = new cTransform();
 	pWeaponTrans = new cTransform();
 
+	m_pBB = new cBoundBox();
+	m_pBB->Init(D3DXVECTOR3(-0.1, 0.7, -0.1), D3DXVECTOR3(0.1, 1.0, 0.1));
+
 	cBaseObject* pMonObj = new cBaseObject();
 	pMonObj->SetMesh(pMonster);
 	pMonObj->SetActive(true);
@@ -191,7 +194,9 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 				D3DXVECTOR3 weaponPos;
 				float		fTemp;
 
-				renderObjects[0]->BoundBox01.GetWorldCenterRadius(pWeaponTrans, &weaponPos, &fTemp);
+				//renderObjects[0]->BoundBox01.GetWorldCenterRadius(pWeaponTrans, &weaponPos, &fTemp);
+				m_pBB->GetWorldCenterRadius(pWeaponTrans, &weaponPos, &fTemp);
+				//renderObjects[0]->BoundBox01.GetWorldBox(pWeaponTrans, &weaponPos);
 				pEnemySkillEff->PlayEffect(ENEMY_ATTACK_01, weaponPos);
 			}
 		}
@@ -276,11 +281,8 @@ void cEnemy::Render()
 	renderObjects[0]->Render();
 	//renderObjects[0]->BoundBox.RenderGizmo(pMonTrans);
 	//renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);
-	D3DXVECTOR3 vCenter;
-	float R;
-	renderObjects[0]->BoundBox01.GetWorldCenterRadius(pWeaponTrans, &vCenter, &R);
 	//renderObjects[0]->pTransform->RenderGimozo();
-
+	m_pBB->RenderGizmo(pWeaponTrans);
 
 	if (pEnemySkillEff)
 		pEnemySkillEff->Render();
