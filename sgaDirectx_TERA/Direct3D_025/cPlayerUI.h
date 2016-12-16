@@ -114,7 +114,5 @@ public:
 	bool GetBossMeet(){ return m_bBossMeet; }
 
 
-
-
 };
 
