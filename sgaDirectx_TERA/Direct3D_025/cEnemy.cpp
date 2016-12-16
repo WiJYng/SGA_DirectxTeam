@@ -3,21 +3,28 @@
 #include "cMeshMap.h"
 #include "cTransform.h"
 #include "cSkinnedAnimation.h"
+#include "cProgressBar_sMonster.h"
+
+#include "cEnemyEffect.h"
 
 
 cEnemy::cEnemy()
 {
 }
-
-
 cEnemy::~cEnemy()
 {
 	SAFE_DELETE(pMonTrans);
 	SAFE_DELETE(pWeaponTrans);
+
+	SAFE_DELETE(pEnemySkillEff);
 }
 
 void cEnemy::Setup(string PathMonster, D3DXVECTOR3* Pos)
 {
+	//UI추가
+	ProgressBar = new cProgressBar_sMonster;
+	ProgressBar->Setup();
+
 	//바운드박스 충돌처리
 	//cPhysicManager에 IsOverlap함수를 이용하여 충돌을 확인한다
 	//cTickFunc을 이용하여 충돌이 여러번 들어가지 않도록 설정할 수 있다.
@@ -41,6 +48,11 @@ void cEnemy::Setup(string PathMonster, D3DXVECTOR3* Pos)
 	//}
 
 	Setup(PathMonster, &mat, Pos);
+
+	//effect
+	pEnemySkillEff = new cEnemyEffect;
+	pEnemySkillEff->Setup();
+
 }
 
 void cEnemy::Setup(string PathMonster, D3DXMATRIXA16 * mat, D3DXVECTOR3* Pos)
@@ -76,6 +88,11 @@ void cEnemy::Release()
 
 void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 {
+	ProgressBar->SetX(10);
+	ProgressBar->SetY(10);
+	ProgressBar->SetHp(100);
+	ProgressBar->SetHpMax(500);
+
 	renderObjects[0]->Update(timDelta);
 
 	//레이 세팅
@@ -166,6 +183,15 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 				bAtt = true;
 				bWait = bRun = false;
 			}
+
+			if (m_State == Attack && renderObjects[0]->pSkinned->GetFactor() >= 0.5f)
+			{
+				D3DXVECTOR3 weaponPos;
+				float		fTemp;
+
+				renderObjects[0]->BoundBox01.GetWorldCenterRadius(pWeaponTrans, &weaponPos, &fTemp);
+				pEnemySkillEff->PlayEffect(ENEMY_ATTACK_01, weaponPos);
+			}
 		}
 	}
 	else if (m_State == Death && !bDeath)
@@ -231,6 +257,9 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 		}
 	}
 	
+
+	pEnemySkillEff->Update(timDelta);
+
 	//PrevAngle = angle;
 
 	//char str[1024];
@@ -241,11 +270,15 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 
 void cEnemy::Render()
 {
+	ProgressBar->Render();
 	//renderObjects[0]->Render();
 	//renderObjects[0]->BoundBox.RenderGizmo(pMonTrans);
 	//renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);
 	//renderObjects[0]->pTransform->RenderGimozo();
 
+
+	if (pEnemySkillEff)
+		pEnemySkillEff->Render();
 }
 
 float cEnemy::CalcLen(D3DXVECTOR3 * _PlayerPos, D3DXVECTOR3 * _ThisPos)

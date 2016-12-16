@@ -3,18 +3,22 @@
 #include "cMeshMap.h"
 #include "cTransform.h"
 #include "cTickFunc.h"
+#include "cProgressBar_Boss.h"
 
 cBoss::cBoss()
 {
 }
-
-
 cBoss::~cBoss()
 {
 }
 
 void cBoss::Setup(string PathMonster, D3DXVECTOR3 * Pos)
 {
+	//보스UI추가
+	BossUI = new cProgressBar_Boss;
+	BossUI->Setup();
+	bUIon = false;
+
 	m_State = UWait;
 	bUWait = true;
 	bWait = false;
@@ -69,6 +73,13 @@ void cBoss::Setup(string PathMonster, D3DXMATRIXA16 * mat, D3DXVECTOR3 * Pos)
 
 void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 {
+	//보스UI추가
+	BossUI->SetHp(100);
+	BossUI->SetHpMax(1000);
+
+	if (m_fHP <= 0)
+		BossUI->SetIsDeath(true);
+
 	renderObjects[0]->Update(timDelta);
 	
 	//레이 세팅
@@ -211,6 +222,13 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 
 void cBoss::Render()
 {
+	//보스UI추가
+	if (bUIon)
+	{
+		BossUI->Render();
+	}
+
+
 	renderObjects[0]->Render();
 	//renderObjects[0]->BoundBox.RenderGizmo(pMonTrans);
 	//renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);

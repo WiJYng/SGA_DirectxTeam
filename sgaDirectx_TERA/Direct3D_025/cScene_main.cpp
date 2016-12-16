@@ -14,8 +14,10 @@
 #include "cMap.h"
 #include "cPlayerUI.h"
 #include "cProgressBar_Boss.h"
-#include "cPlayerSkillEffect.h"
 #include "cTickFunc.h"
+#include "cVideo.h"
+
+#include "cPlayerSkillEffect.h"
 
 
 cScene_main::cScene_main()
@@ -64,6 +66,10 @@ HRESULT cScene_main::Scene_Init()
 	//보스
 	pBoss = new cBoss();
 	pBoss->Setup("./Tera/Monster/Drowned.X", &D3DXVECTOR3(-128.f, -15.0f, 80.0f));
+	
+	m_pBossVideo = new cVideo;
+	m_pBossVideo->Init();
+	m_bBossVideoPlay = false;
 
 	//보스몬스터UI 테스트 //20161207 승현추가
 	//pProgressBar_Boss = new cProgressBar_Boss();
@@ -78,9 +84,6 @@ HRESULT cScene_main::Scene_Init()
 	this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(0, 0, 0);
 	this->pSceneBaseDirectionLight->pTransform->SetRotateWorld(90.0f * ONE_RAD, 0, 0);
 	
-	pPlayerSkillEff = new cPlayerSkillEffect;
-	pPlayerSkillEff->Setup();
-
 	cTransform* tempTrans = pPlayer->m_pRootTrans;
 	//tempTrans->SetRotateWorld(0.0f, 90.0f, 0.0f);
 
@@ -103,15 +106,22 @@ HRESULT cScene_main::Scene_Init()
 	m_pTickBoss = new cTickFunc();
 	m_pTickBoss->init(0.85f);
 
+	//Effect
+	pPlayerSkillEff = new cPlayerSkillEffect;
+	pPlayerSkillEff->Setup();
+
 
 	bDraw = false;
-
+	pPlayerUI->SetKillNum(0);
 
 	return S_OK;
 }
 
 void cScene_main::Scene_Release()
 {
+	m_pBossVideo->Release();
+	SAFE_DELETE(m_pBossVideo);
+
 	//오브젝트 해재
 	for (int i = 0; i < this->renderObjects.size(); i++)
 		SAFE_DELETE(this->renderObjects[i]);
@@ -126,12 +136,16 @@ void cScene_main::Scene_Release()
 	delete[] m_pTick;
 	delete[] m_pTickPlayer;
 	delete m_pTickBoss;
+
+	SAFE_DELETE(pPlayerSkillEff);
+
 }
 
 void cScene_main::Scene_Update(float timDelta)
 {
-	//DeathCount = ENEMYMAX_1;
-	DeathCount = 0;
+
+	pPlayerUI->Update();
+
 	for (int i = 0; i < ENEMYMAX; i++)
 	{
 		if (pEnemy1[i]->GetHP() <= 0)
@@ -151,6 +165,8 @@ void cScene_main::Scene_Update(float timDelta)
 			DeathCount--;
 		}
 	}
+	pPlayerUI->SetKillNum(DeathCount);
+
 
 	if (DeathCount == 0)
 	{
@@ -259,9 +275,6 @@ void cScene_main::Scene_Update(float timDelta)
 	//20161206승현 getMap으로 바꾸기
 	pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta, pEntireMap->GetMap());
 	
-	//스킬이펙트
-	pPlayerSkillEff->Update(timDelta);
-
 	if (pPlayer->GetIsAttack())
 	{
 		PlayerAttack(timDelta);
@@ -281,6 +294,11 @@ void cScene_main::Scene_Update(float timDelta)
 	//몬스터 공격
 	MonsterAttack(timDelta);
 
+	//스킬이펙트
+	pPlayerSkillEff->Update(timDelta);
+
+	//pEnemySkillEff->PlayEffect(ENEMY_ATTACK_01, pPlayer->GetWorldPosition(), 0);
+
 	//this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->m_pRootTrans->GetWorldPosition().x + 5, pPlayer->m_pRootTrans->GetWorldPosition().y + 5, pPlayer->m_pRootTrans->GetWorldPosition().z + 1));
 	this->pMainCamera->DefaultControl4(timDelta, pPlayer->m_pRootTrans); //★
 	
@@ -289,6 +307,32 @@ void cScene_main::Scene_Update(float timDelta)
 
 	//쉐도우맵 준비
 	//this->ReadyShadowMap(&this->renderObjects, NULL);
+
+	
+	if (pPlayerUI->getKillNum() == 0)
+	{
+		m_bBossVideoPlay = true;
+		if (m_bBossVideoPlay)
+		{
+			g_bRender = false;
+			m_pBossVideo->Play("./Video/Trailer.wmv");
+			m_bBossVideoPlay = false;
+		}
+		pPlayerUI->SetKillNum(-1);
+	}
+
+	if (KEY_MGR->IsOnceDown('1'))
+	{
+		g_bRender = false;
+		m_pBossVideo->Play("./Video/Trailer.wmv");
+	}
+	if (KEY_MGR->IsOnceDown('2'))
+	{
+		g_bRender = true;
+		m_pBossVideo->Stop();
+		pPlayerUI->SetBossMeet(true);
+	}
+
 }
 
 void cScene_main::Scene_Render1()
@@ -323,17 +367,22 @@ void cScene_main::Scene_Render1()
 	//	pProgressBar_Boss->Render();
 
 	//컬링된 오브젝트만
-	this->cullObjects.clear();
-	for (int i = 0; i < this->renderObjects.size(); i++) {
-		//프러스텀 안에 있니?
-		if (this->pMainCamera->Frustum.IsInFrustum(this->renderObjects[i]))
-			this->cullObjects.push_back(this->renderObjects[i]);
-	}
+	MonsterRender();
 
-	for (int i = 0; i < this->cullObjects.size(); i++)
-	{
-		cullObjects[i]->Render();
-	}
+	//this->cullObjects.clear();
+	//for (int i = 0; i < this->renderObjects.size(); i++) {
+	//	//프러스텀 안에 있니?
+	//	if (this->pMainCamera->Frustum.IsInFrustum(this->renderObjects[i]))
+	//	{
+	//		
+	//	}
+	//		//this->cullObjects.push_back(this->renderObjects[i]);
+	//}
+	//
+	//for (int i = 0; i < this->cullObjects.size(); i++)
+	//{
+	//	cullObjects[i]->Render();
+	//}
 
 	if(bDraw) pBoss->Render();
 
@@ -347,6 +396,7 @@ void cScene_main::Scene_Render1()
 
 	if (pPlayerSkillEff)
 		pPlayerSkillEff->Render();
+
 
 	//this->pTrailRender->Render();
 	//LOG_MGR->AddLog("%d", DeathCount);
@@ -723,6 +773,54 @@ void cScene_main::MonsterAttack(float timDelta)
 		{
 			if (m_pTickBoss->tickStart())
 				LOG_MGR->AddLog("보스에게 맞았다!");
+		}
+	}
+}
+
+void cScene_main::MonsterRender()
+{
+	//0번포인트
+	if (vecGenPoint[0].Gen)
+	{
+		for (int i = 0; i < ENEMYMAX; i++)
+		{
+			if (this->pMainCamera->Frustum.IsInFrustum(pEnemy1[i]->GetBaseObject()[0]))
+			{
+				pEnemy1[i]->Render();
+			}
+		}
+	}
+	//1번포인트
+	if (vecGenPoint[1].Gen)
+	{
+		for (int i = 0; i < ENEMYMAX; i++)
+		{
+			if (this->pMainCamera->Frustum.IsInFrustum(pEnemy2[i]->GetBaseObject()[0]))
+			{
+				pEnemy2[i]->Render();
+			}
+		}
+	}
+	//2번포인트
+	if (vecGenPoint[2].Gen)
+	{
+		for (int i = 0; i < ENEMYMAX; i++)
+		{
+			if (this->pMainCamera->Frustum.IsInFrustum(pEnemy3[i]->GetBaseObject()[0]))
+			{
+				pEnemy3[i]->Render();
+			}
+		}
+	}
+	//3번포인트
+	if (vecGenPoint[3].Gen)
+	{
+		for (int i = 0; i < ENEMYMAX; i++)
+		{
+			if (this->pMainCamera->Frustum.IsInFrustum(pEnemy4[i]->GetBaseObject()[0]))
+			{
+				pEnemy4[i]->Render();
+			}
 		}
 	}
 }

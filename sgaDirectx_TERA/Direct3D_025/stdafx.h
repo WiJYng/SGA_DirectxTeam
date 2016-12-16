@@ -75,7 +75,7 @@
 //
 #define WINSIZE_X	1200			//초기 윈도우 가로 크기
 #define WINSIZE_Y	900			//초기 윈도우 세로 크기
-#define WINPOS_X	0			//초기 윈도우 시작 위치 X
+#define WINPOS_X	100			//초기 윈도우 시작 위치 X
 #define WINPOS_Y	0			//초기 윈도우 시작 위치 Y
 #define WIN_CLASS	"Windows Exam"		//윈도우 클레스 이름
 #define WIN_TITLE	"D3D_TERA"		//윈도우 타이틀 이름
@@ -99,7 +99,7 @@ extern HWND			g_hWnd;		//윈도우 핸들 ( 자신의 프로그램에서 돌고있는 윈도우 번호 
 extern HINSTANCE	g_hInst;	//프로그램 인스턴스 핸들 ( OS 가 부여한 프로그램 번호 )
 extern int			g_Wheel;
 extern bool			g_bRender;
-
+extern POINT		g_ptMouse;
 //extern bool         ex_wheelUp;
 //extern bool         ex_wheelDown;
 //extern bool         g_bDXRender;

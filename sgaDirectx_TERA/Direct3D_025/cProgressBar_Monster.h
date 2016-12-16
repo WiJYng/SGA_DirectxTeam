@@ -36,11 +36,20 @@ public:
 	virtual void Render();
 	virtual void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
+	void SetHp(float value){ m_nHp = value; }
+	float GetHp(){ return m_nHp; }
+
+	void SetHpMax(float value){ m_nHpMax = value; }
+	float GetHpMax(){ return m_nHpMax; }
+
 	void SetX(float value){ m_fX = value; }
 	float GetX(){ return m_fX; }
 
 	void SetY(float value){ m_fY = value; }
 	float GetY(){ return m_fY; }
+
+	void SetIsDeath(bool value){ m_bDeath = value; }
+	float GetIsDeath(){ return m_bDeath; }
 
 };
 
