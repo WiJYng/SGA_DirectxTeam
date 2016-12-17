@@ -118,7 +118,7 @@ void cLoadingScene::Scene_Render1()
 
 	//텍스트
 	//LPD3DXFONT pFont = g_pFontManager->GetFont(cFontManager::E_CHAT);
-	char szTemp[1024];
+	//char szTemp[1024];
 	RECT rc;
 	SetRect(&rc, 120, 75, 121, 101);
 	//sprintf(szTemp, "현재 %d 로딩중..../전체 %d", m_rowCount, MAXROWCOUNT * MAXROWCOUNT);
