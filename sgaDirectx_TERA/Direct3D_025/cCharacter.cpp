@@ -179,7 +179,16 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 				if (!renderObjects[i]->pSkinned) continue;
 				renderObjects[i]->pSkinned->Play("Dash", 0.3f);
 				renderObjects[i]->pSkinned->SetPlaySpeed(0.75);
+				//SOUND_MGR->play("RunS");
 			}
+		}
+		if (renderObjects[0]->pSkinned->GetFactor() <= 0.03)
+		{
+			SOUND_MGR->play("RS", 0.1);
+		}
+		if (renderObjects[0]->pSkinned->GetFactor() > 0.50 && renderObjects[0]->pSkinned->GetFactor() <= 0.53)
+		{
+			SOUND_MGR->play("RS", 0.1);
 		}
 	}
 
@@ -197,7 +206,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 					renderObjects[i]->pSkinned->PlayOneShot("Combo1", 0.3f);
 					renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
 				}
-				CharPlaySound(rand() % 16);
+				CharPlaySound(rand() % 10);
+				SOUND_MGR->play("ATT_S01", 0.4);
 			}
 		}
 		else
@@ -213,7 +223,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 						renderObjects[i]->pSkinned->PlayOneShot("Combo2", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
 					}
-					CharPlaySound(rand() % 16);
+					CharPlaySound(rand() % 10);
+					SOUND_MGR->play("ATT_S02", 0.4);
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
 				else if (m_tState == Combo2 || m_tState == Rapid2)
@@ -225,7 +236,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 						renderObjects[i]->pSkinned->PlayOneShot("Combo3", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
 					}
-					CharPlaySound(rand() % 16);
+					CharPlaySound(rand() % 5);
+					SOUND_MGR->play("ATT_S03", 0.4);
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
 				else if (m_tState == Combo3 || m_tState == Rapid3)
@@ -237,7 +249,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 						renderObjects[i]->pSkinned->PlayOneShot("Combo4", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
 					}
-					CharPlaySound(rand() % 16);
+					CharPlaySound(rand() % 10);
+					SOUND_MGR->play("ATT_S04", 0.4);
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
 			}
@@ -258,7 +271,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 					renderObjects[i]->pSkinned->PlayOneShot("Rapid1", 0.3f);
 					renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
 				}
-				CharPlaySound(rand() % 16);
+				CharPlaySound(rand() % 10);
 			}
 		}
 		else
@@ -274,7 +287,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 						renderObjects[i]->pSkinned->PlayOneShot("Rapid2", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
 					}
-					CharPlaySound(rand() % 16);
+					CharPlaySound(rand() % 10);
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
 				else if (m_tState == Rapid2 || m_tState == Combo2)
@@ -286,7 +299,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 						renderObjects[i]->pSkinned->PlayOneShot("Rapid3", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
 					}
-					CharPlaySound(rand() % 16);
+					CharPlaySound((rand() % 6) + 5);
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
 			}
@@ -376,70 +389,71 @@ D3DXVECTOR3 cCharacter::GetWorldPosition()
 
 void cCharacter::CharPlaySound(int n)
 {
+	float SoundV = 0.4;
 	switch (n)
 	{
 	case 0:
-		SOUND_MGR->play("ATT_01");
+		SOUND_MGR->play("ATT_01", SoundV);
 		break;
 
 	case 1:
-		SOUND_MGR->play("ATT_02");
+		SOUND_MGR->play("ATT_02", SoundV);
 		break;
 
 	case 2:
-		SOUND_MGR->play("ATT_03");
+		SOUND_MGR->play("ATT_03", SoundV);
 		break;
 
 	case 3:
-		SOUND_MGR->play("ATT_04");
+		SOUND_MGR->play("ATT_04", SoundV);
 		break;
 
 	case 4:
-		SOUND_MGR->play("ATT_05");
+		SOUND_MGR->play("ATT_05", SoundV);
 		break;
 
 	case 5:
-		SOUND_MGR->play("ATT_06");
+		SOUND_MGR->play("ATT_06", SoundV);
 		break;
 
 	case 6:
-		SOUND_MGR->play("ATT_07");
+		SOUND_MGR->play("ATT_07", SoundV);
 		break;
 
 	case 7:
-		SOUND_MGR->play("ATT_08");
+		SOUND_MGR->play("ATT_08", SoundV);
 		break;
 
 	case 8:
-		SOUND_MGR->play("ATT_09");
+		SOUND_MGR->play("ATT_09", SoundV);
 		break;
 
 	case 9:
-		SOUND_MGR->play("ATT_10");
+		SOUND_MGR->play("ATT_10", SoundV);
 		break;
 
 	case 10:
-		SOUND_MGR->play("ATT_11");
+		SOUND_MGR->play("ATT_11", SoundV);
 		break;
 
 	case 11:
-		SOUND_MGR->play("ATT_12");
+		SOUND_MGR->play("ATT_12", SoundV);
 		break;
 
 	case 12:
-		SOUND_MGR->play("ATT_13");
+		SOUND_MGR->play("ATT_13", SoundV);
 		break;
 
 	case 13:
-		SOUND_MGR->play("ATT_14");
+		SOUND_MGR->play("ATT_14", SoundV);
 		break;
 
 	case 14:
-		SOUND_MGR->play("ATT_15");
+		SOUND_MGR->play("ATT_15", SoundV);
 		break;
 
 	case 15:
-		SOUND_MGR->play("ATT_16");
+		SOUND_MGR->play("ATT_16", SoundV);
 		break;
 	}
 }

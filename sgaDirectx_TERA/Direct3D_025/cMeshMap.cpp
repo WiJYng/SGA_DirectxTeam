@@ -82,7 +82,7 @@ void cMeshMap::RenderToTerrian()
 	vecToTerrian.reserve(verNum);
 
 	//정점 Element 를 얻어 정점 정보를 얻자
-	D3DVERTEXELEMENT9 pVerElement[MAX_FVF_DECL_SIZE];
+	//D3DVERTEXELEMENT9 pVerElement[MAX_FVF_DECL_SIZE];
 	DWORD verSize = D3DXGetFVFVertexSize(m->GetMesh()->GetFVF());
 
 	void* p = NULL;
