@@ -286,7 +286,7 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 	if (fRanderTime < 11.0f && bDeath)
 	{
 		fRanderTime += (0.1);
-		LOG_MGR->AddLog("%.2f", fRanderTime);
+		//LOG_MGR->AddLog("%.2f", fRanderTime);
 	}
 
 
