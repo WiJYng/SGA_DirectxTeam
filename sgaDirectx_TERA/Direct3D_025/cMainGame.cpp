@@ -104,6 +104,7 @@ void cMainGame::Update()
 
 	//씬업데이트
 	SCENE_MGR->Update( timeDelta );
+	SOUND_MGR->Update();
 }
 
 //드로우
