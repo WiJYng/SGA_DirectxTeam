@@ -214,6 +214,11 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 				weaponPos.y += 0.03;
 				pEnemySkillEff->PlayEffect(ENEMY_ATTACK_01, weaponPos);
 			}
+
+			if (renderObjects[0]->pSkinned->GetFactor() <= 0.01)
+			{
+				//몬스터 공격 사운드 플레이
+			}
 		}
 	}
 	else if (m_State == Death && !bDeath)
@@ -259,6 +264,8 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 			m_State = Death;
 			bStun = true;
 			bWait = bRun = bAtt = false;
+			//몬스터 죽는 사운드
+
 		}
 	}
 
