@@ -264,6 +264,9 @@
     <ClInclude Include="cSoundManager.h">
       <Filter>Managers</Filter>
     </ClInclude>
+    <ClInclude Include="cAudioFile.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -478,6 +481,9 @@
     </ClCompile>
     <ClCompile Include="cSoundManager.cpp">
       <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="cAudioFile.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

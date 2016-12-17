@@ -16,6 +16,7 @@ class cLocationEffect;
 
 class cTickFunc;
 class cVideo;
+class cAudioFile;
 
 #define ENEMYMAX	25
 #define ENEMYMAX_1	100
@@ -58,6 +59,7 @@ private:
 
 	cLocationEffect*					pLocationEffect;
 
+	cAudioFile*							m_pAudioFile;
 	//bool								soundStartTest;
 
 public:
