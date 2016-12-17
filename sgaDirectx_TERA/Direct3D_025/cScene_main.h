@@ -12,8 +12,7 @@ class cProgressBar_Boss;
 
 class cPlayerUI;
 class cPlayerSkillEffect;
-
-class cBossEffect;
+class cLocationEffect;
 
 class cTickFunc;
 class cVideo;
@@ -57,7 +56,7 @@ private:
 	int									DeathCount;
 	bool								bDraw;
 
-	cBossEffect*						effTest;
+	cLocationEffect*					pLocationEffect;
 
 	//bool								soundStartTest;
 

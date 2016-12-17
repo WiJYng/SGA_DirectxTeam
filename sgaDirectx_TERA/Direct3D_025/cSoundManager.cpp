@@ -34,6 +34,11 @@ void cSoundManager::Release(void)
 
 }
 
+void cSoundManager::Update(void)
+{
+	pSystem->update();
+}
+
 
 void cSoundManager::addSound(string keyName, string soundName, bool bgm, bool loop)
 {

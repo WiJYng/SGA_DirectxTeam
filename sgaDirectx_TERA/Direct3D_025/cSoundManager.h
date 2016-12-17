@@ -32,6 +32,7 @@ public:
 	~cSoundManager(void);
 
 	HRESULT Init(void);
+	void Update(void);
 	void Release(void);
 	
 	void addSound(string keyName, string soundName, bool bgm, bool loop);
