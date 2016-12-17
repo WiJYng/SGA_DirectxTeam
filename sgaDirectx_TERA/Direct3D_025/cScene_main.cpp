@@ -19,6 +19,7 @@
 
 #include "cPlayerSkillEffect.h"
 #include "cBossEffect.h"
+#include "cLocationEffect.h"
 
 
 cScene_main::cScene_main()
@@ -116,8 +117,8 @@ HRESULT cScene_main::Scene_Init()
 	pPlayerSkillEff = new cPlayerSkillEffect;
 	pPlayerSkillEff->Setup();
 
-	//effTest = new cBossEffect;
-	//effTest->Setup();
+	pLocationEffect = new cLocationEffect;
+	pLocationEffect->Setup(); 
 
 
 	bDraw = false;
@@ -156,8 +157,8 @@ void cScene_main::Scene_Release()
 void cScene_main::Scene_Update(float timDelta)
 {
 	//¹è°æÀ½¾Ç
-	if (!SOUND_MGR->isPlaySound("BGM_01"))
-		SOUND_MGR->play("BGM_01", 0.5f);
+	//if (!SOUND_MGR->isPlaySound("BGM_01"))
+	//	SOUND_MGR->play("BGM_01", 0.5f);
 
 
 	pPlayerUI->Update();
@@ -316,6 +317,12 @@ void cScene_main::Scene_Update(float timDelta)
 
 	//½ºÅ³ÀÌÆåÆ®
 	pPlayerSkillEff->Update(timDelta);
+	pLocationEffect->Update(timDelta);
+
+	if (KEY_MGR->IsOnceDown(VK_SPACE))
+	{
+		pLocationEffect->PlayEffect(LOCATION_ARROW_01, pPlayer->GetWorldPosition());
+	}
 
 	//this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->m_pRootTrans->GetWorldPosition().x + 5, pPlayer->m_pRootTrans->GetWorldPosition().y + 5, pPlayer->m_pRootTrans->GetWorldPosition().z + 1));
 	this->pMainCamera->DefaultControl4(timDelta, pPlayer->m_pRootTrans); //¡Ú
@@ -437,8 +444,9 @@ void cScene_main::Scene_Render1()
 	if (pPlayerSkillEff)
 		pPlayerSkillEff->Render();
 
-	//if (effTest)
-	//	effTest->Render();
+	if (pLocationEffect)
+		pLocationEffect->Render();
+
 
 	
 
