@@ -4,7 +4,7 @@
 class cLocationEffect : public cEffect
 {
 private:
-	VEC_MESH		m_vecMesh;
+	vector<cBaseObject*>		m_vecMesh;
 
 public:
 	cLocationEffect();
@@ -17,5 +17,6 @@ public:
 
 private:
 	void InitLocationEffect();
+	void LocationEffect(int idx, D3DXVECTOR3 pos);
 };
 

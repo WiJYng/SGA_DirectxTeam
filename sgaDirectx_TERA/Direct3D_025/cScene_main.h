@@ -80,5 +80,8 @@ public:
 	void MonsterSetup();
 	void MonsterAttack(float timDelta);
 	void MonsterRender();
+
+private:
+	void InitSoundResource();
 };
 

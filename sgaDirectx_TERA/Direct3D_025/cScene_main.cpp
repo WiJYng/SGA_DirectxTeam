@@ -122,6 +122,9 @@ HRESULT cScene_main::Scene_Init()
 	bDraw = false;
 	pPlayerUI->SetKillNum(0);
 
+	//Sound Loading
+	InitSoundResource();
+
 	return S_OK;
 }
 
@@ -920,4 +923,13 @@ void cScene_main::MonsterRender()
 			}
 		}
 	}
+}
+
+
+void cScene_main::InitSoundResource()
+{
+	//SOUND_MGR->addSound("name", "mp3", true, true);
+
+
+
 }
