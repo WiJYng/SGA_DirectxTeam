@@ -79,7 +79,8 @@ void cSoundManager::play(string keyName, float volume)
 	{
 		if (keyName == iter->first)
 		{
-			pSystem->playSound(FMOD_CHANNEL_FREE, pSound[count], false, &pChannel[count]);
+			//pSystem->playSound(FMOD_CHANNEL_FREE, pSound[count], false, &pChannel[count]);
+			pSystem->playSound(FMOD_CHANNEL_FREE, *iter->second, false, &pChannel[count]);
 
 			pChannel[count]->setVolume(volume);
 			break;

@@ -989,17 +989,16 @@ void cScene_main::InitSoundResource()
 	//SOUND_MGR->addSound("ATT_S04", "./Tera/Audio/Player/Skill/Warrior_Attack_03.ogg", false, false);
 	SOUND_MGR->addSound("ATT_S04", "./Tera/Audio/Player/Skill/Attack_04.ogg", false, false);
 
-	//배경음악을 맨 마지막에 넣어야 제대로 재생이 됨. 이유는 모르겠음
-	SOUND_MGR->addSound("BGM_01", "./Tera/Audio/Tricksome.mp3", true, true);
-	
 	SOUND_MGR->addSound("RAPID_01", "./Tera/Audio/Player/Skill/Rapid_01.ogg", false, false);
 	SOUND_MGR->addSound("RAPID_02", "./Tera/Audio/Player/Skill/Rapid_02.ogg", false, false);
 	SOUND_MGR->addSound("RAPID_03", "./Tera/Audio/Player/Skill/Warrior_RivalDancing_00.ogg", false, false);
 	SOUND_MGR->addSound("RAPID_04", "./Tera/Audio/Player/Skill/Warrior_RivalDancing_01.ogg", false, false);
 
 	//몬스터
-	//SOUND_MGR->addSound("BossAttack_01", "./Tera/Audio/Boss/DrownedSailor_Atk06.ogg", false, false);
+	SOUND_MGR->addSound("BossAttack_01", "./Tera/Audio/Boss/DrownedSailor_Atk06.ogg", false, false);
 	
 	SOUND_MGR->addSound("RS", "./Tera/Audio/Player/PCStep_Dirt_RS_01.ogg", false, false);
-
+	
+	
+	SOUND_MGR->addSound("BGM_01", "./Tera/Audio/Tricksome.mp3", true, true);
 }
