@@ -4,7 +4,7 @@
 class cLocationEffect : public cEffect
 {
 private:
-
+	VEC_MESH		m_vecMesh;
 
 public:
 	cLocationEffect();
