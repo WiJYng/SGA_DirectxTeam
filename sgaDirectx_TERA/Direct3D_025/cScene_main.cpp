@@ -73,6 +73,7 @@ HRESULT cScene_main::Scene_Init()
 	m_pBossVideo = new cVideo;
 	m_pBossVideo->Init();
 	m_bBossVideoPlay = false;
+	m_bBossVideoEnd = false;
 
 	//보스몬스터UI 테스트 //20161207 승현추가
 	//pProgressBar_Boss = new cProgressBar_Boss();
@@ -337,17 +338,30 @@ void cScene_main::Scene_Update(float timDelta)
 		{	
 			m_bBossVideoPlay = true;
 			g_bRender = false;
-			m_pBossVideo->Play("./Video/Trailer.wmv");
+			m_pBossVideo->Play("./Video/Boss.wmv");
 			pPlayerUI->SetBossMeet(true);
 			//m_bBossVideoPlay = false;
 		}
 		pPlayerUI->SetKillNum(-1);
 	}
 
+	if (!m_pBossVideo->GetIsPlay())
+	{
+		//LOG_MGR->AddLog("끝");
+		if (!m_bBossVideoEnd)
+		{
+			g_bRender = true;
+			m_pBossVideo->Stop();
+			pPlayerUI->SetBossMeet(true);
+			pBoss->SetUIon(true);
+			m_bBossVideoEnd = true;
+		}
+	}
+
 	if (KEY_MGR->IsOnceDown('1'))
 	{
 		g_bRender = false;
-		m_pBossVideo->Play("./Video/Trailer.wmv");
+		m_pBossVideo->Play("./Video/Boss.wmv");
 	}
 	if (KEY_MGR->IsOnceDown('2'))
 	{
@@ -355,6 +369,7 @@ void cScene_main::Scene_Update(float timDelta)
 		m_pBossVideo->Stop();
 		pPlayerUI->SetBossMeet(true);
 		pBoss->SetUIon(true);
+		m_bBossVideoEnd = true;
 	}
 
 	//if (KEY_MGR->IsStayDown('0'))
