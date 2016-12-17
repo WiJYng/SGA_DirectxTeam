@@ -14,5 +14,8 @@ public:
 	void Update(float _delta) override;
 	void Render() override;
 	void PlayEffect(EFFECT_NAME _Name, D3DXVECTOR3 pos) override;
+
+private:
+	void InitLocationEffect();
 };
 
