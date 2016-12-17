@@ -133,7 +133,6 @@ HRESULT cScene_main::Scene_Init()
 	pPlayerUI->SetKillNum(0);
 
 	
-
 	SOUND_MGR->play("BGM_01", 0.3f);
 	return S_OK;
 }
@@ -327,10 +326,10 @@ void cScene_main::Scene_Update(float timDelta)
 	pPlayerSkillEff->Update(timDelta);
 	pLocationEffect->Update(timDelta);
 
-	if (KEY_MGR->IsOnceDown(VK_SPACE))
-	{
-		pLocationEffect->PlayEffect(LOCATION_ARROW_01, pPlayer->GetWorldPosition());
-	}
+	//if (KEY_MGR->IsOnceDown(VK_SPACE))
+	//{
+	//	pLocationEffect->PlayEffect(LOCATION_ARROW_01, pPlayer->GetWorldPosition());
+	//}
 
 	//this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->m_pRootTrans->GetWorldPosition().x + 5, pPlayer->m_pRootTrans->GetWorldPosition().y + 5, pPlayer->m_pRootTrans->GetWorldPosition().z + 1));
 	this->pMainCamera->DefaultControl4(timDelta, pPlayer->m_pRootTrans); //★
@@ -995,10 +994,15 @@ void cScene_main::InitSoundResource()
 	SOUND_MGR->addSound("RAPID_04", "./Tera/Audio/Player/Skill/Warrior_RivalDancing_01.ogg", false, false);
 
 	//몬스터
-	SOUND_MGR->addSound("BossAttack_01", "./Tera/Audio/Boss/DrownedSailor_Atk06.ogg", false, false);
+	SOUND_MGR->addSound("M_ATT_01", "./Tera/Audio/Monster/KalanHeavyWarrior_Atk04.ogg", false, false);
+	SOUND_MGR->addSound("M_DEATH", "./Tera/Audio/Monster/KalanHeavyWarrior_Death.ogg", false, false);
+
+	//보스
+	SOUND_MGR->addSound("B_ATT_01", "./Tera/Audio/Boss/DrownedSailor_Atk06.ogg", false, false);
+	SOUND_MGR->addSound("B_ATT_02", "./Tera/Audio/Boss/DrownedSailor_Atk01.ogg", false, false);
+	SOUND_MGR->addSound("B_ATT_03", "./Tera/Audio/Boss/DrownedSailor_Atk03.ogg", false, false);
+	SOUND_MGR->addSound("B_DEATH", "./Tera/Audio/Boss/DrownedSailor_Death.ogg", false, false);
 	
 	SOUND_MGR->addSound("RS", "./Tera/Audio/Player/PCStep_Dirt_RS_01.ogg", false, false);
-	
-	
 	SOUND_MGR->addSound("BGM_01", "./Tera/Audio/Tricksome.mp3", true, true);
 }

@@ -218,6 +218,7 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 			if (renderObjects[0]->pSkinned->GetFactor() <= 0.01)
 			{
 				//몬스터 공격 사운드 플레이
+				SOUND_MGR->play("M_ATT_01");
 			}
 		}
 	}
@@ -265,7 +266,7 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 			bStun = true;
 			bWait = bRun = bAtt = false;
 			//몬스터 죽는 사운드
-
+			SOUND_MGR->play("M_DEATH");
 		}
 	}
 
