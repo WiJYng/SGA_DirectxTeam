@@ -28,6 +28,7 @@ private:
 
 	cVideo*								m_pBossVideo;
 	bool								m_bBossVideoPlay;
+	bool								m_bBossVideoEnd;
 
 	std::vector<cBaseObject*>			renderObjects;			//씬에 배치된 랜더 오브젝트 배열
 	std::vector<cBaseObject*>			cullObjects;			//컬링된 오브젝트
