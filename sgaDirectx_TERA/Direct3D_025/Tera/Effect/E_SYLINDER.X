@@ -120,7 +120,7 @@ Material Multimaterial_ARG003_MatSub0 {
  0.000000;0.000000;0.000000;;
 
  TextureFilename {
-  "E_WALL.png";
+  "B_Text002_emis.tga";
  }
 }
 
