@@ -208,6 +208,8 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 			m_State = Death;
 			bStun = true;
 			bWait = bRun = bAtt = false;
+			//보스 죽는 사운드
+
 		}
 	}
 	
@@ -272,6 +274,7 @@ void cBoss::AttackFuntion(float timDelta, cMeshMap* _Map)
 		}
 		if (renderObjects[0]->pSkinned->GetFactor() <= 0.01)
 		{
+			//보스 공격 사운드 1
 			SOUND_MGR->play("BossAttack_01");
 		}
 	}
@@ -286,6 +289,8 @@ void cBoss::AttackFuntion(float timDelta, cMeshMap* _Map)
 			m_nCount++;
 
 			bEffectOn = false;
+			//보스 공격 사운드 2
+			
 		}
 		int a = 0;
 	}
@@ -299,9 +304,9 @@ void cBoss::AttackFuntion(float timDelta, cMeshMap* _Map)
 			bAtt = true;
 			bWait = bRun = false;
 			m_nCount++;
-		}
+			//보스 송격 사운드 3
 
-		
+		}
 	}
 
 	if (m_nCount % 5 == 0)
