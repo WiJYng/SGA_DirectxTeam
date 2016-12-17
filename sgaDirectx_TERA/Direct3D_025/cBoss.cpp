@@ -98,9 +98,10 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 	float dist = D3DXVec3Length(&dirToTarget);
 	dirToTarget.y = 0;
 	
+	Targetdir = dirToTarget;
 	//float angle = CalcAngle(_PlayerPos, &renderObjects[0]->pTransform->GetWorldPosition());
 	
-	if (m_State != Stun && m_State != Death && m_State != DeathWait && dist <= 15.0f)
+	if (m_State != Stun && m_State != Death && m_State != DeathWait && dist <= 15.0f && m_State != Attack)
 	{
 		//¹æÇâÀ» ±¸ÇÑ´Ù.
 		D3DXVec3Normalize(&dirToTarget, &dirToTarget);
@@ -117,7 +118,7 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 			//LOG_MGR->AddLog("%.2f, %d", angle * 180 / 3.14, m_nIndex);
 		}
 	
-	
+		
 	
 		D3DXVECTOR3 lerp = renderObjects[0]->pTransform->GetForward();
 		D3DXVec3Lerp(&lerp, &lerp, &dirToTarget, 0.2);
@@ -152,7 +153,7 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 				m_nCount = 0;
 			}
 		}
-		else if (dist <= 10.0f && dist > 2.75f)
+		else if (dist <= 10.0f && dist > 3.0f)
 		{
 			if (m_State != Run && !bRun)
 			{
@@ -166,7 +167,7 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 			renderObjects[0]->pTransform->MovePositionWorld(renderObjects[0]->pTransform->GetForward()*timDelta);
 	
 		}
-		else if (dist <= 2.75f && dist > 0.0f)
+		else if (dist <= 3.0f && dist > 0.0f)
 		{
 			if (m_State != Attack && !bAtt)
 			{
@@ -176,6 +177,7 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 				bAtt = true;
 				bWait = bRun = bWait = false;
 				//m_nCount++;
+				SOUND_MGR->play("B_ATT_01");
 			}
 			else if (m_State == Attack)
 			{
@@ -210,6 +212,8 @@ void cBoss::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3 * _PlayerPos)
 			bWait = bRun = bAtt = false;
 			//º¸½º Á×´Â »ç¿îµå
 			SOUND_MGR->play("B_DEATH");
+			SOUND_MGR->stop("BGM_02");
+			SOUND_MGR->play("BGM_03");
 		}
 	}
 	
@@ -248,8 +252,8 @@ void cBoss::Render()
 
 	//effect 
 	if (pBossEffect) pBossEffect->Render();
-	//renderObjects[0]->BoundBox.RenderGizmo(pMonTrans);
-	//renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);
+	if(g_bBox)renderObjects[0]->BoundBox.RenderGizmo(pMonTrans);
+	if(g_bBox)renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);
 }
 
 void cBoss::AttackFuntion(float timDelta, cMeshMap* _Map)
@@ -323,7 +327,7 @@ void cBoss::AttackFuntion(float timDelta, cMeshMap* _Map)
 				pos.y = _Map->GetHeight(pos.x, pos.z) + 0.1;
 				pBossEffect->PlayEffect(BOSS_ATTACK_GROUND, pos);
 
-				LOG_MGR->AddLog("ÄíÄâÄç!");
+				//LOG_MGR->AddLog("ÄíÄâÄç!");
 				bEffectOn = true;
 			}
 			
@@ -353,5 +357,29 @@ void cBoss::AttackFuntion(float timDelta, cMeshMap* _Map)
 
 		renderObjects[0]->BoundBox01.GetWorldCenterRadius(pWeaponTrans, &pos, &fTemp);
 		pBossEffect->PlayEffect(BOSS_ATTACK,pos);
+	}
+
+	if (renderObjects[0]->pSkinned->GetFactor() <= 0.3)
+	{
+		//¹æÇâÀ» ±¸ÇÑ´Ù.
+		D3DXVec3Normalize(&Targetdir, &Targetdir);
+		Targetdir.y = 0;
+		D3DXVECTOR3 forward = renderObjects[0]->pTransform->GetForward();
+		forward.y = 0;
+		D3DXVec3Normalize(&forward, &forward);
+
+		float angle = acosf(D3DXVec3Dot(&Targetdir, &forward));
+		if (angle >= 90 * ONE_RAD)
+		{
+			renderObjects[0]->pTransform->RotateSelf(0, 5 * ONE_RAD, 0);
+
+			//LOG_MGR->AddLog("%.2f, %d", angle * 180 / 3.14, m_nIndex);
+		}
+
+
+
+		D3DXVECTOR3 lerp = renderObjects[0]->pTransform->GetForward();
+		D3DXVec3Lerp(&lerp, &lerp, &Targetdir, 0.2);
+		renderObjects[0]->pTransform->LookDirection(lerp, renderObjects[0]->pTransform->GetUp());
 	}
 }

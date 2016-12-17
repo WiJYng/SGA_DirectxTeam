@@ -33,6 +33,7 @@ private:
 	int									m_nCount;
 
 	cTickFunc*							m_pTick[3];
+	D3DXVECTOR3 Targetdir;
 
 public:
 	cTransform*							pWeaponTrans;

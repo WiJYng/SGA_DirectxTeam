@@ -15,8 +15,11 @@ cStartScene::~cStartScene()
 
 HRESULT cStartScene::Scene_Init()
 {
+	g_CursorImgType = 0;
 	g_bRender = true;
+	SOUND_MGR->addSound("StartBGM", "./Tera/Audio/PoraEllinu.ogg", true, true);
 
+	SOUND_MGR->play("StartBGM");
 	//텍스쳐파일셋팅
 	D3DXCreateTextureFromFileEx(
 		Device, "Tera/UI/StartScene/openingImage.tga",
@@ -35,8 +38,10 @@ void cStartScene::Scene_Release()
 }
 void cStartScene::Scene_Update(float timDelta)
 {
+	g_CursorImgType = 0;
 	if (KEY_MGR->IsOnceDown(VK_LBUTTON))
 	{
+		SOUND_MGR->stop("StartBGM");
 		SCENE_MGR->ChangeSceneWithLoading("InGame", "로딩씬", 1, 1);
 	}
 }

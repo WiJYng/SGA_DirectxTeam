@@ -215,10 +215,10 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 				pEnemySkillEff->PlayEffect(ENEMY_ATTACK_01, weaponPos);
 			}
 
-			if (renderObjects[0]->pSkinned->GetFactor() <= 0.01)
+			if (renderObjects[0]->pSkinned->GetFactor() >= 0.15 && renderObjects[0]->pSkinned->GetFactor() < 0.17)
 			{
 				//몬스터 공격 사운드 플레이
-				SOUND_MGR->play("M_ATT_01");
+				SOUND_MGR->play("M_ATT_01", 0.2);
 			}
 		}
 	}
@@ -265,8 +265,9 @@ void cEnemy::Update(float timDelta, cMeshMap * _Map, D3DXVECTOR3* _PlayerPos)
 			m_State = Death;
 			bStun = true;
 			bWait = bRun = bAtt = false;
+			m_fHP = 0;
 			//몬스터 죽는 사운드
-			SOUND_MGR->play("M_DEATH");
+			SOUND_MGR->play("M_DEATH", 0.2);
 		}
 	}
 
@@ -318,8 +319,8 @@ void cEnemy::Render()
 		renderObjects[0]->Render();
 		
 	}
-	//renderObjects[0]->BoundBox.RenderGizmo(pMonTrans);
-	//renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);
+	if(g_bBox)renderObjects[0]->BoundBox.RenderGizmo(pMonTrans);
+	if(g_bBox)renderObjects[0]->BoundBox01.RenderGizmo(pWeaponTrans);
 	//renderObjects[0]->pTransform->RenderGimozo();
 	//m_pBB->RenderGizmo(pWeaponTrans);
 

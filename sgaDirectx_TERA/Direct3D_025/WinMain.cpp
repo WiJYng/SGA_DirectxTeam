@@ -12,7 +12,8 @@ HINSTANCE	g_hInst;	//프로그램 인스턴스 핸들 ( OS 가 부여한 프로그램 번호 )
 int			g_Wheel = 0;
 bool		g_bRender = false;
 POINT		g_ptMouse;
-
+int			g_CursorImgType =0;
+bool		g_bBox = false;
 //메인 게임 객체
 cMainGame	g_MainGame;
 

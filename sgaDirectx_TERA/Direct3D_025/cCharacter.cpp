@@ -382,9 +382,9 @@ void cCharacter::Render(cLight_Direction* pDirLight)
 	{
 		renderObjects[i]->Render();
 	}
-	//renderObjects[0]->BoundBox.RenderGizmo(m_pRootTrans);
-	//renderObjects[4]->BoundBox.RenderGizmo(m_pRWeaponTrans);
-	//renderObjects[5]->BoundBox.RenderGizmo(m_pLWeaponTrans);
+	if(g_bBox)renderObjects[0]->BoundBox.RenderGizmo(m_pRootTrans);
+	if(g_bBox)renderObjects[4]->BoundBox.RenderGizmo(m_pRWeaponTrans);
+	if(g_bBox)renderObjects[5]->BoundBox.RenderGizmo(m_pLWeaponTrans);
 }
 
 void cCharacter::SetWorldPosition(D3DXVECTOR3 pos)

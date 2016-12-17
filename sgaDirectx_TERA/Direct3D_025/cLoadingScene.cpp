@@ -28,6 +28,7 @@ cLoadingScene::~cLoadingScene()
 
 HRESULT cLoadingScene::Scene_Init()
 {
+	g_CursorImgType = 1;
 	g_bRender = true;
 
 	//¹è°æ
@@ -72,11 +73,12 @@ void cLoadingScene::Scene_Release()
 }
 void cLoadingScene::Scene_Update(float timDelta)
 {
+	g_CursorImgType = 1;
 	if (KEY_MGR->IsOnceDown(VK_LBUTTON))
 	{
 		//SCENE_MGR->ChangeScene("Trailer");
 	}
-
+	
 	SetRect(&m_rcLB_front, 200, 200, m_LBfront_ImgInfo.Width + 200, m_LBfront_ImgInfo.Height + 200);
 }
 void cLoadingScene::Scene_Render1()

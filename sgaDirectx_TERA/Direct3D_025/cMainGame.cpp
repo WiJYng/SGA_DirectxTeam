@@ -45,7 +45,7 @@ HRESULT cMainGame::Init(void)
 	SCENE_MGR->AddLoadingScene( "로딩씬", new cScene_02() );
 
 	//게임 시작씬
-	SCENE_MGR->ChangeScene( "InGame" );
+	SCENE_MGR->ChangeScene( "Trailer" );
 	
 	//return E_FAIL;
 	return S_OK;		
@@ -159,11 +159,25 @@ void cMainGame::Draw()
 //메인 프로시져 함수
 LRESULT cMainGame::MainProc( HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam )
 {
+	HCURSOR hcur;
 	switch( iMessage )
 	{	
 	case WM_MOUSEMOVE:
 		g_ptMouse.x = LOWORD(lParam);
 		g_ptMouse.y = HIWORD(lParam);
+
+		//if (g_CursorImgType == 0) //기본
+		//{
+		//	hcur = LoadCursorFromFile("Tera/UI/Mouse/Arrow.cur");
+		//	SetCursor(hcur);
+		//}
+		//else if (g_CursorImgType == 1) //로딩
+		//{
+		//	hcur = LoadCursorFromFile("Tera/UI/Mouse/Loading.ani");
+		//	SetCursor(hcur);
+		//}
+
+		break;
 	case WM_MOUSEWHEEL:
 		g_Wheel = (short)HIWORD(wParam);
 		break;

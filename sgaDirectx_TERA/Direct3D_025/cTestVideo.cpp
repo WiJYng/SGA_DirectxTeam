@@ -44,7 +44,7 @@ void cTestVideo::Scene_Update(float timeDelta)
 	{
 		m_pVideo->Replay();
 	}
-	if (KEY_MGR->IsOnceDown('3'))
+	if (KEY_MGR->IsOnceDown(VK_RETURN))
 	{
 		g_bRender = true;
 		SCENE_MGR->ChangeScene("StartScene");

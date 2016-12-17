@@ -40,6 +40,7 @@ HRESULT cScene_main::Scene_Init()
 	m_pAudioFile = new cAudioFile;
 	m_pAudioFile->Setup();
 
+	g_CursorImgType = 0;
 	g_bRender = true;
 
 	SCENE_MGR->fProgress = 40.0f;
@@ -76,8 +77,8 @@ HRESULT cScene_main::Scene_Init()
 
 	//보스
 	pBoss = new cBoss();
-	//pBoss->Setup("./Tera/Monster/Drowned.X", &D3DXVECTOR3(-120.f, -15.0f, 76.0f));
-	pBoss->Setup("./Tera/Monster/Drowned.X", &D3DXVECTOR3(70.0f, 0.0f, 65.0f));
+	pBoss->Setup("./Tera/Monster/Drowned.X", &D3DXVECTOR3(-120.f, -15.0f, 76.0f));
+	//pBoss->Setup("./Tera/Monster/Drowned.X", &D3DXVECTOR3(70.0f, 0.0f, 65.0f));
 	
 	m_pBossVideo = new cVideo;
 	m_pBossVideo->Init();
@@ -130,10 +131,10 @@ HRESULT cScene_main::Scene_Init()
 
 
 	bDraw = false;
-	pPlayerUI->SetKillNum(0);
+	//pPlayerUI->SetKillNum(0);
 
 	
-	SOUND_MGR->play("BGM_01", 0.3f);
+	SOUND_MGR->play("BGM_01", 0.5f);
 	return S_OK;
 }
 
@@ -163,6 +164,9 @@ void cScene_main::Scene_Release()
 
 void cScene_main::Scene_Update(float timDelta)
 {
+	//마우스
+	g_CursorImgType = 0;
+
 	//배경음악
 	//if (!SOUND_MGR->isPlaySound("BGM_01"))
 	//	SOUND_MGR->play("BGM_01", 0.3f);
@@ -296,13 +300,13 @@ void cScene_main::Scene_Update(float timDelta)
 	if (bDraw == true)
 	{
 		//if (this->pMainCamera->Frustum.IsInFrustum(pBoss->GetBaseObject()[0]))
-			pBoss->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
+		pBoss->Update(timDelta, pEntireMap->GetMap(), &pPlayer->GetWorldPosition());
 	}
-	
+
 
 	//20161206승현 getMap으로 바꾸기
 	pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta, pEntireMap->GetMap());
-	
+
 	if (pPlayer->GetIsAttack())
 	{
 		PlayerAttack(timDelta);
@@ -333,36 +337,39 @@ void cScene_main::Scene_Update(float timDelta)
 
 	//this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->m_pRootTrans->GetWorldPosition().x + 5, pPlayer->m_pRootTrans->GetWorldPosition().y + 5, pPlayer->m_pRootTrans->GetWorldPosition().z + 1));
 	this->pMainCamera->DefaultControl4(timDelta, pPlayer->m_pRootTrans); //★
-	
+
 	//this->pMainCamera->ShakeUpdate(timDelta);
 	//this->pMainCamera->DefaultControl(timDelta); //★
 
 	if (pPlayerUI->getKillNum() == 0)
 	{
 		if (!m_bBossVideoPlay)
-		{	
+		{
 			m_bBossVideoPlay = true;
 			g_bRender = false;
 			m_pBossVideo->Play("./Video/Boss.wmv");
 			pPlayerUI->SetBossMeet(true);
 			//m_bBossVideoPlay = false;
 			SOUND_MGR->stop("BGM_01");
+
 		}
 		pPlayerUI->SetKillNum(-1);
-	}
-
-	if (!m_pBossVideo->GetIsPlay())
-	{
-		//LOG_MGR->AddLog("끝");
-		if (!m_bBossVideoEnd)
+		if (!m_pBossVideo->GetIsPlay())
 		{
-			g_bRender = true;
-			m_pBossVideo->Stop();
-			pPlayerUI->SetBossMeet(true);
-			pBoss->SetUIon(true);
-			m_bBossVideoEnd = true;
+			//LOG_MGR->AddLog("끝");
+			if (!m_bBossVideoEnd)
+			{
+				g_bRender = true;
+				m_pBossVideo->Stop();
+				pPlayerUI->SetBossMeet(true);
+				pBoss->SetUIon(true);
+				m_bBossVideoEnd = true;
+				SOUND_MGR->play("BGM_02", 0.5);
+			}
 		}
 	}
+
+
 
 	if (KEY_MGR->IsOnceDown('1'))
 	{
@@ -376,10 +383,11 @@ void cScene_main::Scene_Update(float timDelta)
 		pPlayerUI->SetBossMeet(true);
 		pBoss->SetUIon(true);
 		m_bBossVideoEnd = true;
+		SOUND_MGR->play("BGM_02", 0.5f);
 	}
 
 	//if (KEY_MGR->IsStayDown('0'))
-	if(pBoss->bS)
+	if (pBoss->bS)
 	{
 		//this->pMainCamera->ShakePos(0.00000000001, 0);
 		this->pMainCamera->ShakeRot(0.01, -1);
@@ -387,9 +395,12 @@ void cScene_main::Scene_Update(float timDelta)
 		this->pMainCamera->ShakeUpdate(timDelta);
 	}
 
+	if (KEY_MGR->IsOnceDown('B'))
+	{
+		g_bBox = !g_bBox;
+	}
 
 }
-
 void cScene_main::Scene_Render1()
 {
 	cXMesh_Static::SetCamera(this->pMainCamera);
@@ -1003,6 +1014,11 @@ void cScene_main::InitSoundResource()
 	SOUND_MGR->addSound("B_ATT_03", "./Tera/Audio/Boss/DrownedSailor_Atk03.ogg", false, false);
 	SOUND_MGR->addSound("B_DEATH", "./Tera/Audio/Boss/DrownedSailor_Death.ogg", false, false);
 	
+	//걷는소리
 	SOUND_MGR->addSound("RS", "./Tera/Audio/Player/PCStep_Dirt_RS_01.ogg", false, false);
+	
+	//배경음
 	SOUND_MGR->addSound("BGM_01", "./Tera/Audio/Tricksome.mp3", true, true);
+	SOUND_MGR->addSound("BGM_02", "./Tera/Audio/Crown_00.ogg", true, true);
+	SOUND_MGR->addSound("BGM_03", "./Tera/Audio/EndBg.mp3", true, true);
 }
