@@ -81,6 +81,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BoneHierachy.h" />
+    <ClInclude Include="cAudioFile.h" />
     <ClInclude Include="cBaseObject.h" />
     <ClInclude Include="cBoss.h" />
     <ClInclude Include="cBossEffect.h" />
@@ -154,6 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoneHierachy.cpp" />
+    <ClCompile Include="cAudioFile.cpp" />
     <ClCompile Include="cBaseObject.cpp" />
     <ClCompile Include="cBoss.cpp" />
     <ClCompile Include="cBossEffect.cpp" />

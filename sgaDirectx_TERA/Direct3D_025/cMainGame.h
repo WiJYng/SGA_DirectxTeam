@@ -3,11 +3,12 @@
 class cImage;			//이런클래스가 있다
 class cScene;
 
+
 class cMainGame
 {
 private:	
 	cScene*					m_pNowScene;
-	
+
 
 public:
 	cMainGame(void);

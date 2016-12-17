@@ -270,6 +270,10 @@ void cBoss::AttackFuntion(float timDelta, cMeshMap* _Map)
 			m_nCount++;
 			//LOG_MGR->AddLog("보스공격1");
 		}
+		if (renderObjects[0]->pSkinned->GetFactor() <= 0.01)
+		{
+			SOUND_MGR->play("BossAttack_01");
+		}
 	}
 	else if (m_nCount % 5 == 3)
 	{

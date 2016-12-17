@@ -21,6 +21,8 @@
 #include "cBossEffect.h"
 #include "cLocationEffect.h"
 
+#include "cAudioFile.h"
+
 
 cScene_main::cScene_main()
 {
@@ -32,6 +34,12 @@ cScene_main::~cScene_main()
 
 HRESULT cScene_main::Scene_Init()
 {
+	//Sound Loading
+	InitSoundResource();
+	
+	m_pAudioFile = new cAudioFile;
+	m_pAudioFile->Setup();
+
 	g_bRender = true;
 
 	SCENE_MGR->fProgress = 40.0f;
@@ -124,9 +132,9 @@ HRESULT cScene_main::Scene_Init()
 	bDraw = false;
 	pPlayerUI->SetKillNum(0);
 
-	//Sound Loading
-	InitSoundResource();
+	
 
+	SOUND_MGR->play("BGM_01", 0.3f);
 	return S_OK;
 }
 
@@ -158,7 +166,7 @@ void cScene_main::Scene_Update(float timDelta)
 {
 	//배경음악
 	//if (!SOUND_MGR->isPlaySound("BGM_01"))
-	//	SOUND_MGR->play("BGM_01", 0.5f);
+	//	SOUND_MGR->play("BGM_01", 0.3f);
 
 
 	pPlayerUI->Update();
@@ -339,6 +347,7 @@ void cScene_main::Scene_Update(float timDelta)
 			m_pBossVideo->Play("./Video/Boss.wmv");
 			pPlayerUI->SetBossMeet(true);
 			//m_bBossVideoPlay = false;
+			SOUND_MGR->stop("BGM_01");
 		}
 		pPlayerUI->SetKillNum(-1);
 	}
@@ -971,22 +980,26 @@ void cScene_main::InitSoundResource()
 	SOUND_MGR->addSound("ATT_16", "./Tera/Audio/Player/Attack/AttackL_05.ogg", false, false);
 
 	//캐릭터 스킬
-	SOUND_MGR->addSound("ATT_S01", "./Tera/Audio/Player/Skill/Warrior_Attack_00.ogg", false, false);
-	SOUND_MGR->addSound("ATT_S02", "./Tera/Audio/Player/Skill/Warrior_Attack_01.ogg", false, false);
-	SOUND_MGR->addSound("ATT_S03", "./Tera/Audio/Player/Skill/Warrior_Attack_02.ogg", false, false);
-	SOUND_MGR->addSound("ATT_S04", "./Tera/Audio/Player/Skill/Warrior_Attack_03.ogg", false, false);
-
-	SOUND_MGR->addSound("RAPID_01", "./Tera/Audio/Player/Skill/Warrior_Attack_03.ogg", false, false);
-	SOUND_MGR->addSound("RAPID_02", "./Tera/Audio/Player/Skill/Warrior_Attack_03.ogg", false, false);
-	SOUND_MGR->addSound("RAPID_03", "./Tera/Audio/Player/Skill/Warrior_Attack_03.ogg", false, false);
-
-	SOUND_MGR->addSound("RL", "./Tera/Audio/Player/PCStep_Dirt_RL_01.ogg", false, false);
-	SOUND_MGR->addSound("RS", "./Tera/Audio/Player/PCStep_Dirt_RS_01.ogg", false, false);
+	//SOUND_MGR->addSound("ATT_S01", "./Tera/Audio/Player/Skill/Warrior_Attack_00.ogg", false, false);
+	SOUND_MGR->addSound("ATT_S01", "./Tera/Audio/Player/Skill/Attack_01.ogg", false, false);
+	//SOUND_MGR->addSound("ATT_S02", "./Tera/Audio/Player/Skill/Warrior_Attack_01.ogg", false, false);
+	SOUND_MGR->addSound("ATT_S02", "./Tera/Audio/Player/Skill/Attack_02.ogg", false, false);
+	//SOUND_MGR->addSound("ATT_S03", "./Tera/Audio/Player/Skill/Warrior_Attack_02.ogg", false, false);
+	SOUND_MGR->addSound("ATT_S03", "./Tera/Audio/Player/Skill/Attack_03.ogg", false, false);
+	//SOUND_MGR->addSound("ATT_S04", "./Tera/Audio/Player/Skill/Warrior_Attack_03.ogg", false, false);
+	SOUND_MGR->addSound("ATT_S04", "./Tera/Audio/Player/Skill/Attack_04.ogg", false, false);
 
 	//배경음악을 맨 마지막에 넣어야 제대로 재생이 됨. 이유는 모르겠음
-	//SOUND_MGR->addSound("BGM_01", "./Tera/Audio/Tricksome.mp3", true, true);
+	SOUND_MGR->addSound("BGM_01", "./Tera/Audio/Tricksome.mp3", true, true);
 	
+	SOUND_MGR->addSound("RAPID_01", "./Tera/Audio/Player/Skill/Rapid_01.ogg", false, false);
+	SOUND_MGR->addSound("RAPID_02", "./Tera/Audio/Player/Skill/Rapid_02.ogg", false, false);
+	SOUND_MGR->addSound("RAPID_03", "./Tera/Audio/Player/Skill/Warrior_RivalDancing_00.ogg", false, false);
+	SOUND_MGR->addSound("RAPID_04", "./Tera/Audio/Player/Skill/Warrior_RivalDancing_01.ogg", false, false);
 
-
+	//몬스터
+	//SOUND_MGR->addSound("BossAttack_01", "./Tera/Audio/Boss/DrownedSailor_Atk06.ogg", false, false);
+	
+	SOUND_MGR->addSound("RS", "./Tera/Audio/Player/PCStep_Dirt_RS_01.ogg", false, false);
 
 }

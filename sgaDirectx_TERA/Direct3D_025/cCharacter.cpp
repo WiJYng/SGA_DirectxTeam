@@ -206,8 +206,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 					renderObjects[i]->pSkinned->PlayOneShot("Combo1", 0.3f);
 					renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
 				}
-				CharPlaySound(rand() % 10);
-				SOUND_MGR->play("ATT_S01", 0.4);
+				//CharPlaySound(rand() % 10);
+				SOUND_MGR->play("ATT_S01", 1.0);
 			}
 		}
 		else
@@ -223,8 +223,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 						renderObjects[i]->pSkinned->PlayOneShot("Combo2", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
 					}
-					CharPlaySound(rand() % 10);
-					SOUND_MGR->play("ATT_S02", 0.4);
+					//CharPlaySound(rand() % 10);
+					SOUND_MGR->play("ATT_S02", 1.0);
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
 				else if (m_tState == Combo2 || m_tState == Rapid2)
@@ -236,8 +236,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 						renderObjects[i]->pSkinned->PlayOneShot("Combo3", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
 					}
-					CharPlaySound(rand() % 5);
-					SOUND_MGR->play("ATT_S03", 0.4);
+					//CharPlaySound(rand() % 5);
+					SOUND_MGR->play("ATT_S03", 1.0);
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
 				else if (m_tState == Combo3 || m_tState == Rapid3)
@@ -249,8 +249,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 						renderObjects[i]->pSkinned->PlayOneShot("Combo4", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
 					}
-					CharPlaySound(rand() % 10);
-					SOUND_MGR->play("ATT_S04", 0.4);
+					//CharPlaySound(rand() % 10);
+					SOUND_MGR->play("ATT_S04", 1.0);
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
 			}
@@ -271,7 +271,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 					renderObjects[i]->pSkinned->PlayOneShot("Rapid1", 0.3f);
 					renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
 				}
-				CharPlaySound(rand() % 10);
+				//CharPlaySound(rand() % 10);
+				SOUND_MGR->play("RAPID_01");
 			}
 		}
 		else
@@ -287,7 +288,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 						renderObjects[i]->pSkinned->PlayOneShot("Rapid2", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
 					}
-					CharPlaySound(rand() % 10);
+					//CharPlaySound(rand() % 10);
+					SOUND_MGR->play("RAPID_02");
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
 				else if (m_tState == Rapid2 || m_tState == Combo2)
@@ -306,6 +308,17 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 		}
 	}
 
+	if (m_tState == Rapid3)
+	{
+		if (renderObjects[0]->pSkinned->GetFactor() <= 0.01)
+		{
+			SOUND_MGR->play("RAPID_03", 0.4);
+		}
+		if (renderObjects[0]->pSkinned->GetFactor() > 0.30 && renderObjects[0]->pSkinned->GetFactor() <= 0.305)
+		{
+			SOUND_MGR->play("RAPID_04", 0.4);
+		}
+	}
 
 
 	if (m_bAttack)
@@ -389,7 +402,7 @@ D3DXVECTOR3 cCharacter::GetWorldPosition()
 
 void cCharacter::CharPlaySound(int n)
 {
-	float SoundV = 0.4;
+	float SoundV = 0.2;
 	switch (n)
 	{
 	case 0:
