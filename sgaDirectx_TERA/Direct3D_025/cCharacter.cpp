@@ -196,8 +196,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 					if (!renderObjects[i]->pSkinned) continue;
 					renderObjects[i]->pSkinned->PlayOneShot("Combo1", 0.3f);
 					renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
-					CharPlaySound(rand() % 16);
 				}
+				CharPlaySound(rand() % 16);
 			}
 		}
 		else
@@ -212,8 +212,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 						if (!renderObjects[i]->pSkinned) continue;
 						renderObjects[i]->pSkinned->PlayOneShot("Combo2", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
-						CharPlaySound(rand() % 16);
 					}
+					CharPlaySound(rand() % 16);
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
 				else if (m_tState == Combo2 || m_tState == Rapid2)
@@ -224,8 +224,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 						if (!renderObjects[i]->pSkinned) continue;
 						renderObjects[i]->pSkinned->PlayOneShot("Combo3", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
-						CharPlaySound(rand() % 16);
 					}
+					CharPlaySound(rand() % 16);
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
 				else if (m_tState == Combo3 || m_tState == Rapid3)
@@ -236,8 +236,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 						if (!renderObjects[i]->pSkinned) continue;
 						renderObjects[i]->pSkinned->PlayOneShot("Combo4", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
-						CharPlaySound(rand() % 16);
 					}
+					CharPlaySound(rand() % 16);
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
 			}
@@ -257,8 +257,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 					if (!renderObjects[i]->pSkinned) continue;
 					renderObjects[i]->pSkinned->PlayOneShot("Rapid1", 0.3f);
 					renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
-					CharPlaySound(rand() % 16);
 				}
+				CharPlaySound(rand() % 16);
 			}
 		}
 		else
@@ -273,8 +273,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 						if (!renderObjects[i]->pSkinned) continue;
 						renderObjects[i]->pSkinned->PlayOneShot("Rapid2", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
-						CharPlaySound(rand() % 16);
 					}
+					CharPlaySound(rand() % 16);
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
 				else if (m_tState == Rapid2 || m_tState == Combo2)
@@ -285,8 +285,8 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 						if (!renderObjects[i]->pSkinned) continue;
 						renderObjects[i]->pSkinned->PlayOneShot("Rapid3", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
-						CharPlaySound(rand() % 16);
 					}
+					CharPlaySound(rand() % 16);
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
 			}

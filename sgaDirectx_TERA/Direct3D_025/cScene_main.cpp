@@ -498,8 +498,8 @@ void cScene_main::PlayerAttack(float timDelta)
 					pPlayerSkillEff->PlayEffect(PLAYER_ATTACL_02, vCenter);
 
 					//SOUND TEST -- WJY
-					if (!SOUND_MGR->isPlaySound("ATT_01"))
-						SOUND_MGR->play("ATT_01");
+					//if (!SOUND_MGR->isPlaySound("ATT_01"))
+					//	SOUND_MGR->play("ATT_01");
 				}
 
 				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[5], pEnemy1[i]->GetBaseObject()[0]))
@@ -519,8 +519,8 @@ void cScene_main::PlayerAttack(float timDelta)
 					pPlayerSkillEff->PlayEffect(PLAYER_ATTACL_02, vCenter);
 
 					//SOUND TEST -- WJY
-					if (!SOUND_MGR->isPlaySound("ATT_01"))
-						SOUND_MGR->play("ATT_01");
+					//if (!SOUND_MGR->isPlaySound("ATT_01"))
+					//	SOUND_MGR->play("ATT_01");
 				}
 			}
 		}
