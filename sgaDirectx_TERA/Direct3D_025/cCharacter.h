@@ -89,6 +89,8 @@ public:
 	}
 
 private:
+
+	void CharPlaySound(int n);
 	
 };
 

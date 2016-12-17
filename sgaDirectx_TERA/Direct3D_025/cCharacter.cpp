@@ -196,6 +196,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 					if (!renderObjects[i]->pSkinned) continue;
 					renderObjects[i]->pSkinned->PlayOneShot("Combo1", 0.3f);
 					renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
+					CharPlaySound(rand() % 16);
 				}
 			}
 		}
@@ -211,6 +212,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 						if (!renderObjects[i]->pSkinned) continue;
 						renderObjects[i]->pSkinned->PlayOneShot("Combo2", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
+						CharPlaySound(rand() % 16);
 					}
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
@@ -222,6 +224,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 						if (!renderObjects[i]->pSkinned) continue;
 						renderObjects[i]->pSkinned->PlayOneShot("Combo3", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
+						CharPlaySound(rand() % 16);
 					}
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
@@ -233,6 +236,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 						if (!renderObjects[i]->pSkinned) continue;
 						renderObjects[i]->pSkinned->PlayOneShot("Combo4", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
+						CharPlaySound(rand() % 16);
 					}
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
@@ -253,6 +257,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 					if (!renderObjects[i]->pSkinned) continue;
 					renderObjects[i]->pSkinned->PlayOneShot("Rapid1", 0.3f);
 					renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
+					CharPlaySound(rand() % 16);
 				}
 			}
 		}
@@ -268,6 +273,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 						if (!renderObjects[i]->pSkinned) continue;
 						renderObjects[i]->pSkinned->PlayOneShot("Rapid2", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
+						CharPlaySound(rand() % 16);
 					}
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
@@ -279,6 +285,7 @@ void cCharacter::Update(D3DXVECTOR3 worldPos, float timDelta, cMeshMap* _Map)
 						if (!renderObjects[i]->pSkinned) continue;
 						renderObjects[i]->pSkinned->PlayOneShot("Rapid3", 0.0f);
 						renderObjects[i]->pSkinned->SetPlaySpeed(1.0f);
+						CharPlaySound(rand() % 16);
 					}
 					renderObjects[0]->pTransform->SetWorldPosition(D3DXVECTOR3(m_pRootTrans->GetWorldPosition().x, 0.0f, m_pRootTrans->GetWorldPosition().z));
 				}
@@ -365,4 +372,74 @@ D3DXVECTOR3 cCharacter::GetWorldPosition()
 	//body
 	D3DXVECTOR3 result = renderObjects[0]->pTransform->GetWorldPosition();
 	return result;
+}
+
+void cCharacter::CharPlaySound(int n)
+{
+	switch (n)
+	{
+	case 0:
+		SOUND_MGR->play("ATT_01");
+		break;
+
+	case 1:
+		SOUND_MGR->play("ATT_02");
+		break;
+
+	case 2:
+		SOUND_MGR->play("ATT_03");
+		break;
+
+	case 3:
+		SOUND_MGR->play("ATT_04");
+		break;
+
+	case 4:
+		SOUND_MGR->play("ATT_05");
+		break;
+
+	case 5:
+		SOUND_MGR->play("ATT_06");
+		break;
+
+	case 6:
+		SOUND_MGR->play("ATT_07");
+		break;
+
+	case 7:
+		SOUND_MGR->play("ATT_08");
+		break;
+
+	case 8:
+		SOUND_MGR->play("ATT_09");
+		break;
+
+	case 9:
+		SOUND_MGR->play("ATT_10");
+		break;
+
+	case 10:
+		SOUND_MGR->play("ATT_11");
+		break;
+
+	case 11:
+		SOUND_MGR->play("ATT_12");
+		break;
+
+	case 12:
+		SOUND_MGR->play("ATT_13");
+		break;
+
+	case 13:
+		SOUND_MGR->play("ATT_14");
+		break;
+
+	case 14:
+		SOUND_MGR->play("ATT_15");
+		break;
+
+	case 15:
+		SOUND_MGR->play("ATT_16");
+		break;
+	}
 }
