@@ -950,7 +950,25 @@ void cScene_main::MonsterRender()
 
 void cScene_main::InitSoundResource()
 {
-	SOUND_MGR->addSound("ATT_01", "./Tera/Audio/Character/Warrior_Attack_00.ogg", false, false);
+	SOUND_MGR->addSound("ATT_01", "./Tera/Audio/Player/Attack/AttackF_00.ogg", false, false);
+	SOUND_MGR->addSound("ATT_02", "./Tera/Audio/Player/Attack/AttackF_01.ogg", false, false);
+	SOUND_MGR->addSound("ATT_03", "./Tera/Audio/Player/Attack/AttackF_02.ogg", false, false);
+	SOUND_MGR->addSound("ATT_04", "./Tera/Audio/Player/Attack/AttackF_03.ogg", false, false);
+	SOUND_MGR->addSound("ATT_05", "./Tera/Audio/Player/Attack/AttackF_04.ogg", false, false);
+
+	SOUND_MGR->addSound("ATT_06", "./Tera/Audio/Player/Attack/AttackL_00.ogg", false, false);
+	SOUND_MGR->addSound("ATT_07", "./Tera/Audio/Player/Attack/AttackL_01.ogg", false, false);
+	SOUND_MGR->addSound("ATT_08", "./Tera/Audio/Player/Attack/AttackL_02.ogg", false, false);
+	SOUND_MGR->addSound("ATT_09", "./Tera/Audio/Player/Attack/AttackL_03.ogg", false, false);
+	SOUND_MGR->addSound("ATT_10", "./Tera/Audio/Player/Attack/AttackL_04.ogg", false, false);
+	SOUND_MGR->addSound("ATT_11", "./Tera/Audio/Player/Attack/AttackL_05.ogg", false, false);
+
+	SOUND_MGR->addSound("ATT_12", "./Tera/Audio/Player/Attack/AttackM_00.ogg", false, false);
+	SOUND_MGR->addSound("ATT_13", "./Tera/Audio/Player/Attack/AttackM_01.ogg", false, false);
+	SOUND_MGR->addSound("ATT_14", "./Tera/Audio/Player/Attack/AttackM_02.ogg", false, false);
+	SOUND_MGR->addSound("ATT_15", "./Tera/Audio/Player/Attack/AttackM_03.ogg", false, false);
+	SOUND_MGR->addSound("ATT_16", "./Tera/Audio/Player/Attack/AttackM_04.ogg", false, false);
+
 
 
 
