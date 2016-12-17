@@ -33,7 +33,8 @@ HRESULT cMainGame::Init(void)
 	GIZMO_MGR->Init( Device );
 	SPRITE_MGR->Init( Device );
 	SCENE_MGR->Init();
-	
+	SOUND_MGR->Init();
+
 	//게임에 사용되는 씬 추가
 	//SCENE_MGR->AddScene( "Test00", new cScene_00() );
 	SCENE_MGR->AddScene("InGame", new cScene_main());
@@ -73,6 +74,8 @@ void cMainGame::Release()
 	SCENE_MGR->Release();
 	cScene_Mgr::ReleaseInstance();
 	cPhysicManager::ReleaseInstance();
+	SOUND_MGR->Release();
+	cSoundManager::ReleaseInstance();
 
 	RESOURCE_TEXTURE->ClearResource();
 	cResourceMgr_Texture::ReleaseInstance();

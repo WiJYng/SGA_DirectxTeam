@@ -123,6 +123,9 @@ HRESULT cScene_main::Scene_Init()
 	bDraw = false;
 	pPlayerUI->SetKillNum(0);
 
+	//Sound Loading
+	InitSoundResource();
+
 	return S_OK;
 }
 
@@ -152,13 +155,17 @@ void cScene_main::Scene_Release()
 
 void cScene_main::Scene_Update(float timDelta)
 {
+	//배경음악
+	if (!SOUND_MGR->isPlaySound("BGM_01"))
+		SOUND_MGR->play("BGM_01", 0.5f);
+
 
 	pPlayerUI->Update();
 	pPlayerUI->SetHp(pPlayer->m_fHP);
 	pPlayerUI->SetHpMax(pPlayer->m_fMaxHP);
 
-	//DeathCount = ENEMYMAX_1;
-	DeathCount = 0;
+	DeathCount = ENEMYMAX_1;
+	//DeathCount = 1;
 	for (int i = 0; i < ENEMYMAX; i++)
 	{
 		if (pEnemy1[i]->GetHP() <= 0)
@@ -309,19 +316,6 @@ void cScene_main::Scene_Update(float timDelta)
 
 	//스킬이펙트
 	pPlayerSkillEff->Update(timDelta);
-	//effTest->Update(timDelta);
-	//
-	//D3DXVECTOR3 pTemp = pPlayer->GetWorldPosition();
-	//if (KEY_MGR->IsOnceDown(VK_SPACE))
-	//{
-	//	pTemp.y += 0.1;
-	//	effTest->PlayEffect(BOSS_ATTACK_GROUND, pTemp);
-	//}
-	//else {
-	//	effTest->PlayEffect(BOSS_ATTACK_GROUND_STOP, pTemp);
-	//}
-
-	//pEnemySkillEff->PlayEffect(ENEMY_ATTACK_01, pPlayer->GetWorldPosition(), 0);
 
 	//this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->m_pRootTrans->GetWorldPosition().x + 5, pPlayer->m_pRootTrans->GetWorldPosition().y + 5, pPlayer->m_pRootTrans->GetWorldPosition().z + 1));
 	this->pMainCamera->DefaultControl4(timDelta, pPlayer->m_pRootTrans); //★
@@ -502,6 +496,10 @@ void cScene_main::PlayerAttack(float timDelta)
 
 					pPlayer->GetBaseObject()[4]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[4]->pTransform, &vCenter, &ftemp);
 					pPlayerSkillEff->PlayEffect(PLAYER_ATTACL_02, vCenter);
+
+					//SOUND TEST -- WJY
+					if (!SOUND_MGR->isPlaySound("ATT_01"))
+						SOUND_MGR->play("ATT_01");
 				}
 
 				if (PHYSICS_MGR->IsOverlap(pPlayer->GetBaseObject()[5], pEnemy1[i]->GetBaseObject()[0]))
@@ -519,6 +517,10 @@ void cScene_main::PlayerAttack(float timDelta)
 
 					pPlayer->GetBaseObject()[5]->BoundBox.GetWorldCenterRadius(pPlayer->GetBaseObject()[5]->pTransform, &vCenter, &ftemp);
 					pPlayerSkillEff->PlayEffect(PLAYER_ATTACL_02, vCenter);
+
+					//SOUND TEST -- WJY
+					if (!SOUND_MGR->isPlaySound("ATT_01"))
+						SOUND_MGR->play("ATT_01");
 				}
 			}
 		}
@@ -935,4 +937,19 @@ void cScene_main::MonsterRender()
 			}
 		}
 	}
+}
+
+
+void cScene_main::InitSoundResource()
+{
+	SOUND_MGR->addSound("ATT_01", "./Tera/Audio/Character/Warrior_Attack_00.ogg", false, false);
+
+
+
+	//배경음악을 맨 마지막에 넣어야 제대로 재생이 됨. 이유는 모르겠음
+	SOUND_MGR->addSound("BGM_01", "./Tera/Audio/Tricksome.mp3", true, true);
+	
+
+
+
 }

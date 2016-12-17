@@ -59,6 +59,8 @@ private:
 
 	cBossEffect*						effTest;
 
+	//bool								soundStartTest;
+
 public:
 	cScene_main();
 	~cScene_main();
@@ -81,5 +83,8 @@ public:
 	void MonsterSetup();
 	void MonsterAttack(float timDelta);
 	void MonsterRender();
+
+private:
+	void InitSoundResource();
 };
 
