@@ -98,13 +98,9 @@ HRESULT cScene_main::Scene_Init()
 	this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(0, 0, 0);
 	this->pSceneBaseDirectionLight->pTransform->SetRotateWorld(90.0f * ONE_RAD, 0, 0);
 	
-	/* *************************
 	cTransform* tempTrans = pPlayer->m_pRootTrans;
 	this->pMainCamera->AttachTo(tempTrans);
-	
 	this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 3.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 5.0f);
-	*/
-	
 	
 	for (int i = 0; i < ENEMYMAX_1; i++)
 	{
@@ -129,9 +125,10 @@ HRESULT cScene_main::Scene_Init()
 
 	bDraw = false;
 	//pPlayerUI->SetKillNum(0);
-
+	pPlayerUI->SetMp(100);
+	pPlayerUI->SetMpMax(100);
 	
-	//SOUND_MGR->play("BGM_01", 0.5f);
+	SOUND_MGR->play("BGM_01", 0.5f);
 	return S_OK;
 }
 
@@ -306,7 +303,7 @@ void cScene_main::Scene_Update(float timDelta)
 
 
 	//20161206승현 getMap으로 바꾸기
-	//pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta, pEntireMap->GetMap());
+	pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta, pEntireMap->GetMap());
 
 	if (pPlayer->GetIsAttack())
 	{
@@ -339,8 +336,8 @@ void cScene_main::Scene_Update(float timDelta)
 	//this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->m_pRootTrans->GetWorldPosition().x + 5, pPlayer->m_pRootTrans->GetWorldPosition().y + 5, pPlayer->m_pRootTrans->GetWorldPosition().z + 1));
 	
 	//************************************
-	this->pMainCamera->DefaultControl(timDelta);
-	//this->pMainCamera->DefaultControl4(timDelta, pPlayer->m_pRootTrans); //★
+	//this->pMainCamera->DefaultControl(timDelta);
+	this->pMainCamera->DefaultControl4(timDelta, pPlayer->m_pRootTrans); //★
 
 
 
@@ -356,7 +353,7 @@ void cScene_main::Scene_Update(float timDelta)
 			m_pBossVideo->Play("./Video/Boss.wmv");
 			pPlayerUI->SetBossMeet(true);
 			//m_bBossVideoPlay = false;
-			//SOUND_MGR->stop("BGM_01");
+			SOUND_MGR->stop("BGM_01");
 	
 		}
 		pPlayerUI->SetKillNum(-1);
@@ -370,7 +367,7 @@ void cScene_main::Scene_Update(float timDelta)
 				pPlayerUI->SetBossMeet(true);
 				pBoss->SetUIon(true);
 				m_bBossVideoEnd = true;
-				//SOUND_MGR->play("BGM_02", 0.5);
+				SOUND_MGR->play("BGM_02", 0.5);
 			}
 		}
 	}
@@ -384,7 +381,7 @@ void cScene_main::Scene_Update(float timDelta)
 		m_pBossVideo->Play("./Video/Boss.wmv");
 		pPlayerUI->SetBossMeet(true);
 		//m_bBossVideoPlay = false;
-		//SOUND_MGR->stop("BGM_01");
+		SOUND_MGR->stop("BGM_01");
 	}
 	if (KEY_MGR->IsOnceDown('2'))
 	{
@@ -393,7 +390,7 @@ void cScene_main::Scene_Update(float timDelta)
 		pPlayerUI->SetBossMeet(true);
 		pBoss->SetUIon(true);
 		m_bBossVideoEnd = true;
-		//SOUND_MGR->play("BGM_02", 0.5f);
+		SOUND_MGR->play("BGM_02", 0.5f);
 	}
 
 	//if (KEY_MGR->IsStayDown('0'))
