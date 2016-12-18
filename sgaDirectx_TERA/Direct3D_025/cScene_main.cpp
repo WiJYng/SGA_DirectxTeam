@@ -98,17 +98,14 @@ HRESULT cScene_main::Scene_Init()
 	this->pSceneBaseDirectionLight->pTransform->SetWorldPosition(0, 0, 0);
 	this->pSceneBaseDirectionLight->pTransform->SetRotateWorld(90.0f * ONE_RAD, 0, 0);
 	
+	/* *************************
 	cTransform* tempTrans = pPlayer->m_pRootTrans;
-	//tempTrans->SetRotateWorld(0.0f, 90.0f, 0.0f);
-
 	this->pMainCamera->AttachTo(tempTrans);
-	//this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 5.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 10.0f);
+	
 	this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 3.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 5.0f);
-	//this->pMainCamera->RotateWorld(D3DXVECTOR3(0, 0, 3));
-	//this->pMainCamera->SetWorldPosition(pPlayer->m_pRootTrans->GetWorldPosition().x, pPlayer->m_pRootTrans->GetWorldPosition().y + 2.0f, pPlayer->m_pRootTrans->GetWorldPosition().z - 2.0f);
-	//this->pMainCamera->SetWorldPosition(0,10.0f, 1);
-	//this->pMainCamera->ShakePos(10.0f, 10.0f);
-
+	*/
+	
+	
 	for (int i = 0; i < ENEMYMAX_1; i++)
 	{
 		m_pTick[i] = new cTickFunc();
@@ -134,7 +131,7 @@ HRESULT cScene_main::Scene_Init()
 	//pPlayerUI->SetKillNum(0);
 
 	
-	SOUND_MGR->play("BGM_01", 0.5f);
+	//SOUND_MGR->play("BGM_01", 0.5f);
 	return S_OK;
 }
 
@@ -148,15 +145,15 @@ void cScene_main::Scene_Release()
 		SAFE_DELETE(this->renderObjects[i]);
 	this->renderObjects.clear();
 	this->cullObjects.clear();
-	//SAFE_DELETE(pPlayer);
+	SAFE_DELETE(pPlayer);
 	//SAFE_DELETE_ARR(pEnemy);
-	//delete[] pEnemy1;
-	//delete[] pEnemy2;
-	//delete[] pEnemy3;
-	//delete[] pEnemy4;
-	//delete[] m_pTick;
-	//delete[] m_pTickPlayer;
-	//delete m_pTickBoss;
+	delete[] pEnemy1;
+	delete[] pEnemy2;
+	delete[] pEnemy3;
+	delete[] pEnemy4;
+	delete[] m_pTick;
+	delete[] m_pTickPlayer;
+	delete m_pTickBoss;
 
 	SAFE_DELETE(pPlayerSkillEff);
 
@@ -164,8 +161,12 @@ void cScene_main::Scene_Release()
 
 void cScene_main::Scene_Update(float timDelta)
 {
+	
 	//마우스
-	g_CursorImgType = 0;
+	//g_CursorImgType = 0;
+	//HCURSOR hcur;
+	//hcur = LoadCursorFromFile("./Tera/UI/Mouse/Arrow.cur");
+	//SetCursor(hcur);
 
 	//배경음악
 	//if (!SOUND_MGR->isPlaySound("BGM_01"))
@@ -177,7 +178,7 @@ void cScene_main::Scene_Update(float timDelta)
 	pPlayerUI->SetHpMax(pPlayer->m_fMaxHP);
 
 	DeathCount = ENEMYMAX_1;
-	//DeathCount = 1;
+	//DeathCount = 99;
 	for (int i = 0; i < ENEMYMAX; i++)
 	{
 		if (pEnemy1[i]->GetHP() <= 0)
@@ -305,7 +306,7 @@ void cScene_main::Scene_Update(float timDelta)
 
 
 	//20161206승현 getMap으로 바꾸기
-	pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta, pEntireMap->GetMap());
+	//pPlayer->Update(D3DXVECTOR3(0.0f, 0.0f, 0.0f), timDelta, pEntireMap->GetMap());
 
 	if (pPlayer->GetIsAttack())
 	{
@@ -336,12 +337,17 @@ void cScene_main::Scene_Update(float timDelta)
 	//}
 
 	//this->pMainCamera->SetWorldPosition(D3DXVECTOR3(pPlayer->m_pRootTrans->GetWorldPosition().x + 5, pPlayer->m_pRootTrans->GetWorldPosition().y + 5, pPlayer->m_pRootTrans->GetWorldPosition().z + 1));
-	this->pMainCamera->DefaultControl4(timDelta, pPlayer->m_pRootTrans); //★
+	
+	//************************************
+	this->pMainCamera->DefaultControl(timDelta);
+	//this->pMainCamera->DefaultControl4(timDelta, pPlayer->m_pRootTrans); //★
+
+
 
 	//this->pMainCamera->ShakeUpdate(timDelta);
 	//this->pMainCamera->DefaultControl(timDelta); //★
 
-	if (pPlayerUI->getKillNum() == 0)
+	if (DeathCount <= 0)
 	{
 		if (!m_bBossVideoPlay)
 		{
@@ -350,8 +356,8 @@ void cScene_main::Scene_Update(float timDelta)
 			m_pBossVideo->Play("./Video/Boss.wmv");
 			pPlayerUI->SetBossMeet(true);
 			//m_bBossVideoPlay = false;
-			SOUND_MGR->stop("BGM_01");
-
+			//SOUND_MGR->stop("BGM_01");
+	
 		}
 		pPlayerUI->SetKillNum(-1);
 		if (!m_pBossVideo->GetIsPlay())
@@ -364,7 +370,7 @@ void cScene_main::Scene_Update(float timDelta)
 				pPlayerUI->SetBossMeet(true);
 				pBoss->SetUIon(true);
 				m_bBossVideoEnd = true;
-				SOUND_MGR->play("BGM_02", 0.5);
+				//SOUND_MGR->play("BGM_02", 0.5);
 			}
 		}
 	}
@@ -373,8 +379,12 @@ void cScene_main::Scene_Update(float timDelta)
 
 	if (KEY_MGR->IsOnceDown('1'))
 	{
+		m_bBossVideoPlay = true;
 		g_bRender = false;
 		m_pBossVideo->Play("./Video/Boss.wmv");
+		pPlayerUI->SetBossMeet(true);
+		//m_bBossVideoPlay = false;
+		//SOUND_MGR->stop("BGM_01");
 	}
 	if (KEY_MGR->IsOnceDown('2'))
 	{
@@ -383,7 +393,7 @@ void cScene_main::Scene_Update(float timDelta)
 		pPlayerUI->SetBossMeet(true);
 		pBoss->SetUIon(true);
 		m_bBossVideoEnd = true;
-		SOUND_MGR->play("BGM_02", 0.5f);
+		//SOUND_MGR->play("BGM_02", 0.5f);
 	}
 
 	//if (KEY_MGR->IsStayDown('0'))

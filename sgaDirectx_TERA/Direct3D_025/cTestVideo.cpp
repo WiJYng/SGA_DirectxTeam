@@ -30,6 +30,9 @@ void cTestVideo::Scene_Release()
 
 void cTestVideo::Scene_Update(float timeDelta)
 {
+	HCURSOR hcur;
+	hcur = LoadCursorFromFile("./Tera/UI/Mouse/Arrow.cur");
+	SetCursor(hcur);
 	//if (KEY_MGR->IsOnceDown(VK_RETURN))
 	if(!m_bPlay)
 	{
