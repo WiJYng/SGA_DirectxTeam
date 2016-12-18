@@ -29,6 +29,9 @@ HRESULT cStartScene::Scene_Init()
 		&m_BG_Sprite_Info, NULL, &m_pBG_Texture);
 	D3DXCreateSprite(Device, &m_pBG_Sprite);
 
+
+
+
 	return S_OK;
 
 }
@@ -39,6 +42,10 @@ void cStartScene::Scene_Release()
 void cStartScene::Scene_Update(float timDelta)
 {
 	g_CursorImgType = 0;
+	HCURSOR hcur;
+	hcur = LoadCursorFromFile("./Tera/UI/Mouse/Arrow.cur");
+	SetCursor(hcur);
+
 	if (KEY_MGR->IsOnceDown(VK_LBUTTON))
 	{
 		SOUND_MGR->stop("StartBGM");

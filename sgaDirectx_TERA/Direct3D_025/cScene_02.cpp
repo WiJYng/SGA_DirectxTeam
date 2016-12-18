@@ -84,12 +84,18 @@ void cScene_02::Scene_Release()
 
 void cScene_02::Scene_Update( float timDelta )
 {
+	HCURSOR hcur;
+	hcur = LoadCursorFromFile("./Tera/UI/Mouse/Arrow.cur"); //Arrow.cur
+	SetCursor(hcur);
+
 	if (KEY_MGR->IsOnceDown(VK_LBUTTON))
 	{
 		//SCENE_MGR->ChangeScene("Trailer");
 	}
 
 	SetRect(&m_rcLB_front, 200, 200, m_LBfront_ImgInfo.Width + 200, m_LBfront_ImgInfo.Height + 200);
+	
+	
 }
 
 void cScene_02::Scene_Render1()
@@ -111,8 +117,8 @@ void cScene_02::Scene_Render1()
 	RECT screenRc;
 	GetClientRect(g_hWnd, &screenRc);
 
-	float wid = screenRc.right-350;
-	float hei = screenRc.bottom+45;
+	float wid = 1192-350;
+	float hei = 765+45;
 
 	//로딩바이미지
 	//float hpWidth = m_HP_ImgInfo.Width* ((float)m_nHp / (float)m_nHpMax);
@@ -143,6 +149,7 @@ void cScene_02::Scene_Render1()
 	sprintf(szTemp, "%.2f percent 로딩중", SCENE_MGR->fProgress);
 
 	DXFONT_MGR->PrintText(szTemp, wid+15 + 150, hei - 20, D3DCOLOR_XRGB(255, 255, 255));
+	
 	//
 	//cXMesh_Static::SetCamera( this->pMainCamera );
 	//cXMesh_Static::SetTechniqueName("Base");		//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅

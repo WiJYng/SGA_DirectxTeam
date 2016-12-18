@@ -92,7 +92,6 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdP
 	//게임 초기화 성공했다면.....
 	if( SUCCEEDED( g_MainGame.Init() ) )		//S_OK 를 리턴했다면...
 	{
-
 		//위에서 만든 윈도우를 화면에 띄운다.
 		ShowWindow( g_hWnd, nCmdShow );
 

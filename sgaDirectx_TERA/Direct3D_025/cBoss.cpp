@@ -42,7 +42,7 @@ void cBoss::Setup(string PathMonster, D3DXVECTOR3 * Pos)
 	m_pTick[1]->init(0.7f);
 	m_pTick[2]->init(0.7f);
 
-	m_fHP = m_fMAXHP = 50.0f;
+	m_fHP = m_fMAXHP = 25.0f;
 
 	D3DXMATRIXA16 mat;
 	D3DXMatrixIdentity(&mat);

@@ -73,6 +73,7 @@ void cLoadingScene::Scene_Release()
 }
 void cLoadingScene::Scene_Update(float timDelta)
 {
+	
 	g_CursorImgType = 1;
 	if (KEY_MGR->IsOnceDown(VK_LBUTTON))
 	{

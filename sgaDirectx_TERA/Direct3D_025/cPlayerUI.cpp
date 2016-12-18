@@ -159,7 +159,8 @@ void cPlayerUI::Update()
 {
 	if (m_bQWindowCenter_firstCheck)
 	{
-		if (KEY_MGR->IsOnceDown(VK_LBUTTON))
+		//if (KEY_MGR->IsOnceDown(VK_LBUTTON))
+		if (KEY_MGR->IsOnceDown(VK_SPACE))
 		{
 			m_bQwindowCenter_On = false;
 			m_bQWindowCenter_firstCheck = false;
